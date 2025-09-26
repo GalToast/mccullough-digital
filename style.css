@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.0.0
+Version:       1.0.1
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -12,56 +12,74 @@ Text Domain:   mccullough-digital
 
 /* --- Variables --- */
 :root {
-  --header-height: 80px;
+    --header-height: 80px;
+    /* New Softer Palette */
+    --neon-cyan: #00e5ff;
+    --neon-magenta: #ff00e0;
+    --deep-purple: #9400d3;
+    --background-dark: #0b0c10;
+    --text-primary: #e6f1ff;
+    --text-secondary: #c5d8f2;
 }
 
 /* --- Base reset --- */
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  background: #0b0c10;
-  color: #e6f1ff;
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--background-dark);
+    color: var(--text-primary);
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Ensure content doesn't hide behind fixed header */
 main.site-content { padding-top: var(--header-height); }
 
 /* ==============================================================
-# Site Header & Navigation (Simplified)
+# Site Header & Navigation
 ============================================================== */
-
-/* --- Keyframes for shake and glow animation --- */
-@keyframes shake-and-glow {
-    0% { transform: rotateZ(0); text-shadow: 0 0 8px rgba(255, 140, 0, 0.8); }
-    25% { transform: rotateZ(-2deg); text-shadow: 0 0 12px rgba(255, 140, 0, 1); }
-    50% { transform: rotateZ(2deg); text-shadow: 0 0 16px rgba(255, 140, 0, 0.8); }
-    75% { transform: rotateZ(-1deg); text-shadow: 0 0 12px rgba(255, 140, 0, 1); }
-    100% { transform: rotateZ(0); text-shadow: 0 0 8px rgba(255, 140, 0, 0.8); }
+@keyframes subtle-glow {
+    0% { text-shadow: 0 0 8px rgba(0, 229, 255, 0.7); }
+    50% { text-shadow: 0 0 14px rgba(0, 229, 255, 1); }
+    100% { text-shadow: 0 0 8px rgba(0, 229, 255, 0.7); }
 }
 
-/* --- Bare-Bones Header Styles --- */
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 3px); }
+    40% { transform: translate(-3px, -3px); }
+    60% { transform: translate(3px, 3px); }
+    80% { transform: translate(3px, -3px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes shake-zoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
 #masthead.site-header {
     padding: 15px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed; /* This is now the active positioning rule */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    box-sizing: border-box;
-    transition: transform .4s cubic-bezier(.22,.61,.36,1);
-    /* Default black background */
-    background: #000000;
+    transition: transform .4s cubic-bezier(.22,.61,.36,1), background-color 0.3s ease;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
     border-bottom: 2px solid #222;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     overflow: hidden; /* Hides the pseudo-element when it's outside */
 }
 
-/* --- Gradient Wipe Effect --- */
 #masthead.site-header::before {
     content: '';
     position: absolute;
@@ -69,7 +87,7 @@ main.site-content { padding-top: var(--header-height); }
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, #ff8c00, #9400d3);
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
     transform: translateX(-100%); /* Start off-screen to the left */
     transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
     z-index: 0; /* Place behind the content */
@@ -80,38 +98,53 @@ main.site-content { padding-top: var(--header-height); }
 }
 
 #masthead.site-header:hover {
-    border-bottom-color: #ff8c00;
-    box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
+    border-bottom-color: var(--neon-cyan);
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
 }
 
-/* Hide header on scroll down */
 #masthead.site-header.hide {
-  transform: translateY(-100%);
+    transform: translateY(-100%);
 }
 
-/* --- Site Branding (Logo/Title) --- */
-/* Ensure content is above the gradient wipe */
+.site-branding {
+    perspective: 1000px; /* Adds 3D space for the tilt effect */
+}
+
 .site-branding, .main-navigation, .menu-toggle {
     position: relative;
     z-index: 1;
 }
+
+.custom-logo-link {
+    display: inline-block;
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.custom-logo {
+    height: 60px; /* Adjust as needed */
+    width: auto;
+    display: block;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.6));
+}
+
+.custom-logo-link:hover .custom-logo {
+    filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 5px var(--neon-magenta));
+    transform: scale(1.05);
+}
+
 .site-title a {
     text-decoration: none;
     color: #ffffff;
-    font-size: 1.5em;
-    font-weight: 700;
-    font-family: 'Black Ops One', cursive;
+    font-size: 2em; /* Increased size for handwritten font */
+    font-family: 'Caveat', cursive;
+    transition: all 0.3s ease;
 }
-.custom-logo-link img {
-    max-height: 50px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-.custom-logo-link:hover img {
-    transform: scale(1.05); /* Slight zoom on hover */
+.site-title a:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
 }
 
-/* --- Main Navigation (Desktop) --- */
 .main-navigation { display: block; }
 #primary-menu {
     margin: 0;
@@ -121,59 +154,21 @@ main.site-content { padding-top: var(--header-height); }
     align-items: center;
     gap: 25px;
 }
-#primary-menu li { position: relative; }
 #primary-menu li a {
     color: #ffffff;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     padding: 10px 5px;
     position: relative;
     transition: color 0.3s ease;
-    font-family: 'Black Ops One', cursive; /* Custom font */
+    font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
 }
 #primary-menu li a:hover {
-    color: #ff8c00;
-    animation: shake-and-glow 0.6s ease-in-out infinite;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+    animation: shake-zoom 0.4s ease-in-out infinite;
 }
-
-/* --- Basic Dropdown Menu Styles --- */
-.sub-menu {
-    list-style: none;
-    margin: 0;
-    padding: 10px 0;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(5px);
-    border: 1px solid #ff8c00;
-    border-radius: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
-    z-index: 2; /* Ensure dropdown is on top of everything */
-}
-#primary-menu li:hover > .sub-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.sub-menu li a {
-    color: #ffffff; padding: 10px 20px; display: block; width: 100%; box-sizing: border-box;
-}
-.sub-menu li a:hover {
-    background-color: rgba(255, 140, 0, 0.2);
-    color: #ff8c00;
-    animation: none; /* Disable shake on dropdown items */
-    text-shadow: 0 0 8px rgba(255, 140, 0, 0.8);
-}
-
-/* --- Header Controls & Mobile Toggle --- */
-.header-controls {
-    display: flex; align-items: center; gap: 15px; z-index: 1001;
-}
-/* Hide mobile-only submenu toggle on desktop */
-.submenu-toggle { display: none; }
 
 .menu-toggle {
     display: none; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001;
@@ -181,6 +176,308 @@ main.site-content { padding-top: var(--header-height); }
 .menu-toggle .bar {
     display: block; width: 25px; height: 3px; background-color: #ffffff; margin: 5px auto; transition: all 0.3s ease-in-out;
 }
+
+/* --- New Page Content Styles --- */
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 0;
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative; /* Needed for positioning the canvas */
+    background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
+    padding-top: var(--header-height);
+    overflow: hidden; /* Hide anything that goes outside the hero */
+}
+
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: #fff;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+    text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+}
+
+/* --- Interactive Hero H1 Letters --- */
+.hero h1 span {
+    display: inline-block;
+    position: relative;
+    cursor: default;
+}
+
+.hero h1 span:hover::before,
+.hero h1 span:hover::after {
+    content: attr(data-char);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: glitch 0.35s infinite;
+}
+
+.hero h1 span:hover::before {
+    color: var(--neon-cyan);
+    z-index: -1;
+    animation-direction: reverse;
+}
+
+.hero h1 span:hover::after {
+    color: var(--neon-magenta);
+    z-index: -2;
+}
+
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-weight: 300;
+}
+
+/* --- General Section Styling & Neon Underlines --- */
+section {
+    border-bottom: 1px solid #222;
+}
+
+h2.section-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    text-align: center;
+    margin-bottom: 60px;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 15px;
+}
+
+h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: var(--neon-cyan);
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+/* --- CTA Button Styles --- */
+.cta-button {
+    display: inline-block;
+    padding: 15px 35px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50px; /* Softer, pill-shaped button */
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+}
+.cta-button:hover {
+    color: var(--background-dark);
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+    transform: translateY(-3px);
+}
+
+.cta-button .btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    transform: translateX(-101%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1;
+}
+
+.cta-button:hover::before {
+    transform: translateX(0%);
+}
+
+/* --- Services Section --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.service-card {
+    background: #14161c;
+    padding: 40px 30px;
+    border: 1px solid #222;
+    border-radius: 16px; /* Softer corners */
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack content vertically */
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, var(--neon-cyan), transparent 30%);
+    animation: rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-cyan);
+}
+
+.service-card-content {
+    position: relative;
+    background: #14161c;
+    padding: 10px;
+    margin: 1px;
+    border-radius: 15px;
+    z-index: 1;
+    height: 100%;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Pushes learn-more link to bottom */
+}
+
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+.service-card .icon {
+    color: var(--neon-cyan);
+    margin-bottom: 20px;
+}
+.service-card .icon svg {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+    transition: transform 0.3s ease-in-out;
+}
+
+.service-card:hover .icon svg {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.service-card h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    margin: 0 0 15px 0;
+    color: #fff;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.learn-more {
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: auto; /* Pushes the link to the bottom */
+    transition: all 0.2s ease;
+}
+
+.learn-more:hover {
+    text-shadow: 0 0 8px var(--neon-cyan);
+    transform: translateX(5px);
+}
+
+/* --- About Section --- */
+#about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+/* --- CTA Section --- */
+.cta-section {
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+    text-align: center;
+}
+.cta-section h2 {
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    margin-bottom: 30px;
+}
+
+.cta-section .cta-button {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.cta-section .cta-button:hover {
+    background: #fff;
+    color: var(--neon-magenta);
+    box-shadow: 0 0 20px #fff, 0 0 40px #fff;
+}
+
+/* --- Footer --- */
+.site-footer {
+    background: #000;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
 
 /* --- Responsive Styles (for screens 768px or less) --- */
 @media (max-width: 768px) {
@@ -197,68 +494,15 @@ main.site-content { padding-top: var(--header-height); }
         backdrop-filter: blur(10px);
         transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         padding-top: 80px;
+        transform: translateX(100%);
     }
-    .main-navigation.toggled { transform: translateX(-100%); }
+    .main-navigation.toggled { transform: translateX(0); }
 
     #primary-menu {
         flex-direction: column; align-items: center; padding: 20px 0; gap: 10px;
     }
     #primary-menu li { width: 100%; text-align: center; }
     #primary-menu li a { padding: 15px; display: block; width: 100%; font-size: 1.2em; }
-
-    .sub-menu {
-        display: none; position: static; width: 100%; box-shadow: none; background-color: rgba(0,0,0,0.2);
-    }
-
-    /* Change sub-menu display from hover to class-based for mobile */
-    #primary-menu .menu-item-has-children > a {
-        position: relative; /* Needed for positioning the toggle icon */
-        padding-right: 45px; /* Make space for the toggle */
-    }
-
-    /* Sub-menu toggle button (+/- icon) */
-    .submenu-toggle {
-        display: block; /* Show the toggle on mobile */
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 45px;
-        height: 100%;
-        text-align: center;
-        border: none;
-        background: rgba(255,255,255,0.1);
-        color: #fff;
-        cursor: pointer;
-        font-size: 1.4em;
-        line-height: 50px; /* Vertically center the icon */
-    }
-
-    .submenu-toggle::before {
-        content: '+';
-        display: inline-block;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    .submenu-open > .submenu-toggle::before {
-        transform: rotate(45deg);
-    }
-
-    /* Hide sub-menus by default on mobile */
-    .sub-menu {
-        display: none;
-        position: static;
-        width: 100%;
-        box-shadow: none;
-        background-color: rgba(0,0,0,0.2);
-    }
-
-    /* Show sub-menu when parent has .submenu-open class */
-    .submenu-open > .sub-menu {
-        display: block;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-    }
 
     .menu-toggle { display: block; }
 

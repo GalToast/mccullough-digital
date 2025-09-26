@@ -28,7 +28,7 @@ function mcd_assets() {
   $theme_version = wp_get_theme()->get('Version');
 
   // Enqueue Google Fonts
-  wp_enqueue_style( 'mcd-google-fonts', 'https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap', array(), null );
+  wp_enqueue_style( 'mcd-google-fonts', 'https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap', array(), null );
 
   // Enqueue main stylesheet
   wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array(), $theme_version );
