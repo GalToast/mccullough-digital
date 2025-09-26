@@ -1,0 +1,56 @@
+{
+  "version": 2,
+  "settings": {
+    "color": {
+      "palette": [
+        {
+          "name": "Neon Cyan",
+          "slug": "neon-cyan",
+          "color": "#00e5ff"
+        },
+        {
+          "name": "Neon Magenta",
+          "slug": "neon-magenta",
+          "color": "#ff00e0"
+        },
+        {
+          "name": "Deep Purple",
+          "slug": "deep-purple",
+          "color": "#9400d3"
+        },
+        {
+          "name": "Background Dark",
+          "slug": "background-dark",
+          "color": "#0b0c10"
+        },
+        {
+          "name": "Text Primary",
+          "slug": "text-primary",
+          "color": "#e6f1ff"
+        },
+        {
+          "name": "Text Secondary",
+          "slug": "text-secondary",
+          "color": "#c5d8f2"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "'Caveat', cursive",
+          "name": "Caveat",
+          "slug": "caveat"
+        },
+        {
+          "fontFamily": "'Nunito', sans-serif",
+          "name": "Nunito",
+          "slug": "nunito"
+        }
+      ]
+    },
+    "layout": {
+      "contentSize": "1200px"
+    }
+  }
+}

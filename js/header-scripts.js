@@ -1,15 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Mobile Menu Toggle ---
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-navigation');
+    const menuToggle = document.querySelector('.wp-block-navigation__responsive-container-open');
+    const mainNav = document.querySelector('.wp-block-navigation__responsive-container');
+    const navBlock = document.querySelector('.wp-block-navigation');
 
-    if (menuToggle && mainNav) {
+    if (menuToggle && mainNav && navBlock) {
         menuToggle.addEventListener('click', function() {
-            mainNav.classList.toggle('toggled');
+            // The core block adds 'is-menu-open' to the main nav block
+            // We just need to toggle our animation class on the button
             menuToggle.classList.toggle('is-active');
-
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            menuToggle.setAttribute('aria-expanded', !isExpanded);
         });
     }
 
@@ -30,13 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- Close mobile menu when a link is clicked ---
-    const menuLinks = document.querySelectorAll('#primary-menu a');
+    const menuLinks = document.querySelectorAll('.wp-block-navigation-item a');
     menuLinks.forEach(link => {
         link.addEventListener('click', () => {
-            if (mainNav.classList.contains('toggled')) {
-                mainNav.classList.remove('toggled');
-                menuToggle.classList.remove('is-active');
-                menuToggle.setAttribute('aria-expanded', 'false');
+            // Check if the mobile menu is open
+            if (navBlock.classList.contains('is-menu-open')) {
+                // We need to simulate a click on the close button
+                const menuClose = document.querySelector('.wp-block-navigation__responsive-container-close');
+                if(menuClose) {
+                    menuClose.click();
+                }
+                // Also remove our animation class from the toggle
+                if(menuToggle) {
+                    menuToggle.classList.remove('is-active');
+                }
             }
         });
     });
