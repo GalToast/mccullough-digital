@@ -34,14 +34,37 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('scroll', onScrollDir, { passive: true });
     }
 
-    // --- Add accessibility attributes to menu items with dropdowns ---
+    // --- Mobile Sub-menu Toggle ---
     const menuItemsWithChildren = document.querySelectorAll('.menu-item-has-children');
+    const menuToggle = document.querySelector('.menu-toggle'); // Used to check for mobile view
 
     menuItemsWithChildren.forEach(item => {
+        // Create and insert the toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.classList.add('submenu-toggle');
+        toggleButton.setAttribute('aria-expanded', 'false');
+        toggleButton.setAttribute('aria-label', 'Toggle submenu');
+        item.appendChild(toggleButton);
+
+        // Add event listener to the new button
+        toggleButton.addEventListener('click', (e) => {
+            // Only run this logic if the mobile menu button is visible
+            if (getComputedStyle(menuToggle).display !== 'none') {
+                e.preventDefault(); // Prevent the parent link from navigating
+
+                // Toggle the class on the parent <li>
+                item.classList.toggle('submenu-open');
+
+                // Update aria-expanded attribute
+                const isExpanded = item.classList.contains('submenu-open');
+                toggleButton.setAttribute('aria-expanded', isExpanded);
+            }
+        });
+
+        // Also add accessibility attributes to the main link
         const link = item.querySelector('a');
         if (link) {
             link.setAttribute('aria-haspopup', 'true');
         }
     });
-
 });
