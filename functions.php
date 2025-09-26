@@ -5,19 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
  * Theme setup
  */
 function mcd_setup() {
-  add_theme_support( 'title-tag' );
   add_theme_support( 'post-thumbnails' );
-  add_theme_support( 'custom-logo', array(
-    'height'      => 100,
-    'width'       => 400,
-    'flex-height' => true,
-    'flex-width'  => true,
-  ) );
   add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
-
-  register_nav_menus( array(
-    'primary' => __( 'Primary Menu', 'mccullough-digital' ),
-  ) );
 }
 add_action( 'after_setup_theme', 'mcd_setup' );
 
@@ -26,9 +15,6 @@ add_action( 'after_setup_theme', 'mcd_setup' );
  */
 function mcd_assets() {
   $theme_version = wp_get_theme()->get('Version');
-
-  // Enqueue Google Fonts
-  wp_enqueue_style( 'mcd-google-fonts', 'https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap', array(), null );
 
   // Enqueue main stylesheet
   wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array(), $theme_version );
