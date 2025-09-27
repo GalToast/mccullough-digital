@@ -31,7 +31,7 @@ registerBlockType(metadata.name, {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <article { ...blockProps }>
+                <article {...blockProps}>
                     <RichText
                         tagName="div"
                         className="icon"
