@@ -63,3 +63,59 @@ These problems directly affected usability, accessibility, or runtime stability.
 - **File:** `blocks/services/render.php`
 - **Description:** The render callback decoded `block.json` on every request even though the data was not used.
 - **Impact:** The extra file I/O slowed page generation and complicated future maintenance.
+
+---
+
+## Additional Confirmed Bugs (2025-09-27)
+
+These issues were discovered during the latest sweep and have not yet been addressed.
+
+### 1. Dynamic Blocks Override Custom Anchors and Duplicate IDs
+- **Files:** `blocks/about/block.json`, `blocks/about/render.php`, `build/blocks/about/editor.js`, `blocks/services/block.json`, `blocks/services/render.php`, `build/blocks/services/editor.js`, `blocks/cta/block.json`, `blocks/cta/render.php`, `build/blocks/cta/editor.js`
+- **Description:** The About, Services, and CTA blocks advertise anchor support but hard-code wrapper IDs such as `about`, `services`, and `contact`. The editor scripts also force these IDs. As a result, user-defined anchors are ignored and multiple instances of a block render duplicate IDs on the same page.
+- **Impact:** Editors cannot set unique anchors, in-page links target the wrong section, and duplicate IDs break accessibility expectations for assistive technology.
+
+### 2. About Block Headline Escapes Legitimate Formatting
+- **File:** `blocks/about/render.php`
+- **Description:** The About block renders its headline with `esc_html()`, stripping inline markup supplied by the RichText editor (for example emphasis or links).
+- **Impact:** Content creators lose visual and semantic formatting in headings, reducing expressiveness and accessibility.
+
+### 3. CTA Block Headline Escapes Legitimate Formatting
+- **File:** `blocks/cta/render.php`
+- **Description:** The CTA block also uses `esc_html()` for its headline, removing inline formatting choices from authors.
+- **Impact:** Important text styling such as emphasis or inline links cannot persist to the front end.
+
+### 4. Service Card Block Removes Links and Styling from Body Copy
+- **File:** `blocks/service-card/render.php`
+- **Description:** Both the service title and description are passed through `esc_html()`, which strips markup created in the editor, including links.
+- **Impact:** Editors cannot highlight keywords or link to service details, harming usability and SEO.
+
+### 5. CTA Buttons Render Dead `#` Links When No URL Is Provided
+- **Files:** `blocks/hero/render.php`, `blocks/cta/render.php`, `blocks/service-card/render.php`
+- **Description:** When authors omit a URL, the blocks fall back to `href="#"` while still showing an active button.
+- **Impact:** Visitors encounter focusable elements that do nothing, confusing keyboard and screen reader users and failing accessibility guidelines.
+
+### 6. Home Pattern Seeder Can Promote Unpublished Pages to the Front Page
+- **File:** `functions.php`
+- **Description:** When a site already has a page with the slug `home`, the seeding routine assigns it as the front page without verifying that it is published.
+- **Impact:** Draft or private pages can become the designated front page, producing front-end errors or exposing unfinished content.
+
+### 7. Home Pattern Seeder Skips Populating Existing Empty Pages
+- **File:** `functions.php`
+- **Description:** If a `home` page exists, the function sets it as the front page and exits before checking its content, so empty pages remain blank instead of receiving the landing layout.
+- **Impact:** New theme installs can ship with an empty homepage, forcing manual intervention.
+
+### 8. Section Blocks Ignore Align Settings Because of Fixed `.container` Widths
+- **Files:** `blocks/about/render.php`, `blocks/services/render.php`, `blocks/cta/render.php`, `style.css`
+- **Description:** Each block wraps its content in a `.container` div that enforces a 1200px max width and 90% viewport margin, negating the advertised `alignwide` and `alignfull` options.
+- **Impact:** Editors cannot create edge-to-edge sections or wider layouts, limiting design flexibility.
+
+### 9. Post Card Pattern Styles the Wrapper Instead of the Read More Link
+- **Files:** `patterns/post-card-grid.php`, `style.css`
+- **Description:** The pattern adds the `.cta-button` class to the `core/read-more` wrapper paragraph, but the styling targets anchor elements.
+- **Impact:** The “Read more” link looks unstyled because the anchor does not receive the button styles, degrading visual hierarchy and affordance.
+
+### 10. Default Patterns Ship with Placeholder `#` Links
+- **Files:** `patterns/home-landing.php`, `blocks/service-card/block.json`, `blocks/hero/block.json`
+- **Description:** The bundled homepage pattern and block defaults populate CTA URLs with `#`, so a fresh install exposes multiple dead links even before authors edit content.
+- **Impact:** The live homepage contains non-functional buttons, confusing visitors and harming credibility until every URL is manually updated.
