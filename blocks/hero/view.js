@@ -4,10 +4,52 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- Interactive Hero Headline ---
+    const escapeTextContent = (char) => {
+        switch (char) {
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '&':
+                return '&amp;';
+            case '"':
+                return '&quot;';
+            case '\'':
+                return '&#39;';
+            case ' ':
+                return '&nbsp;';
+            default:
+                return char;
+        }
+    };
+
+    const escapeAttributeValue = (char) => {
+        switch (char) {
+            case '<':
+                return '&lt;';
+            case '>':
+                return '&gt;';
+            case '&':
+                return '&amp;';
+            case '"':
+                return '&quot;';
+            case '\'':
+                return '&#39;';
+            case ' ':
+                return '&nbsp;';
+            default:
+                return char;
+        }
+    };
+
     const headline = document.getElementById('interactive-headline');
     if(headline) {
         const text = headline.textContent;
-        const wrappedText = text.split('').map(char => `<span data-char="${char === ' ' ? '&nbsp;' : char}">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+        const wrappedText = text.split('').map(char => {
+            const escapedText = escapeTextContent(char);
+            const escapedAttr = escapeAttributeValue(char);
+            return `<span data-char="${escapedAttr}">${escapedText}</span>`;
+        }).join('');
         headline.innerHTML = wrappedText;
     }
 
