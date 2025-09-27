@@ -18,13 +18,6 @@ function mcd_setup() {
     )
   );
 
-  register_nav_menus(
-    array(
-      'primary' => __( 'Primary Menu', 'mccullough-digital' ),
-      'social'  => __( 'Social Links Menu', 'mccullough-digital' ),
-    )
-  );
-
   add_theme_support( 'wp-block-styles' );
   add_theme_support( 'responsive-embeds' );
   add_theme_support( 'editor-styles' );
@@ -313,55 +306,4 @@ function mcd_get_social_link_svg( $url ) {
   }
 
   return '';
-}
-
-/**
- * Walker class for the social menu to output SVGs.
- */
-class Mcd_Social_Nav_Menu_Walker extends Walker_Nav_Menu {
-    function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-        $social_svg = mcd_get_social_link_svg( $item->url );
-
-        $output .= '<li class="' . esc_attr( implode( ' ', $item->classes ) ) . '">';
-        $output .= '<a href="' . esc_url( $item->url ) . '" class="social-link">';
-
-        if ( empty( $social_svg ) ) {
-            $output .= esc_html( $item->title );
-        } else {
-            $output .= '<span class="screen-reader-text">' . esc_html( $item->title ) . '</span>';
-            $output .= $social_svg;
-        }
-
-        $output .= '</a>';
-    }
-
-    function end_el( &$output, $item, $depth = 0, $args = null ) {
-        $output .= "</li>";
-    }
-}
-
-/**
- * Adds a span to menu items to allow for more flexible styling.
- */
-class Mcd_Nav_Menu_Walker extends Walker_Nav_Menu {
-    function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-        $output .= "<li class='" .  esc_attr( implode( ' ', $item->classes ) ) . "'>";
-        if ( ! empty( $item->url ) ) {
-            $output .= '<a href="' . esc_url( $item->url ) . '">';
-        } else {
-            $output .= '<span>';
-        }
-
-        $output .= '<span class="menu-text-span">' . esc_html( $item->title ) . '</span>';
-
-        if ( ! empty( $item->url ) ) {
-            $output .= '</a>';
-        } else {
-            $output .= '</span>';
-        }
-    }
-
-    function end_el( &$output, $item, $depth = 0, $args = null ) {
-        $output .= "</li>";
-    }
 }
