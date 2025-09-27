@@ -28,7 +28,7 @@ $template = [
 <section <?php echo $wrapper_attributes; ?>>
     <div class="container">
         <h2 class="section-title">
-            <?php echo wp_kses_post( $attributes['headline'] ); ?>
+            <?php echo wp_kses_post( $attributes['headline'] ?? '' ); ?>
         </h2>
         <div class="services-grid">
             <?php echo $content; ?>

@@ -126,7 +126,14 @@ function mcd_get_social_link_svg( $url ) {
         'github.com'   => 'github',
     ];
 
-    $domain = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
+    $host = parse_url( $url, PHP_URL_HOST );
+
+    // Return early if the URL is invalid or doesn't have a host (e.g., mailto:, tel:, etc.).
+    if ( ! is_string( $host ) || empty( $host ) ) {
+        return '';
+    }
+
+    $domain = str_ireplace( 'www.', '', $host );
 
     if ( isset( $social_icons[ $domain ] ) ) {
         $icon_name = $social_icons[ $domain ];
@@ -174,7 +181,7 @@ class Mcd_Nav_Menu_Walker extends Walker_Nav_Menu {
             $output .= '<span>';
         }
 
-        $output .= '<span class="menu-text-span">' . $item->title . '</span>';
+        $output .= '<span class="menu-text-span">' . esc_html( $item->title ) . '</span>';
 
         if ( ! empty( $item->url ) ) {
             $output .= '</a>';

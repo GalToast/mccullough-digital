@@ -31,7 +31,7 @@ registerBlockType(metadata.name, {
                         />
                     </PanelBody>
                 </InspectorControls>
-                <section { ...blockProps }>
+                <section {...blockProps}>
                     <RichText
                         tagName="h2"
                         value={ headline }

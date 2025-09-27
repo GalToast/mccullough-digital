@@ -11,7 +11,7 @@ registerBlockType(metadata.name, {
         const blockProps = useBlockProps();
 
         return (
-            <section { ...blockProps }>
+            <section {...blockProps}>
                 <RichText
                     tagName="h2"
                     value={ headline }
