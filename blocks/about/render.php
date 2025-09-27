@@ -14,15 +14,23 @@ $wrapper_attributes = get_block_wrapper_attributes(
         'id' => 'about', // Keep the ID for anchor links
     ]
 );
+
+$headline = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
+$text     = isset( $attributes['text'] ) ? $attributes['text'] : '';
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
     <div class="container">
-        <h2 class="section-title">
-            <?php echo esc_html( $attributes['headline'] ); ?>
-        </h2>
-        <p>
-            <?php echo wp_kses_post( $attributes['text'] ); ?>
-        </p>
+        <?php if ( ! empty( $headline ) ) : ?>
+            <h2 class="section-title">
+                <?php echo esc_html( $headline ); ?>
+            </h2>
+        <?php endif; ?>
+
+        <?php if ( ! empty( $text ) ) : ?>
+            <p>
+                <?php echo wp_kses_post( $text ); ?>
+            </p>
+        <?php endif; ?>
     </div>
 </section>

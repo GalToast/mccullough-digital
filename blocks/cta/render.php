@@ -15,15 +15,24 @@ $wrapper_attributes = get_block_wrapper_attributes(
         'class' => 'cta-section',
     ]
 );
+
+$headline    = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
+$button_text = isset( $attributes['buttonText'] ) ? $attributes['buttonText'] : '';
+$button_link = isset( $attributes['buttonLink'] ) ? $attributes['buttonLink'] : '';
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
     <div class="container">
-        <h2 class="section-title">
-            <?php echo esc_html( $attributes['headline'] ); ?>
-        </h2>
-        <a href="<?php echo esc_url( $attributes['buttonLink'] ); ?>" class="cta-button">
-            <span class="btn-text"><?php echo esc_html( $attributes['buttonText'] ); ?></span>
-        </a>
+        <?php if ( ! empty( $headline ) ) : ?>
+            <h2 class="section-title">
+                <?php echo esc_html( $headline ); ?>
+            </h2>
+        <?php endif; ?>
+
+        <?php if ( ! empty( $button_text ) ) : ?>
+            <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button">
+                <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+            </a>
+        <?php endif; ?>
     </div>
 </section>

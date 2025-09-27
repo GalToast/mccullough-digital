@@ -15,6 +15,8 @@ $wrapper_attributes = get_block_wrapper_attributes(
     ]
 );
 
+$headline = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
+
 // The InnerBlocks template defines the allowed blocks and their default state.
 $allowed_blocks = [ 'mccullough-digital/service-card' ];
 $template = [
@@ -27,9 +29,11 @@ $template = [
 
 <section <?php echo $wrapper_attributes; ?>>
     <div class="container">
-        <h2 class="section-title">
-            <?php echo wp_kses_post( $attributes['headline'] ); ?>
-        </h2>
+        <?php if ( ! empty( $headline ) ) : ?>
+            <h2 class="section-title">
+                <?php echo wp_kses_post( $headline ); ?>
+            </h2>
+        <?php endif; ?>
         <div class="services-grid">
             <InnerBlocks allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_blocks ) ); ?>" template="<?php echo esc_attr( wp_json_encode( $template ) ); ?>" />
         </div>

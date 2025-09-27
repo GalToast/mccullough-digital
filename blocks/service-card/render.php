@@ -14,23 +14,39 @@ $wrapper_attributes = get_block_wrapper_attributes(
         'class' => 'service-card',
     ]
 );
+
+$icon      = isset( $attributes['icon'] ) ? $attributes['icon'] : '';
+$title     = isset( $attributes['title'] ) ? $attributes['title'] : '';
+$text      = isset( $attributes['text'] ) ? $attributes['text'] : '';
+$link_text = isset( $attributes['linkText'] ) ? $attributes['linkText'] : '';
+$link_url  = isset( $attributes['linkUrl'] ) ? $attributes['linkUrl'] : '';
 ?>
 
 <div <?php echo $wrapper_attributes; ?>>
    <div class="service-card-content">
         <div>
-            <div class="icon">
-                <?php echo $attributes['icon']; // Note: This will be raw SVG content. It's ok since it's from an admin. ?>
-            </div>
-            <h3>
-                <?php echo esc_html( $attributes['title'] ); ?>
-            </h3>
-            <p>
-                <?php echo esc_html( $attributes['text'] ); ?>
-            </p>
+            <?php if ( ! empty( $icon ) ) : ?>
+                <div class="icon">
+                    <?php echo $icon; // Note: This will be raw SVG content from trusted admin input. ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if ( ! empty( $title ) ) : ?>
+                <h3>
+                    <?php echo esc_html( $title ); ?>
+                </h3>
+            <?php endif; ?>
+
+            <?php if ( ! empty( $text ) ) : ?>
+                <p>
+                    <?php echo esc_html( $text ); ?>
+                </p>
+            <?php endif; ?>
         </div>
-        <a href="<?php echo esc_url( $attributes['linkUrl'] ); ?>" class="learn-more">
-            <?php echo esc_html( $attributes['linkText'] ); ?>
-        </a>
+        <?php if ( ! empty( $link_text ) ) : ?>
+            <a href="<?php echo esc_url( $link_url ); ?>" class="learn-more">
+                <?php echo esc_html( $link_text ); ?>
+            </a>
+        <?php endif; ?>
     </div>
 </div>

@@ -14,20 +14,31 @@ $wrapper_attributes = get_block_wrapper_attributes(
         'class' => 'hero',
     ]
 );
+
+$headline    = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
+$subheading  = isset( $attributes['subheading'] ) ? $attributes['subheading'] : '';
+$button_text = isset( $attributes['buttonText'] ) ? $attributes['buttonText'] : '';
+$button_link = isset( $attributes['buttonLink'] ) ? $attributes['buttonLink'] : '';
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
     <canvas id="particle-canvas"></canvas>
     <div class="hero-content">
-        <h1 id="interactive-headline" class="wp-block-heading">
-            <?php echo wp_kses_post( $attributes['headline'] ); ?>
-        </h1>
-        <p>
-            <?php echo wp_kses_post( $attributes['subheading'] ); ?>
-        </p>
-        <?php if ( ! empty( $attributes['buttonText'] ) ) : ?>
-            <a href="<?php echo esc_url( $attributes['buttonLink'] ); ?>" class="cta-button">
-                <span class="btn-text"><?php echo esc_html( $attributes['buttonText'] ); ?></span>
+        <?php if ( ! empty( $headline ) ) : ?>
+            <h1 id="interactive-headline" class="wp-block-heading">
+                <?php echo wp_kses_post( $headline ); ?>
+            </h1>
+        <?php endif; ?>
+
+        <?php if ( ! empty( $subheading ) ) : ?>
+            <p>
+                <?php echo wp_kses_post( $subheading ); ?>
+            </p>
+        <?php endif; ?>
+
+        <?php if ( ! empty( $button_text ) ) : ?>
+            <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button">
+                <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
             </a>
         <?php endif; ?>
     </div>
