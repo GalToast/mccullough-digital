@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const y = window.scrollY;
             if (y > 120 && y > lastY) {
                 header.classList.add('hide');
-            } else {
+            } else if (y < lastY) {
                 header.classList.remove('hide');
             }
             lastY = y;
