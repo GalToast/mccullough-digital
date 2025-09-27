@@ -12,7 +12,11 @@
     "apiVersion": 2,
     "supports": {
         "html": false,
-        "anchor": true
+        "anchor": true,
+        "align": [
+            "wide",
+            "full"
+        ]
     },
     "attributes": {
         "headline": {
