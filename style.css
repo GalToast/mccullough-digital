@@ -34,7 +34,6 @@ body {
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     background: var(--background-dark);
     color: var(--text-primary);
-    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Ensure content doesn't hide behind fixed header */
@@ -339,19 +338,19 @@ section {
 }
 
 .stars {
-    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="100" cy="100" r="1.5" fill="white"/><circle cx="300" cy="400" r="1" fill="white"/><circle cx="500" cy="200" r="1.2" fill="white"/><circle cx="700" cy="500" r="1.5" fill="white"/><circle cx="900" cy="300" r="1" fill="white"/><circle cx="1100" cy="100" r="1.2" fill="white"/><circle cx="1300" cy="400" r="1.5" fill="white"/><circle cx="1500" cy="200" r="1" fill="white"/><circle cx="1700" cy="500" r="1.2" fill="white"/><circle cx="1900" cy="300" r="1.5" fill="white"/></svg>') repeat;
+    background: transparent url('./assets/stars.svg') repeat;
     background-size: 2000px 2000px;
     animation: move-stars 200s linear infinite;
 }
 
 .stars2 {
-    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="200" cy="600" r="1" fill="white"/><circle cx="400" cy="800" r="0.8" fill="white"/><circle cx="600" cy="700" r="1" fill="white"/><circle cx="800" cy="900" r="0.8" fill="white"/><circle cx="1000" cy="600" r="1" fill="white"/><circle cx="1200" cy="800" r="0.8" fill="white"/><circle cx="1400" cy="700" r="1" fill="white"/><circle cx="1600" cy="900" r="0.8" fill="white"/><circle cx="1800" cy="600" r="1" fill="white"/><circle cx="2000" cy="800" r="0.8" fill="white"/></svg>') repeat;
+    background: transparent url('./assets/stars2.svg') repeat;
     background-size: 2000px 2000px;
     animation: move-stars 150s linear infinite;
 }
 
 .stars3 {
-    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="150" cy="950" r="0.6" fill="white"/><circle cx="350" cy="1150" r="0.5" fill="white"/><circle cx="550" cy="1050" r="0.6" fill="white"/><circle cx="750" cy="1250" r="0.5" fill="white"/><circle cx="950" cy="950" r="0.6" fill="white"/><circle cx="1150" cy="1150" r="0.5" fill="white"/><circle cx="1350" cy="1050" r="0.6" fill="white"/><circle cx="1550" cy="1250" r="0.5" fill="white"/><circle cx="1750" cy="950" r="0.6" fill="white"/><circle cx="1950" cy="1150" r="0.5" fill="white"/></svg>') repeat;
+    background: transparent url('./assets/stars3.svg') repeat;
     background-size: 2000px 2000px;
     animation: move-stars 100s linear infinite;
 }
@@ -568,8 +567,6 @@ section {
     color: #fff;
     position: relative;
     display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
     padding-bottom: 15px;
 }
 

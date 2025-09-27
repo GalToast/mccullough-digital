@@ -29,19 +29,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Mobile Menu Toggle (navigation block) ---
     const initBlockMenu = (menuToggle, navBlock) => {
-        menuToggle.addEventListener('click', () => {
-            menuToggle.classList.toggle('is-active');
-        });
-
+        // This MutationObserver keeps the toggle button's state (`is-active`)
+        // perfectly in sync with the navigation block's state (`is-menu-open`).
         const syncToggleState = () => {
-            if (!navBlock.classList.contains('is-menu-open')) {
-                menuToggle.classList.remove('is-active');
-            }
+            const isOpen = navBlock.classList.contains('is-menu-open');
+            menuToggle.classList.toggle('is-active', isOpen);
         };
+
+        // Run the sync function once on initialization to set the correct initial state.
+        syncToggleState();
 
         const observer = new MutationObserver(syncToggleState);
         observer.observe(navBlock, { attributes: true, attributeFilter: ['class'] });
 
+        // This ensures that when a user clicks a link in the mobile menu,
+        // the menu closes automatically. The MutationObserver will then handle the icon state.
         navBlock.querySelectorAll('.wp-block-navigation-item a').forEach((link) => {
             link.addEventListener('click', () => {
                 if (navBlock.classList.contains('is-menu-open')) {
@@ -49,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (menuClose) {
                         menuClose.click();
                     }
-                    menuToggle.classList.remove('is-active');
                 }
             });
         });
@@ -74,10 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
     if (header) {
         let lastY = window.scrollY;
         let ticking = false;
-        const headerHeight = header.offsetHeight;
+        let headerHeight = header.offsetHeight;
+        let resizeTimeout;
 
         const updateHeaderVisibility = () => {
             const y = window.scrollY;
+            // Use the dynamically updated headerHeight
             if (y > headerHeight && y > lastY) {
                 header.classList.add('hide');
             } else if (y < lastY) {
@@ -87,12 +90,22 @@ document.addEventListener('DOMContentLoaded', function() {
             ticking = false;
         };
 
-        window.addEventListener('scroll', () => {
+        const handleScroll = () => {
             if (!ticking) {
                 window.requestAnimationFrame(updateHeaderVisibility);
                 ticking = true;
             }
-        }, { passive: true });
+        };
+
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                headerHeight = header.offsetHeight;
+            }, 150); // Debounce resize event
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleResize, { passive: true });
     }
 
     // --- 3D Logo Tilt Effect ---
