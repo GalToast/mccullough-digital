@@ -59,10 +59,22 @@ if ( ! function_exists( 'wp_body_open' ) ) {
  * Register Blocks
  */
 function mcd_register_blocks() {
-    $block_folders = glob( get_stylesheet_directory() . '/blocks/*' );
+    $blocks_dir = get_stylesheet_directory() . '/blocks/';
+    if ( ! file_exists( $blocks_dir ) || ! is_dir( $blocks_dir ) ) {
+        return;
+    }
+
+    $block_folders = scandir( $blocks_dir );
+
     foreach ( $block_folders as $block_folder ) {
-        if ( file_exists( $block_folder . '/block.json' ) ) {
-            register_block_type( $block_folder );
+        if ( $block_folder === '.' || $block_folder === '..' ) {
+            continue;
+        }
+
+        $block_path = $blocks_dir . $block_folder;
+
+        if ( is_dir( $block_path ) && file_exists( $block_path . '/block.json' ) ) {
+            register_block_type( $block_path );
         }
     }
 }
