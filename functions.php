@@ -126,7 +126,13 @@ function mcd_get_social_link_svg( $url ) {
         'github.com'   => 'github',
     ];
 
-    $domain = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
+    $host = parse_url( $url, PHP_URL_HOST );
+
+    if ( ! $host ) {
+        return '';
+    }
+
+    $domain = preg_replace( '/^www\./i', '', $host );
 
     if ( isset( $social_icons[ $domain ] ) ) {
         $icon_name = $social_icons[ $domain ];
