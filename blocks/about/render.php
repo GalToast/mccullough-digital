@@ -19,7 +19,7 @@ $wrapper_attributes = get_block_wrapper_attributes(
 <section <?php echo $wrapper_attributes; ?>>
     <div class="container">
         <h2 class="section-title">
-            <?php echo esc_html( $attributes['headline'] ); ?>
+            <?php echo wp_kses_post( $attributes['headline'] ); ?>
         </h2>
         <p>
             <?php echo wp_kses_post( $attributes['text'] ); ?>
