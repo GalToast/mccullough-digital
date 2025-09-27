@@ -25,5 +25,6 @@
             "default": "mailto:contact@mccullough.digital"
         }
     },
+    "editorScript": "file:./editor.js",
     "style": "file:./style.css"
 }

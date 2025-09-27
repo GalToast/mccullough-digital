@@ -22,5 +22,6 @@
             "selector": "p"
         }
     },
+    "editorScript": "file:./editor.js",
     "style": "file:./style.css"
 }
