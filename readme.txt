@@ -25,6 +25,11 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.1.0 - 2025-09-27 =
+* Dynamically sync the fixed header height, keep it visible during keyboard navigation, and guard scripts that rely on `matchMedia`.
+* Restore hero headline accessibility, expand SVG sanitisation to preserve gradients, and improve decorative canvas semantics.
+* Prevent blocks from emitting empty links, streamline services block rendering, and fix the standalone preview font preload markup.
+
 = 1.0.0 - 2025-09-25 =
 * Initial release.
 

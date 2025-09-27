@@ -7,7 +7,7 @@
     text-align: center;
     position: relative; /* Needed for positioning the canvas */
     background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
-    padding-top: var(--header-height);
+    padding-top: var(--mcd-header-offset, var(--header-height));
     overflow: hidden; /* Hide anything that goes outside the hero */
 }
 

@@ -2,6 +2,7 @@
 
 :root {
     --header-height: 80px;
+    --mcd-header-offset: var(--header-height);
     --neon-cyan: #00e5ff;
     --neon-magenta: #ff00e0;
     --deep-purple: #9400d3;
@@ -93,7 +94,7 @@
     text-align: center;
     position: relative;
     background: radial-gradient(circle, rgba(20, 22, 28, 0.9) 0%, var(--background-dark) 70%);
-    padding-top: var(--header-height);
+    padding-top: var(--mcd-header-offset, var(--header-height));
     overflow: hidden;
 }
 

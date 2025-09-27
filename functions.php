@@ -238,17 +238,26 @@ function mcd_sanitize_svg( $svg ) {
     }
 
     $allowed_tags = [
-        'svg'    => [ 'xmlns', 'viewbox', 'viewBox', 'fill', 'width', 'height', 'class', 'aria-hidden', 'focusable', 'role' ],
-        'path'   => [ 'd', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-rule', 'clip-rule', 'stroke-dasharray', 'stroke-miterlimit' ],
-        'g'      => [ 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'transform', 'opacity', 'class', 'fill-rule', 'clip-path' ],
-        'rect'   => [ 'x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'transform', 'opacity' ],
-        'circle' => [ 'cx', 'cy', 'r', 'fill', 'stroke', 'stroke-width', 'opacity' ],
-        'ellipse'=> [ 'cx', 'cy', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'opacity' ],
-        'line'   => [ 'x1', 'y1', 'x2', 'y2', 'stroke', 'stroke-width', 'stroke-linecap', 'opacity' ],
-        'polyline' => [ 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity' ],
-        'polygon'  => [ 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity' ],
-        'title' => [],
-        'desc'  => [],
+        'svg'            => [ 'xmlns', 'viewbox', 'viewBox', 'fill', 'width', 'height', 'class', 'aria-hidden', 'focusable', 'role' ],
+        'path'           => [ 'd', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-rule', 'clip-rule', 'stroke-dasharray', 'stroke-miterlimit' ],
+        'g'              => [ 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'transform', 'opacity', 'class', 'fill-rule', 'clip-path' ],
+        'rect'           => [ 'x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'transform', 'opacity' ],
+        'circle'         => [ 'cx', 'cy', 'r', 'fill', 'stroke', 'stroke-width', 'opacity' ],
+        'ellipse'        => [ 'cx', 'cy', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'opacity' ],
+        'line'           => [ 'x1', 'y1', 'x2', 'y2', 'stroke', 'stroke-width', 'stroke-linecap', 'opacity' ],
+        'polyline'       => [ 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity' ],
+        'polygon'        => [ 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity' ],
+        'defs'           => [],
+        'symbol'         => [ 'id', 'viewbox', 'viewBox', 'preserveaspectratio' ],
+        'use'            => [ 'href', 'xlink:href', 'x', 'y', 'width', 'height', 'transform' ],
+        'lineargradient' => [ 'id', 'x1', 'y1', 'x2', 'y2', 'gradientunits', 'gradienttransform', 'href', 'xlink:href', 'spreadmethod' ],
+        'radialgradient' => [ 'id', 'cx', 'cy', 'r', 'fx', 'fy', 'gradientunits', 'gradienttransform', 'href', 'xlink:href', 'spreadmethod' ],
+        'stop'           => [ 'offset', 'stop-color', 'stop-opacity' ],
+        'clippath'       => [ 'id', 'clippathunits' ],
+        'mask'           => [ 'id', 'x', 'y', 'width', 'height', 'maskunits', 'maskcontentunits' ],
+        'pattern'        => [ 'id', 'x', 'y', 'width', 'height', 'patternunits', 'patterntransform', 'viewbox', 'viewBox', 'href', 'xlink:href' ],
+        'title'          => [],
+        'desc'           => [],
     ];
 
     $allowed_global_attributes = [
@@ -258,6 +267,8 @@ function mcd_sanitize_svg( $svg ) {
         'focusable',
         'role',
         'aria-label',
+        'aria-labelledby',
+        'aria-describedby',
         'xmlns:xlink',
         'xml:space',
         'xlink:href',
@@ -291,6 +302,25 @@ function mcd_sanitize_svg( $svg ) {
                 }
 
                 if ( 'style' === $attr_name ) {
+                    $node->removeAttribute( $attr->name );
+                    continue;
+                }
+
+                $attribute_value = trim( (string) $attr->value );
+
+                $fragment_only_attributes = [ 'href', 'xlink:href' ];
+                if ( in_array( $attr_name, $fragment_only_attributes, true ) ) {
+                    if ( '' === $attribute_value || '#' !== $attribute_value[0] ) {
+                        $node->removeAttribute( $attr->name );
+                        continue;
+                    }
+                }
+
+                $url_fragment_attributes = [ 'clip-path', 'filter', 'mask', 'fill', 'stroke' ];
+                if (
+                    in_array( $attr_name, $url_fragment_attributes, true )
+                    && preg_match( '/^url\((?!\s*#)/i', $attribute_value )
+                ) {
                     $node->removeAttribute( $attr->name );
                     continue;
                 }

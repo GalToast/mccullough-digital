@@ -1,6 +1,21 @@
 (() => {
     const init = () => {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const createMotionPreferenceQuery = () => {
+            if (typeof window.matchMedia !== 'function') {
+                const noop = () => {};
+                return {
+                    matches: false,
+                    addEventListener: noop,
+                    removeEventListener: noop,
+                    addListener: noop,
+                    removeListener: noop,
+                };
+            }
+
+            return window.matchMedia('(prefers-reduced-motion: reduce)');
+        };
+
+        const prefersReducedMotion = createMotionPreferenceQuery();
 
         const handleMenuStateChangeCallbacks = [];
 
@@ -57,20 +72,36 @@
             let headerHeight = header.offsetHeight;
             let resizeTimeout;
             let isMenuOpen = false;
+            let isFocusWithin = false;
+            const rootElement = document.documentElement;
+            const rootStyle = rootElement && rootElement.style;
+
+            const setHeaderOffset = () => {
+                headerHeight = header.offsetHeight;
+
+                if (rootStyle) {
+                    const roundedHeight = Math.max(Math.round(headerHeight), 0);
+                    rootStyle.setProperty('--mcd-header-offset', `${roundedHeight}px`);
+                }
+            };
 
             registerMenuStateCallback((open) => {
                 isMenuOpen = open;
                 if (isMenuOpen) {
                     header.classList.remove('hide');
                 }
+                setHeaderOffset();
             });
 
             dispatchMenuState(navBlock ? navBlock.classList.contains('is-menu-open') : false);
 
+            setHeaderOffset();
+            window.addEventListener('load', setHeaderOffset);
+
             const updateHeaderVisibility = () => {
                 const y = window.scrollY;
 
-                if (prefersReducedMotion.matches || isMenuOpen) {
+                if (prefersReducedMotion.matches || isMenuOpen || isFocusWithin) {
                     header.classList.remove('hide');
                     lastY = y;
                     ticking = false;
@@ -97,13 +128,25 @@
             const handleResize = () => {
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
-                    headerHeight = header.offsetHeight;
+                    setHeaderOffset();
                     updateHeaderVisibility();
                 }, 150);
             };
 
             window.addEventListener('scroll', handleScroll, { passive: true });
             window.addEventListener('resize', handleResize, { passive: true });
+
+            header.addEventListener('focusin', () => {
+                isFocusWithin = true;
+                header.classList.remove('hide');
+            });
+
+            header.addEventListener('focusout', (event) => {
+                if (!header.contains(event.relatedTarget)) {
+                    isFocusWithin = false;
+                    updateHeaderVisibility();
+                }
+            });
 
             const onMotionPreferenceChange = () => {
                 if (prefersReducedMotion.matches) {

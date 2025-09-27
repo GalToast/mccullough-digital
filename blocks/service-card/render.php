@@ -19,15 +19,15 @@ $wrapper_attributes = get_block_wrapper_attributes(
 <div <?php echo $wrapper_attributes; ?>>
    <div class="service-card-content">
         <div>
-            <div class="icon">
-                <?php
-                $icon_svg = isset( $attributes['icon'] ) ? mcd_sanitize_svg( $attributes['icon'] ) : '';
+            <?php
+            $icon_svg = isset( $attributes['icon'] ) ? mcd_sanitize_svg( $attributes['icon'] ) : '';
 
-                if ( $icon_svg ) {
-                    echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized SVG markup.
-                }
+            if ( '' !== $icon_svg ) :
                 ?>
-            </div>
+                <div class="icon" aria-hidden="true" role="presentation">
+                    <?php echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized SVG markup. ?>
+                </div>
+            <?php endif; ?>
             <h3>
                 <?php echo esc_html( $attributes['title'] ?? '' ); ?>
             </h3>
@@ -35,8 +35,18 @@ $wrapper_attributes = get_block_wrapper_attributes(
                 <?php echo esc_html( $attributes['text'] ?? '' ); ?>
             </p>
         </div>
-        <a href="<?php echo esc_url( $attributes['linkUrl'] ?? '#' ); ?>" class="learn-more">
-            <?php echo esc_html( $attributes['linkText'] ?? '' ); ?>
-        </a>
+        <?php
+        $link_text = isset( $attributes['linkText'] ) ? trim( (string) $attributes['linkText'] ) : '';
+
+        if ( '' !== $link_text ) :
+            $link_url = isset( $attributes['linkUrl'] ) ? esc_url( $attributes['linkUrl'] ) : '';
+            if ( '' === $link_url ) {
+                $link_url = '#';
+            }
+            ?>
+            <a href="<?php echo $link_url; ?>" class="learn-more">
+                <?php echo esc_html( $link_text ); ?>
+            </a>
+        <?php endif; ?>
     </div>
 </div>
