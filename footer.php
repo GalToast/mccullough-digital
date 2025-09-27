@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
             if ( has_custom_logo() ) {
                 the_custom_logo();
             } else {
-                echo '<h2 class="site-title"><a href="' . esc_url( home_url( '/' ) ) . '" rel="home">' . get_bloginfo( 'name' ) . '</a></h2>';
+                echo '<h2 class="site-title"><a href="' . esc_url( home_url( '/' ) ) . '" rel="home">' . esc_html( get_bloginfo( 'name' ) ) . '</a></h2>';
             }
             ?>
         </div>
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
         </div>
 
         <div class="site-info">
-            <p>&copy; <?php echo date('Y'); ?> <?php echo get_bloginfo( 'name' ); ?>. All Rights Reserved.</p>
+            <p>&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>. All Rights Reserved.</p>
         </div>
     </div>
 </footer>
