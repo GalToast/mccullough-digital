@@ -545,3 +545,249 @@ section {
         transform: translateY(-50%) rotate(-45deg);
     }
 }
+
+/* ==============================================================
+# Interior Page Styles
+============================================================== */
+
+/* --- Page Header --- */
+.page-header-container {
+    padding: 80px 0;
+    text-align: center;
+    border-bottom: 1px solid #222;
+    background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
+}
+
+/* Use the existing section-title class for consistency */
+.page-header-container .section-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    text-align: center;
+    margin-bottom: 0; /* Remove bottom margin as it's the only element */
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 15px;
+}
+
+.page-header-container .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: var(--neon-cyan);
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+
+/* --- Content Wrapper for Pages/Posts --- */
+.container .entry-content,
+.container .entry-footer,
+.container .comments-area,
+.container .no-results,
+.container .error-404 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.entry-footer {
+    border-top: 1px solid #222;
+    padding-top: 30px;
+    margin-top: 40px;
+}
+
+.entry-footer .entry-meta {
+    margin-bottom: 20px;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.tag-links a {
+    display: inline-block;
+    padding: 5px 15px;
+    margin: 5px 5px 5px 0;
+    background: #14161c;
+    border: 1px solid #222;
+    border-radius: 20px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tag-links a:hover {
+    color: var(--neon-cyan);
+    border-color: var(--neon-cyan);
+}
+
+
+/* --- Archive & Search Post Grid --- */
+.post-listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    padding: 60px 0;
+}
+
+.post-card {
+    background: #14161c;
+    padding: 40px 30px;
+    border: 1px solid #222;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-cyan);
+}
+
+.post-card .entry-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    margin: 0 0 15px 0;
+}
+
+.post-card .entry-title a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.post-card .entry-title a:hover {
+    color: var(--neon-cyan);
+}
+
+.post-card .entry-summary {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex-grow: 1; /* Pushes the button to the bottom */
+    margin-bottom: 30px;
+}
+
+.post-card .cta-button {
+    margin-top: auto; /* Aligns button to the bottom */
+}
+
+
+/* --- Comments --- */
+.comments-area {
+    border-top: 1px solid #222;
+    margin-top: 40px;
+}
+
+.comments-area .comments-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+.comments-area .comment-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-area .comment-body {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #222;
+}
+
+.comments-area .comment-author .fn {
+    font-weight: bold;
+    color: #fff;
+    font-style: normal;
+}
+
+.comments-area .comment-meta {
+    margin-bottom: 10px;
+}
+
+.comments-area .comment-meta a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.comments-area .reply a {
+    font-weight: bold;
+    color: var(--neon-cyan);
+    text-decoration: none;
+}
+
+.comment-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.comment-form input[type="text"],
+.comment-form input[type="email"],
+.comment-form input[type="url"],
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    background: #14161c;
+    border: 1px solid #222;
+    color: var(--text-primary);
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.comment-form .submit {
+    display: inline-block;
+    padding: 12px 30px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.comment-form .submit:hover {
+    background: var(--neon-cyan);
+    color: var(--background-dark);
+}
+
+/* --- Search Form --- */
+.search-form {
+    display: flex;
+    gap: 10px;
+}
+.search-form .search-field {
+    flex-grow: 1;
+    padding: 10px;
+    background: #14161c;
+    border: 1px solid #222;
+    color: var(--text-primary);
+    border-radius: 8px;
+}
+.search-form .search-submit {
+    display: inline-block;
+    padding: 10px 25px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.search-form .search-submit:hover {
+    background: var(--neon-cyan);
+    color: var(--background-dark);
+}
