@@ -200,26 +200,6 @@ function mcd_maybe_seed_home_page_content() {
 add_action( 'init', 'mcd_maybe_seed_home_page_content', 20 );
 
 /**
- * Displays social links with SVG icons.
- */
-function mcd_the_social_links() {
-    if ( ! has_nav_menu( 'social' ) ) {
-        return;
-    }
-
-    wp_nav_menu(
-        array(
-            'theme_location'  => 'social',
-            'container'       => 'nav',
-            'container_class' => 'social-navigation',
-            'menu_class'      => 'social-links-menu',
-            'depth'           => 1,
-            'walker'          => new Mcd_Social_Nav_Menu_Walker(),
-        )
-    );
-}
-
-/**
  * Sanitizes SVG code using a whitelist of allowed tags and attributes.
  *
  * @param string $svg The SVG code to sanitize.
