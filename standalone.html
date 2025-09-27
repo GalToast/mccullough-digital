@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McCullough Digital - Creative Digital Solutions</title>
+    <!-- Importing the special font used in the stylesheet -->
+    <link rel="preconnect" href="linkhttps://fonts.googleapis.com">
+    < rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Original Styles from style.css --- */
+        
+        /* --- Variables --- */
+        :root {
+            --header-height: 80px;
+            /* New Softer Palette */
+            --neon-cyan: #00e5ff;
+            --neon-magenta: #ff00e0;
+            --deep-purple: #9400d3;
+            --background-dark: #0b0c10;
+            --text-primary: #e6f1ff;
+            --text-secondary: #c5d8f2;
+        }
+
+        /* --- Base reset --- */
+        * { box-sizing: border-box; }
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background: var(--background-dark);
+            color: var(--text-primary);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Ensure content doesn't hide behind fixed header */
+        main.site-content { padding-top: var(--header-height); }
+
+        /* ==============================================================
+        # Site Header & Navigation
+        ============================================================== */
+        @keyframes subtle-glow {
+            0% { text-shadow: 0 0 8px rgba(0, 229, 255, 0.7); }
+            50% { text-shadow: 0 0 14px rgba(0, 229, 255, 1); }
+            100% { text-shadow: 0 0 8px rgba(0, 229, 255, 0.7); }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes shake-zoom {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* @keyframes soft-glow-pulse {
+            0% { text-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan); }
+            50% { text-shadow: 0 0 25px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 50px var(--neon-magenta); }
+            100% { text-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan); }
+        } */
+
+        #masthead.site-header {
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: transform .4s cubic-bezier(.22,.61,.36,1), background-color 0.3s ease;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #222;
+            overflow: hidden; /* Hides the pseudo-element when it's outside */
+        }
+
+        #masthead.site-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transform: translateX(-100%); /* Start off-screen to the left */
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 0; /* Place behind the content */
+        }
+
+        #masthead.site-header:hover::before {
+            transform: translateX(0%); /* Slide in to fill the header */
+        }
+
+        #masthead.site-header:hover {
+            border-bottom-color: var(--neon-cyan);
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.4);
+        }
+
+        #masthead.site-header.hide {
+            transform: translateY(-100%);
+        }
+
+        .site-branding {
+            perspective: 1000px; /* Adds 3D space for the tilt effect */
+        }
+
+        .site-branding, .main-navigation, .menu-toggle {
+            position: relative;
+            z-index: 1;
+        }
+
+        .custom-logo-link {
+            display: inline-block;
+            transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .custom-logo {
+            height: 60px; /* Adjust as needed */
+            width: auto;
+            display: block;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.6));
+        }
+        
+        .custom-logo-link:hover .custom-logo {
+            filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 5px var(--neon-magenta));
+            transform: scale(1.05);
+        }
+        
+        .site-title a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 2em; /* Increased size for handwritten font */
+            font-family: 'Caveat', cursive;
+            transition: all 0.3s ease;
+        }
+        .site-title a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .main-navigation { display: block; }
+        #primary-menu {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        #primary-menu li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 5px;
+            position: relative;
+            transition: color 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1em;
+        }
+        #primary-menu li a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
+            animation: shake-zoom 0.4s ease-in-out infinite;
+        }
+
+        .menu-toggle {
+            display: none; background: none; border: none; cursor: pointer; padding: 10px; z-index: 1001;
+        }
+        .menu-toggle .bar {
+            display: block; width: 25px; height: 3px; background-color: #ffffff; margin: 5px auto; transition: all 0.3s ease-in-out;
+        }
+
+        /* --- New Page Content Styles --- */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 0;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; /* Needed for positioning the canvas */
+            background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
+            padding-top: var(--header-height);
+            overflow: hidden; /* Hide anything that goes outside the hero */
+        }
+        
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            /* transition: transform 0.1s ease-out; -- Removed for parallax */
+        }
+
+        .hero h1 {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            color: #fff;
+            margin: 0 0 20px 0;
+            line-height: 1.1;
+            text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+            /* perspective: 500px; /* No longer needed for this effect */
+        }
+
+        /* --- Interactive Hero H1 Letters --- */
+        .hero h1 span {
+            display: inline-block;
+            position: relative;
+            cursor: default;
+        }
+        
+        .hero h1 span:hover::before,
+        .hero h1 span:hover::after {
+            content: attr(data-char);
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: glitch 0.35s infinite;
+        }
+        
+        .hero h1 span:hover::before {
+            color: var(--neon-cyan);
+            z-index: -1;
+            animation-direction: reverse;
+        }
+
+        .hero h1 span:hover::after {
+            color: var(--neon-magenta);
+            z-index: -2;
+        }
+
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            font-weight: 300;
+        }
+
+        /* --- General Section Styling & Neon Underlines --- */
+        section {
+            border-bottom: 1px solid #222;
+        }
+        
+        h2.section-title {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(3rem, 7vw, 4.5rem);
+            text-align: center;
+            margin-bottom: 60px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-bottom: 15px;
+        }
+        
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background: var(--neon-cyan);
+            border-radius: 2px;
+            box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+        }
+
+        /* --- CTA Button Styles --- */
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 50px; /* Softer, pill-shaped button */
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        .cta-button:hover {
+            color: var(--background-dark);
+            box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+        
+        .cta-button .btn-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transform: translateX(-101%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+        }
+        
+        .cta-button:hover::before {
+            transform: translateX(0%);
+        }
+
+        /* --- Services Section --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: #14161c;
+            padding: 40px 30px;
+            border: 1px solid #222;
+            border-radius: 16px; /* Softer corners */
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex; /* Use flexbox for alignment */
+            flex-direction: column; /* Stack content vertically */
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--neon-cyan), transparent 30%);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-cyan);
+        }
+        
+        .service-card-content {
+            position: relative;
+            background: #14161c;
+            padding: 10px;
+            margin: 1px;
+            border-radius: 15px;
+            z-index: 1;
+            height: 100%;
+            display: flex; /* Use flexbox for alignment */
+            flex-direction: column; /* Stack content vertically */
+            justify-content: space-between; /* Pushes learn-more link to bottom */
+        }
+
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .service-card .icon {
+            color: var(--neon-cyan);
+            margin-bottom: 20px;
+        }
+        .service-card .icon svg {
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 0 8px var(--neon-cyan));
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .service-card:hover .icon svg {
+            transform: scale(1.1) rotate(-5deg);
+        }
+        
+        .service-card h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            margin: 0 0 15px 0;
+            color: #fff;
+        }
+        
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .learn-more {
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: auto; /* Pushes the link to the bottom */
+            transition: all 0.2s ease;
+        }
+
+        .learn-more:hover {
+            text-shadow: 0 0 8px var(--neon-cyan);
+            transform: translateX(5px);
+        }
+        
+        /* --- About Section --- */
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+        
+        /* --- CTA Section --- */
+        .cta-section {
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+            text-align: center;
+        }
+        .cta-section h2 {
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+        
+        .cta-section .cta-button {
+            border-color: #fff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .cta-section .cta-button:hover {
+            background: #fff;
+            color: var(--neon-magenta);
+            box-shadow: 0 0 20px #fff, 0 0 40px #fff;
+        }
+        
+        /* --- Footer --- */
+        .site-footer {
+            background: #000;
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+
+        /* --- Responsive Styles (for screens 768px or less) --- */
+        @media (max-width: 768px) {
+            #masthead.site-header { padding: 10px 5%; }
+
+            .main-navigation {
+                display: block;
+                width: 100%;
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background-color: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(10px);
+                transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                padding-top: 80px;
+                transform: translateX(100%);
+            }
+            .main-navigation.toggled { transform: translateX(0); }
+
+            #primary-menu {
+                flex-direction: column; align-items: center; padding: 20px 0; gap: 10px;
+            }
+            #primary-menu li { width: 100%; text-align: center; }
+            #primary-menu li a { padding: 15px; display: block; width: 100%; font-size: 1.2em; }
+
+            .menu-toggle { display: block; }
+
+            .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header based on header.php -->
+    <header id="masthead" class="site-header" role="banner">
+        <div class="site-branding">
+            <!-- 
+                REPLACE the src="https://placehold.co/..." below with the URL to your logo from WordPress.
+                I've used one of the cat images as a placeholder.
+            -->
+            <a href="#" class="custom-logo-link">
+                <img src="https://i.imgur.com/n1hJ4O1.png" alt="McCullough Digital Logo" class="custom-logo">
+            </a>
+        </div>
+
+        <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <nav id="site-navigation" class="main-navigation" aria-label="Primary Menu">
+            <ul id="primary-menu" class="menu">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="site-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <canvas id="particle-canvas"></canvas> <!-- This was the missing element -->
+            <div class="hero-content">
+                <h1 id="interactive-headline">Bringing Your Digital Vision to Life.</h1>
+                <p>We build beautiful, high-performance web experiences and creative marketing strategies that connect with your audience. Ready to create something amazing?</p>
+                <a href="#contact" class="cta-button"><span class="btn-text">Start a Project</span></a>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <h2 class="section-title">What We Do</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                       <div class="service-card-content">
+                            <div>
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                </div>
+                                <h3>Complete Web Solutions</h3>
+                                <p>We design, build, and host SEO-optimized websites. Every project includes analytics integration and ongoing monitoring to ensure your success.</p>
+                            </div>
+                            <a href="#" class="learn-more">Explore Our Process →</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-card-content">
+                            <div>
+                                <div class="icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                </div>
+                                <h3>Targeted Digital Advertising</h3>
+                                <p>We manage your advertising campaigns across platforms like Google, Meta, and Nextdoor to reach your ideal customers and maximize your ROI.</p>
+                            </div>
+                            <a href="#" class="learn-more">Discover Ad Management →</a>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-card-content">
+                            <div>
+                                <div class="icon">
+                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.71.71a5.4 5.4 0 0 0 0 7.65l.71.71a5.4 5.4 0 0 0 7.65 0l4.24-4.24a5.4 5.4 0 0 0 0-7.65l-4.24-4.24z"></path><path d="M10.1 19.24a5.4 5.4 0 0 0 7.65 0l.71-.71a5.4 5.4 0 0 0 0-7.65l-.71-.71a5.4 5.4 0 0 0-7.65 0l-1.42 1.42"></path></svg>
+                                </div>
+                                <h3>Integrated Social Media</h3>
+                                <p>From profile setup to full-service management, we handle your social media presence, integrating it all so you can focus on your business.</p>
+                            </div>
+                            <a href="#" class="learn-more">See Management Plans →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title">About Us</h2>
+                <p>McCullough Digital is a small team of developers, designers, and strategists passionate about building beautiful things for the web. We thrive on collaboration and exist to create digital tools that help our clients succeed. We believe in clean code, thoughtful design, and a relentless pursuit of quality.</p>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="contact" class="cta-section">
+             <div class="container">
+                <h2 class="section-title">Ready to Create?</h2>
+                <a href="mailto:contact@mccullough.digital" class="cta-button"><span class="btn-text">Let's Talk</span></a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024 McCullough Digital. All Rights Reserved. Let's build the future.</p>
+    </footer>
+
+    <!-- JavaScript from header-scripts.js -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu Toggle ---
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.querySelector('.main-navigation');
+
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('toggled');
+                    menuToggle.classList.toggle('is-active');
+
+                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+                    menuToggle.setAttribute('aria-expanded', !isExpanded);
+                });
+            }
+
+            // --- Hide header on scroll down, reveal on scroll up ---
+            const header = document.querySelector('#masthead.site-header');
+            let lastY = window.scrollY;
+
+            if (header) {
+                window.addEventListener('scroll', function() {
+                    const y = window.scrollY;
+                    if (y > 120 && y > lastY) {
+                        header.classList.add('hide');
+                    } else {
+                        header.classList.remove('hide');
+                    }
+                    lastY = y;
+                }, { passive: true });
+            }
+            
+            // --- Close mobile menu when a link is clicked ---
+            const menuLinks = document.querySelectorAll('#primary-menu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav.classList.contains('toggled')) {
+                        mainNav.classList.remove('toggled');
+                        menuToggle.classList.remove('is-active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+
+            // --- Interactive Hero Headline ---
+            const headline = document.getElementById('interactive-headline');
+            if(headline) {
+                const text = headline.textContent;
+                const wrappedText = text.split('').map(char => `<span data-char="${char === ' ' ? '&nbsp;' : char}">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+                headline.innerHTML = wrappedText;
+            }
+
+            // --- 3D Logo Tilt Effect ---
+            const logoContainer = document.querySelector('.site-branding');
+            if (logoContainer) {
+                const logoLink = logoContainer.querySelector('.custom-logo-link');
+                const maxRotate = 15; // Max rotation in degrees
+
+                logoContainer.addEventListener('mousemove', (e) => {
+                    const rect = logoContainer.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const { width, height } = rect;
+
+                    const rotateY = maxRotate * ((x - width / 2) / (width / 2));
+                    const rotateX = -maxRotate * ((y - height / 2) / (height / 2));
+                    
+                    logoLink.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                logoContainer.addEventListener('mouseleave', () => {
+                    logoLink.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                });
+            }
+
+            // --- Twinkling Stars Canvas Animation ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let stars = [];
+                let shootingStars = []; // Array for shooting stars
+                let frame = 0;
+
+                const setCanvasSize = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                };
+
+                window.addEventListener('resize', () => {
+                    setCanvasSize();
+                    init(); 
+                });
+
+                class Star {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.size = Math.random() * 2 + 0.5; // Stars can be a bit bigger
+                        this.vy = Math.random() * 0.1 + 0.05; // Slow downward drift
+                        this.twinkleSpeed = Math.random() * 0.015 + 0.005; // Twinkle faster and more erratically
+                        this.twinkleOffset = Math.random() * 100;
+                    }
+                    
+                    update() {
+                        this.y += this.vy;
+                        // Reset star if it goes off screen
+                        if (this.y > canvas.height + this.size) {
+                            this.y = -this.size;
+                            this.x = Math.random() * canvas.width;
+                        }
+                    }
+
+                    draw() {
+                        // Using Math.pow makes the twinkle sharper and more 'dramatic'
+                        const opacity = Math.pow(Math.abs(Math.sin(this.twinkleOffset + frame * this.twinkleSpeed)), 10);
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                        const color = Math.random() > 0.1 ? `rgba(0, 229, 255, ${opacity})` : `rgba(255, 0, 224, ${opacity})`;
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                    }
+                }
+
+                class ShootingStar {
+                    constructor() {
+                        this.reset();
+                    }
+                
+                    reset() {
+                        this.x = Math.random() * canvas.width + 100;
+                        this.y = - (Math.random() * canvas.height * 0.5);
+                        this.len = Math.random() * 60 + 20;
+                        this.speed = Math.random() * 8 + 6;
+                        this.size = Math.random() * 1.5 + 0.5;
+                    }
+                
+                    update() {
+                        this.x -= this.speed;
+                        this.y += this.speed * 0.4;
+                        if (this.x < -this.len || this.y > canvas.height + this.len) {
+                            this.reset();
+                        }
+                    }
+                
+                    draw() {
+                        const grad = ctx.createLinearGradient(this.x, this.y, this.x - this.len, this.y + (this.len * 0.4));
+                        grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
+                        grad.addColorStop(0.5, "rgba(0, 229, 255, 0.6)");
+                        grad.addColorStop(1, "rgba(0, 229, 255, 0)");
+                
+                        ctx.strokeStyle = grad;
+                        ctx.lineWidth = this.size;
+                        ctx.lineCap = 'round';
+                        ctx.beginPath();
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(this.x - this.len, this.y + (this.len * 0.4));
+                        ctx.stroke();
+                    }
+                }
+
+
+                function init() {
+                    stars = [];
+                    shootingStars = [];
+                    // More stars for a denser field
+                    let numberOfStars = (canvas.width * canvas.height) / 2500; 
+                    for (let i = 0; i < numberOfStars; i++) {
+                        stars.push(new Star());
+                    }
+                    // Create a few shooting stars
+                    for (let i = 0; i < 3; i++) {
+                        shootingStars.push(new ShootingStar());
+                    }
+                }
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    frame++;
+                    
+                    // Update and draw regular stars
+                    for (let i = 0; i < stars.length; i++) {
+                        stars[i].update();
+                        stars[i].draw();
+                    }
+
+                    // Update and draw shooting stars
+                    for (let i = 0; i < shootingStars.length; i++) {
+                        shootingStars[i].update();
+                        shootingStars[i].draw();
+                    }
+                }
+                
+                setCanvasSize();
+                init();
+                animate();
+            }
+
+        });
+    </script>
+</body>
+</html>
+
+
