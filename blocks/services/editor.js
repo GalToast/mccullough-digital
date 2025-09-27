@@ -1,8 +1,21 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText, InnerBlocks } from '@wordpress/block-editor';
 
 import metadata from './block.json';
+
+const {
+    innerBlocks: {
+        allowedBlocks: allowedServiceBlocks = [
+            'mccullough-digital/service-card',
+        ],
+        template: servicesTemplate = [
+            ['mccullough-digital/service-card'],
+            ['mccullough-digital/service-card'],
+            ['mccullough-digital/service-card'],
+        ],
+    } = {},
+} = metadata;
 
 registerBlockType(metadata.name, {
     ...metadata,
@@ -17,6 +30,10 @@ registerBlockType(metadata.name, {
                     value={ headline }
                     onChange={ (value) => setAttributes({ headline: value }) }
                     placeholder={ __('Add services headline…', 'mccullough-digital') }
+                />
+                <InnerBlocks
+                    allowedBlocks={ allowedServiceBlocks }
+                    template={ servicesTemplate }
                 />
             </section>
         );

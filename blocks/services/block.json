@@ -10,6 +10,16 @@
         "html": false,
         "anchor": true
     },
+    "innerBlocks": {
+        "allowedBlocks": [
+            "mccullough-digital/service-card"
+        ],
+        "template": [
+            ["mccullough-digital/service-card"],
+            ["mccullough-digital/service-card"],
+            ["mccullough-digital/service-card"]
+        ]
+    },
     "attributes": {
         "headline": {
             "type": "string",
