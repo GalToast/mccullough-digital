@@ -194,11 +194,12 @@ section {
     transition: color 0.3s ease;
     font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
+    display: inline-block; /* Add this to allow transforms */
 }
 .main-navigation:not(.wp-block-navigation) #primary-menu li a:hover,
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
-    animation: wobble 0.6s ease-out;
+    animation: wobble 0.6s ease-out, shake-zoom 0.4s ease-in-out infinite;
 }
 
 .main-navigation:not(.wp-block-navigation) #primary-menu li a:hover .menu-text-span,
