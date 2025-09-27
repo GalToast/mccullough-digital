@@ -17,9 +17,9 @@ $wrapper_attributes = get_block_wrapper_attributes(
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
-    <canvas id="particle-canvas"></canvas>
+    <canvas class="hero__particle-canvas" aria-hidden="true"></canvas>
     <div class="hero-content">
-        <h1 id="interactive-headline" class="wp-block-heading">
+        <h1 class="wp-block-heading hero__headline">
             <?php echo wp_kses_post( $attributes['headline'] ?? '' ); ?>
         </h1>
         <p>

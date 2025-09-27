@@ -27,7 +27,12 @@ Text Domain:   mccullough-digital
 html, body {
     margin: 0;
     padding: 0;
-    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }
 
 body {
@@ -284,6 +289,21 @@ section {
 @keyframes move-stars {
     from { transform: translateY(0px); }
     to   { transform: translateY(-2000px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #masthead.site-header,
+    #masthead.site-header::before,
+    .cta-button,
+    .cta-button::before {
+        transition: none;
+    }
+
+    .stars,
+    .stars2,
+    .stars3 {
+        animation: none;
+    }
 }
 
 /* --- Footer --- */

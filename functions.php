@@ -211,57 +211,95 @@ add_action( 'init', 'mcd_maybe_seed_home_page_content', 20 );
  * @return string Sanitized SVG code.
  */
 function mcd_sanitize_svg( $svg ) {
-    if ( ! class_exists( 'DOMDocument' ) ) {
+    if ( ! class_exists( 'DOMDocument' ) || ! is_string( $svg ) || '' === trim( $svg ) ) {
         return '';
     }
-    // A whitelist of allowed SVG elements and their attributes.
-    $allowed_tags = [
-        'svg'   => [ 'width', 'height', 'viewbox', 'xmlns', 'fill', 'class' ],
-        'path'  => [ 'd', 'fill', 'stroke', 'stroke-width' ],
-        'g'     => [ 'fill', 'transform' ],
-        'rect'  => [ 'x', 'y', 'width', 'height', 'fill', 'transform' ],
-        'circle' => [ 'cx', 'cy', 'r', 'fill' ],
-        'line'  => [ 'x1', 'y1', 'x2', 'y2', 'stroke' ],
-    ];
 
-    // Suppress warnings for invalid HTML since we are parsing a fragment.
+    // Disable network access when parsing XML to guard against XXE attacks.
+    $previous_entity_loader = null;
+    if ( function_exists( 'libxml_disable_entity_loader' ) ) {
+        $previous_entity_loader = libxml_disable_entity_loader( true );
+    }
+
     libxml_use_internal_errors( true );
 
     $dom = new DOMDocument();
-    $dom->loadXML( $svg, LIBXML_NOBLANKS );
 
-    // Clear errors to handle them manually if needed.
+    $loaded = $dom->loadXML( $svg, LIBXML_NONET | LIBXML_NOERROR | LIBXML_NOWARNING );
+
     libxml_clear_errors();
 
-    if ( ! $dom->documentElement ) {
-        return ''; // Return empty if SVG is malformed.
+    if ( null !== $previous_entity_loader ) {
+        libxml_disable_entity_loader( $previous_entity_loader );
     }
 
-    $stack = [ $dom->documentElement ];
-    while ( count( $stack ) > 0 ) {
-        $node = array_pop( $stack );
+    if ( ! $loaded || ! $dom->documentElement ) {
+        return '';
+    }
 
-        // Convert node name to lowercase for case-insensitive comparison
-        $node_name = strtolower( $node->nodeName );
+    $allowed_tags = [
+        'svg'    => [ 'xmlns', 'viewbox', 'viewBox', 'fill', 'width', 'height', 'class', 'aria-hidden', 'focusable', 'role' ],
+        'path'   => [ 'd', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'fill-rule', 'clip-rule', 'stroke-dasharray', 'stroke-miterlimit' ],
+        'g'      => [ 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'transform', 'opacity', 'class', 'fill-rule', 'clip-path' ],
+        'rect'   => [ 'x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'transform', 'opacity' ],
+        'circle' => [ 'cx', 'cy', 'r', 'fill', 'stroke', 'stroke-width', 'opacity' ],
+        'ellipse'=> [ 'cx', 'cy', 'rx', 'ry', 'fill', 'stroke', 'stroke-width', 'opacity' ],
+        'line'   => [ 'x1', 'y1', 'x2', 'y2', 'stroke', 'stroke-width', 'stroke-linecap', 'opacity' ],
+        'polyline' => [ 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity' ],
+        'polygon'  => [ 'points', 'fill', 'stroke', 'stroke-width', 'stroke-linecap', 'stroke-linejoin', 'opacity' ],
+        'title' => [],
+        'desc'  => [],
+    ];
 
-        if ( ! isset( $allowed_tags[ $node_name ] ) ) {
+    $allowed_global_attributes = [
+        'id',
+        'class',
+        'aria-hidden',
+        'focusable',
+        'role',
+        'aria-label',
+        'xmlns:xlink',
+        'xml:space',
+        'xlink:href',
+    ];
+
+    $nodes = [ $dom->documentElement ];
+
+    while ( $nodes ) {
+        /** @var DOMElement $node */
+        $node = array_pop( $nodes );
+
+        $tag_name = strtolower( $node->tagName );
+
+        if ( ! isset( $allowed_tags[ $tag_name ] ) ) {
             $node->parentNode->removeChild( $node );
             continue;
         }
 
-        // Sanitize attributes
         if ( $node->hasAttributes() ) {
             foreach ( iterator_to_array( $node->attributes ) as $attr ) {
-                if ( ! in_array( strtolower( $attr->name ), $allowed_tags[ $node_name ], true ) ) {
+                $attr_name = strtolower( $attr->name );
+
+                if ( in_array( $attr_name, $allowed_global_attributes, true ) ) {
+                    continue;
+                }
+
+                $allowed_for_tag = $allowed_tags[ $tag_name ];
+                if ( ! in_array( $attr_name, $allowed_for_tag, true ) ) {
                     $node->removeAttribute( $attr->name );
+                    continue;
+                }
+
+                if ( 'style' === $attr_name ) {
+                    $node->removeAttribute( $attr->name );
+                    continue;
                 }
             }
         }
 
-        // Add child nodes to the stack to process them
         foreach ( $node->childNodes as $child ) {
             if ( $child instanceof DOMElement ) {
-                $stack[] = $child;
+                $nodes[] = $child;
             }
         }
     }
@@ -276,46 +314,57 @@ function mcd_sanitize_svg( $svg ) {
  * @return string The SVG markup or empty string.
  */
 function mcd_get_social_link_svg( $url ) {
-  $social_icons = [
-    'twitter.com'  => 'twitter',
-    'linkedin.com' => 'linkedin',
-    'github.com'   => 'github',
-  ];
+    $host = wp_parse_url( $url, PHP_URL_HOST );
 
-  // The host is cast to a string and converted to lowercase to ensure consistency.
-  $host = strtolower( (string) parse_url( $url, PHP_URL_HOST ) );
-
-  if ( ! $host ) {
-    return '';
-  }
-
-  $icon_name = '';
-
-  // Handle x.com as a special case because it's also Twitter.
-  // Check for exact match or subdomain of x.com. This is PHP 7.4 compatible.
-  if ( 'x.com' === $host || ( substr( $host, -strlen( '.x.com' ) ) === '.x.com' ) ) {
-    $icon_name = 'twitter';
-  } else {
-    // For other domains, a simple substring check is sufficient and more flexible.
-    // It correctly handles variations like 'blog.github.com' or 'twitter.co.uk'.
-    foreach ( $social_icons as $domain => $icon ) {
-      if ( false !== strpos( $host, $domain ) ) {
-        $icon_name = $icon;
-        break;
-      }
+    if ( ! $host ) {
+        return '';
     }
-  }
 
-  if ( ! empty( $icon_name ) ) {
+    $host = strtolower( (string) $host );
+    $host = preg_replace( '#^www\.#', '', $host );
+
+    $patterns = [
+        'twitter'  => [
+            // Match twitter with any public suffix (twitter.com, twitter.co.uk, etc.).
+            '/(^|\.)twitter\.[a-z0-9.-]+$/',
+            // Legacy / rebranded hostname.
+            '/(^|\.)x\.com$/',
+        ],
+        'linkedin' => [ '/(^|\.)linkedin\.[a-z0-9.-]+$/' ],
+        'github'   => [ '/(^|\.)github\.[a-z0-9.-]+$/' ],
+    ];
+
+    $icon_name = '';
+
+    foreach ( $patterns as $icon => $regex_list ) {
+        foreach ( $regex_list as $regex ) {
+            if ( preg_match( $regex, $host ) ) {
+                $icon_name = $icon;
+                break 2;
+            }
+        }
+    }
+
+    if ( '' === $icon_name ) {
+        return '';
+    }
+
     $icon_path = get_stylesheet_directory() . '/assets/icons/' . $icon_name . '.svg';
-    if ( file_exists( $icon_path ) ) {
-      $svg = file_get_contents( $icon_path );
-      $svg = mcd_sanitize_svg( $svg );
-      // Add accessibility attributes.
-      $svg = preg_replace( '/<svg/', '<svg aria-hidden="true" role="img" ', $svg, 1 );
-      return $svg;
-    }
-  }
 
-  return '';
+    if ( ! file_exists( $icon_path ) ) {
+        return '';
+    }
+
+    $svg = file_get_contents( $icon_path );
+    $svg = mcd_sanitize_svg( $svg );
+
+    if ( '' === $svg ) {
+        return '';
+    }
+
+    if ( false === strpos( $svg, 'aria-hidden' ) ) {
+        $svg = preg_replace( '/<svg\s+/i', '<svg aria-hidden="true" role="img" ', $svg, 1 );
+    }
+
+    return $svg;
 }
