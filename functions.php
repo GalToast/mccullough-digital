@@ -146,14 +146,16 @@ class Mcd_Social_Nav_Menu_Walker extends Walker_Nav_Menu {
     function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
         $social_svg = mcd_get_social_link_svg( $item->url );
 
+        $output .= '<li class="' . esc_attr( implode( ' ', $item->classes ) ) . '">';
+        $output .= '<a href="' . esc_url( $item->url ) . '" class="social-link">';
+
         if ( empty( $social_svg ) ) {
-            return;
+            $output .= esc_html( $item->title );
+        } else {
+            $output .= '<span class="screen-reader-text">' . esc_html( $item->title ) . '</span>';
+            $output .= $social_svg;
         }
 
-        $output .= "<li class='" .  implode(" ", $item->classes) . "'>";
-        $output .= '<a href="' . esc_url( $item->url ) . '" class="social-link">';
-        $output .= '<span class="screen-reader-text">' . esc_html( $item->title ) . '</span>';
-        $output .= $social_svg;
         $output .= '</a>';
     }
 
