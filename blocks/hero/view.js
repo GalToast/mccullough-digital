@@ -43,14 +43,28 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const headline = document.getElementById('interactive-headline');
-    if(headline) {
-        const text = headline.textContent;
-        const wrappedText = text.split('').map(char => {
-            const escapedText = escapeTextContent(char);
-            const escapedAttr = escapeAttributeValue(char);
-            return `<span data-char="${escapedAttr}">${escapedText}</span>`;
-        }).join('');
-        headline.innerHTML = wrappedText;
+    if (headline) {
+        const processNode = (node) => {
+            const children = Array.from(node.childNodes);
+            for (const child of children) {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    const text = child.textContent;
+                    const fragment = document.createDocumentFragment();
+                    for (const char of text) {
+                        const span = document.createElement('span');
+                        const escapedText = escapeTextContent(char);
+                        const escapedAttr = escapeAttributeValue(char);
+                        span.dataset.char = escapedAttr;
+                        span.innerHTML = escapedText;
+                        fragment.appendChild(span);
+                    }
+                    child.parentNode.replaceChild(fragment, child);
+                } else if (child.nodeType === Node.ELEMENT_NODE) {
+                    processNode(child);
+                }
+            }
+        };
+        processNode(headline);
     }
 
     // --- Twinkling Stars Canvas Animation ---

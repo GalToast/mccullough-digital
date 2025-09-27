@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
         </div>
 
         <div class="site-info">
-            <p>&copy; <?php echo date('Y'); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>. All Rights Reserved.</p>
+            <p>&copy; <?php echo wp_date('Y'); ?> <?php echo esc_html( get_bloginfo( 'name' ) ); ?>. All Rights Reserved.</p>
         </div>
     </div>
 </footer>
