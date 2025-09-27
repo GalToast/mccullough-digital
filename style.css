@@ -670,6 +670,10 @@ section {
     margin-bottom: 30px;
 }
 
+.post-card .wp-block-buttons {
+    margin-top: auto;
+}
+
 .post-card .cta-button {
     margin-top: auto; /* Aligns button to the bottom */
 }
