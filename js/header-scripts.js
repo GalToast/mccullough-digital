@@ -73,6 +73,7 @@
             let resizeTimeout;
             let isMenuOpen = false;
             let isFocusWithin = false;
+            let headerResizeObserver = null;
             const rootElement = document.documentElement;
             const rootStyle = rootElement && rootElement.style;
 
@@ -118,6 +119,11 @@
                 ticking = false;
             };
 
+            const refreshHeaderMetrics = () => {
+                setHeaderOffset();
+                updateHeaderVisibility();
+            };
+
             const handleScroll = () => {
                 if (!ticking) {
                     window.requestAnimationFrame(updateHeaderVisibility);
@@ -128,13 +134,39 @@
             const handleResize = () => {
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
-                    setHeaderOffset();
-                    updateHeaderVisibility();
+                    refreshHeaderMetrics();
                 }, 150);
             };
 
             window.addEventListener('scroll', handleScroll, { passive: true });
             window.addEventListener('resize', handleResize, { passive: true });
+
+            if (typeof window.ResizeObserver === 'function') {
+                headerResizeObserver = new ResizeObserver(() => {
+                    setHeaderOffset();
+                });
+                headerResizeObserver.observe(header);
+            }
+
+            if (document.fonts && typeof document.fonts.addEventListener === 'function') {
+                document.fonts.addEventListener('loadingdone', refreshHeaderMetrics);
+            }
+
+            window.addEventListener('pageshow', (event) => {
+                if (event.persisted) {
+                    refreshHeaderMetrics();
+                }
+            });
+
+            window.addEventListener('unload', () => {
+                if (headerResizeObserver) {
+                    headerResizeObserver.disconnect();
+                }
+
+                if (document.fonts && typeof document.fonts.removeEventListener === 'function') {
+                    document.fonts.removeEventListener('loadingdone', refreshHeaderMetrics);
+                }
+            });
 
             header.addEventListener('focusin', () => {
                 isFocusWithin = true;

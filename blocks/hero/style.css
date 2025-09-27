@@ -34,16 +34,21 @@
     text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
 }
 
+.hero__headline-text,
+.hero__headline-text--visual {
+    display: inline-block;
+}
+
 /* --- Interactive Hero H1 Letters --- */
-.hero__headline span {
+.hero__headline-text--visual span {
     display: inline-block;
     position: relative;
     cursor: default;
     white-space: pre;
 }
 
-.hero__headline span:hover::before,
-.hero__headline span:hover::after {
+.hero__headline-text--visual span:hover::before,
+.hero__headline-text--visual span:hover::after {
     content: attr(data-char);
     position: absolute;
     top: 0;
@@ -51,13 +56,13 @@
     animation: glitch 0.35s infinite;
 }
 
-.hero__headline span:hover::before {
+.hero__headline-text--visual span:hover::before {
     color: var(--neon-cyan);
     z-index: -1;
     animation-direction: reverse;
 }
 
-.hero__headline span:hover::after {
+.hero__headline-text--visual span:hover::after {
     color: var(--neon-magenta);
     z-index: -2;
 }
@@ -67,8 +72,8 @@
     display: none;
 }
 
-.hero.is-reduced-motion .hero__headline span:hover::before,
-.hero.is-reduced-motion .hero__headline span:hover::after {
+.hero.is-reduced-motion .hero__headline-text--visual span:hover::before,
+.hero.is-reduced-motion .hero__headline-text--visual span:hover::after {
     animation: none;
     content: none;
 }
