@@ -77,3 +77,146 @@
     color: var(--neon-cyan);
     text-decoration: none;
 }
+
+.editor-styles-wrapper .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 0;
+}
+
+.editor-styles-wrapper .hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: radial-gradient(circle, rgba(20, 22, 28, 0.9) 0%, var(--background-dark) 70%);
+    padding-top: var(--header-height);
+    overflow: hidden;
+}
+
+.editor-styles-wrapper .hero-canvas-placeholder {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.25), transparent 60%),
+        radial-gradient(circle at 80% 30%, rgba(255, 0, 224, 0.2), transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(148, 0, 211, 0.25), transparent 65%);
+    z-index: 1;
+    border-radius: inherit;
+}
+
+.editor-styles-wrapper .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+.editor-styles-wrapper .hero h1 {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(3rem, 9vw, 6rem);
+    color: #fff;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+    text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+}
+
+.editor-styles-wrapper .hero p {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-secondary);
+    margin: 0 auto 40px auto;
+}
+
+.editor-styles-wrapper .section-title {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 15px;
+}
+
+.editor-styles-wrapper .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: var(--neon-cyan);
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+.editor-styles-wrapper .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+}
+
+.editor-styles-wrapper .service-card {
+    background: #14161c;
+    padding: 40px 30px;
+    border: 1px solid #222;
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.editor-styles-wrapper .service-card-content {
+    position: relative;
+    background: #14161c;
+    padding: 10px;
+    border-radius: 15px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editor-styles-wrapper .service-card .icon {
+    color: var(--neon-cyan);
+}
+
+.editor-styles-wrapper .service-card h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: #fff;
+    margin: 0;
+}
+
+.editor-styles-wrapper .service-card p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.editor-styles-wrapper .learn-more {
+    margin-top: auto;
+}
+
+.editor-styles-wrapper #about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.editor-styles-wrapper .cta-section {
+    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
+    text-align: center;
+    border-radius: 20px;
+}
+
+.editor-styles-wrapper .cta-section .cta-button {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}

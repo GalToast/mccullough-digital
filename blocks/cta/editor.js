@@ -13,7 +13,10 @@ registerBlockType(metadata.name, {
     ...metadata,
     edit({ attributes, setAttributes }) {
         const { headline, buttonText, buttonLink } = attributes;
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps({
+            id: 'contact',
+            className: 'cta-section',
+        });
 
         return (
             <>
@@ -32,15 +35,23 @@ registerBlockType(metadata.name, {
                     </PanelBody>
                 </InspectorControls>
                 <section {...blockProps}>
-                    <RichText
-                        tagName="h2"
-                        value={ headline }
-                        onChange={ (value) => setAttributes({ headline: value }) }
-                        placeholder={ __('Add headline…', 'mccullough-digital') }
-                    />
-                    <div className="cta-button-preview">
-                        <span className="cta-button-text">{ buttonText || __('Add button text', 'mccullough-digital') }</span>
-                        <span className="cta-button-link">{ buttonLink }</span>
+                    <div className="container">
+                        <RichText
+                            tagName="h2"
+                            className="section-title"
+                            value={ headline }
+                            onChange={ (value) => setAttributes({ headline: value }) }
+                            placeholder={ __('Add headline…', 'mccullough-digital') }
+                        />
+                        <a
+                            className="cta-button"
+                            href={ buttonLink || '#' }
+                            onClick={ (event) => event.preventDefault() }
+                        >
+                            <span className="btn-text">
+                                { buttonText || __('Add button text…', 'mccullough-digital') }
+                            </span>
+                        </a>
                     </div>
                 </section>
             </>

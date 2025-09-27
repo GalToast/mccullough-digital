@@ -13,7 +13,9 @@ registerBlockType(metadata.name, {
     ...metadata,
     edit({ attributes, setAttributes }) {
         const { icon, title, text, linkText, linkUrl } = attributes;
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps({
+            className: 'service-card',
+        });
 
         return (
             <>
@@ -32,29 +34,36 @@ registerBlockType(metadata.name, {
                     </PanelBody>
                 </InspectorControls>
                 <article {...blockProps}>
-                    <RichText
-                        tagName="div"
-                        className="icon"
-                        value={ icon }
-                        onChange={ (value) => setAttributes({ icon: value }) }
-                        placeholder={ __('Add icon…', 'mccullough-digital') }
-                        allowedFormats={ [] }
-                    />
-                    <RichText
-                        tagName="h3"
-                        value={ title }
-                        onChange={ (value) => setAttributes({ title: value }) }
-                        placeholder={ __('Add title…', 'mccullough-digital') }
-                    />
-                    <RichText
-                        tagName="p"
-                        value={ text }
-                        onChange={ (value) => setAttributes({ text: value }) }
-                        placeholder={ __('Add description…', 'mccullough-digital') }
-                    />
-                    <div className="service-card-link-preview">
-                        <span className="service-card-link-text">{ linkText }</span>
-                        <span className="service-card-link-url">{ linkUrl }</span>
+                    <div className="service-card-content">
+                        <div>
+                            <RichText
+                                tagName="div"
+                                className="icon"
+                                value={ icon }
+                                onChange={ (value) => setAttributes({ icon: value }) }
+                                placeholder={ __('Add icon…', 'mccullough-digital') }
+                                allowedFormats={ [] }
+                            />
+                            <RichText
+                                tagName="h3"
+                                value={ title }
+                                onChange={ (value) => setAttributes({ title: value }) }
+                                placeholder={ __('Add title…', 'mccullough-digital') }
+                            />
+                            <RichText
+                                tagName="p"
+                                value={ text }
+                                onChange={ (value) => setAttributes({ text: value }) }
+                                placeholder={ __('Add description…', 'mccullough-digital') }
+                            />
+                        </div>
+                        <a
+                            className="learn-more"
+                            href={ linkUrl || '#' }
+                            onClick={ (event) => event.preventDefault() }
+                        >
+                            { linkText || __('Add link text…', 'mccullough-digital') }
+                        </a>
                     </div>
                 </article>
             </>

@@ -13,7 +13,9 @@ registerBlockType(metadata.name, {
     ...metadata,
     edit({ attributes, setAttributes }) {
         const { headline, subheading, buttonText, buttonLink } = attributes;
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps({
+            className: 'hero',
+        });
 
         return (
             <>
@@ -32,21 +34,35 @@ registerBlockType(metadata.name, {
                     </PanelBody>
                 </InspectorControls>
                 <section {...blockProps}>
-                    <RichText
-                        tagName="h1"
-                        value={ headline }
-                        onChange={ (value) => setAttributes({ headline: value }) }
-                        placeholder={ __('Add headline…', 'mccullough-digital') }
+                    <div
+                        className="hero-canvas-placeholder"
+                        aria-hidden="true"
+                        role="presentation"
                     />
-                    <RichText
-                        tagName="p"
-                        value={ subheading }
-                        onChange={ (value) => setAttributes({ subheading: value }) }
-                        placeholder={ __('Add subheading…', 'mccullough-digital') }
-                    />
-                    <div className="hero-button-preview">
-                        <span className="button-text">{ buttonText || __('Add button text', 'mccullough-digital') }</span>
-                        <span className="button-link">{ buttonLink }</span>
+                    <div className="hero-content">
+                        <RichText
+                            tagName="h1"
+                            id="interactive-headline"
+                            className="wp-block-heading"
+                            value={ headline }
+                            onChange={ (value) => setAttributes({ headline: value }) }
+                            placeholder={ __('Add headline…', 'mccullough-digital') }
+                        />
+                        <RichText
+                            tagName="p"
+                            value={ subheading }
+                            onChange={ (value) => setAttributes({ subheading: value }) }
+                            placeholder={ __('Add subheading…', 'mccullough-digital') }
+                        />
+                        <a
+                            className="cta-button"
+                            href={ buttonLink || '#' }
+                            onClick={ (event) => event.preventDefault() }
+                        >
+                            <span className="btn-text">
+                                { buttonText || __('Add button text…', 'mccullough-digital') }
+                            </span>
+                        </a>
                     </div>
                 </section>
             </>
