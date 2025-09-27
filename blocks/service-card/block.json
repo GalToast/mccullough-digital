@@ -1,0 +1,39 @@
+{
+    "name": "mccullough-digital/service-card",
+    "title": "Service Card",
+    "category": "mcd-blocks",
+    "icon": "star-filled",
+    "description": "A single service card with an icon, title, text, and link.",
+    "apiVersion": 2,
+    "parent": [ "mccullough-digital/services" ],
+    "supports": {
+        "html": false,
+        "reusable": false,
+        "inserter": false
+    },
+    "attributes": {
+        "icon": {
+            "type": "string",
+            "source": "html",
+            "selector": ".icon"
+        },
+        "title": {
+            "type": "string",
+            "source": "html",
+            "selector": "h3"
+        },
+        "text": {
+            "type": "string",
+            "source": "html",
+            "selector": "p"
+        },
+        "linkText": {
+            "type": "string",
+            "default": "Learn More →"
+        },
+        "linkUrl": {
+            "type": "string",
+            "default": "#"
+        }
+    }
+}

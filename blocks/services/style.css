@@ -1,0 +1,129 @@
+/* --- General Section Styling & Neon Underlines --- */
+h2.section-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    text-align: center;
+    margin-bottom: 60px;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-bottom: 15px;
+}
+
+h2.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background: var(--neon-cyan);
+    border-radius: 2px;
+    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+}
+
+/* --- Services Section --- */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.service-card {
+    background: #14161c;
+    padding: 40px 30px;
+    border: 1px solid #222;
+    border-radius: 16px; /* Softer corners */
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack content vertically */
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, var(--neon-cyan), transparent 30%);
+    animation: rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover::before {
+    opacity: 1;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--neon-cyan);
+}
+
+.service-card-content {
+    position: relative;
+    background: #14161c;
+    padding: 10px;
+    margin: 1px;
+    border-radius: 15px;
+    z-index: 1;
+    height: 100%;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Pushes learn-more link to bottom */
+}
+
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+.service-card .icon {
+    color: var(--neon-cyan);
+    margin-bottom: 20px;
+}
+.service-card .icon svg {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+    transition: transform 0.3s ease-in-out;
+}
+
+.service-card:hover .icon svg {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.service-card h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.2rem;
+    margin: 0 0 15px 0;
+    color: #fff;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.learn-more {
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: auto; /* Pushes the link to the bottom */
+    transition: all 0.2s ease;
+}
+
+.learn-more:hover {
+    text-shadow: 0 0 8px var(--neon-cyan);
+    transform: translateX(5px);
+}

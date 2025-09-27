@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.0.1
+Version:       1.0.2
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -39,6 +39,18 @@ body {
 
 /* Ensure content doesn't hide behind fixed header */
 main.site-content { padding-top: var(--header-height); }
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 0;
+}
+
+section {
+    border-bottom: 1px solid #222;
+}
+
 
 /* ==============================================================
 # Site Header & Navigation
@@ -175,298 +187,6 @@ main.site-content { padding-top: var(--header-height); }
 }
 .menu-toggle .bar {
     display: block; width: 25px; height: 3px; background-color: #ffffff; margin: 5px auto; transition: all 0.3s ease-in-out;
-}
-
-/* --- New Page Content Styles --- */
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 100px 0;
-}
-
-/* --- Hero Section --- */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative; /* Needed for positioning the canvas */
-    background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
-    padding-top: var(--header-height);
-    overflow: hidden; /* Hide anything that goes outside the hero */
-}
-
-#particle-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.hero h1 {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    color: #fff;
-    margin: 0 0 20px 0;
-    line-height: 1.1;
-    text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
-}
-
-/* --- Interactive Hero H1 Letters --- */
-.hero h1 span {
-    display: inline-block;
-    position: relative;
-    cursor: default;
-}
-
-.hero h1 span:hover::before,
-.hero h1 span:hover::after {
-    content: attr(data-char);
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: glitch 0.35s infinite;
-}
-
-.hero h1 span:hover::before {
-    color: var(--neon-cyan);
-    z-index: -1;
-    animation-direction: reverse;
-}
-
-.hero h1 span:hover::after {
-    color: var(--neon-magenta);
-    z-index: -2;
-}
-
-
-.hero p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--text-secondary);
-    max-width: 800px;
-    margin: 0 auto 40px auto;
-    font-weight: 300;
-}
-
-/* --- General Section Styling & Neon Underlines --- */
-section {
-    border-bottom: 1px solid #222;
-}
-
-h2.section-title {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(3rem, 7vw, 4.5rem);
-    text-align: center;
-    margin-bottom: 60px;
-    color: #fff;
-    position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
-    padding-bottom: 15px;
-}
-
-h2.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 3px;
-    background: var(--neon-cyan);
-    border-radius: 2px;
-    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
-}
-
-/* --- CTA Button Styles --- */
-.cta-button {
-    display: inline-block;
-    padding: 15px 35px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #fff;
-    text-decoration: none;
-    background: transparent;
-    border: 2px solid var(--neon-cyan);
-    border-radius: 50px; /* Softer, pill-shaped button */
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
-}
-.cta-button:hover {
-    color: var(--background-dark);
-    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-    transform: translateY(-3px);
-}
-
-.cta-button .btn-text {
-    position: relative;
-    z-index: 2;
-}
-
-.cta-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
-    transform: translateX(-101%);
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    z-index: 1;
-}
-
-.cta-button:hover::before {
-    transform: translateX(0%);
-}
-
-/* --- Services Section --- */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-}
-
-.service-card {
-    background: #14161c;
-    padding: 40px 30px;
-    border: 1px solid #222;
-    border-radius: 16px; /* Softer corners */
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: column; /* Stack content vertically */
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(transparent, var(--neon-cyan), transparent 30%);
-    animation: rotate 4s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--neon-cyan);
-}
-
-.service-card-content {
-    position: relative;
-    background: #14161c;
-    padding: 10px;
-    margin: 1px;
-    border-radius: 15px;
-    z-index: 1;
-    height: 100%;
-    display: flex; /* Use flexbox for alignment */
-    flex-direction: column; /* Stack content vertically */
-    justify-content: space-between; /* Pushes learn-more link to bottom */
-}
-
-
-@keyframes rotate {
-    100% { transform: rotate(360deg); }
-}
-
-.service-card .icon {
-    color: var(--neon-cyan);
-    margin-bottom: 20px;
-}
-.service-card .icon svg {
-    width: 60px;
-    height: 60px;
-    filter: drop-shadow(0 0 8px var(--neon-cyan));
-    transition: transform 0.3s ease-in-out;
-}
-
-.service-card:hover .icon svg {
-    transform: scale(1.1) rotate(-5deg);
-}
-
-.service-card h3 {
-    font-family: 'Caveat', cursive;
-    font-size: 2.2rem;
-    margin: 0 0 15px 0;
-    color: #fff;
-}
-
-.service-card p {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.learn-more {
-    font-weight: 700;
-    color: var(--neon-cyan);
-    text-decoration: none;
-    display: inline-block;
-    margin-top: auto; /* Pushes the link to the bottom */
-    transition: all 0.2s ease;
-}
-
-.learn-more:hover {
-    text-shadow: 0 0 8px var(--neon-cyan);
-    transform: translateX(5px);
-}
-
-/* --- About Section --- */
-#about p {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-secondary);
-}
-
-/* --- CTA Section --- */
-.cta-section {
-    background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
-    text-align: center;
-}
-.cta-section h2 {
-    color: #fff;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-    margin-bottom: 30px;
-}
-
-.cta-section .cta-button {
-    border-color: #fff;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.cta-section .cta-button:hover {
-    background: #fff;
-    color: var(--neon-magenta);
-    box-shadow: 0 0 20px #fff, 0 0 40px #fff;
 }
 
 /* --- Footer --- */

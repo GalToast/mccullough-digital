@@ -1,0 +1,29 @@
+{
+    "name": "mccullough-digital/cta",
+    "title": "CTA Section",
+    "category": "mcd-blocks",
+    "icon": "megaphone",
+    "description": "A call-to-action section with a title and a button.",
+    "keywords": ["cta", "contact", "button"],
+    "apiVersion": 2,
+    "supports": {
+        "html": false,
+        "anchor": true
+    },
+    "attributes": {
+        "headline": {
+            "type": "string",
+            "source": "html",
+            "selector": "h2"
+        },
+        "buttonText": {
+            "type": "string",
+            "default": "Let's Talk"
+        },
+        "buttonLink": {
+            "type": "string",
+            "default": "mailto:contact@mccullough.digital"
+        }
+    },
+    "style": "file:./style.css"
+}

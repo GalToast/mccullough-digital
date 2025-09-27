@@ -1,0 +1,21 @@
+{
+    "name": "mccullough-digital/services",
+    "title": "Services Grid",
+    "category": "mcd-blocks",
+    "icon": "layout",
+    "description": "A container for displaying a grid of service cards.",
+    "keywords": ["services", "grid", "cards"],
+    "apiVersion": 2,
+    "supports": {
+        "html": false,
+        "anchor": true
+    },
+    "attributes": {
+        "headline": {
+            "type": "string",
+            "source": "html",
+            "selector": "h2"
+        }
+    },
+    "style": "file:./style.css"
+}

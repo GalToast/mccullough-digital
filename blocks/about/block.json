@@ -1,0 +1,26 @@
+{
+    "name": "mccullough-digital/about",
+    "title": "About Section",
+    "category": "mcd-blocks",
+    "icon": "id",
+    "description": "An about section with a title and a paragraph of text.",
+    "keywords": ["about", "bio", "profile"],
+    "apiVersion": 2,
+    "supports": {
+        "html": false,
+        "anchor": true
+    },
+    "attributes": {
+        "headline": {
+            "type": "string",
+            "source": "html",
+            "selector": "h2"
+        },
+        "text": {
+            "type": "string",
+            "source": "html",
+            "selector": "p"
+        }
+    },
+    "style": "file:./style.css"
+}
