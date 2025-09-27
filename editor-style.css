@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap');
+
+:root {
+    --header-height: 80px;
+    --neon-cyan: #00e5ff;
+    --neon-magenta: #ff00e0;
+    --deep-purple: #9400d3;
+    --background-dark: #0b0c10;
+    --text-primary: #e6f1ff;
+    --text-secondary: #c5d8f2;
+}
+
+.editor-styles-wrapper {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--text-primary);
+    background-color: var(--background-dark);
+}
+
+.editor-styles-wrapper a {
+    color: var(--neon-cyan);
+}
+
+.editor-styles-wrapper .cta-button {
+    display: inline-block;
+    padding: 15px 35px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    text-decoration: none;
+    background: transparent;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+}
+
+.editor-styles-wrapper .cta-button .btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.editor-styles-wrapper .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    transform: translateX(-101%);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1;
+}
+
+.editor-styles-wrapper .cta-button:focus-visible,
+.editor-styles-wrapper .cta-button:hover {
+    color: var(--background-dark);
+    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+    transform: translateY(-3px);
+}
+
+.editor-styles-wrapper .cta-button:focus-visible::before,
+.editor-styles-wrapper .cta-button:hover::before {
+    transform: translateX(0%);
+}
+
+.editor-styles-wrapper .section-title {
+    font-family: 'Caveat', cursive;
+    color: #fff;
+}
+
+.editor-styles-wrapper .learn-more {
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-decoration: none;
+}
