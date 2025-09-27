@@ -1,32 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Mobile Menu Toggle (classic header markup) ---
-    const initClassicMenu = (menuToggle, mainNav) => {
-        const primaryMenu = document.getElementById('primary-menu');
-
-        const setMenuState = (isOpen) => {
-            menuToggle.classList.toggle('is-active', isOpen);
-            menuToggle.setAttribute('aria-expanded', isOpen.toString());
-            mainNav.classList.toggle('toggled', isOpen);
-        };
-
-        setMenuState(false);
-
-        menuToggle.addEventListener('click', () => {
-            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-            setMenuState(!isExpanded);
-        });
-
-        if (primaryMenu) {
-            primaryMenu.querySelectorAll('a').forEach((link) => {
-                link.addEventListener('click', () => {
-                    if (mainNav.classList.contains('toggled')) {
-                        setMenuState(false);
-                    }
-                });
-            });
-        }
-    };
-
     // --- Mobile Menu Toggle (navigation block) ---
     const initBlockMenu = (menuToggle, navBlock) => {
         // This MutationObserver keeps the toggle button's state (`is-active`)
@@ -55,13 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     };
-
-    // Initialize classic menu if it exists
-    const classicMenuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('#site-navigation');
-    if (classicMenuToggle && mainNav) {
-        initClassicMenu(classicMenuToggle, mainNav);
-    }
 
     // Initialize block menu if it exists
     const blockMenuToggle = document.querySelector('.wp-block-navigation__responsive-container-open');
