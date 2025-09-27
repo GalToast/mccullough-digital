@@ -26,6 +26,13 @@ Ten issues were confirmed during the latest review. The high-level summary is be
 ### Code Quality & Performance Issues
 - **[QUALITY] Services block re-read metadata unnecessarily:** `blocks/services/render.php` — decoding `block.json` on every render added avoidable I/O and complexity.
 
+## Bug Sweep Updates (2025-09-27)
+
+- Dynamic section blocks now respect author-defined anchors and alignment classes while preserving inline formatting within headings and copy.
+- CTA, Hero, and Service Card buttons no longer emit placeholder `#` URLs; static previews are rendered when a link is missing.
+- The home pattern seeding routine checks publication status and fills empty front pages with the default content.
+- Post card pattern buttons and default content links have been refreshed to avoid dead targets.
+
 ### Issues Investigated and Confirmed as NOT Bugs
 
 - **Social Icon Fallback:** The `Mcd_Social_Nav_Menu_Walker` correctly checks if the SVG is empty and displays the text title as a fallback.

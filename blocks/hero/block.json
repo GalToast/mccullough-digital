@@ -33,7 +33,7 @@
         },
         "buttonLink": {
             "type": "string",
-            "default": "#contact"
+            "default": ""
         }
     },
     "editorScript": "file:../../build/blocks/hero/editor.js",

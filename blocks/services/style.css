@@ -127,3 +127,11 @@ h2.section-title::after {
     text-shadow: 0 0 8px var(--neon-cyan);
     transform: translateX(5px);
 }
+
+.learn-more.is-static {
+    pointer-events: none;
+    cursor: default;
+    text-shadow: none;
+    transform: none;
+    opacity: 0.75;
+}
