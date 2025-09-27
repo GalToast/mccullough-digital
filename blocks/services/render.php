@@ -31,7 +31,7 @@ $template = [
             <?php echo wp_kses_post( $attributes['headline'] ); ?>
         </h2>
         <div class="services-grid">
-            <InnerBlocks allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_blocks ) ); ?>" template="<?php echo esc_attr( wp_json_encode( $template ) ); ?>" />
+            <?php echo $content; ?>
         </div>
     </div>
 </section>
