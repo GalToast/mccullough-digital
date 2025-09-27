@@ -13,18 +13,27 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 <header id="masthead" class="site-header" role="banner">
     <div class="site-branding">
         <?php
+        $home_url        = esc_url( home_url( '/' ) );
+        $raw_site_title  = get_bloginfo( 'name' );
+        $site_title      = esc_html( $raw_site_title );
+        $site_title_attr = esc_attr( $raw_site_title );
+
         if ( has_custom_logo() ) {
             // Get the custom logo URL
             $logo_id = get_theme_mod( 'custom_logo' );
-            $logo = wp_get_attachment_image_src( $logo_id , 'full' );
-            echo '<a href="' . esc_url( home_url( '/' ) ) . '" class="custom-logo-link" rel="home"><img src="' . esc_url( $logo[0] ) . '" alt="' . get_bloginfo( 'name' ) . '" class="custom-logo"></a>';
+            $logo    = wp_get_attachment_image_src( $logo_id, 'full' );
+            if ( $logo ) {
+                echo '<a href="' . $home_url . '" class="custom-logo-link" rel="home"><img src="' . esc_url( $logo[0] ) . '" alt="' . $site_title_attr . '" class="custom-logo"></a>';
+            } else {
+                echo '<h1 class="site-title"><a href="' . $home_url . '">' . $site_title . '</a></h1>';
+            }
         } else {
-            echo '<h1 class="site-title"><a href="' . esc_url( home_url( '/' ) ) . '">' . get_bloginfo( 'name' ) . '</a></h1>';
+            echo '<h1 class="site-title"><a href="' . $home_url . '">' . $site_title . '</a></h1>';
         }
         ?>
     </div>
 
-    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">
+    <button type="button" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
@@ -47,5 +56,3 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
         ?>
     </nav>
 </header>
-
-<main class="site-content">

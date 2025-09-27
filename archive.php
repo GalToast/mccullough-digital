@@ -6,7 +6,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 ?>
-<main id="content" class="site-content">
+<main class="site-content">
   <header class="archive-header">
     <?php
       the_archive_title( '<h1 class="archive-title">', '</h1>' );

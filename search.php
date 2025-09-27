@@ -6,7 +6,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
 ?>
-<main id="content" class="site-content">
+<main class="site-content">
   <header class="page-header">
     <h1 class="page-title">
       <?php
