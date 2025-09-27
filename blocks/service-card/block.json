@@ -16,18 +16,15 @@
     "attributes": {
         "icon": {
             "type": "string",
-            "source": "html",
-            "selector": ".icon"
+            "default": ""
         },
         "title": {
             "type": "string",
-            "source": "html",
-            "selector": "h3"
+            "default": "Service title"
         },
         "text": {
             "type": "string",
-            "source": "html",
-            "selector": "p"
+            "default": "Describe the value of this service here."
         },
         "linkText": {
             "type": "string",

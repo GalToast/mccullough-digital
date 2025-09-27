@@ -93,6 +93,113 @@ function mcd_block_categories( $categories ) {
 add_action( 'block_categories_all', 'mcd_block_categories' );
 
 /**
+ * Register custom pattern category for theme patterns.
+ */
+function mcd_register_pattern_category() {
+    if ( function_exists( 'register_block_pattern_category' ) ) {
+        register_block_pattern_category(
+            'mccullough-digital-sections',
+            [
+                'label' => __( 'McCullough Digital Sections', 'mccullough-digital' ),
+            ]
+        );
+    }
+}
+add_action( 'init', 'mcd_register_pattern_category' );
+
+/**
+ * Mark that the home page content should be seeded with the landing pattern after theme switch.
+ */
+function mcd_schedule_home_pattern_seed() {
+    update_option( 'mcd_seed_home_pattern', 1, false );
+}
+add_action( 'after_switch_theme', 'mcd_schedule_home_pattern_seed' );
+
+/**
+ * Populate the front page with the default landing layout if it's empty.
+ */
+function mcd_maybe_seed_home_page_content() {
+    if ( ! get_option( 'mcd_seed_home_pattern' ) ) {
+        return;
+    }
+
+    if ( ! class_exists( 'WP_Block_Patterns_Registry' ) ) {
+        return;
+    }
+
+    $registry = WP_Block_Patterns_Registry::get_instance();
+    if ( ! $registry->is_registered( 'mccullough-digital/home-landing' ) ) {
+        return;
+    }
+
+    $pattern = $registry->get_registered( 'mccullough-digital/home-landing' );
+    if ( empty( $pattern['content'] ) ) {
+        return;
+    }
+
+    $front_page_id = (int) get_option( 'page_on_front' );
+
+    if ( ! $front_page_id ) {
+        $existing_home = get_page_by_path( 'home' );
+        if ( $existing_home instanceof WP_Post ) {
+            $front_page_id = (int) $existing_home->ID;
+        } else {
+            $inserted_page = wp_insert_post(
+                [
+                    'post_title'   => __( 'Home', 'mccullough-digital' ),
+                    'post_name'    => 'home',
+                    'post_status'  => 'publish',
+                    'post_type'    => 'page',
+                    'post_content' => $pattern['content'],
+                ],
+                true
+            );
+
+            if ( is_wp_error( $inserted_page ) ) {
+                return;
+            }
+
+            $front_page_id = (int) $inserted_page;
+        }
+
+        if ( $front_page_id ) {
+            update_option( 'page_on_front', $front_page_id );
+            update_option( 'show_on_front', 'page' );
+            delete_option( 'mcd_seed_home_pattern' );
+            return;
+        }
+    }
+
+    if ( ! $front_page_id ) {
+        return;
+    }
+
+    $front_page = get_post( $front_page_id );
+    if ( ! $front_page || 'page' !== $front_page->post_type ) {
+        delete_option( 'mcd_seed_home_pattern' );
+        return;
+    }
+
+    if ( trim( (string) $front_page->post_content ) !== '' ) {
+        delete_option( 'mcd_seed_home_pattern' );
+        return;
+    }
+
+    $result = wp_update_post(
+        [
+            'ID'           => $front_page_id,
+            'post_content' => $pattern['content'],
+        ],
+        true
+    );
+
+    if ( ! is_wp_error( $result ) ) {
+        delete_option( 'mcd_seed_home_pattern' );
+    }
+}
+add_action( 'init', 'mcd_maybe_seed_home_page_content', 20 );
+
+/**
  * Displays social links with SVG icons.
  */
 function mcd_the_social_links() {
