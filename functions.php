@@ -225,7 +225,7 @@ function mcd_sanitize_svg( $svg ) {
 
     // Disable network access when parsing XML to guard against XXE attacks.
     $previous_entity_loader = null;
-    if ( function_exists( 'libxml_disable_entity_loader' ) ) {
+    if ( function_exists( 'libxml_disable_entity_loader' ) && PHP_VERSION_ID < 80000 ) {
         $previous_entity_loader = libxml_disable_entity_loader( true );
     }
 
@@ -237,7 +237,7 @@ function mcd_sanitize_svg( $svg ) {
 
     libxml_clear_errors();
 
-    if ( null !== $previous_entity_loader ) {
+    if ( null !== $previous_entity_loader && function_exists( 'libxml_disable_entity_loader' ) ) {
         libxml_disable_entity_loader( $previous_entity_loader );
     }
 

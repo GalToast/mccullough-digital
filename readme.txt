@@ -10,7 +10,15 @@ Custom theme scaffold with fixed header, mobile menu, and simple template hierar
 
 == Description ==
 
-Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
+McCullough Digital delivers a performant block theme with a fixed, auto-hiding header, animated hero canvas, and accessible CTA and service patterns. Every interactive element honours reduced motion preferences, preserves semantic markup, and avoids placeholder links so new installations ship production-ready content.
+
+== Key Features ==
+
+* Dynamic header offsetting that keeps page content visible regardless of menu height or viewport changes.
+* Animated hero block with particle field, keyboard-friendly headline animation, and graceful fallbacks for legacy browsers.
+* Sanitised SVG pipeline that preserves gradients, symbols, and `<use>` references while blocking unsafe attributes.
+* Custom CTA, Service Card, and Services blocks that respect author formatting, avoid empty links, and expose accessible markup by default.
+* Standalone HTML preview that mirrors production assets, preloads fonts, and demonstrates block styling without dead links.
 
 == Installation ==
 
@@ -24,6 +32,12 @@ Custom theme scaffold with fixed header, mobile menu, and simple template hierar
 This theme does not have any widget areas registered by default.
 
 == Changelog ==
+
+= 1.1.2 - 2025-09-28 =
+* Track the fixed header height with a `ResizeObserver`, font loading callbacks, and bfcache restores so content never slides underneath the masthead.
+* Rebuild the hero headline animation to duplicate screen-reader text, guard against missing browser APIs, and share reusable `.screen-reader-text` utilities.
+* Preload Google Fonts correctly in the standalone preview, reuse the production header/hero scripts, and convert decorative service card links into static spans.
+* Silence PHP 8 deprecation warnings by only disabling the libxml entity loader when the function is available.
 
 = 1.1.1 - 2025-09-27 =
 * Respect custom anchors, alignment options, and inline formatting across the About, Services, CTA, and Service Card blocks.

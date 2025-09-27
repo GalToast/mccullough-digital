@@ -1,79 +1,58 @@
-# Bug Sweep Report - McCullough Digital Theme
+# Bug Fix Report — 2025-09-28
 
-**Date:** 2025-09-27
+This sweep resolved ten production-impacting defects in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
-This report documents ten issues uncovered during the latest review of the McCullough Digital WordPress theme. Each item below notes the affected code, the incorrect behaviour that was observed, and the potential impact on editors or visitors.
+## Fixed Bugs
+1. **Header offset failed after layout shifts**  
+   *Files:* `js/header-scripts.js`, `style.css`  
+   *Issue:* Opening the navigation, resizing the viewport, or loading web fonts changed the header height without updating the `--mcd-header-offset` custom property, causing content to slip under the masthead.  
+   *Resolution:* Added a `ResizeObserver`, font loading listener, and bfcache `pageshow` hook to recalculate the offset and keep content aligned.
 
----
+2. **Header observers leaked between navigations**  
+   *Files:* `js/header-scripts.js`  
+   *Issue:* The header script left mutation observers attached when navigating away, allowing callbacks to fire on detached nodes.  
+   *Resolution:* Disconnect observers and remove font listeners during `unload` to prevent leaks in single-page navigation scenarios.
 
-## Confirmed Bugs (Incorrect Behavior)
+3. **Hero headline destroyed accessible text**  
+   *Files:* `blocks/hero/render.php`, `blocks/hero/view.js`, `blocks/hero/style.css`  
+   *Issue:* The animation replaced every character with `<span>` elements, causing screen readers to announce letters individually.  
+   *Resolution:* Wrapped headline copy in `.hero__headline-text`, cloned a `.screen-reader-text` version for assistive tech, and generated decorative spans only for the visual layer.
 
-These problems directly affected usability, accessibility, or runtime stability.
+4. **Hero animation crashed on legacy browsers**  
+   *Files:* `blocks/hero/view.js`  
+   *Issue:* Browsers without `NodeFilter` or `createTreeWalker` support threw runtime errors when the hero initialised.  
+   *Resolution:* Guarded the animation against missing DOM APIs and skip span generation when the feature set is incomplete.
 
-### 1. Header Offset Broke After Layout Changes
-- **Files:** `style.css`, `js/header-scripts.js`
-- **Description:** The fixed header height was hard-coded to `80px`. When the header grew taller (e.g., due to responsive wrapping or the mobile menu opening), page content slipped underneath it and became unreadable.
-- **Impact:** Visitors could no longer see the top of the page content after resizing or opening the mobile navigation.
+5. **Missing shared screen-reader utility**  
+   *Files:* `style.css`, `standalone.html`  
+   *Issue:* The theme duplicated ad-hoc visually hidden rules, leading to inconsistent behaviour across blocks.  
+   *Resolution:* Introduced a reusable `.screen-reader-text` helper for both the WordPress theme and the standalone preview.
 
-### 2. Header Script Crashed Without `matchMedia`
-- **File:** `js/header-scripts.js`
-- **Description:** The header behaviour relied on `window.matchMedia` without guarding for browsers where the API is missing.
-- **Impact:** Older browsers threw a runtime error, preventing the rest of the theme JavaScript from executing.
+6. **PHP 8 libxml deprecation warnings**  
+   *Files:* `functions.php`  
+   *Issue:* Calling `libxml_disable_entity_loader()` triggered deprecation notices on PHP 8, polluting logs when sanitising SVGs.  
+   *Resolution:* Only disable the entity loader on PHP versions where the function is supported, preserving security without warnings.
 
-### 3. Header Hid While Navigating With the Keyboard
-- **File:** `js/header-scripts.js`
-- **Description:** The hide-on-scroll logic ignored keyboard focus. Tabbing into the navigation while scrolled down left the header hidden off-screen.
-- **Impact:** Keyboard users were forced to interact with invisible controls, creating an accessibility failure.
+7. **Standalone preview font hints were malformed**  
+   *Files:* `standalone.html`  
+   *Issue:* Fonts were linked without preload hints, delaying hero rendering and ignoring reduced-motion scroll preferences.  
+   *Resolution:* Added proper `preload`/`noscript` tags and wrapped `scroll-behavior` in a media query matching the production stylesheet.
 
-### 4. Hero Animation Crashed on Legacy Browsers
-- **File:** `blocks/hero/view.js`
-- **Description:** The hero animation also assumed `window.matchMedia` was available.
-- **Impact:** On browsers without that API the script halted before initialising the headline animation or the particle field.
+8. **Standalone hero diverged from production markup**  
+   *Files:* `standalone.html`  
+   *Issue:* The preview used bespoke headline markup and particle code, leaving accessibility fixes unrepresented.  
+   *Resolution:* Mirrored the production hero structure, loaded the shared hero script, and exposed the `.wp-block-mccullough-digital-hero` class so animations stay in sync.
 
-### 5. Hero Headline Animation Broke Screen Readers
-- **Files:** `blocks/hero/view.js`, `blocks/hero/render.php`
-- **Description:** Splitting every headline character into individual `<span>` elements caused screen readers to announce each letter separately, and the decorative canvas lacked a presentational role.
-- **Impact:** Assistive technology delivered nonsensical output, harming accessibility.
+9. **Standalone service cards exposed decorative icons and dead links**  
+   *Files:* `standalone.html`  
+   *Issue:* Icons were announced by assistive tech and `href="#"` placeholders created empty focus targets.  
+   *Resolution:* Marked icons as presentational and rendered static `.is-static` text when no destination is available.
 
-### 6. SVG Sanitiser Removed Legitimate Icons
-- **File:** `functions.php`
-- **Description:** `mcd_sanitize_svg()` only allowed a small set of tags and attributes. Icons that used gradients, symbols, or `<use>` references were stripped to empty markup.
-- **Impact:** Social and block icons that relied on gradients or shared symbols failed to render.
+10. **Standalone navigation toggle lost ARIA state**  
+    *Files:* `standalone.html`  
+    *Issue:* The preview’s mobile menu left `aria-expanded` out of sync with the visual menu state.  
+    *Resolution:* Centralised toggle logic that syncs the button state, CSS classes, and collapse behaviour, while delegating scroll handling to the production header script.
 
-### 7. Service Card Block Emitted Inaccessible Markup
-- **File:** `blocks/service-card/render.php`
-- **Description:** Decorative SVGs were exposed to assistive tech and an anchor tag was rendered even when no link text was provided.
-- **Impact:** Screen reader users heard stray “graphic” announcements, and empty links created WCAG violations.
-
-### 8. CTA Block Rendered Empty Buttons
-- **File:** `blocks/cta/render.php`
-- **Description:** The call-to-action button appeared even when the author left the label blank.
-- **Impact:** Visitors encountered focusable controls with no name, failing accessibility guidelines and confusing users.
-
-### 9. Standalone Preview Missed Font Optimisations
-- **File:** `standalone.html`
-- **Description:** The static preview page contained malformed `<link>` elements and depended on `overflow-x: hidden` to mask layout issues.
-- **Impact:** Previewing the theme locally showed fallback fonts and could still hide underlying layout bugs.
-
----
-
-## Code Quality & Performance Issues
-
-### 1. Services Block Re-read Metadata on Every Render
-- **File:** `blocks/services/render.php`
-- **Description:** The render callback decoded `block.json` on every request even though the data was not used.
-- **Impact:** The extra file I/O slowed page generation and complicated future maintenance.
-
----
-
-## Resolved Bugs (2025-09-27)
-
-The following issues identified during the latest sweep have been fixed:
-
-- **Dynamic Blocks Overrode Custom Anchors and Duplicated IDs:** Updated About, Services, and CTA block renderers and editor scripts to stop forcing hard-coded IDs and respect author-provided anchors.
-- **Inline Formatting Removed from Block Headings and Copy:** The About, CTA, and Service Card blocks now preserve rich text markup when rendering headings and body text.
-- **Blocks Emitted Dead `#` Links:** Hero, CTA, and Service Card blocks no longer emit placeholder `href="#"` attributes. Buttons without URLs render as static visuals instead of focusable controls.
-- **Home Pattern Seeder Reliability Issues:** The seeding routine now ignores unpublished `home` pages, creates a published placeholder when needed, and populates existing empty front pages with the default layout.
-- **Section Alignment Constraints:** Section blocks add alignment-aware wrapper classes and styles so `alignwide` and `alignfull` layouts expand as expected.
-- **Post Card Pattern Styling:** Button styles now target the actual Read More anchor, restoring the intended appearance.
-- **Placeholder Links in Defaults:** Block defaults and the home landing pattern use meaningful URLs or static content, eliminating dead links on fresh installs.
+## Documentation Updates
+- `readme.txt` now highlights key features and logs version 1.1.2 of the theme.
+- `AGENTS.md` summarises the new workflow and the bug fixes above for future contributors.

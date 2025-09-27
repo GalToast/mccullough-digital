@@ -7,7 +7,23 @@
     <!-- Importing the special font used in the stylesheet -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap" rel="stylesheet">
+    <link
+        rel="preload"
+        as="style"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap"
+    >
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap"
+        media="print"
+        onload="this.media='all'"
+    >
+    <noscript>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap"
+        >
+    </noscript>
     <style>
         /* --- Original Styles from style.css --- */
         
@@ -26,16 +42,33 @@
 
         /* --- Base reset --- */
         * { box-sizing: border-box; }
-        html, body { 
-            margin: 0; 
-            padding: 0; 
-            scroll-behavior: smooth;
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            html {
+                scroll-behavior: smooth;
+            }
         }
 
         body {
             font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background: var(--background-dark);
             color: var(--text-primary);
+        }
+
+        .screen-reader-text {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         /* Ensure content doesn't hide behind fixed header */
@@ -206,7 +239,7 @@
             overflow: hidden; /* Hide anything that goes outside the hero */
         }
         
-        #particle-canvas {
+        .hero__particle-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -221,41 +254,55 @@
             /* transition: transform 0.1s ease-out; -- Removed for parallax */
         }
 
-        .hero h1 {
+        .hero__headline {
             font-family: 'Caveat', cursive;
             font-size: clamp(3.5rem, 10vw, 7rem);
             color: #fff;
             margin: 0 0 20px 0;
             line-height: 1.1;
             text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
-            /* perspective: 500px; /* No longer needed for this effect */
+        }
+
+        .hero__headline-text,
+        .hero__headline-text--visual {
+            display: inline-block;
         }
 
         /* --- Interactive Hero H1 Letters --- */
-        .hero h1 span {
+        .hero__headline-text--visual span {
             display: inline-block;
             position: relative;
             cursor: default;
         }
-        
-        .hero h1 span:hover::before,
-        .hero h1 span:hover::after {
+
+        .hero__headline-text--visual span:hover::before,
+        .hero__headline-text--visual span:hover::after {
             content: attr(data-char);
             position: absolute;
             top: 0;
             left: 0;
             animation: glitch 0.35s infinite;
         }
-        
-        .hero h1 span:hover::before {
+
+        .hero__headline-text--visual span:hover::before {
             color: var(--neon-cyan);
             z-index: -1;
             animation-direction: reverse;
         }
 
-        .hero h1 span:hover::after {
+        .hero__headline-text--visual span:hover::after {
             color: var(--neon-magenta);
             z-index: -2;
+        }
+
+        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__particle-canvas {
+            display: none;
+        }
+
+        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::before,
+        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::after {
+            animation: none;
+            content: none;
         }
 
 
@@ -445,6 +492,17 @@
             text-shadow: 0 0 8px var(--neon-cyan);
             transform: translateX(5px);
         }
+
+        .learn-more.is-static {
+            cursor: default;
+            pointer-events: none;
+            text-shadow: none;
+            opacity: 0.7;
+        }
+
+        .learn-more.is-static:hover {
+            transform: none;
+        }
         
         /* --- About Section --- */
         #about p {
@@ -553,10 +611,12 @@
 
     <main class="site-content">
         <!-- Hero Section -->
-        <section class="hero">
-            <canvas id="particle-canvas"></canvas> <!-- This was the missing element -->
+        <section class="hero wp-block-mccullough-digital-hero">
+            <canvas class="hero__particle-canvas" aria-hidden="true" role="presentation"></canvas>
             <div class="hero-content">
-                <h1 id="interactive-headline">Bringing Your Digital Vision to Life.</h1>
+                <h1 id="interactive-headline" class="hero__headline">
+                    <span class="hero__headline-text">Bringing Your Digital Vision to Life.</span>
+                </h1>
                 <p>We build beautiful, high-performance web experiences and creative marketing strategies that connect with your audience. Ready to create something amazing?</p>
                 <a href="#contact" class="cta-button"><span class="btn-text">Start a Project</span></a>
             </div>
@@ -570,37 +630,37 @@
                     <div class="service-card">
                        <div class="service-card-content">
                             <div>
-                                <div class="icon">
+                                <div class="icon" aria-hidden="true" role="presentation">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
                                 </div>
                                 <h3>Complete Web Solutions</h3>
                                 <p>We design, build, and host SEO-optimized websites. Every project includes analytics integration and ongoing monitoring to ensure your success.</p>
                             </div>
-                            <a href="#" class="learn-more">Explore Our Process →</a>
+                            <span class="learn-more is-static" aria-hidden="true">Explore Our Process →</span>
                         </div>
                     </div>
                     <div class="service-card">
                         <div class="service-card-content">
                             <div>
-                                <div class="icon">
+                                <div class="icon" aria-hidden="true" role="presentation">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                                 </div>
                                 <h3>Targeted Digital Advertising</h3>
                                 <p>We manage your advertising campaigns across platforms like Google, Meta, and Nextdoor to reach your ideal customers and maximize your ROI.</p>
                             </div>
-                            <a href="#" class="learn-more">Discover Ad Management →</a>
+                            <span class="learn-more is-static" aria-hidden="true">Discover Ad Management →</span>
                         </div>
                     </div>
                     <div class="service-card">
                         <div class="service-card-content">
                             <div>
-                                <div class="icon">
+                                <div class="icon" aria-hidden="true" role="presentation">
                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.71.71a5.4 5.4 0 0 0 0 7.65l.71.71a5.4 5.4 0 0 0 7.65 0l4.24-4.24a5.4 5.4 0 0 0 0-7.65l-4.24-4.24z"></path><path d="M10.1 19.24a5.4 5.4 0 0 0 7.65 0l.71-.71a5.4 5.4 0 0 0 0-7.65l-.71-.71a5.4 5.4 0 0 0-7.65 0l-1.42 1.42"></path></svg>
                                 </div>
                                 <h3>Integrated Social Media</h3>
                                 <p>From profile setup to full-service management, we handle your social media presence, integrating it all so you can focus on your business.</p>
                             </div>
-                            <a href="#" class="learn-more">See Management Plans →</a>
+                            <span class="learn-more is-static" aria-hidden="true">See Management Plans →</span>
                         </div>
                     </div>
                 </div>
@@ -628,208 +688,42 @@
         <p>&copy; 2024 McCullough Digital. All Rights Reserved. Let's build the future.</p>
     </footer>
 
-    <!-- JavaScript from header-scripts.js -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Mobile Menu Toggle ---
+        document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.querySelector('.menu-toggle');
             const mainNav = document.querySelector('.main-navigation');
 
-            if (menuToggle && mainNav) {
-                menuToggle.addEventListener('click', function() {
-                    mainNav.classList.toggle('toggled');
-                    menuToggle.classList.toggle('is-active');
-
-                    const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-                    menuToggle.setAttribute('aria-expanded', !isExpanded);
-                });
+            if (!menuToggle || !mainNav) {
+                return;
             }
 
-            // --- Hide header on scroll down, reveal on scroll up ---
-            const header = document.querySelector('#masthead.site-header');
-            let lastY = window.scrollY;
+            const toggleMenu = (forceState) => {
+                const shouldOpen =
+                    typeof forceState === 'boolean'
+                        ? forceState
+                        : !mainNav.classList.contains('toggled');
 
-            if (header) {
-                window.addEventListener('scroll', function() {
-                    const y = window.scrollY;
-                    if (y > 120 && y > lastY) {
-                        header.classList.add('hide');
-                    } else {
-                        header.classList.remove('hide');
-                    }
-                    lastY = y;
-                }, { passive: true });
-            }
-            
-            // --- Close mobile menu when a link is clicked ---
-            const menuLinks = document.querySelectorAll('#primary-menu a');
-            menuLinks.forEach(link => {
+                mainNav.classList.toggle('toggled', shouldOpen);
+                menuToggle.classList.toggle('is-active', shouldOpen);
+                menuToggle.setAttribute('aria-expanded', String(shouldOpen));
+            };
+
+            menuToggle.addEventListener('click', (event) => {
+                event.preventDefault();
+                toggleMenu();
+            });
+
+            mainNav.querySelectorAll('a').forEach((link) => {
                 link.addEventListener('click', () => {
                     if (mainNav.classList.contains('toggled')) {
-                        mainNav.classList.remove('toggled');
-                        menuToggle.classList.remove('is-active');
-                        menuToggle.setAttribute('aria-expanded', 'false');
+                        toggleMenu(false);
                     }
                 });
             });
-
-            // --- Interactive Hero Headline ---
-            const headline = document.getElementById('interactive-headline');
-            if(headline) {
-                const text = headline.textContent;
-                const wrappedText = text.split('').map(char => `<span data-char="${char === ' ' ? '&nbsp;' : char}">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-                headline.innerHTML = wrappedText;
-            }
-
-            // --- 3D Logo Tilt Effect ---
-            const logoContainer = document.querySelector('.site-branding');
-            if (logoContainer) {
-                const logoLink = logoContainer.querySelector('.custom-logo-link');
-                const maxRotate = 15; // Max rotation in degrees
-
-                logoContainer.addEventListener('mousemove', (e) => {
-                    const rect = logoContainer.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const { width, height } = rect;
-
-                    const rotateY = maxRotate * ((x - width / 2) / (width / 2));
-                    const rotateX = -maxRotate * ((y - height / 2) / (height / 2));
-                    
-                    logoLink.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                });
-
-                logoContainer.addEventListener('mouseleave', () => {
-                    logoLink.style.transform = 'rotateX(0deg) rotateY(0deg)';
-                });
-            }
-
-            // --- Twinkling Stars Canvas Animation ---
-            const canvas = document.getElementById('particle-canvas');
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                let stars = [];
-                let shootingStars = []; // Array for shooting stars
-                let frame = 0;
-
-                const setCanvasSize = () => {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                };
-
-                window.addEventListener('resize', () => {
-                    setCanvasSize();
-                    init(); 
-                });
-
-                class Star {
-                    constructor() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = Math.random() * canvas.height;
-                        this.size = Math.random() * 2 + 0.5; // Stars can be a bit bigger
-                        this.vy = Math.random() * 0.1 + 0.05; // Slow downward drift
-                        this.twinkleSpeed = Math.random() * 0.015 + 0.005; // Twinkle faster and more erratically
-                        this.twinkleOffset = Math.random() * 100;
-                    }
-                    
-                    update() {
-                        this.y += this.vy;
-                        // Reset star if it goes off screen
-                        if (this.y > canvas.height + this.size) {
-                            this.y = -this.size;
-                            this.x = Math.random() * canvas.width;
-                        }
-                    }
-
-                    draw() {
-                        // Using Math.pow makes the twinkle sharper and more 'dramatic'
-                        const opacity = Math.pow(Math.abs(Math.sin(this.twinkleOffset + frame * this.twinkleSpeed)), 10);
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                        const color = Math.random() > 0.1 ? `rgba(0, 229, 255, ${opacity})` : `rgba(255, 0, 224, ${opacity})`;
-                        ctx.fillStyle = color;
-                        ctx.fill();
-                    }
-                }
-
-                class ShootingStar {
-                    constructor() {
-                        this.reset();
-                    }
-                
-                    reset() {
-                        this.x = Math.random() * canvas.width + 100;
-                        this.y = - (Math.random() * canvas.height * 0.5);
-                        this.len = Math.random() * 60 + 20;
-                        this.speed = Math.random() * 8 + 6;
-                        this.size = Math.random() * 1.5 + 0.5;
-                    }
-                
-                    update() {
-                        this.x -= this.speed;
-                        this.y += this.speed * 0.4;
-                        if (this.x < -this.len || this.y > canvas.height + this.len) {
-                            this.reset();
-                        }
-                    }
-                
-                    draw() {
-                        const grad = ctx.createLinearGradient(this.x, this.y, this.x - this.len, this.y + (this.len * 0.4));
-                        grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
-                        grad.addColorStop(0.5, "rgba(0, 229, 255, 0.6)");
-                        grad.addColorStop(1, "rgba(0, 229, 255, 0)");
-                
-                        ctx.strokeStyle = grad;
-                        ctx.lineWidth = this.size;
-                        ctx.lineCap = 'round';
-                        ctx.beginPath();
-                        ctx.moveTo(this.x, this.y);
-                        ctx.lineTo(this.x - this.len, this.y + (this.len * 0.4));
-                        ctx.stroke();
-                    }
-                }
-
-
-                function init() {
-                    stars = [];
-                    shootingStars = [];
-                    // More stars for a denser field
-                    let numberOfStars = (canvas.width * canvas.height) / 2500; 
-                    for (let i = 0; i < numberOfStars; i++) {
-                        stars.push(new Star());
-                    }
-                    // Create a few shooting stars
-                    for (let i = 0; i < 3; i++) {
-                        shootingStars.push(new ShootingStar());
-                    }
-                }
-
-                function animate() {
-                    requestAnimationFrame(animate);
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    
-                    frame++;
-                    
-                    // Update and draw regular stars
-                    for (let i = 0; i < stars.length; i++) {
-                        stars[i].update();
-                        stars[i].draw();
-                    }
-
-                    // Update and draw shooting stars
-                    for (let i = 0; i < shootingStars.length; i++) {
-                        shootingStars[i].update();
-                        shootingStars[i].draw();
-                    }
-                }
-                
-                setCanvasSize();
-                init();
-                animate();
-            }
-
         });
     </script>
+    <script defer src="js/header-scripts.js"></script>
+    <script defer src="blocks/hero/view.js"></script>
 </body>
 </html>
 

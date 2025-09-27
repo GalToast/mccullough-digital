@@ -32,14 +32,56 @@
                 return;
             }
 
-            if (!headline.hasAttribute('aria-label')) {
-                const labelText = headline.textContent ? headline.textContent.trim() : '';
-                if (labelText) {
-                    headline.setAttribute('aria-label', labelText);
-                }
+            const textWrapper = headline.querySelector('.hero__headline-text');
+
+            if (!textWrapper) {
+                return;
             }
 
-            const walker = document.createTreeWalker(headline, NodeFilter.SHOW_TEXT, null, false);
+            const rawText = textWrapper.textContent ? textWrapper.textContent.trim() : '';
+
+            if (!rawText) {
+                return;
+            }
+
+            if (textWrapper.dataset.heroAnimated === 'true') {
+                return;
+            }
+
+            textWrapper.dataset.heroAnimated = 'true';
+
+            let srText = headline.querySelector('.hero__headline-text--sr');
+
+            if (!srText) {
+                srText = textWrapper.cloneNode(true);
+                srText.classList.add('hero__headline-text--sr', 'screen-reader-text');
+                srText.setAttribute('data-hero-sr-text', 'true');
+                srText.setAttribute('aria-hidden', 'false');
+                srText.setAttribute('role', 'text');
+
+                srText.querySelectorAll('[id]').forEach((node) => {
+                    node.removeAttribute('id');
+                });
+
+                headline.insertBefore(srText, textWrapper);
+            }
+
+            textWrapper.setAttribute('aria-hidden', 'true');
+            textWrapper.classList.add('hero__headline-text--visual');
+
+            if (
+                typeof document.createTreeWalker !== 'function'
+                || typeof window.NodeFilter === 'undefined'
+            ) {
+                return;
+            }
+
+            const walker = document.createTreeWalker(
+                textWrapper,
+                window.NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
             const textNodes = [];
 
             while (walker.nextNode()) {
@@ -71,7 +113,9 @@
                     fragment.appendChild(span);
                 }
 
-                node.parentNode.replaceChild(fragment, node);
+                if (node.parentNode) {
+                    node.parentNode.replaceChild(fragment, node);
+                }
             });
         };
 
