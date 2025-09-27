@@ -21,20 +21,27 @@ registerBlockType(metadata.name, {
     ...metadata,
     edit({ attributes, setAttributes }) {
         const { headline } = attributes;
-        const blockProps = useBlockProps();
+        const blockProps = useBlockProps({
+            id: 'services',
+        });
 
         return (
             <section {...blockProps}>
-                <RichText
-                    tagName="h2"
-                    value={ headline }
-                    onChange={ (value) => setAttributes({ headline: value }) }
-                    placeholder={ __('Add services headline…', 'mccullough-digital') }
-                />
-                <InnerBlocks
-                    allowedBlocks={ allowedServiceBlocks }
-                    template={ servicesTemplate }
-                />
+                <div className="container">
+                    <RichText
+                        tagName="h2"
+                        className="section-title"
+                        value={ headline }
+                        onChange={ (value) => setAttributes({ headline: value }) }
+                        placeholder={ __('Add services headline…', 'mccullough-digital') }
+                    />
+                    <div className="services-grid">
+                        <InnerBlocks
+                            allowedBlocks={ allowedServiceBlocks }
+                            template={ servicesTemplate }
+                        />
+                    </div>
+                </div>
             </section>
         );
     },
