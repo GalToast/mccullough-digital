@@ -75,6 +75,25 @@ section {
     50% { transform: scale(1.08); }
 }
 
+@keyframes wobble {
+    0% { transform: rotate(0deg); }
+    15% { transform: rotate(-5deg); }
+    30% { transform: rotate(5deg); }
+    45% { transform: rotate(-3deg); }
+    60% { transform: rotate(3deg); }
+    75% { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+}
+
+@keyframes text-sweep {
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: -100% 50%;
+    }
+}
+
 #masthead.site-header {
     padding: 15px 5%;
     display: flex;
@@ -176,10 +195,22 @@ section {
     font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
 }
-.main-navigation:not(.wp-block-navigation) #primary-menu li a:hover {
+.main-navigation:not(.wp-block-navigation) #primary-menu li a:hover,
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
+    animation: wobble 0.6s ease-out;
+}
+
+.main-navigation:not(.wp-block-navigation) #primary-menu li a:hover .menu-text-span,
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
     color: var(--neon-cyan);
-    text-shadow: 0 0 8px var(--neon-cyan);
-    animation: shake-zoom 0.4s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--text-primary), var(--neon-cyan), var(--text-primary));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-sweep 1.5s ease-in-out infinite;
 }
 
 .main-navigation.wp-block-navigation {
@@ -206,13 +237,6 @@ section {
     transition: color 0.3s ease;
     font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
-}
-
-.main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
-.main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
-    color: var(--neon-cyan);
-    text-shadow: 0 0 8px var(--neon-cyan);
-    animation: shake-zoom 0.4s ease-in-out infinite;
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open,
@@ -286,13 +310,99 @@ section {
     display: block; width: 25px; height: 3px; background-color: #ffffff; margin: 5px auto; transition: all 0.3s ease-in-out;
 }
 
+@keyframes move-stars {
+    from { transform: translateY(0px); }
+    to   { transform: translateY(-2000px); }
+}
+
 /* --- Footer --- */
-.site-footer {
-    background: #000;
+#colophon.site-footer {
+    background-color: var(--background-dark);
+    padding: 80px 5%;
+    color: var(--text-secondary);
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid #222;
+}
+
+/* Starfield Background */
+.stars, .stars2, .stars3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.stars {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="100" cy="100" r="1.5" fill="white"/><circle cx="300" cy="400" r="1" fill="white"/><circle cx="500" cy="200" r="1.2" fill="white"/><circle cx="700" cy="500" r="1.5" fill="white"/><circle cx="900" cy="300" r="1" fill="white"/><circle cx="1100" cy="100" r="1.2" fill="white"/><circle cx="1300" cy="400" r="1.5" fill="white"/><circle cx="1500" cy="200" r="1" fill="white"/><circle cx="1700" cy="500" r="1.2" fill="white"/><circle cx="1900" cy="300" r="1.5" fill="white"/></svg>') repeat;
+    background-size: 2000px 2000px;
+    animation: move-stars 200s linear infinite;
+}
+
+.stars2 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="200" cy="600" r="1" fill="white"/><circle cx="400" cy="800" r="0.8" fill="white"/><circle cx="600" cy="700" r="1" fill="white"/><circle cx="800" cy="900" r="0.8" fill="white"/><circle cx="1000" cy="600" r="1" fill="white"/><circle cx="1200" cy="800" r="0.8" fill="white"/><circle cx="1400" cy="700" r="1" fill="white"/><circle cx="1600" cy="900" r="0.8" fill="white"/><circle cx="1800" cy="600" r="1" fill="white"/><circle cx="2000" cy="800" r="0.8" fill="white"/></svg>') repeat;
+    background-size: 2000px 2000px;
+    animation: move-stars 150s linear infinite;
+}
+
+.stars3 {
+    background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000"><circle cx="150" cy="950" r="0.6" fill="white"/><circle cx="350" cy="1150" r="0.5" fill="white"/><circle cx="550" cy="1050" r="0.6" fill="white"/><circle cx="750" cy="1250" r="0.5" fill="white"/><circle cx="950" cy="950" r="0.6" fill="white"/><circle cx="1150" cy="1150" r="0.5" fill="white"/><circle cx="1350" cy="1050" r="0.6" fill="white"/><circle cx="1550" cy="1250" r="0.5" fill="white"/><circle cx="1750" cy="950" r="0.6" fill="white"/><circle cx="1950" cy="1150" r="0.5" fill="white"/></svg>') repeat;
+    background-size: 2000px 2000px;
+    animation: move-stars 100s linear infinite;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 40px 20px;
-    font-size: 0.9rem;
-    color: #888;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-branding .custom-logo {
+    max-height: 70px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+    transition: filter 0.3s ease;
+}
+
+.footer-branding .custom-logo:hover {
+    filter: drop-shadow(0 0 15px var(--neon-cyan));
+}
+
+.social-links-menu {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+}
+
+.social-link svg {
+    height: 28px;
+    width: 28px;
+    fill: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.social-link:hover svg {
+    fill: var(--neon-cyan);
+    transform: scale(1.1) translateY(-3px);
+    filter: drop-shadow(0 0 8px var(--neon-cyan));
+}
+
+.site-info {
+    font-size: 0.9em;
+    margin-top: 20px;
 }
 
 

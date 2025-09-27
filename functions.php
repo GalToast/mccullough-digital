@@ -21,6 +21,7 @@ function mcd_setup() {
   register_nav_menus(
     array(
       'primary' => __( 'Primary Menu', 'mccullough-digital' ),
+      'social'  => __( 'Social Links Menu', 'mccullough-digital' ),
     )
   );
 
@@ -90,3 +91,99 @@ function mcd_block_categories( $categories ) {
     );
 }
 add_action( 'block_categories_all', 'mcd_block_categories' );
+
+/**
+ * Displays social links with SVG icons.
+ */
+function mcd_the_social_links() {
+    if ( ! has_nav_menu( 'social' ) ) {
+        return;
+    }
+
+    wp_nav_menu(
+        array(
+            'theme_location'  => 'social',
+            'container'       => 'nav',
+            'container_class' => 'social-navigation',
+            'menu_class'      => 'social-links-menu',
+            'depth'           => 1,
+            'walker'          => new Mcd_Social_Nav_Menu_Walker(),
+        )
+    );
+}
+
+/**
+ * Get the SVG for a social link.
+ *
+ * @param string $url The URL to get the SVG for.
+ * @return string The SVG markup or empty string.
+ */
+function mcd_get_social_link_svg( $url ) {
+    $social_icons = [
+        'twitter.com'  => 'twitter',
+        'x.com'        => 'twitter',
+        'linkedin.com' => 'linkedin',
+        'github.com'   => 'github',
+    ];
+
+    $domain = str_ireplace( 'www.', '', parse_url( $url, PHP_URL_HOST ) );
+
+    if ( isset( $social_icons[ $domain ] ) ) {
+        $icon_name = $social_icons[ $domain ];
+        $icon_path = get_stylesheet_directory() . '/assets/icons/' . $icon_name . '.svg';
+        if ( file_exists( $icon_path ) ) {
+            return file_get_contents( $icon_path );
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Walker class for the social menu to output SVGs.
+ */
+class Mcd_Social_Nav_Menu_Walker extends Walker_Nav_Menu {
+    function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+        $social_svg = mcd_get_social_link_svg( $item->url );
+
+        if ( empty( $social_svg ) ) {
+            return;
+        }
+
+        $output .= "<li class='" .  implode(" ", $item->classes) . "'>";
+        $output .= '<a href="' . esc_url( $item->url ) . '" class="social-link">';
+        $output .= '<span class="screen-reader-text">' . esc_html( $item->title ) . '</span>';
+        $output .= $social_svg;
+        $output .= '</a>';
+    }
+
+    function end_el( &$output, $item, $depth = 0, $args = null ) {
+        $output .= "</li>";
+    }
+}
+
+/**
+ * Adds a span to menu items to allow for more flexible styling.
+ */
+class Mcd_Nav_Menu_Walker extends Walker_Nav_Menu {
+    function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+        $output .= "<li class='" .  implode(" ", $item->classes) . "'>";
+        if ( ! empty( $item->url ) ) {
+            $output .= '<a href="' . $item->url . '">';
+        } else {
+            $output .= '<span>';
+        }
+
+        $output .= '<span class="menu-text-span">' . $item->title . '</span>';
+
+        if ( ! empty( $item->url ) ) {
+            $output .= '</a>';
+        } else {
+            $output .= '</span>';
+        }
+    }
+
+    function end_el( &$output, $item, $depth = 0, $args = null ) {
+        $output .= "</li>";
+    }
+}
