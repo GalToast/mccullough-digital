@@ -113,6 +113,20 @@ function mcd_the_social_links() {
 }
 
 /**
+ * Sanitizes SVG code.
+ *
+ * @param string $svg The SVG code to sanitize.
+ * @return string Sanitized SVG code.
+ */
+function mcd_sanitize_svg( $svg ) {
+    // Basic sanitization: remove scripts and on* event handlers.
+    // For a real-world theme, a more robust library would be better.
+    $svg = preg_replace( '#<script(.*?)>(.*?)</script>#is', '', $svg );
+    $svg = preg_replace( '/\s(on\w+)=("|\').*?("|\')/i', '', $svg );
+    return $svg;
+}
+
+/**
  * Get the SVG for a social link.
  *
  * @param string $url The URL to get the SVG for.
@@ -133,13 +147,20 @@ function mcd_get_social_link_svg( $url ) {
         return '';
     }
 
-    $domain = str_ireplace( 'www.', '', $host );
+    // Extract the domain by taking the last two parts of the host.
+    // This is more robust than just stripping "www." and handles other subdomains.
+    $host_parts = explode( '.', $host );
+    $domain     = implode( '.', array_slice( $host_parts, -2 ) );
 
     if ( isset( $social_icons[ $domain ] ) ) {
         $icon_name = $social_icons[ $domain ];
         $icon_path = get_stylesheet_directory() . '/assets/icons/' . $icon_name . '.svg';
         if ( file_exists( $icon_path ) ) {
-            return file_get_contents( $icon_path );
+            $svg = file_get_contents( $icon_path );
+            $svg = mcd_sanitize_svg( $svg );
+            // Add accessibility attributes.
+            $svg = preg_replace( '/<svg/', '<svg aria-hidden="true" role="img" ', $svg, 1 );
+            return $svg;
         }
     }
 
