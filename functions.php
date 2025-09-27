@@ -113,17 +113,68 @@ function mcd_the_social_links() {
 }
 
 /**
- * Sanitizes SVG code.
+ * Sanitizes SVG code using a whitelist of allowed tags and attributes.
  *
  * @param string $svg The SVG code to sanitize.
  * @return string Sanitized SVG code.
  */
 function mcd_sanitize_svg( $svg ) {
-    // Basic sanitization: remove scripts and on* event handlers.
-    // For a real-world theme, a more robust library would be better.
-    $svg = preg_replace( '#<script(.*?)>(.*?)</script>#is', '', $svg );
-    $svg = preg_replace( '/\s(on\w+)=("|\').*?("|\')/i', '', $svg );
-    return $svg;
+    if ( ! class_exists( 'DOMDocument' ) ) {
+        return '';
+    }
+    // A whitelist of allowed SVG elements and their attributes.
+    $allowed_tags = [
+        'svg'   => [ 'width', 'height', 'viewbox', 'xmlns', 'fill', 'class' ],
+        'path'  => [ 'd', 'fill', 'stroke', 'stroke-width' ],
+        'g'     => [ 'fill', 'transform' ],
+        'rect'  => [ 'x', 'y', 'width', 'height', 'fill', 'transform' ],
+        'circle' => [ 'cx', 'cy', 'r', 'fill' ],
+        'line'  => [ 'x1', 'y1', 'x2', 'y2', 'stroke' ],
+    ];
+
+    // Suppress warnings for invalid HTML since we are parsing a fragment.
+    libxml_use_internal_errors( true );
+
+    $dom = new DOMDocument();
+    $dom->loadXML( $svg, LIBXML_NOBLANKS );
+
+    // Clear errors to handle them manually if needed.
+    libxml_clear_errors();
+
+    if ( ! $dom->documentElement ) {
+        return ''; // Return empty if SVG is malformed.
+    }
+
+    $stack = [ $dom->documentElement ];
+    while ( count( $stack ) > 0 ) {
+        $node = array_pop( $stack );
+
+        // Convert node name to lowercase for case-insensitive comparison
+        $node_name = strtolower( $node->nodeName );
+
+        if ( ! isset( $allowed_tags[ $node_name ] ) ) {
+            $node->parentNode->removeChild( $node );
+            continue;
+        }
+
+        // Sanitize attributes
+        if ( $node->hasAttributes() ) {
+            foreach ( iterator_to_array( $node->attributes ) as $attr ) {
+                if ( ! in_array( strtolower( $attr->name ), $allowed_tags[ $node_name ], true ) ) {
+                    $node->removeAttribute( $attr->name );
+                }
+            }
+        }
+
+        // Add child nodes to the stack to process them
+        foreach ( $node->childNodes as $child ) {
+            if ( $child instanceof DOMElement ) {
+                $stack[] = $child;
+            }
+        }
+    }
+
+    return $dom->saveXML( $dom->documentElement );
 }
 
 /**
@@ -133,38 +184,48 @@ function mcd_sanitize_svg( $svg ) {
  * @return string The SVG markup or empty string.
  */
 function mcd_get_social_link_svg( $url ) {
-    $social_icons = [
-        'twitter.com'  => 'twitter',
-        'x.com'        => 'twitter',
-        'linkedin.com' => 'linkedin',
-        'github.com'   => 'github',
-    ];
+  $social_icons = [
+    'twitter.com'  => 'twitter',
+    'linkedin.com' => 'linkedin',
+    'github.com'   => 'github',
+  ];
 
-    $host = parse_url( $url, PHP_URL_HOST );
+  // The host is cast to a string and converted to lowercase to ensure consistency.
+  $host = strtolower( (string) parse_url( $url, PHP_URL_HOST ) );
 
-    // Return early if the URL is invalid or doesn't have a host (e.g., mailto:, tel:, etc.).
-    if ( ! is_string( $host ) || empty( $host ) ) {
-        return '';
-    }
-
-    // Extract the domain by taking the last two parts of the host.
-    // This is more robust than just stripping "www." and handles other subdomains.
-    $host_parts = explode( '.', $host );
-    $domain     = implode( '.', array_slice( $host_parts, -2 ) );
-
-    if ( isset( $social_icons[ $domain ] ) ) {
-        $icon_name = $social_icons[ $domain ];
-        $icon_path = get_stylesheet_directory() . '/assets/icons/' . $icon_name . '.svg';
-        if ( file_exists( $icon_path ) ) {
-            $svg = file_get_contents( $icon_path );
-            $svg = mcd_sanitize_svg( $svg );
-            // Add accessibility attributes.
-            $svg = preg_replace( '/<svg/', '<svg aria-hidden="true" role="img" ', $svg, 1 );
-            return $svg;
-        }
-    }
-
+  if ( ! $host ) {
     return '';
+  }
+
+  $icon_name = '';
+
+  // Handle x.com as a special case because it's also Twitter.
+  // Check for exact match or subdomain of x.com. This is PHP 7.4 compatible.
+  if ( 'x.com' === $host || ( substr( $host, -strlen( '.x.com' ) ) === '.x.com' ) ) {
+    $icon_name = 'twitter';
+  } else {
+    // For other domains, a simple substring check is sufficient and more flexible.
+    // It correctly handles variations like 'blog.github.com' or 'twitter.co.uk'.
+    foreach ( $social_icons as $domain => $icon ) {
+      if ( false !== strpos( $host, $domain ) ) {
+        $icon_name = $icon;
+        break;
+      }
+    }
+  }
+
+  if ( ! empty( $icon_name ) ) {
+    $icon_path = get_stylesheet_directory() . '/assets/icons/' . $icon_name . '.svg';
+    if ( file_exists( $icon_path ) ) {
+      $svg = file_get_contents( $icon_path );
+      $svg = mcd_sanitize_svg( $svg );
+      // Add accessibility attributes.
+      $svg = preg_replace( '/<svg/', '<svg aria-hidden="true" role="img" ', $svg, 1 );
+      return $svg;
+    }
+  }
+
+  return '';
 }
 
 /**
