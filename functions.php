@@ -146,21 +146,24 @@ function mcd_maybe_seed_home_page_content() {
 
     if ( ! $front_page_id ) {
         $existing_home = get_page_by_path( 'home' );
-        if ( $existing_home instanceof WP_Post ) {
+
+        if ( $existing_home instanceof WP_Post && 'page' === $existing_home->post_type && 'publish' === $existing_home->post_status ) {
             $front_page_id = (int) $existing_home->ID;
-        } else {
-            $inserted_page = wp_insert_post(
-                [
-                    'post_title'   => __( 'Home', 'mccullough-digital' ),
-                    'post_name'    => 'home',
-                    'post_status'  => 'publish',
-                    'post_type'    => 'page',
-                    'post_content' => $pattern['content'],
-                ],
-                true
-            );
+        }
+
+        if ( ! $front_page_id ) {
+            $new_page_args = [
+                'post_title'   => __( 'Home', 'mccullough-digital' ),
+                'post_name'    => 'home',
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => $pattern['content'],
+            ];
+
+            $inserted_page = wp_insert_post( $new_page_args, true );
 
             if ( is_wp_error( $inserted_page ) ) {
+                delete_option( 'mcd_seed_home_pattern' );
                 return;
             }
 
@@ -170,17 +173,22 @@ function mcd_maybe_seed_home_page_content() {
         if ( $front_page_id ) {
             update_option( 'page_on_front', $front_page_id );
             update_option( 'show_on_front', 'page' );
-            delete_option( 'mcd_seed_home_pattern' );
-            return;
         }
     }
 
     if ( ! $front_page_id ) {
+        delete_option( 'mcd_seed_home_pattern' );
         return;
     }
 
     $front_page = get_post( $front_page_id );
+
     if ( ! $front_page || 'page' !== $front_page->post_type ) {
+        delete_option( 'mcd_seed_home_pattern' );
+        return;
+    }
+
+    if ( 'publish' !== $front_page->post_status ) {
         delete_option( 'mcd_seed_home_pattern' );
         return;
     }

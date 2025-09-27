@@ -25,10 +25,26 @@ $wrapper_attributes = get_block_wrapper_attributes(
         <p>
             <?php echo wp_kses_post( $attributes['subheading'] ?? '' ); ?>
         </p>
-        <?php if ( ! empty( $attributes['buttonText'] ) ) : ?>
-            <a href="<?php echo esc_url( $attributes['buttonLink'] ?? '#' ); ?>" class="cta-button">
-                <span class="btn-text"><?php echo esc_html( $attributes['buttonText'] ); ?></span>
-            </a>
-        <?php endif; ?>
+        <?php
+        $button_text = isset( $attributes['buttonText'] ) ? trim( (string) $attributes['buttonText'] ) : '';
+        $raw_link    = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
+        $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
+
+        if ( '' !== $button_text ) :
+            if ( '' !== $button_link ) :
+                ?>
+                <a href="<?php echo $button_link; ?>" class="cta-button">
+                    <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+                </a>
+                <?php
+            else :
+                ?>
+                <span class="cta-button is-static" aria-hidden="true">
+                    <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+                </span>
+                <?php
+            endif;
+        endif;
+        ?>
     </div>
 </section>

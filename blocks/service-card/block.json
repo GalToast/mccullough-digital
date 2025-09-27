@@ -32,7 +32,7 @@
         },
         "linkUrl": {
             "type": "string",
-            "default": "#"
+            "default": ""
         }
     },
     "editorScript": "file:../../build/blocks/service-card/editor.js",
