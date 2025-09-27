@@ -17,5 +17,6 @@
             "selector": "h2"
         }
     },
+    "editorScript": "file:./editor.js",
     "style": "file:./style.css"
 }

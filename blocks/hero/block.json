@@ -30,6 +30,7 @@
             "default": "#contact"
         }
     },
-    "editorScript": "file:./script.js",
+    "editorScript": "file:./editor.js",
+    "viewScript": "file:./view.js",
     "style": "file:./style.css"
 }
