@@ -37,15 +37,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const initBlockMenu = () => {
         const menuToggle = document.querySelector('.wp-block-navigation__responsive-container-open');
         const navBlock = document.querySelector('.wp-block-navigation');
-        const navContainer = document.querySelector('.wp-block-navigation__responsive-container');
 
-        if (!menuToggle || !navBlock || !navContainer) {
+        if (!menuToggle || !navBlock) {
             return;
         }
 
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('is-active');
         });
+
+        const syncToggleState = () => {
+            if (!navBlock.classList.contains('is-menu-open')) {
+                menuToggle.classList.remove('is-active');
+            }
+        };
+
+        const observer = new MutationObserver(syncToggleState);
+        observer.observe(navBlock, { attributes: true, attributeFilter: ['class'] });
 
         navBlock.querySelectorAll('.wp-block-navigation-item a').forEach((link) => {
             link.addEventListener('click', () => {
@@ -78,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             lastY = y;
         }, { passive: true });
     }
+
     // --- 3D Logo Tilt Effect ---
     const logoContainer = document.querySelector('.site-branding');
     if (logoContainer) {
@@ -101,137 +110,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 logoLink.style.transform = 'rotateX(0deg) rotateY(0deg)';
             });
         }
-    }
-
-    // --- Interactive Hero Headline ---
-    const headline = document.getElementById('interactive-headline');
-    if(headline) {
-        const text = headline.textContent;
-        const wrappedText = text.split('').map(char => `<span data-char="${char === ' ' ? '&nbsp;' : char}">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
-        headline.innerHTML = wrappedText;
-    }
-
-    // --- Twinkling Stars Canvas Animation ---
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        let shootingStars = []; // Array for shooting stars
-        let frame = 0;
-
-        const setCanvasSize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        };
-
-        window.addEventListener('resize', () => {
-            setCanvasSize();
-            init();
-        });
-
-        class Star {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5; // Stars can be a bit bigger
-                this.vy = Math.random() * 0.1 + 0.05; // Slow downward drift
-                this.twinkleSpeed = Math.random() * 0.015 + 0.005; // Twinkle faster and more erratically
-                this.twinkleOffset = Math.random() * 100;
-            }
-
-            update() {
-                this.y += this.vy;
-                // Reset star if it goes off screen
-                if (this.y > canvas.height + this.size) {
-                    this.y = -this.size;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-
-            draw() {
-                // Using Math.pow makes the twinkle sharper and more 'dramatic'
-                const opacity = Math.pow(Math.abs(Math.sin(this.twinkleOffset + frame * this.twinkleSpeed)), 10);
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                const color = Math.random() > 0.1 ? `rgba(0, 229, 255, ${opacity})` : `rgba(255, 0, 224, ${opacity})`;
-                ctx.fillStyle = color;
-                ctx.fill();
-            }
-        }
-
-        class ShootingStar {
-            constructor() {
-                this.reset();
-            }
-
-            reset() {
-                this.x = Math.random() * canvas.width + 100;
-                this.y = - (Math.random() * canvas.height * 0.5);
-                this.len = Math.random() * 60 + 20;
-                this.speed = Math.random() * 8 + 6;
-                this.size = Math.random() * 1.5 + 0.5;
-            }
-
-            update() {
-                this.x -= this.speed;
-                this.y += this.speed * 0.4;
-                if (this.x < -this.len || this.y > canvas.height + this.len) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                const grad = ctx.createLinearGradient(this.x, this.y, this.x - this.len, this.y + (this.len * 0.4));
-                grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
-                grad.addColorStop(0.5, "rgba(0, 229, 255, 0.6)");
-                grad.addColorStop(1, "rgba(0, 229, 255, 0)");
-
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = this.size;
-                ctx.lineCap = 'round';
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - this.len, this.y + (this.len * 0.4));
-                ctx.stroke();
-            }
-        }
-
-
-        function init() {
-            stars = [];
-            shootingStars = [];
-            // More stars for a denser field
-            let numberOfStars = (canvas.width * canvas.height) / 2500;
-            for (let i = 0; i < numberOfStars; i++) {
-                stars.push(new Star());
-            }
-            // Create a few shooting stars
-            for (let i = 0; i < 3; i++) {
-                shootingStars.push(new ShootingStar());
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            frame++;
-
-            // Update and draw regular stars
-            for (let i = 0; i < stars.length; i++) {
-                stars[i].update();
-                stars[i].draw();
-            }
-
-            // Update and draw shooting stars
-            for (let i = 0; i < shootingStars.length; i++) {
-                shootingStars[i].update();
-                shootingStars[i].draw();
-            }
-        }
-
-        setCanvasSize();
-        init();
-        animate();
     }
 });

@@ -23,6 +23,11 @@ function mcd_setup() {
       'primary' => __( 'Primary Menu', 'mccullough-digital' ),
     )
   );
+
+  add_theme_support( 'wp-block-styles' );
+  add_theme_support( 'responsive-embeds' );
+  add_theme_support( 'editor-styles' );
+  add_editor_style( 'editor-style.css' );
 }
 add_action( 'after_setup_theme', 'mcd_setup' );
 
@@ -32,8 +37,15 @@ add_action( 'after_setup_theme', 'mcd_setup' );
 function mcd_assets() {
   $theme_version = wp_get_theme()->get( 'Version' );
 
+  wp_enqueue_style(
+    'mcd-fonts',
+    'https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap',
+    array(),
+    null
+  );
+
   // Enqueue main stylesheet
-  wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array(), $theme_version );
+  wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array( 'mcd-fonts' ), $theme_version );
 
   // Cache-bust the theme interaction script by filemtime if possible
   $script_path = get_stylesheet_directory() . '/js/header-scripts.js';
