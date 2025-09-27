@@ -37,8 +37,7 @@
     "attributes": {
         "headline": {
             "type": "string",
-            "source": "html",
-            "selector": "h2"
+            "default": "What We Do"
         }
     },
     "editorScript": "file:../../build/blocks/services/editor.js",

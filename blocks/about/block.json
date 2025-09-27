@@ -21,13 +21,11 @@
     "attributes": {
         "headline": {
             "type": "string",
-            "source": "html",
-            "selector": "h2"
+            "default": "About Us"
         },
         "text": {
             "type": "string",
-            "source": "html",
-            "selector": "p"
+            "default": "McCullough Digital is a small team of developers, designers, and strategists passionate about building beautiful things for the web. We thrive on collaboration and exist to create digital tools that help our clients succeed. We believe in clean code, thoughtful design, and a relentless pursuit of quality."
         }
     },
     "editorScript": "file:../../build/blocks/about/editor.js",

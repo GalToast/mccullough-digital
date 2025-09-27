@@ -21,8 +21,7 @@
     "attributes": {
         "headline": {
             "type": "string",
-            "source": "html",
-            "selector": "h2"
+            "default": "Ready to Create?"
         },
         "buttonText": {
             "type": "string",

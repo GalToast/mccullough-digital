@@ -21,13 +21,11 @@
     "attributes": {
         "headline": {
             "type": "string",
-            "source": "html",
-            "selector": "h1"
+            "default": "Bringing Your Digital Vision to Life."
         },
         "subheading": {
             "type": "string",
-            "source": "html",
-            "selector": "p"
+            "default": "We build beautiful, high-performance web experiences and creative marketing strategies that connect with your audience. Ready to create something amazing?"
         },
         "buttonText": {
             "type": "string",
