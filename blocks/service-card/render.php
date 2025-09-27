@@ -23,10 +23,10 @@ $wrapper_attributes = get_block_wrapper_attributes(
                 <?php echo $attributes['icon']; // Note: This will be raw SVG content. It's ok since it's from an admin. ?>
             </div>
             <h3>
-                <?php echo esc_html( $attributes['title'] ); ?>
+                <?php echo wp_kses_post( $attributes['title'] ); ?>
             </h3>
             <p>
-                <?php echo esc_html( $attributes['text'] ); ?>
+                <?php echo wp_kses_post( $attributes['text'] ); ?>
             </p>
         </div>
         <a href="<?php echo esc_url( $attributes['linkUrl'] ); ?>" class="learn-more">
