@@ -167,14 +167,14 @@ class Mcd_Social_Nav_Menu_Walker extends Walker_Nav_Menu {
  */
 class Mcd_Nav_Menu_Walker extends Walker_Nav_Menu {
     function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-        $output .= "<li class='" .  implode(" ", $item->classes) . "'>";
+        $output .= "<li class='" .  esc_attr( implode( ' ', $item->classes ) ) . "'>";
         if ( ! empty( $item->url ) ) {
-            $output .= '<a href="' . $item->url . '">';
+            $output .= '<a href="' . esc_url( $item->url ) . '">';
         } else {
             $output .= '<span>';
         }
 
-        $output .= '<span class="menu-text-span">' . $item->title . '</span>';
+        $output .= '<span class="menu-text-span">' . esc_html( $item->title ) . '</span>';
 
         if ( ! empty( $item->url ) ) {
             $output .= '</a>';
