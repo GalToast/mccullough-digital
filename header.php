@@ -45,11 +45,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
             'theme_location' => 'primary',
             'menu_id'        => 'primary-menu',
             'container'      => false,
+            'walker'         => new Mcd_Nav_Menu_Walker(),
             'fallback_cb'    => function () {
               echo '<ul id="primary-menu" class="menu">';
-              echo '<li><a href="#services">Services</a></li>';
-              echo '<li><a href="#about">About</a></li>';
-              echo '<li><a href="#contact">Contact</a></li>';
+              echo '<li><a href="#services"><span class="menu-text-span">Services</span></a></li>';
+              echo '<li><a href="#about"><span class="menu-text-span">About</span></a></li>';
+              echo '<li><a href="#contact"><span class="menu-text-span">Contact</span></a></li>';
               echo '</ul>';
             }
           ) );
