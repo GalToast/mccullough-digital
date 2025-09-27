@@ -177,7 +177,8 @@ section {
     filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.6));
 }
 
-.custom-logo-link:hover .custom-logo {
+.custom-logo-link:hover .custom-logo,
+.custom-logo-link:focus-visible .custom-logo {
     filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 5px var(--neon-magenta));
     transform: scale(1.05);
 }
@@ -360,6 +361,18 @@ section {
     width: 100%;
     height: 100%;
     display: block;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.stars .wp-block-group__inner-container,
+.stars2 .wp-block-group__inner-container,
+.stars3 .wp-block-group__inner-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 
 .stars {
@@ -392,6 +405,18 @@ section {
     z-index: 2;
 }
 
+.footer-branding .wp-block-site-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-branding .custom-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
 .footer-branding .custom-logo {
     max-height: 70px;
     margin-bottom: 20px;
@@ -399,8 +424,9 @@ section {
     transition: filter 0.3s ease;
 }
 
-.footer-branding .custom-logo:hover {
-    filter: drop-shadow(0 0 15px var(--neon-cyan));
+.footer-branding .custom-logo-link:hover .custom-logo,
+.footer-branding .custom-logo-link:focus-visible .custom-logo {
+    filter: drop-shadow(0 0 15px var(--neon-cyan)) drop-shadow(0 0 5px rgba(255, 0, 224, 0.45));
 }
 
 .social-links-menu {
