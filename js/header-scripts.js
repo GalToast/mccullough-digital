@@ -1,13 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Mobile Menu Toggle (classic header markup) ---
-    const initClassicMenu = () => {
-        const menuToggle = document.querySelector('.menu-toggle');
-        const mainNav = document.querySelector('#site-navigation');
+    const initClassicMenu = (menuToggle, mainNav) => {
         const primaryMenu = document.getElementById('primary-menu');
-
-        if (!menuToggle || !mainNav) {
-            return;
-        }
 
         const setMenuState = (isOpen) => {
             menuToggle.classList.toggle('is-active', isOpen);
@@ -34,14 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // --- Mobile Menu Toggle (navigation block) ---
-    const initBlockMenu = () => {
-        const menuToggle = document.querySelector('.wp-block-navigation__responsive-container-open');
-        const navBlock = document.querySelector('.wp-block-navigation');
-
-        if (!menuToggle || !navBlock) {
-            return;
-        }
-
+    const initBlockMenu = (menuToggle, navBlock) => {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('is-active');
         });
@@ -68,22 +55,43 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    initClassicMenu();
-    initBlockMenu();
+    // Initialize classic menu if it exists
+    const classicMenuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('#site-navigation');
+    if (classicMenuToggle && mainNav) {
+        initClassicMenu(classicMenuToggle, mainNav);
+    }
+
+    // Initialize block menu if it exists
+    const blockMenuToggle = document.querySelector('.wp-block-navigation__responsive-container-open');
+    const navBlock = document.querySelector('.wp-block-navigation');
+    if (blockMenuToggle && navBlock) {
+        initBlockMenu(blockMenuToggle, navBlock);
+    }
 
     // --- Hide header on scroll down, reveal on scroll up ---
     const header = document.querySelector('#masthead.site-header');
-    let lastY = window.scrollY;
-
     if (header) {
-        window.addEventListener('scroll', function() {
+        let lastY = window.scrollY;
+        let ticking = false;
+        const headerHeight = header.offsetHeight;
+
+        const updateHeaderVisibility = () => {
             const y = window.scrollY;
-            if (y > 120 && y > lastY) {
+            if (y > headerHeight && y > lastY) {
                 header.classList.add('hide');
             } else if (y < lastY) {
                 header.classList.remove('hide');
             }
             lastY = y;
+            ticking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(updateHeaderVisibility);
+                ticking = true;
+            }
         }, { passive: true });
     }
 
@@ -93,21 +101,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const logoLink = logoContainer.querySelector('.custom-logo-link');
         if (logoLink) {
             const maxRotate = 15; // Max rotation in degrees
+            let animationFrameId = null;
 
             logoContainer.addEventListener('mousemove', (e) => {
-                const rect = logoContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const { width, height } = rect;
-
-                const rotateY = maxRotate * ((x - width / 2) / (width / 2));
-                const rotateX = -maxRotate * ((y - height / 2) / (height / 2));
-
-                logoLink.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(() => {
+                    const rect = logoContainer.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const { width, height } = rect;
+                    const rotateY = maxRotate * ((x - width / 2) / (width / 2));
+                    const rotateX = -maxRotate * ((y - height / 2) / (height / 2));
+                    logoLink.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
             });
 
             logoContainer.addEventListener('mouseleave', () => {
-                logoLink.style.transform = 'rotateX(0deg) rotateY(0deg)';
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(() => {
+                    logoLink.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+                });
             });
         }
     }

@@ -12,25 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 <header id="masthead" class="site-header" role="banner">
     <div class="site-branding">
-        <?php
-        $home_url        = esc_url( home_url( '/' ) );
-        $raw_site_title  = get_bloginfo( 'name' );
-        $site_title      = esc_html( $raw_site_title );
-        $site_title_attr = esc_attr( $raw_site_title );
-
-        if ( has_custom_logo() ) {
-            // Get the custom logo URL
-            $logo_id = get_theme_mod( 'custom_logo' );
-            $logo    = wp_get_attachment_image_src( $logo_id, 'full' );
-            if ( $logo ) {
-                echo '<a href="' . $home_url . '" class="custom-logo-link" rel="home"><img src="' . esc_url( $logo[0] ) . '" alt="' . $site_title_attr . '" class="custom-logo"></a>';
-            } else {
-                echo '<h1 class="site-title"><a href="' . $home_url . '">' . $site_title . '</a></h1>';
-            }
-        } else {
-            echo '<h1 class="site-title"><a href="' . $home_url . '">' . $site_title . '</a></h1>';
-        }
-        ?>
+        <?php the_custom_logo(); ?>
     </div>
 
     <button type="button" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,9 +30,12 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
             'walker'         => new Mcd_Nav_Menu_Walker(),
             'fallback_cb'    => function () {
               echo '<ul id="primary-menu" class="menu">';
-              echo '<li><a href="#services"><span class="menu-text-span">Services</span></a></li>';
-              echo '<li><a href="#about"><span class="menu-text-span">About</span></a></li>';
-              echo '<li><a href="#contact"><span class="menu-text-span">Contact</span></a></li>';
+              $pages = get_pages( array( 'sort_column' => 'menu_order', 'parent' => 0 ) );
+              if ( ! empty( $pages ) ) {
+                foreach ( $pages as $page ) {
+                  echo '<li><a href="' . esc_url( get_permalink( $page->ID ) ) . '"><span class="menu-text-span">' . esc_html( $page->post_title ) . '</span></a></li>';
+                }
+              }
               echo '</ul>';
             }
           ) );
