@@ -1,0 +1,71 @@
+/* --- Hero Section --- */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative; /* Needed for positioning the canvas */
+    background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
+    padding-top: var(--header-height);
+    overflow: hidden; /* Hide anything that goes outside the hero */
+}
+
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: #fff;
+    margin: 0 0 20px 0;
+    line-height: 1.1;
+    text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+}
+
+/* --- Interactive Hero H1 Letters --- */
+.hero h1 span {
+    display: inline-block;
+    position: relative;
+    cursor: default;
+}
+
+.hero h1 span:hover::before,
+.hero h1 span:hover::after {
+    content: attr(data-char);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: glitch 0.35s infinite;
+}
+
+.hero h1 span:hover::before {
+    color: var(--neon-cyan);
+    z-index: -1;
+    animation-direction: reverse;
+}
+
+.hero h1 span:hover::after {
+    color: var(--neon-magenta);
+    z-index: -2;
+}
+
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-weight: 300;
+}

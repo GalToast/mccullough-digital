@@ -32,3 +32,33 @@ add_action( 'wp_enqueue_scripts', 'mcd_assets' );
 if ( ! function_exists( 'wp_body_open' ) ) {
   function wp_body_open() { do_action( 'wp_body_open' ); }
 }
+
+/**
+ * Register Blocks
+ */
+function mcd_register_blocks() {
+    $block_folders = glob( get_stylesheet_directory() . '/blocks/*' );
+    foreach ( $block_folders as $block_folder ) {
+        if ( file_exists( $block_folder . '/block.json' ) ) {
+            register_block_type( $block_folder );
+        }
+    }
+}
+add_action( 'init', 'mcd_register_blocks' );
+
+/**
+ * Custom Block Category
+ */
+function mcd_block_categories( $categories ) {
+    return array_merge(
+        $categories,
+        [
+            [
+                'slug'  => 'mcd-blocks',
+                'title' => __( 'McCullough Digital Blocks', 'mccullough-digital' ),
+                'icon'  => 'star-filled',
+            ],
+        ]
+    );
+}
+add_action( 'block_categories_all', 'mcd_block_categories' );

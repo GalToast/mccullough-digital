@@ -1,0 +1,9 @@
+/* --- About Section --- */
+.wp-block-mccullough-digital-about p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}

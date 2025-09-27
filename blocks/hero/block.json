@@ -1,0 +1,35 @@
+{
+    "name": "mccullough-digital/hero",
+    "title": "Hero Section",
+    "category": "mcd-blocks",
+    "icon": "superhero",
+    "description": "A full-screen hero section with an animated background, headline, and call-to-action.",
+    "keywords": ["hero", "header", "banner"],
+    "apiVersion": 2,
+    "supports": {
+        "html": false,
+        "anchor": true
+    },
+    "attributes": {
+        "headline": {
+            "type": "string",
+            "source": "html",
+            "selector": "h1"
+        },
+        "subheading": {
+            "type": "string",
+            "source": "html",
+            "selector": "p"
+        },
+        "buttonText": {
+            "type": "string",
+            "default": "Start a Project"
+        },
+        "buttonLink": {
+            "type": "string",
+            "default": "#contact"
+        }
+    },
+    "editorScript": "file:./script.js",
+    "style": "file:./style.css"
+}
