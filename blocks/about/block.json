@@ -4,7 +4,11 @@
     "category": "mcd-blocks",
     "icon": "id",
     "description": "An about section with a title and a paragraph of text.",
-    "keywords": ["about", "bio", "profile"],
+    "keywords": [
+        "about",
+        "bio",
+        "profile"
+    ],
     "apiVersion": 2,
     "supports": {
         "html": false,
@@ -22,7 +26,7 @@
             "selector": "p"
         }
     },
-    "editorScript": "file:./editor.js",
+    "editorScript": "file:../../build/blocks/about/editor.js",
     "style": "file:./style.css",
     "render": "file:./render.php"
 }

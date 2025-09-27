@@ -4,7 +4,11 @@
     "category": "mcd-blocks",
     "icon": "superhero",
     "description": "A full-screen hero section with an animated background, headline, and call-to-action.",
-    "keywords": ["hero", "header", "banner"],
+    "keywords": [
+        "hero",
+        "header",
+        "banner"
+    ],
     "apiVersion": 2,
     "supports": {
         "html": false,
@@ -30,7 +34,7 @@
             "default": "#contact"
         }
     },
-    "editorScript": "file:./editor.js",
+    "editorScript": "file:../../build/blocks/hero/editor.js",
     "viewScript": "file:./view.js",
     "style": "file:./style.css",
     "render": "file:./render.php"

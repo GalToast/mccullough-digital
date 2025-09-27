@@ -4,7 +4,11 @@
     "category": "mcd-blocks",
     "icon": "layout",
     "description": "A container for displaying a grid of service cards.",
-    "keywords": ["services", "grid", "cards"],
+    "keywords": [
+        "services",
+        "grid",
+        "cards"
+    ],
     "apiVersion": 2,
     "supports": {
         "html": false,
@@ -15,9 +19,15 @@
             "mccullough-digital/service-card"
         ],
         "template": [
-            ["mccullough-digital/service-card"],
-            ["mccullough-digital/service-card"],
-            ["mccullough-digital/service-card"]
+            [
+                "mccullough-digital/service-card"
+            ],
+            [
+                "mccullough-digital/service-card"
+            ],
+            [
+                "mccullough-digital/service-card"
+            ]
         ]
     },
     "attributes": {
@@ -27,7 +37,7 @@
             "selector": "h2"
         }
     },
-    "editorScript": "file:./editor.js",
+    "editorScript": "file:../../build/blocks/services/editor.js",
     "style": "file:./style.css",
     "render": "file:./render.php"
 }

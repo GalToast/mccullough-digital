@@ -46,3 +46,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+
+== Development ==
+
+This theme ships with a build pipeline powered by `@wordpress/scripts`.
+
+1. Run `npm install` to set up the toolchain.
+2. Use `npm run build` to compile block assets for production.
+3. Use `npm run start` during development to watch and rebuild block scripts.
+
+Compiled files are written to `build/blocks/*/editor.js` and referenced automatically by each block's `block.json`.

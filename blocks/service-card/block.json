@@ -5,7 +5,9 @@
     "icon": "star-filled",
     "description": "A single service card with an icon, title, text, and link.",
     "apiVersion": 2,
-    "parent": [ "mccullough-digital/services" ],
+    "parent": [
+        "mccullough-digital/services"
+    ],
     "supports": {
         "html": false,
         "reusable": false,
@@ -29,13 +31,13 @@
         },
         "linkText": {
             "type": "string",
-            "default": "Learn More →"
+            "default": "Learn More \u2192"
         },
         "linkUrl": {
             "type": "string",
             "default": "#"
         }
     },
-    "editorScript": "file:./editor.js",
+    "editorScript": "file:../../build/blocks/service-card/editor.js",
     "render": "file:./render.php"
 }
