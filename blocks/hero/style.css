@@ -11,7 +11,7 @@
     overflow: hidden; /* Hide anything that goes outside the hero */
 }
 
-#particle-canvas {
+.hero__particle-canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -25,7 +25,7 @@
     z-index: 2;
 }
 
-.hero h1 {
+.hero__headline {
     font-family: 'Caveat', cursive;
     font-size: clamp(3.5rem, 10vw, 7rem);
     color: #fff;
@@ -35,14 +35,15 @@
 }
 
 /* --- Interactive Hero H1 Letters --- */
-.hero h1 span {
+.hero__headline span {
     display: inline-block;
     position: relative;
     cursor: default;
+    white-space: pre;
 }
 
-.hero h1 span:hover::before,
-.hero h1 span:hover::after {
+.hero__headline span:hover::before,
+.hero__headline span:hover::after {
     content: attr(data-char);
     position: absolute;
     top: 0;
@@ -50,15 +51,26 @@
     animation: glitch 0.35s infinite;
 }
 
-.hero h1 span:hover::before {
+.hero__headline span:hover::before {
     color: var(--neon-cyan);
     z-index: -1;
     animation-direction: reverse;
 }
 
-.hero h1 span:hover::after {
+.hero__headline span:hover::after {
     color: var(--neon-magenta);
     z-index: -2;
+}
+
+
+.hero.is-reduced-motion .hero__particle-canvas {
+    display: none;
+}
+
+.hero.is-reduced-motion .hero__headline span:hover::before,
+.hero.is-reduced-motion .hero__headline span:hover::after {
+    animation: none;
+    content: none;
 }
 
 

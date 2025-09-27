@@ -1,194 +1,336 @@
-/**
- * Hero Block-specific JavaScript.
- */
-document.addEventListener('DOMContentLoaded', function() {
+(() => {
+    const init = () => {
+        const heroBlocks = document.querySelectorAll('.wp-block-mccullough-digital-hero');
 
-    // --- Interactive Hero Headline ---
-    const escapeTextContent = (char) => {
-        switch (char) {
-            case '<':
-                return '&lt;';
-            case '>':
-                return '&gt;';
-            case '&':
-                return '&amp;';
-            case '"':
-                return '&quot;';
-            case '\'':
-                return '&#39;';
-            case ' ':
-                return '&nbsp;';
-            default:
-                return char;
+        if (!heroBlocks.length) {
+            return;
         }
-    };
 
-    const escapeAttributeValue = (char) => {
-        switch (char) {
-            case '<':
-                return '&lt;';
-            case '>':
-                return '&gt;';
-            case '&':
-                return '&amp;';
-            case '"':
-                return '&quot;';
-            case '\'':
-                return '&#39;';
-            case ' ':
-                return '&nbsp;';
-            default:
-                return char;
-        }
-    };
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const heroState = new Map();
 
-    const headline = document.getElementById('interactive-headline');
-    if (headline) {
-        const processNode = (node) => {
-            const children = Array.from(node.childNodes);
-            for (const child of children) {
-                if (child.nodeType === Node.TEXT_NODE) {
-                    const text = child.textContent;
-                    const fragment = document.createDocumentFragment();
-                    for (const char of text) {
-                        const span = document.createElement('span');
-                        const escapedText = escapeTextContent(char);
-                        const escapedAttr = escapeAttributeValue(char);
-                        span.dataset.char = escapedAttr;
-                        span.innerHTML = escapedText;
-                        fragment.appendChild(span);
-                    }
-                    child.parentNode.replaceChild(fragment, child);
-                } else if (child.nodeType === Node.ELEMENT_NODE) {
-                    processNode(child);
+        const supportsResizeObserver = 'ResizeObserver' in window;
+        const supportsIntersectionObserver = 'IntersectionObserver' in window;
+
+        const createLetterSpans = (headline) => {
+            const walker = document.createTreeWalker(headline, NodeFilter.SHOW_TEXT, null, false);
+            const textNodes = [];
+
+            while (walker.nextNode()) {
+                textNodes.push(walker.currentNode);
+            }
+
+            textNodes.forEach((node) => {
+                const text = node.textContent;
+
+                if (!text) {
+                    return;
                 }
-            }
+
+                const fragment = document.createDocumentFragment();
+
+                for (const char of text) {
+                    if (char === '\n' || char === '\r') {
+                        fragment.appendChild(document.createElement('br'));
+                        continue;
+                    }
+
+                    const span = document.createElement('span');
+                    const outputChar = char === ' ' ? '\u00A0' : char;
+
+                    span.dataset.char = outputChar;
+                    span.textContent = outputChar;
+
+                    fragment.appendChild(span);
+                }
+
+                node.parentNode.replaceChild(fragment, node);
+            });
         };
-        processNode(headline);
-    }
 
-    // --- Twinkling Stars Canvas Animation ---
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        let shootingStars = []; // Array for shooting stars
-        let frame = 0;
+        const createStarField = (hero) => {
+            const canvas = hero.querySelector('.hero__particle-canvas');
 
-        const setCanvasSize = () => {
-            // Set canvas size based on its parent .hero element
-            const heroSection = canvas.closest('.hero');
-            if (heroSection) {
-                canvas.width = heroSection.offsetWidth;
-                canvas.height = heroSection.offsetHeight;
+            if (!canvas) {
+                return null;
+            }
+
+            const context = canvas.getContext('2d');
+
+            if (!context) {
+                return null;
+            }
+
+            const state = {
+                canvas,
+                context,
+                stars: [],
+                shootingStars: [],
+                frame: 0,
+                rafId: null,
+                resizeObserver: null,
+                visibilityObserver: null,
+                isVisible: true,
+                resizeHandler: null,
+            };
+
+            const density = 2500;
+            const maxStars = 600;
+            const maxShootingStars = 3;
+
+            const setCanvasSize = () => {
+                const rect = hero.getBoundingClientRect();
+                const width = Math.max(rect.width, 1);
+                const height = Math.max(rect.height, 1);
+                const dpr = window.devicePixelRatio || 1;
+
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                canvas.style.width = `${width}px`;
+                canvas.style.height = `${height}px`;
+
+                context.setTransform(1, 0, 0, 1, 0, 0);
+                context.scale(dpr, dpr);
+
+                state.width = width;
+                state.height = height;
+            };
+
+            const createStar = () => ({
+                x: Math.random() * state.width,
+                y: Math.random() * state.height,
+                size: Math.random() * 2 + 0.5,
+                vy: Math.random() * 0.1 + 0.05,
+                twinkleSpeed: Math.random() * 0.015 + 0.005,
+                twinkleOffset: Math.random() * 100,
+            });
+
+            const createShootingStar = () => ({
+                x: Math.random() * state.width + 100,
+                y: -(Math.random() * state.height * 0.5),
+                len: Math.random() * 60 + 20,
+                speed: Math.random() * 8 + 6,
+                size: Math.random() * 1.5 + 0.5,
+            });
+
+            const repopulate = () => {
+                const starCount = Math.min(
+                    maxStars,
+                    Math.max(50, Math.round((state.width * state.height) / density))
+                );
+
+                state.stars = Array.from({ length: starCount }, createStar);
+                state.shootingStars = Array.from({ length: maxShootingStars }, createShootingStar);
+            };
+
+            const drawStars = () => {
+                state.stars.forEach((star) => {
+                    star.y += star.vy;
+
+                    if (star.y > state.height + star.size) {
+                        star.y = -star.size;
+                        star.x = Math.random() * state.width;
+                    }
+
+                    const opacity = Math.pow(
+                        Math.abs(Math.sin(star.twinkleOffset + state.frame * star.twinkleSpeed)),
+                        10
+                    );
+
+                    context.beginPath();
+                    context.arc(star.x, star.y, star.size, 0, Math.PI * 2, false);
+                    const color = Math.random() > 0.1
+                        ? `rgba(0, 229, 255, ${opacity})`
+                        : `rgba(255, 0, 224, ${opacity})`;
+                    context.fillStyle = color;
+                    context.fill();
+                });
+            };
+
+            const drawShootingStars = () => {
+                state.shootingStars.forEach((shootingStar, index) => {
+                    shootingStar.x -= shootingStar.speed;
+                    shootingStar.y += shootingStar.speed * 0.4;
+
+                    if (
+                        shootingStar.x < -shootingStar.len ||
+                        shootingStar.y > state.height + shootingStar.len
+                    ) {
+                        state.shootingStars[index] = createShootingStar();
+                    }
+
+                    const grad = context.createLinearGradient(
+                        shootingStar.x,
+                        shootingStar.y,
+                        shootingStar.x - shootingStar.len,
+                        shootingStar.y + shootingStar.len * 0.4
+                    );
+                    grad.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+                    grad.addColorStop(0.5, 'rgba(0, 229, 255, 0.6)');
+                    grad.addColorStop(1, 'rgba(0, 229, 255, 0)');
+
+                    context.strokeStyle = grad;
+                    context.lineWidth = shootingStar.size;
+                    context.lineCap = 'round';
+                    context.beginPath();
+                    context.moveTo(shootingStar.x, shootingStar.y);
+                    context.lineTo(
+                        shootingStar.x - shootingStar.len,
+                        shootingStar.y + shootingStar.len * 0.4
+                    );
+                    context.stroke();
+                });
+            };
+
+            const animate = () => {
+                if (prefersReducedMotion.matches || !state.isVisible) {
+                    state.rafId = null;
+                    return;
+                }
+
+                state.rafId = window.requestAnimationFrame(animate);
+                state.frame += 1;
+
+                context.clearRect(0, 0, state.width, state.height);
+                drawStars();
+                drawShootingStars();
+            };
+
+            const start = () => {
+                if (state.rafId || prefersReducedMotion.matches || !state.isVisible) {
+                    return;
+                }
+
+                animate();
+            };
+
+            const stop = () => {
+                if (state.rafId) {
+                    window.cancelAnimationFrame(state.rafId);
+                    state.rafId = null;
+                }
+            };
+
+            const refresh = () => {
+                stop();
+                setCanvasSize();
+                repopulate();
+                start();
+            };
+
+            refresh();
+
+            if (supportsResizeObserver) {
+                state.resizeObserver = new ResizeObserver(refresh);
+                state.resizeObserver.observe(hero);
             } else {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                state.resizeHandler = () => refresh();
+                window.addEventListener('resize', state.resizeHandler, { passive: true });
             }
+
+            if (supportsIntersectionObserver) {
+                state.visibilityObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        state.isVisible = entry.isIntersecting;
+
+                        if (state.isVisible) {
+                            start();
+                        } else {
+                            stop();
+                        }
+                    });
+                });
+                state.visibilityObserver.observe(hero);
+            } else {
+                state.isVisible = true;
+                start();
+            }
+
+            return {
+                start,
+                stop,
+                refresh,
+                destroy: () => {
+                    stop();
+
+                    if (state.resizeObserver) {
+                        state.resizeObserver.disconnect();
+                    }
+
+                    if (state.visibilityObserver) {
+                        state.visibilityObserver.disconnect();
+                    }
+
+                    if (state.resizeHandler) {
+                        window.removeEventListener('resize', state.resizeHandler);
+                    }
+
+                    context.clearRect(0, 0, state.width, state.height);
+                },
+            };
         };
 
-        window.addEventListener('resize', () => {
-            setCanvasSize();
-            init();
+        const updateMotionPreference = () => {
+            heroState.forEach((instance) => {
+                if (prefersReducedMotion.matches) {
+                    instance.stop();
+                } else {
+                    instance.refresh();
+                }
+            });
+
+            heroBlocks.forEach((hero) => {
+                hero.classList.toggle('is-reduced-motion', prefersReducedMotion.matches);
+            });
+        };
+
+        heroBlocks.forEach((hero) => {
+            if (hero.dataset.heroInitialized === 'true') {
+                return;
+            }
+
+            hero.dataset.heroInitialized = 'true';
+
+            const headline = hero.querySelector('.hero__headline');
+
+            if (headline) {
+                createLetterSpans(headline);
+            }
+
+            const starField = createStarField(hero);
+
+            if (starField) {
+                heroState.set(hero, starField);
+            }
         });
 
-        class Star {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.vy = Math.random() * 0.1 + 0.05;
-                this.twinkleSpeed = Math.random() * 0.015 + 0.005;
-                this.twinkleOffset = Math.random() * 100;
-            }
+        updateMotionPreference();
 
-            update() {
-                this.y += this.vy;
-                if (this.y > canvas.height + this.size) {
-                    this.y = -this.size;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
+        const motionListener = () => updateMotionPreference();
 
-            draw() {
-                const opacity = Math.pow(Math.abs(Math.sin(this.twinkleOffset + frame * this.twinkleSpeed)), 10);
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                const color = Math.random() > 0.1 ? `rgba(0, 229, 255, ${opacity})` : `rgba(255, 0, 224, ${opacity})`;
-                ctx.fillStyle = color;
-                ctx.fill();
-            }
+        if (typeof prefersReducedMotion.addEventListener === 'function') {
+            prefersReducedMotion.addEventListener('change', motionListener);
+        } else if (typeof prefersReducedMotion.addListener === 'function') {
+            prefersReducedMotion.addListener(motionListener);
         }
 
-        class ShootingStar {
-            constructor() {
-                this.reset();
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                heroState.forEach((instance) => instance.stop());
+            } else {
+                updateMotionPreference();
             }
+        });
 
-            reset() {
-                this.x = Math.random() * canvas.width + 100;
-                this.y = - (Math.random() * canvas.height * 0.5);
-                this.len = Math.random() * 60 + 20;
-                this.speed = Math.random() * 8 + 6;
-                this.size = Math.random() * 1.5 + 0.5;
-            }
+        window.addEventListener('unload', () => {
+            heroState.forEach((instance) => instance.destroy());
+            heroState.clear();
+        });
+    };
 
-            update() {
-                this.x -= this.speed;
-                this.y += this.speed * 0.4;
-                if (this.x < -this.len || this.y > canvas.height + this.len) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                const grad = ctx.createLinearGradient(this.x, this.y, this.x - this.len, this.y + (this.len * 0.4));
-                grad.addColorStop(0, "rgba(255, 255, 255, 0.8)");
-                grad.addColorStop(0.5, "rgba(0, 229, 255, 0.6)");
-                grad.addColorStop(1, "rgba(0, 229, 255, 0)");
-
-                ctx.strokeStyle = grad;
-                ctx.lineWidth = this.size;
-                ctx.lineCap = 'round';
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - this.len, this.y + (this.len * 0.4));
-                ctx.stroke();
-            }
-        }
-
-
-        function init() {
-            stars = [];
-            shootingStars = [];
-            let numberOfStars = (canvas.width * canvas.height) / 2500;
-            for (let i = 0; i < numberOfStars; i++) {
-                stars.push(new Star());
-            }
-            for (let i = 0; i < 3; i++) {
-                shootingStars.push(new ShootingStar());
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            frame++;
-
-            for (let i = 0; i < stars.length; i++) {
-                stars[i].update();
-                stars[i].draw();
-            }
-
-            for (let i = 0; i < shootingStars.length; i++) {
-                shootingStars[i].update();
-                shootingStars[i].draw();
-            }
-        }
-
-        setCanvasSize();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+    } else {
         init();
-        animate();
     }
-});
+})();

@@ -20,7 +20,13 @@ $wrapper_attributes = get_block_wrapper_attributes(
    <div class="service-card-content">
         <div>
             <div class="icon">
-                <?php echo ( $attributes['icon'] ?? '' ); // Note: This will be raw SVG content. It's ok since it's from an admin. ?>
+                <?php
+                $icon_svg = isset( $attributes['icon'] ) ? mcd_sanitize_svg( $attributes['icon'] ) : '';
+
+                if ( $icon_svg ) {
+                    echo $icon_svg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized SVG markup.
+                }
+                ?>
             </div>
             <h3>
                 <?php echo esc_html( $attributes['title'] ?? '' ); ?>
