@@ -9,9 +9,10 @@
  * @package McCullough_Digital
  */
 
+$section_id         = ! empty( $attributes['anchor'] ) ? $attributes['anchor'] : 'services';
 $wrapper_attributes = get_block_wrapper_attributes(
     [
-        'id' => 'services', // Keep the ID for anchor links
+        'id' => $section_id,
     ]
 );
 
