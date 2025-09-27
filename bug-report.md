@@ -2,59 +2,64 @@
 
 **Date:** 2025-09-27
 
-This report details the findings of a comprehensive bug sweep conducted on the McCullough Digital WordPress theme. The investigation focused on identifying incorrect behavior, security vulnerabilities, and code quality issues.
-
-Below is a list of confirmed bugs and code quality improvements that were identified.
+This report documents ten issues uncovered during the latest review of the McCullough Digital WordPress theme. Each item below notes the affected code, the incorrect behaviour that was observed, and the potential impact on editors or visitors.
 
 ---
 
 ## Confirmed Bugs (Incorrect Behavior)
 
-These are issues where the theme does not behave as expected, leading to a flawed user experience.
+These problems directly affected usability, accessibility, or runtime stability.
 
-### 1. Social Icon Domain Matching is Fragile
+### 1. Header Offset Broke After Layout Changes
+- **Files:** `style.css`, `js/header-scripts.js`
+- **Description:** The fixed header height was hard-coded to `80px`. When the header grew taller (e.g., due to responsive wrapping or the mobile menu opening), page content slipped underneath it and became unreadable.
+- **Impact:** Visitors could no longer see the top of the page content after resizing or opening the mobile navigation.
 
--   **File:** `functions.php`
--   **Function:** `mcd_get_social_link_svg()`
--   **Description:** The logic to extract a domain name from a URL is too simplistic. It assumes the domain is always the last two segments of the hostname (e.g., `example.com`). This fails for domains with country-code top-level domains like `twitter.co.uk`, which is incorrectly processed as `co.uk`.
--   **Impact:** Social media icons will not appear for any site that doesn't use a simple `.com`, `.org`, etc., domain structure.
+### 2. Header Script Crashed Without `matchMedia`
+- **File:** `js/header-scripts.js`
+- **Description:** The header behaviour relied on `window.matchMedia` without guarding for browsers where the API is missing.
+- **Impact:** Older browsers threw a runtime error, preventing the rest of the theme JavaScript from executing.
 
-### 2. Header Visibility Breaks on Window Resize
+### 3. Header Hid While Navigating With the Keyboard
+- **File:** `js/header-scripts.js`
+- **Description:** The hide-on-scroll logic ignored keyboard focus. Tabbing into the navigation while scrolled down left the header hidden off-screen.
+- **Impact:** Keyboard users were forced to interact with invisible controls, creating an accessibility failure.
 
--   **File:** `js/header-scripts.js`
--   **Description:** The script that hides the header on scroll-down calculates the header's height only once when the page first loads. If the browser window is resized, the header's height might change, but the script continues to use the original, outdated height value.
--   **Impact:** After resizing the browser, the header may hide too early, too late, or not at all, creating a jarring visual effect.
+### 4. Hero Animation Crashed on Legacy Browsers
+- **File:** `blocks/hero/view.js`
+- **Description:** The hero animation also assumed `window.matchMedia` was available.
+- **Impact:** On browsers without that API the script halted before initialising the headline animation or the particle field.
 
-### 3. Block-based Mobile Menu Icon State is Unreliable
+### 5. Hero Headline Animation Broke Screen Readers
+- **Files:** `blocks/hero/view.js`, `blocks/hero/render.php`
+- **Description:** Splitting every headline character into individual `<span>` elements caused screen readers to announce each letter separately, and the decorative canvas lacked a presentational role.
+- **Impact:** Assistive technology delivered nonsensical output, harming accessibility.
 
--   **File:** `js/header-scripts.js`
--   **Function:** `initBlockMenu()`
--   **Description:** The visual state of the mobile menu's hamburger icon (changing from three lines to an "X") is not synchronized with the actual state of the menu. The icon's state is toggled on click, but if the menu is closed by another action (like clicking a navigation link), the icon does not reset.
--   **Impact:** The user might see a "close" icon even when the menu is already closed, which is confusing.
+### 6. SVG Sanitiser Removed Legitimate Icons
+- **File:** `functions.php`
+- **Description:** `mcd_sanitize_svg()` only allowed a small set of tags and attributes. Icons that used gradients, symbols, or `<use>` references were stripped to empty markup.
+- **Impact:** Social and block icons that relied on gradients or shared symbols failed to render.
+
+### 7. Service Card Block Emitted Inaccessible Markup
+- **File:** `blocks/service-card/render.php`
+- **Description:** Decorative SVGs were exposed to assistive tech and an anchor tag was rendered even when no link text was provided.
+- **Impact:** Screen reader users heard stray “graphic” announcements, and empty links created WCAG violations.
+
+### 8. CTA Block Rendered Empty Buttons
+- **File:** `blocks/cta/render.php`
+- **Description:** The call-to-action button appeared even when the author left the label blank.
+- **Impact:** Visitors encountered focusable controls with no name, failing accessibility guidelines and confusing users.
+
+### 9. Standalone Preview Missed Font Optimisations
+- **File:** `standalone.html`
+- **Description:** The static preview page contained malformed `<link>` elements and depended on `overflow-x: hidden` to mask layout issues.
+- **Impact:** Previewing the theme locally showed fallback fonts and could still hide underlying layout bugs.
 
 ---
 
-## Code Quality & Security Issues
+## Code Quality & Performance Issues
 
-These are not user-facing bugs but represent areas where the code is inefficient, hard to maintain, or potentially insecure.
-
-### 1. Insufficient SVG Sanitization
-
--   **File:** `functions.php`
--   **Function:** `mcd_sanitize_svg()`
--   **Description:** The function to sanitize uploaded SVGs is too basic. It only removes `<script>` tags and `on*` event attributes. It does not protect against more sophisticated Cross-Site Scripting (XSS) vectors that can exist in SVGs.
--   **Impact:** This poses a potential security vulnerability. If a user with file upload permissions (like an author or editor) uploads a maliciously crafted SVG, it could execute malicious scripts in the browsers of visitors or administrators.
-
-### 2. `overflow-x: hidden` Masks Layout Issues
-
--   **File:** `style.css`
--   **Selector:** `body`
--   **Description:** The stylesheet applies `overflow-x: hidden` to the main `<body>` tag. This is generally considered a "code smell" because it hides the symptom (a horizontal scrollbar) instead of fixing the root cause (an element that is wider than the viewport).
--   **Impact:** This can make the theme difficult to debug and may cause content to be clipped or hidden on certain screen sizes without any indication that something is wrong.
-
-### 3. Hardcoded SVGs in CSS
-
--   **File:** `style.css`
--   **Selectors:** `.stars`, `.stars2`, `.stars3`
--   **Description:** The animated starfield background in the footer is created using large, data-URI-encoded SVGs placed directly within the CSS file.
--   **Impact:** This unnecessarily bloats the main stylesheet, increasing page load times. It also makes the star graphics impossible for browsers to cache separately and very difficult for developers to edit or maintain.
+### 1. Services Block Re-read Metadata on Every Render
+- **File:** `blocks/services/render.php`
+- **Description:** The render callback decoded `block.json` on every request even though the data was not used.
+- **Impact:** The extra file I/O slowed page generation and complicated future maintenance.

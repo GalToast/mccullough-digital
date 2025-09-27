@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.0.2
+Version:       1.1.0
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -13,6 +13,7 @@ Text Domain:   mccullough-digital
 /* --- Variables --- */
 :root {
     --header-height: 80px;
+    --mcd-header-offset: var(--header-height);
     /* New Softer Palette */
     --neon-cyan: #00e5ff;
     --neon-magenta: #ff00e0;
@@ -42,7 +43,7 @@ body {
 }
 
 /* Ensure content doesn't hide behind fixed header */
-main.site-content { padding-top: var(--header-height); }
+main.site-content { padding-top: var(--mcd-header-offset, var(--header-height)); }
 
 .container {
     width: 90%;
@@ -460,7 +461,7 @@ section {
         display: none;
         background-color: rgba(10, 10, 10, 0.95);
         backdrop-filter: blur(10px);
-        padding-top: var(--header-height);
+        padding-top: var(--mcd-header-offset, var(--header-height));
         align-items: center;
         justify-content: center;
     }

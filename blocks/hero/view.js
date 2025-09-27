@@ -6,13 +6,39 @@
             return;
         }
 
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const createMotionPreferenceQuery = () => {
+            if (typeof window.matchMedia !== 'function') {
+                const noop = () => {};
+                return {
+                    matches: false,
+                    addEventListener: noop,
+                    removeEventListener: noop,
+                    addListener: noop,
+                    removeListener: noop,
+                };
+            }
+
+            return window.matchMedia('(prefers-reduced-motion: reduce)');
+        };
+
+        const prefersReducedMotion = createMotionPreferenceQuery();
         const heroState = new Map();
 
         const supportsResizeObserver = 'ResizeObserver' in window;
         const supportsIntersectionObserver = 'IntersectionObserver' in window;
 
         const createLetterSpans = (headline) => {
+            if (!headline) {
+                return;
+            }
+
+            if (!headline.hasAttribute('aria-label')) {
+                const labelText = headline.textContent ? headline.textContent.trim() : '';
+                if (labelText) {
+                    headline.setAttribute('aria-label', labelText);
+                }
+            }
+
             const walker = document.createTreeWalker(headline, NodeFilter.SHOW_TEXT, null, false);
             const textNodes = [];
 
@@ -40,6 +66,7 @@
 
                     span.dataset.char = outputChar;
                     span.textContent = outputChar;
+                    span.setAttribute('aria-hidden', 'true');
 
                     fragment.appendChild(span);
                 }
@@ -307,10 +334,12 @@
         updateMotionPreference();
 
         const motionListener = () => updateMotionPreference();
+        const hasModernMotionListener = typeof prefersReducedMotion.addEventListener === 'function';
+        const hasLegacyMotionListener = !hasModernMotionListener && typeof prefersReducedMotion.addListener === 'function';
 
-        if (typeof prefersReducedMotion.addEventListener === 'function') {
+        if (hasModernMotionListener) {
             prefersReducedMotion.addEventListener('change', motionListener);
-        } else if (typeof prefersReducedMotion.addListener === 'function') {
+        } else if (hasLegacyMotionListener) {
             prefersReducedMotion.addListener(motionListener);
         }
 
@@ -325,6 +354,12 @@
         window.addEventListener('unload', () => {
             heroState.forEach((instance) => instance.destroy());
             heroState.clear();
+
+            if (hasModernMotionListener) {
+                prefersReducedMotion.removeEventListener('change', motionListener);
+            } else if (hasLegacyMotionListener) {
+                prefersReducedMotion.removeListener(motionListener);
+            }
         });
     };
 
