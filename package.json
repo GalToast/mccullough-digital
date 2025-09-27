@@ -1,0 +1,17 @@
+{
+  "name": "mccullough-digital-theme",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build tooling for the McCullough Digital WordPress theme.",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.26.0",
+    "@wordpress/scripts": "^27.1.0",
+    "glob": "^10.3.10",
+    "mdn-data": "^2.0.30",
+    "schema-utils": "^4.3.2"
+  }
+}

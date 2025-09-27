@@ -4,7 +4,11 @@
     "category": "mcd-blocks",
     "icon": "megaphone",
     "description": "A call-to-action section with a title and a button.",
-    "keywords": ["cta", "contact", "button"],
+    "keywords": [
+        "cta",
+        "contact",
+        "button"
+    ],
     "apiVersion": 2,
     "supports": {
         "html": false,
@@ -25,7 +29,7 @@
             "default": "mailto:contact@mccullough.digital"
         }
     },
-    "editorScript": "file:./editor.js",
+    "editorScript": "file:../../build/blocks/cta/editor.js",
     "style": "file:./style.css",
     "render": "file:./render.php"
 }
