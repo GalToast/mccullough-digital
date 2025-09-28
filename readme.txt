@@ -33,6 +33,12 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.3 - 2025-09-29 =
+* **Editor Experience:** Restored the page-wide template wrapper so `site-content` padding and the container helper classes work in the editor and the front end, and added matching wide/full container utilities to the block editor stylesheet.
+* **Customization:** Enabled spacing, color, and typography design tools plus text domains across all custom blocks so they can be styled and translated like core blocks, and registered the page-wide template for selection in the template picker.
+* **Design Tokens:** Introduced reusable surface color tokens, spacing presets, and a wide content size so align-wide/full and preset spacing controls produce valid CSS in templates and patterns.
+* **Content Hygiene:** Rebuilt the 404 page layout, removed placeholder `#` links from the services pattern and footer social menu, and prevented the legacy bootstrapper from outputting duplicate headers and footers.
+
 = 1.2.2 - 2025-09-28 =
 * **Accessibility:** Removed duplicated IDs from editor components, restored hero block alignment support, and suppressed empty hero subheadings.
 * **Stability:** Added the missing services block registration import, corrected its dynamic save implementation, and ensured service CTA links escape URLs.

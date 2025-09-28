@@ -156,6 +156,107 @@ This report now tracks both the 2025-09-27 and 2025-09-28 sweeps, covering thirt
     *Issue:* Footer elements referenced `--z-index-content`, but the value was undefined, undermining stacking order.
     *Resolution:* Defined the token in the global variable set.
 
+### 2025-09-29 Sweep
+1. **Service Card Block Missing Inserter Support**
+   *Files:* `blocks/service-card/block.json`
+   *Issue:* The service card block was hidden from the inserter and could not be converted to reusable patterns, preventing authors from adding new cards in the editor.
+   *Resolution:* Enabled the inserter and reusable block support so cards can be created and managed from list view.
+
+2. **Service Card Block Lacked Design Controls**
+   *Files:* `blocks/service-card/block.json`
+   *Issue:* The block exposed no spacing, color, or typography controls, forcing authors to edit code for simple layout tweaks.
+   *Resolution:* Added margin, padding, color, gradient, link, and typography support to match core block capabilities.
+
+3. **Hero Block Lacked Design Controls**
+   *Files:* `blocks/hero/block.json`
+   *Issue:* The hero block ignored spacing and color tools, making it impossible to adjust padding or palette choices from the editor.
+   *Resolution:* Enabled spacing, color, gradient, and typography support on the hero metadata.
+
+4. **Services Block Lacked Design Controls**
+   *Files:* `blocks/services/block.json`
+   *Issue:* The services container could not be restyled without editing CSS because spacing and color controls were missing.
+   *Resolution:* Opted the block into margin, padding, color, gradient, and typography tools.
+
+5. **CTA Block Lacked Design Controls**
+   *Files:* `blocks/cta/block.json`
+   *Issue:* Editors could not tweak CTA spacing or text styling from the inspector.
+   *Resolution:* Added full spacing, color, gradient, and typography support to the CTA metadata.
+
+6. **About Block Lacked Design Controls**
+   *Files:* `blocks/about/block.json`
+   *Issue:* The about block was locked to its default spacing and palette, hindering layout customization.
+   *Resolution:* Enabled margin, padding, color, gradient, and typography controls.
+
+7. **Custom Blocks Missing Text Domains**
+   *Files:* `blocks/about/block.json`, `blocks/cta/block.json`, `blocks/hero/block.json`, `blocks/service-card/block.json`, `blocks/services/block.json`
+   *Issue:* None of the custom blocks declared the theme text domain, so translations for titles and descriptions could not load.
+   *Resolution:* Added the `mccullough-digital` text domain to every block manifest.
+
+8. **Surface Palette Tokens Missing**
+   *Files:* `theme.json`
+   *Issue:* No palette entries existed for surface backgrounds or borders, so components relied on hard-coded hex values.
+   *Resolution:* Introduced `surface-dark` and `surface-border` tokens in the global palette.
+
+9. **Hard-Coded Surface Colors in Front-End Styles**
+   *Files:* `style.css`, `blocks/services/style.css`
+   *Issue:* Service cards, post cards, tags, comment forms, and search inputs used fixed hex colors that ignored palette changes.
+   *Resolution:* Swapped those declarations to the new surface tokens and text variables for consistent theming.
+
+10. **CTA Button Text Ignored Palette**
+    *Files:* `style.css`
+    *Issue:* CTA buttons forced white text regardless of palette adjustments.
+    *Resolution:* Switched the button text color to use `--text-primary`.
+
+11. **Spacing Presets Missing for Page-Wide Template**
+    *Files:* `theme.json`
+    *Issue:* The template referenced `var(--wp--preset--spacing--50)` and `--40`, but no spacing presets existed, producing invalid CSS variables.
+    *Resolution:* Added a spacing scale with the required preset sizes.
+
+12. **Wide Align Width Undefined**
+    *Files:* `theme.json`
+    *Issue:* Align-wide controls defaulted to the content width because `layout.wideSize` was absent.
+    *Resolution:* Declared a 1600px wide size to give wide/full blocks extra breathing room.
+
+13. **Page-Wide Template Missing Site Content Wrapper**
+    *Files:* `templates/page-wide.html`
+    *Issue:* The layout omitted the `site-content` class and inner container, so header offsets and container helpers failed on the front end.
+    *Resolution:* Wrapped the template in the expected `site-content` structure with a constrained inner container.
+
+14. **Page-Wide Template Not Registered**
+    *Files:* `theme.json`
+    *Issue:* The wide layout could not be selected from the template picker because it lacked a `customTemplates` entry.
+    *Resolution:* Registered the template with a title and description so editors can assign it to pages.
+
+15. **404 Template Rendered Archive Loop**
+    *Files:* `templates/404.html`
+    *Issue:* The 404 template used the archive query loop and title, showing empty archive messaging instead of a proper not-found page.
+    *Resolution:* Replaced it with a focused 404 layout, search prompt, and optional recent posts grid.
+
+16. **Services Pattern Contained Placeholder Links**
+    *Files:* `patterns/services-section.php`
+    *Issue:* Each service card shipped with `linkUrl="#"`, generating non-functional anchors.
+    *Resolution:* Removed the placeholder URLs so cards render as static text until authors supply real links.
+
+17. **Footer Social Menu Used Placeholder Links**
+    *Files:* `parts/footer.html`
+    *Issue:* Footer social icons pointed to `#`, breaking navigation and harming accessibility.
+    *Resolution:* Replaced the placeholders with real profile URLs for production-ready defaults.
+
+18. **Legacy Bootstrap Duplicated Header/Footer**
+    *Files:* `index.php`
+    *Issue:* The PHP fallback called both `block_header_area()` and `block_template_part('header')`, rendering duplicate headers (and the same for footers).
+    *Resolution:* Updated the fallback to prefer the block areas and only call template parts when those functions are unavailable.
+
+19. **Editor Preview Lacked Palette & Alignment Helpers**
+    *Files:* `editor-style.css`
+    *Issue:* Editor styles still used hard-coded surface colors and offered no wide/full container utilities, so previews diverged from the front end.
+    *Resolution:* Mapped editor surfaces to the new tokens and added the wide/full container helper classes.
+
+20. **Editor CTA Button Border Ignored Palette**
+    *Files:* `editor-style.css`
+    *Issue:* The editor-side CTA button retained a white border regardless of palette changes.
+    *Resolution:* Updated the border color to use the primary text token.
+
 ## Improvements
 1. **Extensible Social Icon Function**
    *Files:* `functions.php`

@@ -16,7 +16,21 @@
         "align": [
             "wide",
             "full"
-        ]
+        ],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "color": {
+            "background": true,
+            "text": true,
+            "gradients": true,
+            "link": true
+        },
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true
+        }
     },
     "attributes": {
         "headline": {
@@ -30,5 +44,6 @@
     },
     "editorScript": "file:../../build/blocks/about/editor.js",
     "style": "file:./style.css",
+    "textdomain": "mccullough-digital",
     "render": "file:./render.php"
 }

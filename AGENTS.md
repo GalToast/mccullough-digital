@@ -9,6 +9,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-09-29):**
+    - Enabled padding, margin, color, and typography design tools across every custom block, added missing text domains, and unhid the service card block in the inserter so authors can freely compose sections from the editor.
+    - Added reusable surface color tokens, spacing presets, and a defined wide content width to `theme.json`, updated both front-end and editor styles to consume the new palette, and wired up wide/full container helpers for accurate previews.
+    - Reworked the page-wide and 404 templates, registered the wide template in `theme.json`, and replaced placeholder URLs in the services pattern and footer to keep default content production ready while preventing duplicate headers in the PHP bootstrap.
 - **Latest (2025-09-28):**
     - Defined the missing `--z-index-background` and `--z-index-content` variables and switched lingering header colours to CSS tokens so palette changes propagate everywhere.
     - Corrected the navigation block alignment setting and scoped hero block styles to avoid leaking `.hero` rules across the site.

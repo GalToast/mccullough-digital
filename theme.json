@@ -24,6 +24,16 @@
           "color": "#0b0c10"
         },
         {
+          "name": "Surface Dark",
+          "slug": "surface-dark",
+          "color": "#14161c"
+        },
+        {
+          "name": "Surface Border",
+          "slug": "surface-border",
+          "color": "#1d2330"
+        },
+        {
           "name": "Text Primary",
           "slug": "text-primary",
           "color": "#e6f1ff"
@@ -32,6 +42,35 @@
           "name": "Text Secondary",
           "slug": "text-secondary",
           "color": "#c5d8f2"
+        }
+      ]
+    },
+    "spacing": {
+      "spacingSizes": [
+        {
+          "slug": "10",
+          "size": "0.75rem",
+          "name": "Spacing 10"
+        },
+        {
+          "slug": "20",
+          "size": "1.5rem",
+          "name": "Spacing 20"
+        },
+        {
+          "slug": "30",
+          "size": "2.5rem",
+          "name": "Spacing 30"
+        },
+        {
+          "slug": "40",
+          "size": "3rem",
+          "name": "Spacing 40"
+        },
+        {
+          "slug": "50",
+          "size": "4rem",
+          "name": "Spacing 50"
         }
       ]
     },
@@ -50,7 +89,8 @@
       ]
     },
     "layout": {
-      "contentSize": "1200px"
+      "contentSize": "1200px",
+      "wideSize": "1600px"
     }
   },
   "customTemplates": [
@@ -58,6 +98,14 @@
       "name": "home-landing",
       "title": "Home Landing Layout",
       "description": "Prebuilt McCullough Digital landing layout with hero, services, and CTA blocks.",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
+      "name": "page-wide",
+      "title": "Wide Page",
+      "description": "Template with expanded content width and balanced spacing.",
       "postTypes": [
         "page"
       ]

@@ -1,37 +1,27 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
 <!-- wp:group {"tagName":"main","className":"site-content","layout":{"type":"constrained"}} -->
-    <!-- wp:query {"query":{"inherit":true}} -->
-        <!-- wp:group {"className":"page-header-container","layout":{"type":"constrained"}} -->
-            <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-                <!-- wp:query-title {"type":"archive","textAlign":"center","level":1,"className":"section-title"} /-->
-            <!-- /wp:group -->
-        <!-- /wp:group -->
+<main class="wp-block-group site-content">
+  <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+  <div class="wp-block-group container">
+    <!-- wp:heading {"textAlign":"center","level":1,"className":"section-title"} -->
+    <h1 class="wp-block-heading has-text-align-center section-title">Page not found</h1>
+    <!-- /wp:heading -->
 
-        <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-            <!-- wp:post-template {"tagName":"div","className":"post-listing-grid"} -->
-                <!-- wp:pattern {"slug":"mccullough-digital/post-card"} /-->
-            <!-- /wp:post-template -->
+    <!-- wp:paragraph {"align":"center"} -->
+    <p class="has-text-align-center">It looks like nothing was found at this location. Try searching or exploring the latest posts below.</p>
+    <!-- /wp:paragraph -->
 
-            <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
-                <!-- wp:query-pagination-previous /-->
-                <!-- wp:query-pagination-numbers /-->
-                <!-- wp:query-pagination-next /-->
-            <!-- /wp:query-pagination -->
-        <!-- /wp:group -->
+    <!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search","buttonUseIcon":true} /-->
+  </div>
+  <!-- /wp:group -->
 
-        <!-- wp:query-no-results -->
-            <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-                <!-- wp:group {"className":"no-results not-found","layout":{"type":"constrained"}} -->
-                    <!-- wp:paragraph -->
-                    <p>It seems we can’t find what you’re looking for. Perhaps searching can help.</p>
-                    <!-- /wp:paragraph -->
-
-                    <!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search","buttonUseIcon":true} /-->
-                <!-- /wp:group -->
-            <!-- /wp:group -->
-        <!-- /wp:query-no-results -->
-    <!-- /wp:query -->
+  <!-- wp:query {"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"exclude","inherit":false}} -->
+    <!-- wp:post-template {"tagName":"div","className":"post-listing-grid"} -->
+      <!-- wp:pattern {"slug":"mccullough-digital/post-card"} /-->
+    <!-- /wp:post-template -->
+  <!-- /wp:query -->
+</main>
 <!-- /wp:group -->
 
 <!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
