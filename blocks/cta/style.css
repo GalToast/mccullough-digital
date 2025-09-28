@@ -41,11 +41,43 @@
 
 .wp-block-mccullough-digital-cta .wp-block-button__link,
 .wp-block-mccullough-digital-cta .cta-button {
-    background: var(--surface-dark);
+    position: relative;
+    overflow: hidden;
+    padding: 15px 42px;
+    border-radius: 999px;
+    background: linear-gradient(120deg, var(--neon-cyan), var(--neon-magenta), var(--deep-purple));
     color: var(--text-primary);
-    border: 2px solid rgba(230, 241, 255, 0.18);
-    box-shadow: 0 12px 30px rgba(3, 6, 14, 0.65);
-    transition: transform 0.35s ease, box-shadow 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+    border: 0;
+    box-shadow: 0 12px 30px rgba(3, 6, 14, 0.65), 0 0 0 rgba(0, 229, 255, 0);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+}
+
+.wp-block-mccullough-digital-cta .wp-block-button__link::before,
+.wp-block-mccullough-digital-cta .cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(0, 229, 255, 0.18), rgba(255, 0, 224, 0.22));
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease;
+    z-index: 0;
+}
+
+.wp-block-mccullough-digital-cta .wp-block-button__link::after,
+.wp-block-mccullough-digital-cta .cta-button::after {
+    content: '';
+    position: absolute;
+    inset: -18px;
+    border-radius: inherit;
+    background: radial-gradient(circle at 30% 20%, rgba(0, 229, 255, 0.45), transparent 60%),
+        radial-gradient(circle at 70% 80%, rgba(255, 0, 224, 0.4), transparent 65%);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    z-index: -1;
 }
 
 .wp-block-mccullough-digital-cta .wp-block-button__link:hover,
@@ -54,6 +86,21 @@
 .wp-block-mccullough-digital-cta .cta-button:focus-visible {
     transform: translateY(-4px) scale(1.03);
     color: var(--background-dark);
-    border-color: transparent;
     box-shadow: 0 18px 40px rgba(0, 229, 255, 0.35), 0 0 36px rgba(255, 0, 224, 0.3);
+}
+
+.wp-block-mccullough-digital-cta .wp-block-button__link:hover::before,
+.wp-block-mccullough-digital-cta .cta-button:hover::before,
+.wp-block-mccullough-digital-cta .wp-block-button__link:focus-visible::before,
+.wp-block-mccullough-digital-cta .cta-button:focus-visible::before {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.wp-block-mccullough-digital-cta .wp-block-button__link:hover::after,
+.wp-block-mccullough-digital-cta .cta-button:hover::after,
+.wp-block-mccullough-digital-cta .wp-block-button__link:focus-visible::after,
+.wp-block-mccullough-digital-cta .cta-button:focus-visible::after {
+    opacity: 0.95;
+    transform: scale(1);
 }

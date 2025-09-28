@@ -4,6 +4,12 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-08 Sweep
+1. **Front-End CTA Gradient Desync**
+   *Files:* `style.css`, `blocks/cta/style.css`, `standalone.html`
+   *Issue:* The home-page CTA buttons still rendered a dark pill with the gradient halo trapped underneath, so the hover flood and glow effects never appeared on the public site even though the editor preview was correct.
+   *Resolution:* Replaced the conic-gradient border trick with the editor's gradient flood treatment, added the matching halo animation, and updated the CTA block override plus standalone preview so every surface uses the same hover/focus transitions.
+
 ### 2025-10-07 Sweep
 1. **Navigation Contrast Request**
    *Files:* `style.css`
