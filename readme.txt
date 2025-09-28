@@ -33,6 +33,11 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.9 - 2025-10-04 =
+* **Navigation:** Reinstated the neon wobble-and-pulse hover treatment with a pink-to-blue gradient sweep that inverses the header animation while honouring reduced-motion preferences.
+* **Calls to Action:** Centered the CTA layout and kept the gradient fill layer hidden until interaction so the buttons no longer show a second pill inside the outline.
+* **Layout Polish:** Removed unintended divider borders from the header and section blocks to eliminate stray white lines across the page chrome.
+
 = 1.2.8 - 2025-10-03 =
 * **Editor Controls:** Enabled global spacing support flags and unit options in `theme.json` so the Dimensions panel exposes pa
 dding, margin, and block gap controls across custom marketing sections and core blocks using spacing presets.
