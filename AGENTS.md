@@ -9,6 +9,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-03):**
+    - Exposed global padding, margin, and block gap controls with unit selection in `theme.json` so Gutenberg surfaces the Dimen
+      sions panel for custom and core blocks that opt into spacing support.
 - **Latest (2025-10-02):**
     - Restored persistence for all InnerBlocks-based custom blocks by saving their nested content so Site Editor changes to templates, template parts, and marketing sections stick after reload.
 - **Latest (2025-10-01):**

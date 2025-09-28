@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.8 - 2025-10-03 =
+* **Editor Controls:** Enabled global spacing support flags and unit options in `theme.json` so the Dimensions panel exposes pa
+dding, margin, and block gap controls across custom marketing sections and core blocks using spacing presets.
+
 = 1.2.7 - 2025-10-02 =
 * **Editor Persistence:** Updated all InnerBlocks-based custom blocks to save their nested content so edits to hero, CTA, about, services, and service card layouts now persist when templates or template parts are customized in the site editor.
 
