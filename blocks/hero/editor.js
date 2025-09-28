@@ -1,38 +1,160 @@
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import { useEffect, useRef } from '@wordpress/element';
+import { useSelect, useDispatch } from '@wordpress/data';
 import {
     useBlockProps,
-    RichText,
-    InspectorControls,
+    InnerBlocks,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl } from '@wordpress/components';
 
 import metadata from './block.json';
 
+const defaultHeadline = metadata?.attributes?.headline?.default ?? '';
+const defaultSubheading = metadata?.attributes?.subheading?.default ?? '';
+const defaultButtonText = metadata?.attributes?.buttonText?.default
+    ?? __('Start a Project', 'mccullough-digital');
+const defaultButtonLink = metadata?.attributes?.buttonLink?.default ?? '';
+
+const {
+    innerBlocks: {
+        allowedBlocks: allowedHeroBlocks = [
+            'core/heading',
+            'core/paragraph',
+            'core/list',
+            'core/buttons',
+            'core/group',
+            'core/image',
+            'core/media-text',
+        ],
+        template: heroTemplate = [
+            [
+                'core/heading',
+                {
+                    level: 1,
+                    className: 'hero__headline',
+                    placeholder: __('Add hero headline…', 'mccullough-digital'),
+                    content: defaultHeadline,
+                },
+            ],
+            [
+                'core/paragraph',
+                {
+                    placeholder: __('Add supporting copy…', 'mccullough-digital'),
+                    content: defaultSubheading,
+                },
+            ],
+            [
+                'core/buttons',
+                {
+                    layout: {
+                        type: 'flex',
+                        justifyContent: 'center',
+                    },
+                },
+                [
+                    [
+                        'core/button',
+                        {
+                            className: 'cta-button',
+                            text: defaultButtonText,
+                            url: defaultButtonLink,
+                        },
+                    ],
+                ],
+            ],
+        ],
+        templateLock: heroTemplateLock = false,
+    } = {},
+} = metadata;
+
+const DEFAULT_BUTTON_TEXT = defaultButtonText;
+
 registerBlockType(metadata.name, {
     ...metadata,
-    edit({ attributes, setAttributes }) {
+    edit({ attributes, clientId }) {
         const { headline, subheading, buttonText, buttonLink } = attributes;
         const blockProps = useBlockProps({
             className: 'hero',
         });
 
+        const hasMigrated = useRef(false);
+        const { innerBlocks = [] } = useSelect(
+            (select) => ({
+                innerBlocks: select('core/block-editor').getBlocks(clientId),
+            }),
+            [clientId]
+        );
+        const { replaceInnerBlocks } = useDispatch('core/block-editor');
+
+        useEffect(() => {
+            if (hasMigrated.current) {
+                return;
+            }
+
+            if (innerBlocks.length > 0) {
+                hasMigrated.current = true;
+                return;
+            }
+
+            const generatedBlocks = [];
+
+            if (headline) {
+                generatedBlocks.push(
+                    createBlock('core/heading', {
+                        level: 1,
+                        className: 'hero__headline',
+                        content: headline,
+                    })
+                );
+            }
+
+            if (subheading) {
+                generatedBlocks.push(
+                    createBlock('core/paragraph', {
+                        content: subheading,
+                    })
+                );
+            }
+
+            if (buttonText || buttonLink) {
+                const button = createBlock('core/button', {
+                    className: 'cta-button',
+                    text: buttonText || DEFAULT_BUTTON_TEXT,
+                    url: buttonLink || undefined,
+                });
+
+                const buttonsWrapper = createBlock(
+                    'core/buttons',
+                    {
+                        layout: {
+                            type: 'flex',
+                            justifyContent: 'center',
+                        },
+                    },
+                    [button]
+                );
+
+                generatedBlocks.push(buttonsWrapper);
+            }
+
+            if (generatedBlocks.length === 0) {
+                return;
+            }
+
+            replaceInnerBlocks(clientId, generatedBlocks, false);
+            hasMigrated.current = true;
+        }, [
+            buttonLink,
+            buttonText,
+            clientId,
+            headline,
+            innerBlocks.length,
+            replaceInnerBlocks,
+            subheading,
+        ]);
+
         return (
             <>
-                <InspectorControls>
-                    <PanelBody title={ __('Button Settings', 'mccullough-digital') }>
-                        <TextControl
-                            label={ __('Button Text', 'mccullough-digital') }
-                            value={ buttonText }
-                            onChange={ (value) => setAttributes({ buttonText: value }) }
-                        />
-                        <TextControl
-                            label={ __('Button Link', 'mccullough-digital') }
-                            value={ buttonLink }
-                            onChange={ (value) => setAttributes({ buttonLink: value }) }
-                        />
-                    </PanelBody>
-                </InspectorControls>
                 <section {...blockProps}>
                     <div
                         className="hero-canvas-placeholder"
@@ -40,28 +162,11 @@ registerBlockType(metadata.name, {
                         role="presentation"
                     />
                     <div className="hero-content">
-                        <RichText
-                            tagName="h1"
-                            className="wp-block-heading"
-                            value={ headline }
-                            onChange={ (value) => setAttributes({ headline: value }) }
-                            placeholder={ __('Add headline…', 'mccullough-digital') }
+                        <InnerBlocks
+                            allowedBlocks={ allowedHeroBlocks }
+                            template={ heroTemplate }
+                            templateLock={ heroTemplateLock }
                         />
-                        <RichText
-                            tagName="p"
-                            value={ subheading }
-                            onChange={ (value) => setAttributes({ subheading: value }) }
-                            placeholder={ __('Add subheading…', 'mccullough-digital') }
-                        />
-                        <a
-                            className="cta-button"
-                            href={ buttonLink || '#' }
-                            onClick={ (event) => event.preventDefault() }
-                        >
-                            <span className="btn-text">
-                                { buttonText || __('Add button text…', 'mccullough-digital') }
-                            </span>
-                        </a>
                     </div>
                 </section>
             </>

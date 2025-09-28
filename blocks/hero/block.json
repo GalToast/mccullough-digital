@@ -50,6 +50,54 @@
             "default": ""
         }
     },
+    "innerBlocks": {
+        "allowedBlocks": [
+            "core/heading",
+            "core/paragraph",
+            "core/list",
+            "core/buttons",
+            "core/group",
+            "core/image",
+            "core/media-text"
+        ],
+        "templateLock": false,
+        "template": [
+            [
+                "core/heading",
+                {
+                    "level": 1,
+                    "className": "hero__headline",
+                    "placeholder": "Add hero headline…",
+                    "content": "Bringing Your Digital Vision to Life."
+                }
+            ],
+            [
+                "core/paragraph",
+                {
+                    "placeholder": "Add supporting copy…",
+                    "content": "We build beautiful, high-performance web experiences and creative marketing strategies that connect with your audience. Ready to create something amazing?"
+                }
+            ],
+            [
+                "core/buttons",
+                {
+                    "layout": {
+                        "type": "flex",
+                        "justifyContent": "center"
+                    }
+                },
+                [
+                    [
+                        "core/button",
+                        {
+                            "className": "cta-button",
+                            "text": "Start a Project"
+                        }
+                    ]
+                ]
+            ]
+        ]
+    },
     "editorScript": "file:../../build/blocks/hero/editor.js",
     "viewScript": "file:./view.js",
     "style": "file:./style.css",

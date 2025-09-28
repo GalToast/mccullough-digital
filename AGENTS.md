@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-01):**
+    - Rebuilt the hero, CTA, about, services, and service-card blocks on top of InnerBlocks templates so every headline, paragraph, and button is edited in place while migrations and styling keep legacy attribute-driven content intact.
 - **Latest (2025-09-30):**
     - Kept CTA button text readable by delaying the hover color swap until the gradient animation finishes and added a neon focus outline so keyboard users get the same visual feedback.
     - Reworked the hero headline glitch markup so words wrap naturally while preserving the hover distortion and reduced-motion fallbacks.

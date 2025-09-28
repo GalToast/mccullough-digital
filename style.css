@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.5
+Version:       1.2.6
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -266,6 +266,7 @@ section {
 
 /* --- CTA Button Styles --- */
 .cta-button,
+.wp-block-button__link.cta-button,
 .post-card .wp-block-read-more a {
     display: inline-block;
     padding: 15px 35px;
@@ -288,6 +289,8 @@ section {
 
 .cta-button:hover,
 .cta-button:focus-visible,
+.wp-block-button__link.cta-button:hover,
+.wp-block-button__link.cta-button:focus-visible,
 .post-card .wp-block-read-more a:hover,
 .post-card .wp-block-read-more a:focus-visible {
     color: var(--background-dark);
@@ -302,6 +305,7 @@ section {
 }
 
 .cta-button::before,
+.wp-block-button__link.cta-button::before,
 .post-card .wp-block-read-more a::before {
     content: '';
     position: absolute;
@@ -315,18 +319,22 @@ section {
 
 .cta-button:hover::before,
 .cta-button:focus-visible::before,
+.wp-block-button__link.cta-button:hover::before,
+.wp-block-button__link.cta-button:focus-visible::before,
 .post-card .wp-block-read-more a:hover::before,
 .post-card .wp-block-read-more a:focus-visible::before {
     transform: translateX(0%);
 }
 
 .cta-button:focus-visible,
+.wp-block-button__link.cta-button:focus-visible,
 .post-card .wp-block-read-more a:focus-visible {
     outline: 3px solid var(--neon-cyan);
     outline-offset: 4px;
 }
 
 .cta-button.is-static,
+.wp-block-button__link.cta-button.is-static,
 .post-card .wp-block-read-more a.is-static {
     pointer-events: none;
     cursor: default;
@@ -334,6 +342,7 @@ section {
 }
 
 .cta-button.is-static::before,
+.wp-block-button__link.cta-button.is-static::before,
 .post-card .wp-block-read-more a.is-static::before {
     display: none;
 }
@@ -348,6 +357,8 @@ section {
     #masthead.site-header::before,
     .cta-button,
     .cta-button::before,
+    .wp-block-button__link.cta-button,
+    .wp-block-button__link.cta-button::before,
     .post-card .wp-block-read-more a,
     .post-card .wp-block-read-more a::before {
         transition: none;

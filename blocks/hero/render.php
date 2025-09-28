@@ -18,44 +18,57 @@ $wrapper_attributes = get_block_wrapper_attributes(
 
 $headline   = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
 $subheading = isset( $attributes['subheading'] ) ? $attributes['subheading'] : '';
+
+$inner_content = trim( (string) $content );
+
+if ( '' === $inner_content ) {
+    ob_start();
+
+    if ( '' !== trim( wp_strip_all_tags( (string) $headline ) ) ) {
+        ?>
+        <h1 class="wp-block-heading hero__headline">
+            <span class="hero__headline-text">
+                <?php echo wp_kses_post( $headline ); ?>
+            </span>
+        </h1>
+        <?php
+    }
+
+    if ( '' !== trim( wp_strip_all_tags( (string) $subheading ) ) ) {
+        ?>
+        <p>
+            <?php echo wp_kses_post( $subheading ); ?>
+        </p>
+        <?php
+    }
+
+    $button_text = isset( $attributes['buttonText'] ) ? trim( (string) $attributes['buttonText'] ) : '';
+    $raw_link    = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
+    $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
+
+    if ( '' !== $button_text ) {
+        if ( '' !== $button_link ) {
+            ?>
+            <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button">
+                <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+            </a>
+            <?php
+        } else {
+            ?>
+            <span class="cta-button is-static" aria-hidden="true">
+                <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+            </span>
+            <?php
+        }
+    }
+
+    $inner_content = trim( (string) ob_get_clean() );
+}
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
     <canvas class="hero__particle-canvas" aria-hidden="true" role="presentation"></canvas>
     <div class="hero-content">
-        <?php if ( '' !== trim( wp_strip_all_tags( (string) $headline ) ) ) : ?>
-            <h1 class="wp-block-heading hero__headline">
-                <span class="hero__headline-text">
-                    <?php echo wp_kses_post( $headline ); ?>
-                </span>
-            </h1>
-        <?php endif; ?>
-
-        <?php if ( '' !== trim( wp_strip_all_tags( (string) $subheading ) ) ) : ?>
-            <p>
-                <?php echo wp_kses_post( $subheading ); ?>
-            </p>
-        <?php endif; ?>
-        <?php
-        $button_text = isset( $attributes['buttonText'] ) ? trim( (string) $attributes['buttonText'] ) : '';
-        $raw_link    = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
-        $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
-
-        if ( '' !== $button_text ) :
-            if ( '' !== $button_link ) :
-                ?>
-                <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button">
-                    <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
-                </a>
-                <?php
-            else :
-                ?>
-                <span class="cta-button is-static" aria-hidden="true">
-                    <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
-                </span>
-                <?php
-            endif;
-        endif;
-        ?>
+        <?php echo $inner_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content contains sanitized inner blocks/fallback markup. ?>
     </div>
 </section>
