@@ -12,6 +12,7 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Functionality:**
     - Corrected placeholder links in the `home-landing.php` pattern that were pointing to example.com.
     - Fixed social media icon logic in `functions.php` to correctly identify all variations of `x.com` and other social URLs by using proper regex.
+    - Seed the Home landing layout into the "Home" page content on activation so editors can manage it directly from the page editor while keeping the dedicated template optional.
 - **Visual & Performance:**
     - Improved the footer's starfield animation in `style.css` to use `background-position` for better performance.
     - Refined the main navigation hover animation in `style.css` to be a smoother, more professional `text-shadow` effect.

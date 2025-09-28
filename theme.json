@@ -52,5 +52,15 @@
     "layout": {
       "contentSize": "1200px"
     }
-  }
+  },
+  "customTemplates": [
+    {
+      "name": "home-landing",
+      "title": "Home Landing Layout",
+      "description": "Prebuilt McCullough Digital landing layout with hero, services, and CTA blocks.",
+      "postTypes": [
+        "page"
+      ]
+    }
+  ]
 }

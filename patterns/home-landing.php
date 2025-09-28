@@ -3,7 +3,8 @@
  * Title: Home Landing Layout
  * Slug: mccullough-digital/home-landing
  * Categories: mccullough-digital-sections
- * Inserter: no
+ * Inserter: yes
+ * Post Types: page
  */
 ?>
 <!-- wp:mccullough-digital/hero {"align":"full","headline":"Bringing Your Digital Vision to Life.","subheading":"We build beautiful, high-performance web experiences and creative marketing strategies that connect with your audience. Ready to create something amazing?","buttonText":"Start a Project","buttonLink":"#contact"} /-->
