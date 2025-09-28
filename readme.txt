@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.5 - 2025-09-30 =
+* **Hero Headline Animation:** Wrapped glitch letters per word so spaces render as real whitespace, restoring natural line breaks while keeping the hover distortion effect responsive.
+
 = 1.2.4 - 2025-09-30 =
 * **Hero CTA Accessibility:** Delayed the hover text color swap until the gradient fill completes so the "Start a Project" button stays legible while animating and added an explicit focus outline for keyboard users.
 

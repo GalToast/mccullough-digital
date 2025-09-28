@@ -39,16 +39,24 @@
     display: inline-block;
 }
 
+.wp-block-mccullough-digital-hero .hero__headline-text--visual {
+    white-space: normal;
+}
+
+.wp-block-mccullough-digital-hero .hero__headline-word {
+    display: inline-flex;
+    gap: 0;
+}
+
 /* --- Interactive Hero H1 Letters --- */
-.wp-block-mccullough-digital-hero .hero__headline-text--visual span {
+.wp-block-mccullough-digital-hero .hero__headline-letter {
     display: inline-block;
     position: relative;
     cursor: default;
-    white-space: pre;
 }
 
-.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::before,
-.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::after {
+.wp-block-mccullough-digital-hero .hero__headline-letter:hover::before,
+.wp-block-mccullough-digital-hero .hero__headline-letter:hover::after {
     content: attr(data-char);
     position: absolute;
     top: 0;
@@ -56,13 +64,13 @@
     animation: glitch 0.35s infinite;
 }
 
-.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::before {
+.wp-block-mccullough-digital-hero .hero__headline-letter:hover::before {
     color: var(--neon-cyan);
     z-index: -1;
     animation-direction: reverse;
 }
 
-.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::after {
+.wp-block-mccullough-digital-hero .hero__headline-letter:hover::after {
     color: var(--neon-magenta);
     z-index: -2;
 }
@@ -72,8 +80,8 @@
     display: none;
 }
 
-.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::before,
-.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::after {
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-letter:hover::before,
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-letter:hover::after {
     animation: none;
     content: none;
 }

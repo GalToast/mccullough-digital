@@ -268,15 +268,24 @@
             display: inline-block;
         }
 
+        .hero__headline-text--visual {
+            white-space: normal;
+        }
+
+        .hero__headline-word {
+            display: inline-flex;
+            gap: 0;
+        }
+
         /* --- Interactive Hero H1 Letters --- */
-        .hero__headline-text--visual span {
+        .hero__headline-letter {
             display: inline-block;
             position: relative;
             cursor: default;
         }
 
-        .hero__headline-text--visual span:hover::before,
-        .hero__headline-text--visual span:hover::after {
+        .hero__headline-letter:hover::before,
+        .hero__headline-letter:hover::after {
             content: attr(data-char);
             position: absolute;
             top: 0;
@@ -284,13 +293,13 @@
             animation: glitch 0.35s infinite;
         }
 
-        .hero__headline-text--visual span:hover::before {
+        .hero__headline-letter:hover::before {
             color: var(--neon-cyan);
             z-index: -1;
             animation-direction: reverse;
         }
 
-        .hero__headline-text--visual span:hover::after {
+        .hero__headline-letter:hover::after {
             color: var(--neon-magenta);
             z-index: -2;
         }
@@ -299,8 +308,8 @@
             display: none;
         }
 
-        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::before,
-        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::after {
+        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-letter:hover::before,
+        .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-letter:hover::after {
             animation: none;
             content: none;
         }
