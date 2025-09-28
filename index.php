@@ -32,9 +32,7 @@ wp_body_open();
     <?php
     if ( function_exists( 'block_header_area' ) ) {
         block_header_area();
-    }
-
-    if ( function_exists( 'block_template_part' ) ) {
+    } elseif ( function_exists( 'block_template_part' ) ) {
         block_template_part( 'header' );
     }
 
@@ -47,9 +45,7 @@ wp_body_open();
 
     if ( function_exists( 'block_footer_area' ) ) {
         block_footer_area();
-    }
-
-    if ( function_exists( 'block_template_part' ) ) {
+    } elseif ( function_exists( 'block_template_part' ) ) {
         block_template_part( 'footer' );
     }
     ?>

@@ -10,8 +10,23 @@
     ],
     "supports": {
         "html": false,
-        "reusable": false,
-        "inserter": false
+        "anchor": true,
+        "reusable": true,
+        "inserter": true,
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "color": {
+            "background": true,
+            "text": true,
+            "gradients": true,
+            "link": true
+        },
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true
+        }
     },
     "attributes": {
         "icon": {
@@ -36,5 +51,6 @@
         }
     },
     "editorScript": "file:../../build/blocks/service-card/editor.js",
+    "textdomain": "mccullough-digital",
     "render": "file:./render.php"
 }

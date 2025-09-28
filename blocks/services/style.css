@@ -4,7 +4,7 @@ h2.section-title {
     font-size: clamp(3rem, 7vw, 4.5rem);
     text-align: center;
     margin-bottom: 60px;
-    color: #fff;
+    color: var(--text-primary);
     position: relative;
     display: inline-block;
     left: 50%;
@@ -33,9 +33,9 @@ h2.section-title::after {
 }
 
 .service-card {
-    background: #14161c;
+    background: var(--surface-dark);
     padding: 40px 30px;
-    border: 1px solid #222;
+    border: 1px solid var(--surface-border);
     border-radius: 16px; /* Softer corners */
     text-align: center;
     transition: all 0.3s ease;
@@ -69,7 +69,7 @@ h2.section-title::after {
 
 .service-card-content {
     position: relative;
-    background: #14161c;
+    background: var(--surface-dark);
     padding: 10px;
     margin: 1px;
     border-radius: 15px;
@@ -104,7 +104,7 @@ h2.section-title::after {
     font-family: 'Caveat', cursive;
     font-size: 2.2rem;
     margin: 0 0 15px 0;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .service-card p {

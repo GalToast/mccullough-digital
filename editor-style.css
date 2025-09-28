@@ -7,6 +7,8 @@
     --neon-magenta: #ff00e0;
     --deep-purple: #9400d3;
     --background-dark: #0b0c10;
+    --surface-dark: var(--wp--preset--color--surface-dark, #14161c);
+    --surface-border: var(--wp--preset--color--surface-border, #1d2330);
     --text-primary: #e6f1ff;
     --text-secondary: #c5d8f2;
 }
@@ -27,7 +29,7 @@
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
-    color: #fff;
+    color: var(--text-primary);
     text-decoration: none;
     background: transparent;
     border: 2px solid var(--neon-cyan);
@@ -70,7 +72,7 @@
 
 .editor-styles-wrapper .section-title {
     font-family: 'Caveat', cursive;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .editor-styles-wrapper .learn-more {
@@ -84,6 +86,19 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 100px 0;
+}
+
+.editor-styles-wrapper .container--align-wide {
+    max-width: min(1400px, 95vw);
+}
+
+.editor-styles-wrapper .container--align-full {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: clamp(24px, 5vw, 80px);
+    padding-right: clamp(24px, 5vw, 80px);
 }
 
 .editor-styles-wrapper .hero {
@@ -117,7 +132,7 @@
 .editor-styles-wrapper .hero h1 {
     font-family: 'Caveat', cursive;
     font-size: clamp(3rem, 9vw, 6rem);
-    color: #fff;
+    color: var(--text-primary);
     margin: 0 0 20px 0;
     line-height: 1.1;
     text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
@@ -160,9 +175,9 @@
 }
 
 .editor-styles-wrapper .service-card {
-    background: #14161c;
+    background: var(--surface-dark);
     padding: 40px 30px;
-    border: 1px solid #222;
+    border: 1px solid var(--surface-border);
     border-radius: 16px;
     text-align: center;
     position: relative;
@@ -173,7 +188,7 @@
 
 .editor-styles-wrapper .service-card-content {
     position: relative;
-    background: #14161c;
+    background: var(--surface-dark);
     padding: 10px;
     border-radius: 15px;
     height: 100%;
@@ -189,7 +204,7 @@
 .editor-styles-wrapper .service-card h3 {
     font-family: 'Caveat', cursive;
     font-size: 2rem;
-    color: #fff;
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -218,6 +233,6 @@
 }
 
 .editor-styles-wrapper .cta-section .cta-button {
-    border-color: #fff;
+    border-color: var(--text-primary);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }

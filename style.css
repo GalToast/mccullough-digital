@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.2
+Version:       1.2.3
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -19,6 +19,8 @@ Text Domain:   mccullough-digital
     --neon-magenta: #ff00e0;
     --deep-purple: #9400d3;
     --background-dark: #0b0c10;
+    --surface-dark: var(--wp--preset--color--surface-dark, #14161c);
+    --surface-border: var(--wp--preset--color--surface-border, #1d2330);
     --text-primary: #e6f1ff;
     --text-secondary: #c5d8f2;
 
@@ -270,7 +272,7 @@ section {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
-    color: #fff;
+    color: var(--text-primary);
     text-decoration: none;
     background: transparent;
     border: 2px solid var(--neon-cyan);
@@ -594,7 +596,7 @@ section {
     font-size: clamp(3rem, 7vw, 4.5rem);
     text-align: center;
     margin-bottom: 0; /* Remove bottom margin as it's the only element */
-    color: #fff;
+    color: var(--text-primary);
     position: relative;
     display: inline-block;
     padding-bottom: 15px;
@@ -640,7 +642,7 @@ section {
     display: inline-block;
     padding: 5px 15px;
     margin: 5px 5px 5px 0;
-    background: #14161c;
+    background: var(--surface-dark);
     border: 1px solid var(--text-secondary);
     border-radius: 20px;
     color: var(--text-secondary);
@@ -663,9 +665,9 @@ section {
 }
 
 .post-card {
-    background: #14161c;
+    background: var(--surface-dark);
     padding: 40px 30px;
-    border: 1px solid var(--text-secondary);
+    border: 1px solid var(--surface-border);
     border-radius: 16px;
     transition: transform 0.3s ease, border-color 0.3s ease;
     display: flex;
@@ -735,7 +737,7 @@ section {
 
 .comments-area .comment-author .fn {
     font-weight: bold;
-    color: #fff;
+    color: var(--text-primary);
     font-style: normal;
 }
 
@@ -766,7 +768,7 @@ section {
 .comment-form textarea {
     width: 100%;
     padding: 10px;
-    background: #14161c;
+    background: var(--surface-dark);
     border: 1px solid var(--text-secondary);
     color: var(--text-primary);
     border-radius: 8px;
@@ -779,7 +781,7 @@ section {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1.1rem;
-    color: #fff;
+    color: var(--text-primary);
     text-decoration: none;
     background: transparent;
     border: 2px solid var(--neon-cyan);
@@ -801,7 +803,7 @@ section {
 .search-form .search-field {
     flex-grow: 1;
     padding: 10px;
-    background: #14161c;
+    background: var(--surface-dark);
     border: 1px solid var(--text-secondary);
     color: var(--text-primary);
     border-radius: 8px;
@@ -812,7 +814,7 @@ section {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1rem;
-    color: #fff;
+    color: var(--text-primary);
     background: transparent;
     border: 2px solid var(--neon-cyan);
     border-radius: 50px;
