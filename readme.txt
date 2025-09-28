@@ -33,6 +33,16 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.0 - 2025-09-27 =
+* **Enhancement:** Made the social icon retrieval function extensible via a new `mcd_social_link_svg_patterns` filter.
+* **Fix:** Corrected placeholder links in the default home page pattern.
+* **Fix:** Improved performance and visual appeal of CSS animations for the footer starfield, main navigation hover, and post card hover effects.
+* **Fix:** Replaced hardcoded colors and `z-index` values with CSS variables for improved maintainability.
+* **Fix:** Hardened the theme activation logic to prevent duplicate "Home" page creation.
+* **Fix:** Adjusted the SVG sanitizer to prevent it from stripping necessary inline `style` attributes.
+* **Fix:** Corrected the hamburger menu animation for a smoother visual transition.
+* **Fix:** Fixed flawed regex in the social icon logic to ensure correct URL matching.
+
 = 1.1.2 - 2025-09-28 =
 * Track the fixed header height with a `ResizeObserver`, font loading callbacks, and bfcache restores so content never slides underneath the masthead.
 * Rebuild the hero headline animation to duplicate screen-reader text, guard against missing browser APIs, and share reusable `.screen-reader-text` utilities.

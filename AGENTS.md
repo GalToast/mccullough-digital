@@ -1,4 +1,4 @@
-# Agent Notes (2025-09-28)
+# Agent Notes (2025-09-27)
 
 This repository contains the McCullough Digital block theme. The notes below summarise the current workflow and the defects resolved during the latest sweep.
 
@@ -6,13 +6,21 @@ This repository contains the McCullough Digital block theme. The notes below sum
 1. Run `npm install` to install block tooling.
 2. Use `npm run start` while developing blocks so assets rebuild automatically.
 3. Finish with `npm run build` before committing production bundles.
+4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
-## Bug Fix Highlights
-- Header behaviour (`js/header-scripts.js`, `style.css`) now uses a `ResizeObserver`, font loading events, and bfcache restores to keep `--mcd-header-offset` in sync with the masthead height.
-- The same header script guards reduced-motion checks against missing `matchMedia`, keeps focus-visible navigation expanded, and disconnects observers during unload.
-- Hero markup and scripts (`blocks/hero/render.php`, `blocks/hero/view.js`, `blocks/hero/style.css`) preserve screen-reader content, build animations from `.hero__headline-text`, and skip span generation when legacy DOM APIs are unavailable.
-- Shared `.screen-reader-text` utilities (`style.css`, `standalone.html`) support accessible duplicates across blocks.
-- SVG sanitisation (`functions.php`) only disables the libxml entity loader on PHP < 8 to avoid deprecation warnings while still whitelisting gradients, symbols, and `<use>` attributes.
-- The standalone preview (`standalone.html`) preloads Google Fonts correctly, reuses the production header/hero scripts, honours reduced-motion scroll behaviour, and removes placeholder `#` URLs from service cards.
+## Bug Fix & Improvement Highlights
+- **Functionality:**
+    - Corrected placeholder links in the `home-landing.php` pattern that were pointing to example.com.
+    - Fixed social media icon logic in `functions.php` to correctly identify all variations of `x.com` and other social URLs by using proper regex.
+- **Visual & Performance:**
+    - Improved the footer's starfield animation in `style.css` to use `background-position` for better performance.
+    - Refined the main navigation hover animation in `style.css` to be a smoother, more professional `text-shadow` effect.
+    - Fixed a layout shift on post cards in `style.css` by changing the hover transition to only affect `transform` and `border-color`.
+    - Corrected the mobile hamburger menu animation in `style.css` for a smoother transition.
+- **Code Quality & Extensibility:**
+    - Made the `mcd_get_social_link_svg()` function in `functions.php` extensible with a filter, allowing new social icons to be added easily.
+    - Hardened the theme activation logic in `functions.php` to prevent the creation of duplicate "Home" pages.
+    - Fixed the over-aggressive SVG sanitizer in `functions.php` to no longer strip out necessary `style` attributes.
+    - Replaced hardcoded `z-index` values and colors in `style.css` with CSS variables for better maintainability.
 
 Keep documentation (this file, `readme.txt`, and `bug-report.md`) in sync with any future bug sweeps so downstream contributors understand the latest fixes.

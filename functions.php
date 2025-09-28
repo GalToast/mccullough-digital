@@ -152,22 +152,29 @@ function mcd_maybe_seed_home_page_content() {
         }
 
         if ( ! $front_page_id ) {
-            $new_page_args = [
-                'post_title'   => __( 'Home', 'mccullough-digital' ),
-                'post_name'    => 'home',
-                'post_status'  => 'publish',
-                'post_type'    => 'page',
-                'post_content' => $pattern['content'],
-            ];
+            // Check for existing page by title before creating a new one to avoid duplicates.
+            $existing_home_by_title = get_page_by_title( 'Home', OBJECT, 'page' );
 
-            $inserted_page = wp_insert_post( $new_page_args, true );
+            if ( $existing_home_by_title instanceof WP_Post && 'page' === $existing_home_by_title->post_type ) {
+                $front_page_id = (int) $existing_home_by_title->ID;
+            } else {
+                $new_page_args = [
+                    'post_title'   => __( 'Home', 'mccullough-digital' ),
+                    'post_name'    => 'home',
+                    'post_status'  => 'publish',
+                    'post_type'    => 'page',
+                    'post_content' => $pattern['content'],
+                ];
 
-            if ( is_wp_error( $inserted_page ) ) {
-                delete_option( 'mcd_seed_home_pattern' );
-                return;
+                $inserted_page = wp_insert_post( $new_page_args, true );
+
+                if ( is_wp_error( $inserted_page ) ) {
+                    delete_option( 'mcd_seed_home_pattern' );
+                    return;
+                }
+
+                $front_page_id = (int) $inserted_page;
             }
-
-            $front_page_id = (int) $inserted_page;
         }
 
         if ( $front_page_id ) {
@@ -309,11 +316,6 @@ function mcd_sanitize_svg( $svg ) {
                     continue;
                 }
 
-                if ( 'style' === $attr_name ) {
-                    $node->removeAttribute( $attr->name );
-                    continue;
-                }
-
                 $attribute_value = trim( (string) $attr->value );
 
                 $fragment_only_attributes = [ 'href', 'xlink:href' ];
@@ -361,16 +363,26 @@ function mcd_get_social_link_svg( $url ) {
     $host = strtolower( (string) $host );
     $host = preg_replace( '#^www\.#', '', $host );
 
+    // Corrected regex patterns with escaped dots for accuracy.
     $patterns = [
         'twitter'  => [
-            // Match twitter with any public suffix (twitter.com, twitter.co.uk, etc.).
-            '/(^|\.)twitter\.[a-z0-9.-]+$/',
-            // Legacy / rebranded hostname.
-            '/(^|\.)x\.com$/',
+            '/(^|\.)twitter\.[a-z0-9.-]+$/i',
+            '/(^|\.)x\.com$/i',
         ],
-        'linkedin' => [ '/(^|\.)linkedin\.[a-z0-9.-]+$/' ],
-        'github'   => [ '/(^|\.)github\.[a-z0-9.-]+$/' ],
+        'linkedin' => [ '/(^|\.)linkedin\.[a-z0-9.-]+$/i' ],
+        'github'   => [ '/(^|\.)github\.[a-z0-9.-]+$/i' ],
     ];
+
+    /**
+     * Filter the social link icon patterns. This allows child themes or plugins
+     * to add support for more social networks without modifying theme code.
+     *
+     * @since 1.2.0
+     *
+     * @param array  $patterns An associative array of icon names to regex patterns.
+     * @param string $host     The hostname being checked.
+     */
+    $patterns = apply_filters( 'mcd_social_link_svg_patterns', $patterns, $host );
 
     $icon_name = '';
 

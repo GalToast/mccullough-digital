@@ -21,6 +21,11 @@ Text Domain:   mccullough-digital
     --background-dark: #0b0c10;
     --text-primary: #e6f1ff;
     --text-secondary: #c5d8f2;
+
+    /* Z-indexes */
+    --z-index-default: 1;
+    --z-index-header: 1000;
+    --z-index-modal: 1001;
 }
 
 /* --- Base reset --- */
@@ -78,7 +83,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 }
 
 section {
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--text-secondary);
 }
 
 
@@ -133,11 +138,11 @@ section {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: var(--z-index-header);
     transition: transform .4s cubic-bezier(.22,.61,.36,1), background-color 0.3s ease;
     background: rgba(0,0,0,0.8);
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid #222;
+    border-bottom: 2px solid var(--text-secondary);
     overflow: hidden; /* Hides the pseudo-element when it's outside */
 }
 
@@ -151,7 +156,7 @@ section {
     background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
     transform: translateX(-100%); /* Start off-screen to the left */
     transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-    z-index: 0; /* Place behind the content */
+    z-index: var(--z-index-background); /* Place behind the content */
 }
 
 #masthead.site-header:hover::before {
@@ -173,7 +178,7 @@ section {
 
 .site-branding, .main-navigation {
     position: relative;
-    z-index: 1;
+    z-index: var(--z-index-default);
 }
 
 .custom-logo-link {
@@ -209,18 +214,8 @@ section {
 
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
-    animation: wobble 0.6s ease-out, shake-zoom 0.4s ease-in-out infinite;
-}
-
-.main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
-.main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
     color: var(--neon-cyan);
-    background: linear-gradient(90deg, var(--text-primary), var(--neon-cyan), var(--text-primary));
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: text-sweep 1.5s ease-in-out infinite;
+    text-shadow: 0 0 5px var(--neon-cyan);
 }
 
 .main-navigation.wp-block-navigation {
@@ -244,7 +239,7 @@ section {
     font-weight: 700;
     padding: 10px 5px;
     position: relative;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
     font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
 }
@@ -257,7 +252,7 @@ section {
     color: #ffffff;
     cursor: pointer;
     padding: 10px;
-    z-index: 1001;
+    z-index: var(--z-index-modal);
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container {
@@ -332,8 +327,8 @@ section {
 }
 
 @keyframes move-stars {
-    from { transform: translateY(0px); }
-    to   { transform: translateY(-2000px); }
+    from { background-position: 0 0; }
+    to   { background-position: 0 -2000px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -360,7 +355,7 @@ section {
     color: var(--text-secondary);
     position: relative;
     overflow: hidden;
-    border-top: 2px solid #222;
+    border-top: 2px solid var(--text-secondary);
 }
 
 /* Starfield Background */
@@ -374,7 +369,7 @@ section {
     height: 100%;
     display: block;
     pointer-events: none;
-    z-index: 1;
+    z-index: var(--z-index-default);
 }
 
 .stars .wp-block-group__inner-container,
@@ -414,7 +409,7 @@ section {
     justify-content: center;
     text-align: center;
     position: relative;
-    z-index: 2;
+    z-index: var(--z-index-content);
 }
 
 .footer-branding .wp-block-site-logo {
@@ -519,7 +514,7 @@ section {
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::before {
         transform: translateY(8px) rotate(45deg);
-        box-shadow: none;
+        box-shadow: 0 0 0 #ffffff;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::after {
@@ -587,7 +582,7 @@ section {
 .page-header-container {
     padding: 80px 0;
     text-align: center;
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--text-secondary);
     background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
 }
 
@@ -628,7 +623,7 @@ section {
 }
 
 .entry-footer {
-    border-top: 1px solid #222;
+    border-top: 1px solid var(--text-secondary);
     padding-top: 30px;
     margin-top: 40px;
 }
@@ -644,7 +639,7 @@ section {
     padding: 5px 15px;
     margin: 5px 5px 5px 0;
     background: #14161c;
-    border: 1px solid #222;
+    border: 1px solid var(--text-secondary);
     border-radius: 20px;
     color: var(--text-secondary);
     text-decoration: none;
@@ -668,9 +663,9 @@ section {
 .post-card {
     background: #14161c;
     padding: 40px 30px;
-    border: 1px solid #222;
+    border: 1px solid var(--text-secondary);
     border-radius: 16px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, border-color 0.3s ease;
     display: flex;
     flex-direction: column;
 }
@@ -714,7 +709,7 @@ section {
 
 /* --- Comments --- */
 .comments-area {
-    border-top: 1px solid #222;
+    border-top: 1px solid var(--text-secondary);
     margin-top: 40px;
 }
 
@@ -733,7 +728,7 @@ section {
 .comments-area .comment-body {
     padding: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--text-secondary);
 }
 
 .comments-area .comment-author .fn {
@@ -770,7 +765,7 @@ section {
     width: 100%;
     padding: 10px;
     background: #14161c;
-    border: 1px solid #222;
+    border: 1px solid var(--text-secondary);
     color: var(--text-primary);
     border-radius: 8px;
     margin-bottom: 15px;
@@ -805,7 +800,7 @@ section {
     flex-grow: 1;
     padding: 10px;
     background: #14161c;
-    border: 1px solid #222;
+    border: 1px solid var(--text-secondary);
     color: var(--text-primary);
     border-radius: 8px;
 }
