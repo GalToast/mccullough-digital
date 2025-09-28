@@ -4,6 +4,17 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-05 Sweep
+1. **Navigation Hover Contrast Loss**
+   *Files:* `style.css`
+   *Issue:* The navigation wobble and pulse returned, but the gradient text fill rendered the links unreadable as it swept across each label.
+   *Resolution:* Replaced the gradient text fill with a neon underline animation that preserves the wobble/pulse motion while keeping the text color solid for consistent legibility.
+
+2. **CTA Alignment & Double-Pill Regression**
+   *Files:* `blocks/cta/style.css`, `style.css`, `editor-style.css`
+   *Issue:* The "Ready to Create?" heading drifted off-centre and the CTA buttons showed a second inner pill from the dormant gradient layer resting inside the outline.
+   *Resolution:* Reset the CTA heading positioning in both front-end and editor styles and hid the gradient layer until interaction, eliminating the extra pill while keeping the hover sweep intact.
+
 ### 2025-10-04 Sweep
 1. **Navigation Hover Animation Regression**
    *Files:* `style.css`

@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-05):**
+    - Centered the CTA headline, kept the gradient pill layer hidden until interaction so CTA buttons render a single surface, and swapped the navigation hover gradient text fill for a neon underline that stays legible while wobbling.
 - **Latest (2025-10-04):**
     - Restored the neon navigation hover wobble with a reversed gradient sweep, re-centered the CTA layout, hid the standby gradient pill layer, and removed unintended header/section borders that introduced bright divider lines.
 - **Latest (2025-10-03):**
