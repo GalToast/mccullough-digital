@@ -1,5 +1,5 @@
 /* --- Hero Section --- */
-.hero {
+.wp-block-mccullough-digital-hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -11,7 +11,7 @@
     overflow: hidden; /* Hide anything that goes outside the hero */
 }
 
-.hero__particle-canvas {
+.wp-block-mccullough-digital-hero .hero__particle-canvas {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,12 +20,12 @@
     z-index: 1;
 }
 
-.hero-content {
+.wp-block-mccullough-digital-hero .hero-content {
     position: relative;
     z-index: 2;
 }
 
-.hero__headline {
+.wp-block-mccullough-digital-hero .hero__headline {
     font-family: 'Caveat', cursive;
     font-size: clamp(3.5rem, 10vw, 7rem);
     color: #fff;
@@ -34,21 +34,21 @@
     text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
 }
 
-.hero__headline-text,
-.hero__headline-text--visual {
+.wp-block-mccullough-digital-hero .hero__headline-text,
+.wp-block-mccullough-digital-hero .hero__headline-text--visual {
     display: inline-block;
 }
 
 /* --- Interactive Hero H1 Letters --- */
-.hero__headline-text--visual span {
+.wp-block-mccullough-digital-hero .hero__headline-text--visual span {
     display: inline-block;
     position: relative;
     cursor: default;
     white-space: pre;
 }
 
-.hero__headline-text--visual span:hover::before,
-.hero__headline-text--visual span:hover::after {
+.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::before,
+.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::after {
     content: attr(data-char);
     position: absolute;
     top: 0;
@@ -56,30 +56,30 @@
     animation: glitch 0.35s infinite;
 }
 
-.hero__headline-text--visual span:hover::before {
+.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::before {
     color: var(--neon-cyan);
     z-index: -1;
     animation-direction: reverse;
 }
 
-.hero__headline-text--visual span:hover::after {
+.wp-block-mccullough-digital-hero .hero__headline-text--visual span:hover::after {
     color: var(--neon-magenta);
     z-index: -2;
 }
 
 
-.hero.is-reduced-motion .hero__particle-canvas {
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__particle-canvas {
     display: none;
 }
 
-.hero.is-reduced-motion .hero__headline-text--visual span:hover::before,
-.hero.is-reduced-motion .hero__headline-text--visual span:hover::after {
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::before,
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-text--visual span:hover::after {
     animation: none;
     content: none;
 }
 
 
-.hero p {
+.wp-block-mccullough-digital-hero p {
     font-size: clamp(1rem, 3vw, 1.5rem);
     color: var(--text-secondary);
     max-width: 800px;

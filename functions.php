@@ -267,6 +267,7 @@ function mcd_sanitize_svg( $svg ) {
         'xmlns:xlink',
         'xml:space',
         'xlink:href',
+        'style',
     ];
 
     $nodes = [ $dom->documentElement ];

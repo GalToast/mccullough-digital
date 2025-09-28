@@ -8,9 +8,7 @@ registerBlockType(metadata.name, {
     ...metadata,
     edit({ attributes, setAttributes }) {
         const { headline, text } = attributes;
-        const blockProps = useBlockProps({
-            id: 'about',
-        });
+        const blockProps = useBlockProps();
 
         return (
             <section {...blockProps}>

@@ -14,7 +14,6 @@ registerBlockType(metadata.name, {
     edit({ attributes, setAttributes }) {
         const { headline, buttonText, buttonLink } = attributes;
         const blockProps = useBlockProps({
-            id: 'contact',
             className: 'cta-section',
         });
 

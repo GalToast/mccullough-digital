@@ -42,7 +42,6 @@ registerBlockType(metadata.name, {
                     <div className="hero-content">
                         <RichText
                             tagName="h1"
-                            id="interactive-headline"
                             className="wp-block-heading"
                             value={ headline }
                             onChange={ (value) => setAttributes({ headline: value }) }

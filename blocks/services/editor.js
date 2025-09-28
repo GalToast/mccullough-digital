@@ -21,9 +21,7 @@ registerBlockType(metadata.name, {
     ...metadata,
     edit({ attributes, setAttributes }) {
         const { headline } = attributes;
-        const blockProps = useBlockProps({
-            id: 'services',
-        });
+        const blockProps = useBlockProps();
 
         return (
             <section {...blockProps}>
@@ -46,6 +44,6 @@ registerBlockType(metadata.name, {
         );
     },
     save() {
-        return <InnerBlocks.Content />;
+        return null;
     },
 });

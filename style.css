@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.1.2
+Version:       1.2.2
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -24,6 +24,8 @@ Text Domain:   mccullough-digital
 
     /* Z-indexes */
     --z-index-default: 1;
+    --z-index-background: 0;
+    --z-index-content: 2;
     --z-index-header: 1000;
     --z-index-modal: 1001;
 }
@@ -202,7 +204,7 @@ section {
 
 .site-title a {
     text-decoration: none;
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 2em; /* Increased size for handwritten font */
     font-family: 'Caveat', cursive;
     transition: all 0.3s ease;
@@ -234,7 +236,7 @@ section {
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content {
-    color: #ffffff;
+    color: var(--text-primary);
     text-decoration: none;
     font-weight: 700;
     padding: 10px 5px;
@@ -249,7 +251,7 @@ section {
     display: none;
     background: none;
     border: none;
-    color: #ffffff;
+    color: var(--text-primary);
     cursor: pointer;
     padding: 10px;
     z-index: var(--z-index-modal);
@@ -445,14 +447,14 @@ section {
     justify-content: center;
 }
 
-.social-link svg {
+.wp-social-link svg {
     height: 28px;
     width: 28px;
     fill: var(--text-secondary);
     transition: all 0.3s ease;
 }
 
-.social-link:hover svg {
+.wp-social-link:hover svg {
     fill: var(--neon-cyan);
     transform: scale(1.1) translateY(-3px);
     filter: drop-shadow(0 0 8px var(--neon-cyan));
@@ -482,7 +484,7 @@ section {
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close {
         background: none;
         border: none;
-        color: #ffffff;
+        color: var(--text-primary);
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open {
@@ -499,13 +501,13 @@ section {
         left: 10px;
         right: 10px;
         height: 3px;
-        background-color: #ffffff;
+        background-color: var(--text-primary);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::before {
         top: 16px;
-        box-shadow: 0 8px 0 #ffffff;
+        box-shadow: 0 8px 0 var(--text-primary);
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::after {
@@ -514,7 +516,7 @@ section {
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::before {
         transform: translateY(8px) rotate(45deg);
-        box-shadow: 0 0 0 #ffffff;
+        box-shadow: 0 0 0 var(--text-primary);
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::after {
@@ -559,7 +561,7 @@ section {
         left: 10px;
         right: 10px;
         height: 3px;
-        background-color: #ffffff;
+        background-color: var(--text-primary);
         transition: transform 0.3s ease;
     }
 
@@ -682,7 +684,7 @@ section {
 }
 
 .post-card .entry-title a {
-    color: #fff;
+    color: var(--text-primary);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -716,7 +718,7 @@ section {
 .comments-area .comments-title {
     font-family: 'Caveat', cursive;
     font-size: 2.5rem;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .comments-area .comment-list {

@@ -33,6 +33,13 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.2 - 2025-09-28 =
+* **Accessibility:** Removed duplicated IDs from editor components, restored hero block alignment support, and suppressed empty hero subheadings.
+* **Stability:** Added the missing services block registration import, corrected its dynamic save implementation, and ensured service CTA links escape URLs.
+* **Styling:** Introduced the missing z-index tokens, replaced remaining hard-coded header colors with CSS variables, fixed the navigation alignment control, and scoped hero block styles to prevent global leakage.
+* **Performance:** Honoured reduced motion preferences by disabling the service card glow animation when requested and tightened the SVG sanitizer while keeping inline styles intact.
+* **Content:** Corrected social icon targeting so default footer icons receive hover styling and ensured CTA buttons render safe URLs.
+
 = 1.2.1 - 2025-09-28 =
 * **Enhancement:** Seed the Home landing layout into the Home page content on activation, convert the front-page template to render editable content, and expose the landing layout as an optional custom template.
 
