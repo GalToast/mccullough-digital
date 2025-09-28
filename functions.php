@@ -112,6 +112,92 @@ function mcd_register_pattern_category() {
 }
 add_action( 'init', 'mcd_register_pattern_category' );
 
+/**
+ * Flag the home page seeding routine so it runs after the theme is activated.
+ */
+function mcd_schedule_home_page_seed() {
+  if ( ! get_option( 'mcd_seed_home_page' ) ) {
+    update_option( 'mcd_seed_home_page', 1 );
+  }
+}
+add_action( 'after_switch_theme', 'mcd_schedule_home_page_seed' );
+
+/**
+ * Populate an empty home page with the default landing pattern so it is editable via the page editor.
+ */
+function mcd_maybe_seed_home_page() {
+  if ( ! get_option( 'mcd_seed_home_page' ) ) {
+    return;
+  }
+
+  if ( ! class_exists( 'WP_Block_Patterns_Registry' ) ) {
+    return;
+  }
+
+  $registry = WP_Block_Patterns_Registry::get_instance();
+
+  if ( ! $registry->is_registered( 'mccullough-digital/home-landing' ) ) {
+    return;
+  }
+
+  delete_option( 'mcd_seed_home_page' );
+
+  $pattern = $registry->get_registered( 'mccullough-digital/home-landing' );
+
+  if ( empty( $pattern['content'] ) ) {
+    return;
+  }
+
+  $page          = null;
+  $front_page_id = (int) get_option( 'page_on_front' );
+
+  if ( $front_page_id ) {
+    $front_page = get_post( $front_page_id );
+
+    if ( $front_page && 'page' === $front_page->post_type ) {
+      $page = $front_page;
+    }
+  }
+
+  if ( ! $page ) {
+    $page = get_page_by_path( 'home' );
+  }
+
+  if ( ! $page ) {
+    $page = get_page_by_title( __( 'Home', 'mccullough-digital' ) );
+  }
+
+  if ( $page ) {
+    if ( 'trash' === $page->post_status ) {
+      return;
+    }
+
+    $existing_content = trim( (string) $page->post_content );
+
+    if ( '' === wp_strip_all_tags( $existing_content ) ) {
+      wp_update_post(
+        [
+          'ID'           => $page->ID,
+          'post_content' => $pattern['content'],
+        ]
+      );
+    }
+
+    return;
+  }
+
+  wp_insert_post(
+    [
+      'post_title'   => __( 'Home', 'mccullough-digital' ),
+      'post_name'    => 'home',
+      'post_status'  => 'publish',
+      'post_type'    => 'page',
+      'post_content' => $pattern['content'],
+    ]
+  );
+}
+add_action( 'init', 'mcd_maybe_seed_home_page', 20 );
+
 
 /**
  * Sanitizes SVG code using a whitelist of allowed tags and attributes.

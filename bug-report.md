@@ -58,6 +58,10 @@ This sweep resolved ten production-impacting defects and introduced one code qua
    *Files:* `functions.php`
    *Issue:* The function for retrieving social media icons was rigid and could not be easily extended to include new social networks.
    *Resolution:* Introduced a new filter (`mcd_social_link_svg_patterns`) that allows developers to add new social icons and their matching logic without modifying the theme's core files.
+2. **Home Landing Layout Now Seeds Page Content**
+   *Files:* `functions.php`, `templates/front-page.html`, `templates/home-landing.html`, `patterns/home-landing.php`, `theme.json`
+   *Issue:* The home landing template was automatically applied through `front-page.html`, preventing authors from editing the landing layout within the standard page editor.
+   *Resolution:* Converted the front-page template to render page content, registered an optional "Home Landing" template, and seeded the landing pattern into the Home page content during activation so it stays fully editable from the page editor.
 
 ## Documentation Updates
 - `readme.txt` now highlights key features and logs version 1.2.0 of the theme.

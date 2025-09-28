@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.1 - 2025-09-28 =
+* **Enhancement:** Seed the Home landing layout into the Home page content on activation, convert the front-page template to render editable content, and expose the landing layout as an optional custom template.
+
 = 1.2.0 - 2025-09-27 =
 * **Enhancement:** Made the social icon retrieval function extensible via a new `mcd_social_link_svg_patterns` filter.
 * **Fix:** Corrected placeholder links in the default home page pattern.
