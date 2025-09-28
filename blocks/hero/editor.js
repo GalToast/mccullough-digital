@@ -173,6 +173,6 @@ registerBlockType(metadata.name, {
         );
     },
     save() {
-        return null;
+        return <InnerBlocks.Content />;
     },
 });

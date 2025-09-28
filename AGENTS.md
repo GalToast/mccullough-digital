@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-02):**
+    - Restored persistence for all InnerBlocks-based custom blocks by saving their nested content so Site Editor changes to templates, template parts, and marketing sections stick after reload.
 - **Latest (2025-10-01):**
     - Rebuilt the hero, CTA, about, services, and service-card blocks on top of InnerBlocks templates so every headline, paragraph, and button is edited in place while migrations and styling keep legacy attribute-driven content intact.
 - **Latest (2025-09-30):**
