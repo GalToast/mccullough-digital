@@ -25,20 +25,22 @@
 
 .editor-styles-wrapper .cta-button,
 .editor-styles-wrapper .wp-block-button__link.cta-button {
-    display: inline-block;
-    padding: 15px 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 38px;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
-    color: var(--text-primary);
+    color: var(--background-dark);
     text-decoration: none;
-    background: transparent;
-    border: 2px solid var(--neon-cyan);
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    border: none;
     border-radius: 50px;
     position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.55), 0 0 32px rgba(255, 0, 224, 0.45);
     isolation: isolate;
 }
 
@@ -52,34 +54,30 @@
 .editor-styles-wrapper .wp-block-button__link.cta-button::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    inset: -6px;
     border-radius: inherit;
-    transform: translateX(-110%);
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.2s ease, visibility 0s linear 0.5s;
-    transition-delay: 0s, 0s, 0.5s;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.75), rgba(255, 0, 224, 0.65));
+    filter: blur(18px);
+    opacity: 0.7;
     z-index: -1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .editor-styles-wrapper .cta-button:focus-visible,
 .editor-styles-wrapper .cta-button:hover,
 .editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible,
 .editor-styles-wrapper .wp-block-button__link.cta-button:hover {
-    color: var(--background-dark);
-    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 28px rgba(0, 229, 255, 0.7), 0 0 48px rgba(255, 0, 224, 0.55);
+    filter: saturate(1.1);
 }
 
 .editor-styles-wrapper .cta-button:focus-visible::before,
 .editor-styles-wrapper .cta-button:hover::before,
 .editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible::before,
 .editor-styles-wrapper .wp-block-button__link.cta-button:hover::before {
-    transform: translateX(0%);
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0s, 0s, 0s;
+    opacity: 0.9;
+    transform: scale(1.05);
 }
 
 .editor-styles-wrapper .section-title {
