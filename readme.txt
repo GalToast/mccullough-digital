@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.4 - 2025-09-30 =
+* **Hero CTA Accessibility:** Delayed the hover text color swap until the gradient fill completes so the "Start a Project" button stays legible while animating and added an explicit focus outline for keyboard users.
+
 = 1.2.3 - 2025-09-29 =
 * **Editor Experience:** Restored the page-wide template wrapper so `site-content` padding and the container helper classes work in the editor and the front end, and added matching wide/full container utilities to the block editor stylesheet.
 * **Customization:** Enabled spacing, color, and typography design tools plus text domains across all custom blocks so they can be styled and translated like core blocks, and registered the page-wide template for selection in the template picker.
