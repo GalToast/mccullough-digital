@@ -97,6 +97,22 @@
             50% { transform: scale(1.08); }
         }
 
+        @keyframes wobble {
+            0% { transform: rotate(0deg); }
+            15% { transform: rotate(-5deg); }
+            30% { transform: rotate(5deg); }
+            45% { transform: rotate(-3deg); }
+            60% { transform: rotate(3deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes nav-pulse {
+            0% { text-shadow: 0 0 10px rgba(0, 229, 255, 0.45); }
+            50% { text-shadow: 0 0 18px rgba(0, 229, 255, 0.9); }
+            100% { text-shadow: 0 0 10px rgba(0, 229, 255, 0.45); }
+        }
+
         /* @keyframes soft-glow-pulse {
             0% { text-shadow: 0 0 15px var(--neon-cyan), 0 0 25px var(--neon-cyan); }
             50% { text-shadow: 0 0 25px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 50px var(--neon-magenta); }
@@ -195,19 +211,40 @@
             gap: 25px;
         }
         #primary-menu li a {
-            color: #ffffff;
+            color: var(--neon-cyan);
             text-decoration: none;
             font-weight: 700;
             padding: 10px 5px;
             position: relative;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.4s ease;
             font-family: 'Nunito', sans-serif;
             font-size: 1.1em;
+            text-shadow: 0 0 12px rgba(0, 229, 255, 0.55);
         }
-        #primary-menu li a:hover {
+        #primary-menu li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 3px;
+            border-radius: 999px;
+            background: var(--neon-cyan);
+            opacity: 0;
+            transform: scaleX(0.35);
+            transform-origin: center;
+            transition: opacity 0.25s ease, transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        #primary-menu li a:hover,
+        #primary-menu li a:focus-visible {
             color: var(--neon-cyan);
-            text-shadow: 0 0 8px var(--neon-cyan);
-            animation: shake-zoom 0.4s ease-in-out infinite;
+            text-shadow: 0 0 12px rgba(0, 229, 255, 0.7), 0 0 24px rgba(0, 229, 255, 0.55);
+            animation: wobble 0.6s ease both, nav-pulse 1.6s ease-in-out infinite alternate;
+        }
+        #primary-menu li a:hover::after,
+        #primary-menu li a:focus-visible::after {
+            opacity: 1;
+            transform: scaleX(1);
         }
 
         .menu-toggle {
@@ -356,47 +393,46 @@
 
         /* --- CTA Button Styles --- */
         .cta-button {
-            display: inline-block;
-            padding: 15px 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 38px;
             font-family: 'Nunito', sans-serif;
             font-weight: 700;
             font-size: 1.2rem;
-            color: #fff;
-            text-decoration: none;
-            background: transparent;
-            border: 2px solid var(--neon-cyan);
-            border-radius: 50px; /* Softer, pill-shaped button */
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
-        }
-        .cta-button:hover {
             color: var(--background-dark);
-            box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-            transform: translateY(-3px);
+            text-decoration: none;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            border-radius: 50px;
+            border: none;
+            position: relative;
+            overflow: visible;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            box-shadow: 0 0 18px rgba(0, 229, 255, 0.55), 0 0 32px rgba(255, 0, 224, 0.45);
         }
-        
         .cta-button .btn-text {
             position: relative;
             z-index: 2;
         }
-
         .cta-button::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
-            transform: translateX(-101%);
-            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            z-index: 1;
+            inset: -6px;
+            border-radius: inherit;
+            background: linear-gradient(90deg, rgba(0, 229, 255, 0.75), rgba(255, 0, 224, 0.65));
+            filter: blur(18px);
+            opacity: 0.7;
+            z-index: -1;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 28px rgba(0, 229, 255, 0.7), 0 0 48px rgba(255, 0, 224, 0.55);
+            filter: saturate(1.1);
+        }
         .cta-button:hover::before {
-            transform: translateX(0%);
+            opacity: 0.9;
+            transform: scale(1.05);
         }
 
         /* --- Services Section --- */

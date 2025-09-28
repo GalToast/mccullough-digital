@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.10
+Version:       1.2.11
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -130,13 +130,13 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 
 @keyframes nav-pulse {
     0% {
-        text-shadow: 0 0 10px rgba(0, 229, 255, 0.45), 0 0 0 rgba(255, 0, 204, 0.35);
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
     }
     50% {
-        text-shadow: 0 0 16px rgba(0, 229, 255, 0.75), 0 0 12px rgba(255, 0, 204, 0.45);
+        text-shadow: 0 0 18px rgba(0, 229, 255, 0.9);
     }
     100% {
-        text-shadow: 0 0 10px rgba(0, 229, 255, 0.45), 0 0 0 rgba(255, 0, 204, 0.35);
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
     }
 }
 
@@ -238,7 +238,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content {
-    color: var(--text-primary);
+    color: var(--neon-cyan);
     text-decoration: none;
     font-weight: 700;
     padding: 10px 5px;
@@ -246,6 +246,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.4s ease;
     font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.55);
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content::after {
@@ -256,20 +257,18 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     bottom: 0;
     height: 3px;
     border-radius: 999px;
-    background-image: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
-    background-size: 200% 100%;
-    background-position: 100% 50%;
+    background: var(--neon-cyan);
     opacity: 0;
     transform: scaleX(0.35);
     transform-origin: center;
-    transition: opacity 0.25s ease, transform 0.45s cubic-bezier(0.77, 0, 0.175, 1), background-position 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: opacity 0.25s ease, transform 0.45s cubic-bezier(0.77, 0, 0.175, 1);
     pointer-events: none;
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(0, 229, 255, 0.6), 0 0 18px rgba(255, 0, 204, 0.4);
+    color: var(--neon-cyan);
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.7), 0 0 24px rgba(0, 229, 255, 0.55);
     animation: wobble 0.6s ease both, nav-pulse 1.6s ease-in-out infinite alternate;
 }
 
@@ -277,7 +276,6 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible::after {
     opacity: 1;
     transform: scaleX(1);
-    background-position: 0% 50%;
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open,
@@ -297,42 +295,32 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 }
 
 /* --- CTA Button Styles --- */
+
 .cta-button,
 .wp-block-button__link.cta-button,
 .post-card .wp-block-read-more a {
-    display: inline-block;
-    padding: 15px 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 38px;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     font-size: 1.2rem;
-    color: var(--text-primary);
+    color: var(--background-dark);
     text-decoration: none;
-    background: transparent;
-    border: 2px solid var(--neon-cyan);
-    border-radius: 50px; /* Softer, pill-shaped button */
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    border: none;
+    border-radius: 50px;
     position: relative;
-    overflow: hidden;
-    transition-property: transform, box-shadow, color;
-    transition-duration: 0.3s, 0.3s, 0s;
-    transition-timing-function: ease, ease, linear;
-    transition-delay: 0s, 0s, 0s;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.55), 0 0 32px rgba(255, 0, 224, 0.45);
     isolation: isolate;
 }
 
-.cta-button:hover,
-.cta-button:focus-visible,
-.wp-block-button__link.cta-button:hover,
-.wp-block-button__link.cta-button:focus-visible,
-.post-card .wp-block-read-more a:hover,
-.post-card .wp-block-read-more a:focus-visible {
-    color: var(--background-dark);
-    box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-    transform: translateY(-3px);
-    transition-delay: 0s, 0s, 0.45s;
-}
-
-.cta-button .btn-text {
+.cta-button .btn-text,
+.wp-block-button__link.cta-button .btn-text,
+.post-card .wp-block-read-more a .btn-text {
     position: relative;
     z-index: 2;
 }
@@ -342,15 +330,24 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 .post-card .wp-block-read-more a::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    inset: -6px;
     border-radius: inherit;
-    transform: translateX(-110%);
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.2s ease, visibility 0s linear 0.5s;
-    transition-delay: 0s, 0s, 0.5s;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.75), rgba(255, 0, 224, 0.65));
+    filter: blur(18px);
+    opacity: 0.7;
     z-index: -1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover,
+.cta-button:focus-visible,
+.wp-block-button__link.cta-button:hover,
+.wp-block-button__link.cta-button:focus-visible,
+.post-card .wp-block-read-more a:hover,
+.post-card .wp-block-read-more a:focus-visible {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 28px rgba(0, 229, 255, 0.7), 0 0 48px rgba(255, 0, 224, 0.55);
+    filter: saturate(1.1);
 }
 
 .cta-button:hover::before,
@@ -359,10 +356,8 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 .wp-block-button__link.cta-button:focus-visible::before,
 .post-card .wp-block-read-more a:hover::before,
 .post-card .wp-block-read-more a:focus-visible::before {
-    transform: translateX(0%);
-    opacity: 1;
-    visibility: visible;
-    transition-delay: 0s, 0s, 0s;
+    opacity: 0.9;
+    transform: scale(1.05);
 }
 
 .cta-button:focus-visible,
@@ -401,25 +396,6 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     .post-card .wp-block-read-more a,
     .post-card .wp-block-read-more a::before {
         transition: none;
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content,
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content::after {
-        transition: none;
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
-        animation: none;
-        transform: none;
-        text-shadow: none;
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover::after,
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible::after {
-        transform: scaleX(1);
-        opacity: 1;
-        background-position: 50% 50%;
     }
 
     .stars,

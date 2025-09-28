@@ -41,17 +41,16 @@
 
 .wp-block-mccullough-digital-cta .wp-block-button__link,
 .wp-block-mccullough-digital-cta .cta-button {
-    border-color: #fff;
-    border-width: 2px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    background: transparent;
-    color: #fff;
-    transition: all 0.3s ease;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    color: var(--background-dark);
+    border: none;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.55), 0 0 32px rgba(255, 255, 255, 0.45);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
 .wp-block-mccullough-digital-cta .wp-block-button__link:hover,
 .wp-block-mccullough-digital-cta .cta-button:hover {
-    background: #fff;
-    color: var(--neon-magenta);
-    box-shadow: 0 0 20px #fff, 0 0 40px #fff;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 28px rgba(255, 255, 255, 0.75), 0 0 48px rgba(255, 255, 255, 0.6);
+    filter: saturate(1.1);
 }

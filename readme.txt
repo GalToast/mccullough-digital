@@ -33,6 +33,12 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+ = 1.2.11 - 2025-10-06 =
+* **Navigation Glow:** Locked the primary menu links to a solid cyan neon treatment with a stronger pulse so the wobble effect
+stays bright and legible.
+* **CTA Surface Cleanup:** Rebuilt the CTA, hero, and read-more buttons around a single gradient surface with a halo glow, remo
+ving the unwanted inner pill across front-end, editor, and standalone previews.
+
  = 1.2.10 - 2025-10-05 =
 * **Navigation Hover Contrast:** Replaced the gradient text fill with a neon underline sweep so the wobble and pulse animations remain while the link copy stays readable.
 * **CTA Polish:** Recentred the "Ready to Create?" heading within the CTA block and kept the gradient pill layer hidden until interaction so the buttons no longer display a second inner pill at rest.

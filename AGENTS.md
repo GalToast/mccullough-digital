@@ -9,6 +9,11 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-06):**
+    - Locked the primary navigation links to a solid cyan treatment with an intensified glow-and-pulse hover so the wobble anim
+      ation stays legible and energetic without reverting to gradient fills.
+    - Rebuilt the CTA button styling to render a single neon surface with a bloom halo, eliminating the nested dark pill while
+      keeping the hover lift consistent across hero, CTA, and read more links.
 - **Latest (2025-10-05):**
     - Centered the CTA headline, kept the gradient pill layer hidden until interaction so CTA buttons render a single surface, and swapped the navigation hover gradient text fill for a neon underline that stays legible while wobbling.
 - **Latest (2025-10-04):**
