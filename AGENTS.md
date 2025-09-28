@@ -9,6 +9,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-07):**
+    - Kept the primary navigation labels white at rest, removed the sweep underline, and reserved the neon cyan wobble-and-pulse animation for hover/focus states only.
+    - Reimagined the CTA button styling across the theme so the single pill base fills with a cyan-to-magenta gradient on hover while the lettering gains a pulsing glow.
 - **Latest (2025-10-06):**
     - Locked the primary navigation links to a solid cyan treatment with an intensified glow-and-pulse hover so the wobble anim
       ation stays legible and energetic without reverting to gradient fills.
