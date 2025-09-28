@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+ = 1.2.12 - 2025-10-07 =
+* **Navigation Palette Reset:** Kept primary menu links white at rest and removed the cyan sweep underline so the hover wobble now transitions into a neon-blue glow only when links are engaged.
+* **Hover-Fill CTA Pills:** Rebuilt CTA, hero, and read-more buttons to rest on a single dark pill that floods with a cyan-to-magenta gradient on hover while the lettering pulses and spaces out for extra flair.
+
  = 1.2.11 - 2025-10-06 =
 * **Navigation Glow:** Locked the primary menu links to a solid cyan neon treatment with a stronger pulse so the wobble effect
 stays bright and legible.

@@ -4,6 +4,17 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-07 Sweep
+1. **Navigation Contrast Request**
+   *Files:* `style.css`
+   *Issue:* The primary menu labels defaulted to neon cyan with an animated underline, so the hover wobble never transitioned from the requested resting white state and the sweep underline remained visible.
+   *Resolution:* Reset the base link color to the primary text token, removed the sweep underline pseudo-element, and limited the wobble/pulse animation to hover and focus so links stay white until interaction.
+
+2. **CTA Pill Gradient Fill Timing**
+   *Files:* `style.css`, `editor-style.css`, `blocks/cta/style.css`, `standalone.html`
+   *Issue:* CTA buttons still rendered as fully gradient-filled pills at rest with halo effects that implied an inner pill, and the hover text lacked the requested playful treatment.
+   *Resolution:* Rebuilt the button styling to rest on a single dark pill that floods with a cyan-to-magenta gradient on hover, added glowing letter spacing animations, synced the editor and standalone previews, and updated CTA block overrides to avoid reintroducing the double-pill look.
+
 ### 2025-10-06 Sweep
 1. **Navigation Glow Regression**
    *Files:* `style.css`
