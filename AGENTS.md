@@ -1,4 +1,4 @@
-# Agent Notes (2025-09-27)
+# Agent Notes (2025-09-28)
 
 This repository contains the McCullough Digital block theme. The notes below summarise the current workflow and the defects resolved during the latest sweep.
 
@@ -9,6 +9,13 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-09-28):**
+    - Defined the missing `--z-index-background` and `--z-index-content` variables and switched lingering header colours to CSS tokens so palette changes propagate everywhere.
+    - Corrected the navigation block alignment setting and scoped hero block styles to avoid leaking `.hero` rules across the site.
+    - Hardened all CTA links by escaping URLs and suppressing empty hero elements while restoring wrapper alignment support.
+    - Removed duplicate IDs from the hero, CTA, about, and services editors, added the missing services block import, and ensured the dynamic block no longer saves rendered markup.
+    - Disabled the service card glow animation when `prefers-reduced-motion` is active and allowed the SVG sanitizer to retain safe `style` attributes.
+    - Updated footer social icon selectors so WordPress' `.wp-social-link` markup inherits the intended hover styling.
 - **Functionality:**
     - Corrected placeholder links in the `home-landing.php` pattern that were pointing to example.com.
     - Fixed social media icon logic in `functions.php` to correctly identify all variations of `x.com` and other social URLs by using proper regex.
@@ -24,4 +31,4 @@ This repository contains the McCullough Digital block theme. The notes below sum
     - Fixed the over-aggressive SVG sanitizer in `functions.php` to no longer strip out necessary `style` attributes.
     - Replaced hardcoded `z-index` values and colors in `style.css` with CSS variables for better maintainability.
 
-Keep documentation (this file, `readme.txt`, and `bug-report.md`) in sync with any future bug sweeps so downstream contributors understand the latest fixes.
+Keep documentation (this file, `readme.txt`, and `bug-report.md`) in sync with every bug sweep so downstream contributors understand the latest fixes.

@@ -50,7 +50,7 @@ $has_link  = '' !== $link_url;
         </div>
         <?php if ( '' !== $link_text ) : ?>
             <?php if ( $has_link ) : ?>
-                <a href="<?php echo $link_url; ?>" class="learn-more">
+                <a href="<?php echo esc_url( $link_url ); ?>" class="learn-more">
                     <?php echo esc_html( $link_text ); ?>
                 </a>
             <?php else : ?>

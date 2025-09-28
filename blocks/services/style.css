@@ -135,3 +135,9 @@ h2.section-title::after {
     transform: none;
     opacity: 0.75;
 }
+
+@media (prefers-reduced-motion: reduce) {
+    .service-card::before {
+        animation: none;
+    }
+}

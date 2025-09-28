@@ -40,7 +40,7 @@ $has_link_url = '' !== $button_link;
 
         <?php if ( '' !== $button_text ) : ?>
             <?php if ( $has_link_url ) : ?>
-                <a href="<?php echo $button_link; ?>" class="cta-button">
+                <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button">
                     <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
                 </a>
             <?php else : ?>
