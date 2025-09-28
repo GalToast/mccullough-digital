@@ -50,6 +50,69 @@
             "default": ""
         }
     },
+    "innerBlocks": {
+        "allowedBlocks": [
+            "core/group",
+            "core/heading",
+            "core/paragraph",
+            "core/list",
+            "core/html",
+            "core/buttons",
+            "core/button",
+            "core/image"
+        ],
+        "templateLock": false,
+        "template": [
+            [
+                "core/group",
+                {
+                    "className": "service-card__body"
+                },
+                [
+                    [
+                        "core/group",
+                        {
+                            "className": "icon"
+                        }
+                    ],
+                    [
+                        "core/heading",
+                        {
+                            "level": 3,
+                            "placeholder": "Add service title…",
+                            "content": "Service title"
+                        }
+                    ],
+                    [
+                        "core/paragraph",
+                        {
+                            "placeholder": "Describe the value of this service…",
+                            "content": "Describe the value of this service here."
+                        }
+                    ]
+                ]
+            ],
+            [
+                "core/buttons",
+                {
+                    "className": "service-card__cta",
+                    "layout": {
+                        "type": "flex",
+                        "justifyContent": "center"
+                    }
+                },
+                [
+                    [
+                        "core/button",
+                        {
+                            "className": "learn-more",
+                            "text": "Learn More \u2192"
+                        }
+                    ]
+                ]
+            ]
+        ]
+    },
     "editorScript": "file:../../build/blocks/service-card/editor.js",
     "textdomain": "mccullough-digital",
     "render": "file:./render.php"

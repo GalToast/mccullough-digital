@@ -32,10 +32,23 @@
                 return;
             }
 
-            const textWrapper = headline.querySelector('.hero__headline-text');
+            let textWrapper = headline.querySelector('.hero__headline-text');
 
             if (!textWrapper) {
-                return;
+                textWrapper = document.createElement('span');
+                textWrapper.classList.add('hero__headline-text');
+
+                const children = Array.from(headline.childNodes);
+
+                children.forEach((node) => {
+                    if (node === textWrapper) {
+                        return;
+                    }
+
+                    textWrapper.appendChild(node);
+                });
+
+                headline.appendChild(textWrapper);
             }
 
             const rawText = textWrapper.textContent ? textWrapper.textContent.trim() : '';

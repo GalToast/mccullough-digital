@@ -23,7 +23,8 @@
     color: var(--neon-cyan);
 }
 
-.editor-styles-wrapper .cta-button {
+.editor-styles-wrapper .cta-button,
+.editor-styles-wrapper .wp-block-button__link.cta-button {
     display: inline-block;
     padding: 15px 35px;
     font-family: 'Nunito', sans-serif;
@@ -40,12 +41,14 @@
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
 }
 
-.editor-styles-wrapper .cta-button .btn-text {
+.editor-styles-wrapper .cta-button .btn-text,
+.editor-styles-wrapper .wp-block-button__link.cta-button .btn-text {
     position: relative;
     z-index: 2;
 }
 
-.editor-styles-wrapper .cta-button::before {
+.editor-styles-wrapper .cta-button::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -59,14 +62,18 @@
 }
 
 .editor-styles-wrapper .cta-button:focus-visible,
-.editor-styles-wrapper .cta-button:hover {
+.editor-styles-wrapper .cta-button:hover,
+.editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible,
+.editor-styles-wrapper .wp-block-button__link.cta-button:hover {
     color: var(--background-dark);
     box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
     transform: translateY(-3px);
 }
 
 .editor-styles-wrapper .cta-button:focus-visible::before,
-.editor-styles-wrapper .cta-button:hover::before {
+.editor-styles-wrapper .cta-button:hover::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button:hover::before {
     transform: translateX(0%);
 }
 
@@ -75,7 +82,8 @@
     color: var(--text-primary);
 }
 
-.editor-styles-wrapper .learn-more {
+.editor-styles-wrapper .learn-more,
+.editor-styles-wrapper .wp-block-button__link.learn-more {
     font-weight: 700;
     color: var(--neon-cyan);
     text-decoration: none;
@@ -213,7 +221,8 @@
     margin: 0;
 }
 
-.editor-styles-wrapper .learn-more {
+.editor-styles-wrapper .learn-more,
+.editor-styles-wrapper .wp-block-button__link.learn-more {
     margin-top: auto;
 }
 
@@ -232,7 +241,8 @@
     border-radius: 20px;
 }
 
-.editor-styles-wrapper .cta-section .cta-button {
+.editor-styles-wrapper .cta-section .cta-button,
+.editor-styles-wrapper .cta-section .wp-block-button__link.cta-button {
     border-color: var(--text-primary);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }

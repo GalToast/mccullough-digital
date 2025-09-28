@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.6 - 2025-10-01 =
+* **WYSIWYG Blocks:** Rebuilt the hero, CTA, about, services, and service card blocks around InnerBlocks templates with automated migrations so editors can manipulate every headline, paragraph, and button directly in the canvas without breaking legacy content.
+* **Styling:** Extended front-end and editor button styles so core button markup inherits the neon CTA treatment and aligned service card button stacks with the existing layout.
+
 = 1.2.5 - 2025-09-30 =
 * **Hero Headline Animation:** Wrapped glitch letters per word so spaces render as real whitespace, restoring natural line breaks while keeping the hover distortion effect responsive.
 

@@ -114,6 +114,19 @@ h2.section-title::after {
     margin-bottom: 20px;
 }
 
+.service-card .wp-block-buttons.service-card__cta {
+    margin-top: auto;
+    width: 100%;
+    justify-content: center;
+    gap: 0;
+}
+
+.service-card .wp-block-buttons .wp-block-button {
+    margin: 0;
+    align-self: center;
+}
+
+.service-card .wp-block-button__link,
 .learn-more {
     font-weight: 700;
     color: var(--neon-cyan);
@@ -121,8 +134,13 @@ h2.section-title::after {
     display: inline-block;
     margin-top: auto; /* Pushes the link to the bottom */
     transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
 }
 
+.service-card .wp-block-button__link:hover,
 .learn-more:hover {
     text-shadow: 0 0 8px var(--neon-cyan);
     transform: translateX(5px);

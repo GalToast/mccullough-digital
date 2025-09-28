@@ -1,8 +1,14 @@
-# Bug Fix Report — 2025-09-30
+# Bug Fix Report — 2025-10-01
 
-This report now tracks the 2025-09-27 through 2025-09-30 sweeps, covering thirty-one production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This report now tracks the 2025-09-27 through 2025-10-01 sweeps, covering thirty-two production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
+
+### 2025-10-01 Sweep
+1. **InnerBlocks Migration for Marketing Sections**
+   *Files:* `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/render.php`, `blocks/hero/view.js`, `blocks/cta/block.json`, `blocks/cta/editor.js`, `blocks/cta/render.php`, `blocks/about/block.json`, `blocks/about/editor.js`, `blocks/about/render.php`, `blocks/services/block.json`, `blocks/services/editor.js`, `blocks/services/render.php`, `blocks/service-card/block.json`, `blocks/service-card/editor.js`, `blocks/service-card/render.php`, `blocks/cta/style.css`, `blocks/services/style.css`, `editor-style.css`, `style.css`
+   *Issue:* The hero, CTA, about, services, and service-card blocks still relied on fixed attributes, leaving headings, paragraphs, and buttons locked to inspector fields while the services grid couldn't mix headings with cards without manual HTML edits.
+   *Resolution:* Rebuilt each block on top of InnerBlocks templates with automated migrations that translate legacy attributes into nested core blocks, updated PHP renders to consume nested content while preserving fallbacks, and refreshed the global/editor styles so core button markup inherits the existing neon CTA treatment.
 
 ### 2025-09-30 Sweep
 1. **Hero CTA Hover Contrast**

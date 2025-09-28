@@ -46,6 +46,47 @@
             "default": "mailto:contact@mccullough.digital"
         }
     },
+    "innerBlocks": {
+        "allowedBlocks": [
+            "core/heading",
+            "core/paragraph",
+            "core/list",
+            "core/buttons",
+            "core/group",
+            "core/image"
+        ],
+        "templateLock": false,
+        "template": [
+            [
+                "core/heading",
+                {
+                    "level": 2,
+                    "className": "section-title",
+                    "placeholder": "Add CTA headline…",
+                    "content": "Ready to Create?"
+                }
+            ],
+            [
+                "core/buttons",
+                {
+                    "layout": {
+                        "type": "flex",
+                        "justifyContent": "center"
+                    }
+                },
+                [
+                    [
+                        "core/button",
+                        {
+                            "className": "cta-button",
+                            "text": "Let's Talk",
+                            "url": "mailto:contact@mccullough.digital"
+                        }
+                    ]
+                ]
+            ]
+        ]
+    },
     "editorScript": "file:../../build/blocks/cta/editor.js",
     "style": "file:./style.css",
     "textdomain": "mccullough-digital",

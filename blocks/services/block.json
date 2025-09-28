@@ -34,9 +34,20 @@
     },
     "innerBlocks": {
         "allowedBlocks": [
+            "core/heading",
             "mccullough-digital/service-card"
         ],
+        "templateLock": false,
         "template": [
+            [
+                "core/heading",
+                {
+                    "level": 2,
+                    "className": "section-title",
+                    "placeholder": "Add services headline…",
+                    "content": "What We Do"
+                }
+            ],
             [
                 "mccullough-digital/service-card"
             ],
