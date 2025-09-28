@@ -46,6 +46,15 @@
       ]
     },
     "spacing": {
+      "padding": true,
+      "margin": true,
+      "blockGap": true,
+      "units": [
+        "px",
+        "rem",
+        "em",
+        "%"
+      ],
       "spacingSizes": [
         {
           "slug": "10",

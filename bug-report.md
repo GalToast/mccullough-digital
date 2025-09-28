@@ -1,8 +1,16 @@
-# Bug Fix Report — 2025-10-02
+# Bug Fix Report — 2025-10-03
 
-This report now tracks the 2025-09-27 through 2025-10-02 sweeps, covering thirty-three production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the growing set of production-impacting fixes and continuous improvements in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
+
+### 2025-10-03 Sweep
+1. **Missing Dimensions Controls**
+   *Files:* `theme.json`
+   *Issue:* The theme's spacing presets existed, but global padding, margin, block gap, and unit flags were absent, so Gutenber
+   g hid the Dimensions panel for custom sections and core blocks opting into spacing support.
+   *Resolution:* Enabled the spacing feature flags and unit list in `settings.spacing` so the editor exposes padding, margin, a
+   nd block gap controls backed by the defined presets.
 
 ### 2025-10-02 Sweep
 1. **Template Edits Lost After Saving**
