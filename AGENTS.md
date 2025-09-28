@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-04):**
+    - Restored the neon navigation hover wobble with a reversed gradient sweep, re-centered the CTA layout, hid the standby gradient pill layer, and removed unintended header/section borders that introduced bright divider lines.
 - **Latest (2025-10-03):**
     - Exposed global padding, margin, and block gap controls with unit selection in `theme.json` so Gutenberg surfaces the Dimen
       sions panel for custom and core blocks that opt into spacing support.

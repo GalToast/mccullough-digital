@@ -4,6 +4,22 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-04 Sweep
+1. **Navigation Hover Animation Regression**
+   *Files:* `style.css`
+   *Issue:* The primary navigation lost its intended hover treatment—the links no longer pulsed or wobbled, and the gradient fill swept in the same blue-to-pink direction as the header instead of the requested reverse.
+   *Resolution:* Restored the wobble and pulse animations, swapped the gradient to sweep pink-to-blue, and added a reduced-motion fallback so the effect respects accessibility preferences.
+
+2. **CTA Layout Drift & Double-Pill Button**
+   *Files:* `blocks/cta/style.css`, `style.css`
+   *Issue:* The hero and CTA buttons displayed a second inner pill from the hover layer resting inside the outline, and the CTA section's content stack sat off-center with inconsistent vertical spacing.
+   *Resolution:* Hid the gradient layer until interaction, re-centered the CTA container with flexible alignment, and synced spacing so the call-to-action headline and button align cleanly.
+
+3. **Unwanted Section Dividers**
+   *Files:* `style.css`
+   *Issue:* Newly introduced borders on the header and generic `section` elements surfaced as stark white lines across the layout and at the bottom of the fixed header.
+   *Resolution:* Removed the default section divider and header border, relying on existing background and glow effects for separation to eliminate the stray lines.
+
 ### 2025-10-03 Sweep
 1. **Missing Dimensions Controls**
    *Files:* `theme.json`

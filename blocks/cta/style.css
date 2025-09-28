@@ -10,9 +10,25 @@
     margin-bottom: 30px;
 }
 
+.wp-block-mccullough-digital-cta .container,
+.wp-block-mccullough-digital-cta .wp-block-mccullough-digital-cta__inner,
+.wp-block-mccullough-digital-cta.cta-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: clamp(60px, 12vw, 140px) 0;
+}
+
+.wp-block-mccullough-digital-cta .section-title {
+    margin-bottom: 0;
+}
+
 .wp-block-mccullough-digital-cta .wp-block-buttons {
     justify-content: center;
     gap: 0;
+    width: 100%;
 }
 
 .wp-block-mccullough-digital-cta .wp-block-button {
