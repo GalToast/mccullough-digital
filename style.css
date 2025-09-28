@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.3
+Version:       1.2.4
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -279,7 +279,10 @@ section {
     border-radius: 50px; /* Softer, pill-shaped button */
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition-property: transform, box-shadow, color;
+    transition-duration: 0.3s, 0.3s, 0s;
+    transition-timing-function: ease, ease, linear;
+    transition-delay: 0s, 0s, 0s;
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
 }
 
@@ -290,6 +293,7 @@ section {
     color: var(--background-dark);
     box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
     transform: translateY(-3px);
+    transition-delay: 0s, 0s, 0.45s;
 }
 
 .cta-button .btn-text {
@@ -301,11 +305,9 @@ section {
 .post-card .wp-block-read-more a::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    border-radius: inherit;
     transform: translateX(-101%);
     transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
     z-index: -1;
@@ -316,6 +318,12 @@ section {
 .post-card .wp-block-read-more a:hover::before,
 .post-card .wp-block-read-more a:focus-visible::before {
     transform: translateX(0%);
+}
+
+.cta-button:focus-visible,
+.post-card .wp-block-read-more a:focus-visible {
+    outline: 3px solid var(--neon-cyan);
+    outline-offset: 4px;
 }
 
 .cta-button.is-static,

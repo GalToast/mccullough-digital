@@ -1,8 +1,14 @@
-# Bug Fix Report — 2025-09-28
+# Bug Fix Report — 2025-09-30
 
-This report now tracks both the 2025-09-27 and 2025-09-28 sweeps, covering thirty production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This report now tracks the 2025-09-27 through 2025-09-30 sweeps, covering thirty-one production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
+
+### 2025-09-30 Sweep
+1. **Hero CTA Hover Contrast**
+   *Files:* `style.css`
+   *Issue:* The hero and post card CTA buttons turned their text dark as soon as hover started, but the gradient fill animation lagged behind, so the copy became unreadable on the dark background and there was no visible keyboard focus cue.
+   *Resolution:* Delayed the text color swap until the gradient completes, extended the gradient layer so it matches the pill radius, and added a high-contrast focus outline so both mouse and keyboard interactions remain accessible.
 
 ### 2025-09-27 Sweep
 1. **Placeholder Links on Homepage**
