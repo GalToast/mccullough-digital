@@ -11,6 +11,7 @@ This repository contains the McCullough Digital block theme. The notes below sum
 ## Bug Fix & Improvement Highlights
 - **Latest (2025-09-30):**
     - Kept CTA button text readable by delaying the hover color swap until the gradient animation finishes and added a neon focus outline so keyboard users get the same visual feedback.
+    - Reworked the hero headline glitch markup so words wrap naturally while preserving the hover distortion and reduced-motion fallbacks.
 - **Latest (2025-09-29):**
     - Enabled padding, margin, color, and typography design tools across every custom block, added missing text domains, and unhid the service card block in the inserter so authors can freely compose sections from the editor.
     - Added reusable surface color tokens, spacing presets, and a defined wide content width to `theme.json`, updated both front-end and editor styles to consume the new palette, and wired up wide/full container helpers for accurate previews.

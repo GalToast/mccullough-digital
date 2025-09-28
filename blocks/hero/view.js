@@ -96,22 +96,47 @@
                 }
 
                 const fragment = document.createDocumentFragment();
+                let currentWord = null;
 
-                for (const char of text) {
+                const flushWord = () => {
+                    if (currentWord && currentWord.childNodes.length) {
+                        fragment.appendChild(currentWord);
+                    }
+
+                    currentWord = null;
+                };
+
+                const normalizedText = text.replace(/\r\n/g, '\n');
+
+                for (const char of normalizedText) {
                     if (char === '\n' || char === '\r') {
+                        flushWord();
                         fragment.appendChild(document.createElement('br'));
                         continue;
                     }
 
-                    const span = document.createElement('span');
-                    const outputChar = char === ' ' ? '\u00A0' : char;
+                    if (char.trim() === '') {
+                        flushWord();
+                        fragment.appendChild(document.createTextNode(char));
+                        continue;
+                    }
 
-                    span.dataset.char = outputChar;
-                    span.textContent = outputChar;
-                    span.setAttribute('aria-hidden', 'true');
+                    if (!currentWord) {
+                        currentWord = document.createElement('span');
+                        currentWord.classList.add('hero__headline-word');
+                    }
 
-                    fragment.appendChild(span);
+                    const letter = document.createElement('span');
+
+                    letter.classList.add('hero__headline-letter');
+                    letter.dataset.char = char;
+                    letter.textContent = char;
+                    letter.setAttribute('aria-hidden', 'true');
+
+                    currentWord.appendChild(letter);
                 }
+
+                flushWord();
 
                 if (node.parentNode) {
                     node.parentNode.replaceChild(fragment, node);

@@ -10,6 +10,11 @@ This report now tracks the 2025-09-27 through 2025-09-30 sweeps, covering thirty
    *Issue:* The hero and post card CTA buttons turned their text dark as soon as hover started, but the gradient fill animation lagged behind, so the copy became unreadable on the dark background and there was no visible keyboard focus cue.
    *Resolution:* Delayed the text color swap until the gradient completes, extended the gradient layer so it matches the pill radius, and added a high-contrast focus outline so both mouse and keyboard interactions remain accessible.
 
+2. **Hero Headline Word Breaks**
+   *Files:* `blocks/hero/view.js`, `blocks/hero/style.css`
+   *Issue:* The interactive glitch animation replaced spaces with non-breaking spans, so long headlines couldn't wrap between words and would overflow at smaller viewports.
+   *Resolution:* Rebuilt the letter span logic to group characters per word and emit real whitespace/text nodes, then updated the hover selectors to target the new markup so the glitch effect and reduced-motion fallbacks continue to function.
+
 ### 2025-09-27 Sweep
 1. **Placeholder Links on Homepage**
    *Files:* `patterns/home-landing.php`
