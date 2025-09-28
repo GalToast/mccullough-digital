@@ -1,58 +1,65 @@
-# Bug Fix Report — 2025-09-28
+# Bug Fix Report — 2025-09-27
 
-This sweep resolved ten production-impacting defects in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This sweep resolved ten production-impacting defects and introduced one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
-1. **Header offset failed after layout shifts**  
-   *Files:* `js/header-scripts.js`, `style.css`  
-   *Issue:* Opening the navigation, resizing the viewport, or loading web fonts changed the header height without updating the `--mcd-header-offset` custom property, causing content to slip under the masthead.  
-   *Resolution:* Added a `ResizeObserver`, font loading listener, and bfcache `pageshow` hook to recalculate the offset and keep content aligned.
+1. **Placeholder Links on Homepage**
+   *Files:* `patterns/home-landing.php`
+   *Issue:* The service cards on the homepage contained placeholder links pointing to "example.com", which were not functional.
+   *Resolution:* Removed the `linkUrl` attribute from the service card blocks, causing the links to render as static text and preventing user confusion.
 
-2. **Header observers leaked between navigations**  
-   *Files:* `js/header-scripts.js`  
-   *Issue:* The header script left mutation observers attached when navigating away, allowing callbacks to fire on detached nodes.  
-   *Resolution:* Disconnect observers and remove font listeners during `unload` to prevent leaks in single-page navigation scenarios.
+2. **Inefficient Starfield Animation**
+   *Files:* `style.css`
+   *Issue:* The footer's starfield animation used the `transform` property, which is less performant for this type of continuous background animation.
+   *Resolution:* Changed the `@keyframes` to animate `background-position` instead, resulting in a smoother and more efficient animation.
 
-3. **Hero headline destroyed accessible text**  
-   *Files:* `blocks/hero/render.php`, `blocks/hero/view.js`, `blocks/hero/style.css`  
-   *Issue:* The animation replaced every character with `<span>` elements, causing screen readers to announce letters individually.  
-   *Resolution:* Wrapped headline copy in `.hero__headline-text`, cloned a `.screen-reader-text` version for assistive tech, and generated decorative spans only for the visual layer.
+3. **Jarring Navigation Hover Animation**
+   *Files:* `style.css`
+   *Issue:* The main navigation links had multiple, conflicting, and infinite animations on hover, creating a visually jarring effect.
+   *Resolution:* Simplified the hover effect to a single, subtle `text-shadow`, providing a more professional and polished user experience.
 
-4. **Hero animation crashed on legacy browsers**  
-   *Files:* `blocks/hero/view.js`  
-   *Issue:* Browsers without `NodeFilter` or `createTreeWalker` support threw runtime errors when the hero initialised.  
-   *Resolution:* Guarded the animation against missing DOM APIs and skip span generation when the feature set is incomplete.
+4. **Post Card Hover Layout Shift**
+   *Files:* `style.css`
+   *Issue:* Hovering over a post card caused a layout shift because the `transition: all` property was inefficient and affected layout-related properties.
+   *Resolution:* Changed the transition to only affect `transform` and `border-color`, preventing any layout shifts on hover.
 
-5. **Missing shared screen-reader utility**  
-   *Files:* `style.css`, `standalone.html`  
-   *Issue:* The theme duplicated ad-hoc visually hidden rules, leading to inconsistent behaviour across blocks.  
-   *Resolution:* Introduced a reusable `.screen-reader-text` helper for both the WordPress theme and the standalone preview.
+5. **Flawed Social Media Icon Logic**
+   *Files:* `functions.php`
+   *Issue:* The regex for matching social media URLs (e.g., for X/Twitter) was incorrect and would fail to identify some valid URLs.
+   *Resolution:* Corrected the regular expressions to be more precise and handle all variations of the social media domains.
 
-6. **PHP 8 libxml deprecation warnings**  
-   *Files:* `functions.php`  
-   *Issue:* Calling `libxml_disable_entity_loader()` triggered deprecation notices on PHP 8, polluting logs when sanitising SVGs.  
-   *Resolution:* Only disable the entity loader on PHP versions where the function is supported, preserving security without warnings.
+6. **Overly Aggressive SVG Sanitizer**
+   *Files:* `functions.php`
+   *Issue:* The SVG sanitizer was too strict and removed the `style` attribute from SVGs, which could break legitimate inline styling.
+   *Resolution:* Modified the sanitizer to allow the `style` attribute, ensuring that SVGs render correctly while maintaining security.
 
-7. **Standalone preview font hints were malformed**  
-   *Files:* `standalone.html`  
-   *Issue:* Fonts were linked without preload hints, delaying hero rendering and ignoring reduced-motion scroll preferences.  
-   *Resolution:* Added proper `preload`/`noscript` tags and wrapped `scroll-behavior` in a media query matching the production stylesheet.
+7. **Duplicate "Home" Page Creation**
+   *Files:* `functions.php`
+   *Issue:* The theme's activation logic could create a duplicate "Home" page if one already existed.
+   *Resolution:* Added a check to the page seeding logic to first search for an existing "Home" page by title before creating a new one.
 
-8. **Standalone hero diverged from production markup**  
-   *Files:* `standalone.html`  
-   *Issue:* The preview used bespoke headline markup and particle code, leaving accessibility fixes unrepresented.  
-   *Resolution:* Mirrored the production hero structure, loaded the shared hero script, and exposed the `.wp-block-mccullough-digital-hero` class so animations stay in sync.
+8. **Inconsistent Color Usage**
+   *Files:* `style.css`
+   *Issue:* The stylesheet used a mix of hardcoded colors (e.g., `#222`) and CSS variables, making the theme difficult to skin and maintain.
+   *Resolution:* Replaced all hardcoded color values with the appropriate CSS variables from the theme's color palette for consistency.
 
-9. **Standalone service cards exposed decorative icons and dead links**  
-   *Files:* `standalone.html`  
-   *Issue:* Icons were announced by assistive tech and `href="#"` placeholders created empty focus targets.  
-   *Resolution:* Marked icons as presentational and rendered static `.is-static` text when no destination is available.
+9. **Disorganized Z-Index Values**
+   *Files:* `style.css`
+   *Issue:* The CSS used arbitrary "magic numbers" for `z-index`, which made the stacking order of elements difficult to manage.
+   *Resolution:* Defined a set of `z-index` variables in the `:root` and applied them throughout the stylesheet for better organization.
 
-10. **Standalone navigation toggle lost ARIA state**  
-    *Files:* `standalone.html`  
-    *Issue:* The preview’s mobile menu left `aria-expanded` out of sync with the visual menu state.  
-    *Resolution:* Centralised toggle logic that syncs the button state, CSS classes, and collapse behaviour, while delegating scroll handling to the production header script.
+10. **Broken Hamburger Menu Animation**
+    *Files:* `style.css`
+    *Issue:* The mobile hamburger menu icon's middle bar disappeared instantly during the transition to a close icon, making the animation look broken.
+    *Resolution:* Modified the CSS to animate the `box-shadow` property, creating a smooth transition where the middle bar appears to merge into the top bar.
+
+## Improvements
+1. **Extensible Social Icon Function**
+   *Files:* `functions.php`
+   *Issue:* The function for retrieving social media icons was rigid and could not be easily extended to include new social networks.
+   *Resolution:* Introduced a new filter (`mcd_social_link_svg_patterns`) that allows developers to add new social icons and their matching logic without modifying the theme's core files.
 
 ## Documentation Updates
-- `readme.txt` now highlights key features and logs version 1.1.2 of the theme.
-- `AGENTS.md` summarises the new workflow and the bug fixes above for future contributors.
+- `readme.txt` now highlights key features and logs version 1.2.0 of the theme.
+- `AGENTS.md` has been updated with the latest bug fixes and a new instruction to always keep documentation in sync.
+- This `bug-report.md` has been updated to reflect the latest changes.
