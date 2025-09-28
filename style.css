@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.9
+Version:       1.2.10
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -243,24 +243,41 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     font-weight: 700;
     padding: 10px 5px;
     position: relative;
-    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.4s ease, background-position 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.4s ease;
     font-family: 'Nunito', sans-serif;
     font-size: 1.1em;
+}
+
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px;
     background-image: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
     background-size: 200% 100%;
     background-position: 100% 50%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: currentColor;
+    opacity: 0;
+    transform: scaleX(0.35);
+    transform-origin: center;
+    transition: opacity 0.25s ease, transform 0.45s cubic-bezier(0.77, 0, 0.175, 1), background-position 0.45s cubic-bezier(0.77, 0, 0.175, 1);
+    pointer-events: none;
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
 .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    background-position: 0% 50%;
+    color: #ffffff;
     text-shadow: 0 0 10px rgba(0, 229, 255, 0.6), 0 0 18px rgba(255, 0, 204, 0.4);
     animation: wobble 0.6s ease both, nav-pulse 1.6s ease-in-out infinite alternate;
+}
+
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover::after,
+.main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible::after {
+    opacity: 1;
+    transform: scaleX(1);
+    background-position: 0% 50%;
 }
 
 .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open,
@@ -300,6 +317,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     transition-timing-function: ease, ease, linear;
     transition-delay: 0s, 0s, 0s;
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+    isolation: isolate;
 }
 
 .cta-button:hover,
@@ -327,9 +345,11 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     inset: 0;
     background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
     border-radius: inherit;
-    transform: translateX(-105%);
+    transform: translateX(-110%);
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.2s ease;
+    visibility: hidden;
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.2s ease, visibility 0s linear 0.5s;
+    transition-delay: 0s, 0s, 0.5s;
     z-index: -1;
 }
 
@@ -341,6 +361,8 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 .post-card .wp-block-read-more a:focus-visible::before {
     transform: translateX(0%);
     opacity: 1;
+    visibility: visible;
+    transition-delay: 0s, 0s, 0s;
 }
 
 .cta-button:focus-visible,
@@ -382,7 +404,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation-item__content,
-    .main-navigation.wp-block-navigation .wp-block-navigation-item__content::before {
+    .main-navigation.wp-block-navigation .wp-block-navigation-item__content::after {
         transition: none;
     }
 
@@ -390,8 +412,14 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible {
         animation: none;
         transform: none;
-        background-position: 0% 50%;
         text-shadow: none;
+    }
+
+    .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover::after,
+    .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible::after {
+        transform: scaleX(1);
+        opacity: 1;
+        background-position: 50% 50%;
     }
 
     .stars,

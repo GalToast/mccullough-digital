@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+ = 1.2.10 - 2025-10-05 =
+* **Navigation Hover Contrast:** Replaced the gradient text fill with a neon underline sweep so the wobble and pulse animations remain while the link copy stays readable.
+* **CTA Polish:** Recentred the "Ready to Create?" heading within the CTA block and kept the gradient pill layer hidden until interaction so the buttons no longer display a second inner pill at rest.
+
 = 1.2.9 - 2025-10-04 =
 * **Navigation:** Reinstated the neon wobble-and-pulse hover treatment with a pink-to-blue gradient sweep that inverses the header animation while honouring reduced-motion preferences.
 * **Calls to Action:** Centered the CTA layout and kept the gradient fill layer hidden until interaction so the buttons no longer show a second pill inside the outline.
