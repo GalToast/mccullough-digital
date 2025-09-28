@@ -1,8 +1,14 @@
-# Bug Fix Report — 2025-10-01
+# Bug Fix Report — 2025-10-02
 
-This report now tracks the 2025-09-27 through 2025-10-01 sweeps, covering thirty-two production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This report now tracks the 2025-09-27 through 2025-10-02 sweeps, covering thirty-three production-impacting fixes and one code quality improvement in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
+
+### 2025-10-02 Sweep
+1. **Template Edits Lost After Saving**
+   *Files:* `blocks/about/editor.js`, `blocks/cta/editor.js`, `blocks/hero/editor.js`, `blocks/services/editor.js`, `blocks/service-card/editor.js`, `build/blocks/about/editor.js`, `build/blocks/cta/editor.js`, `build/blocks/hero/editor.js`, `build/blocks/services/editor.js`, `build/blocks/service-card/editor.js`
+   *Issue:* All InnerBlocks-driven custom blocks returned `null` from their `save` implementation, so WordPress never stored the nested markup. Any edits made in the site editor appeared to save but were wiped on reload because the PHP render callbacks fell back to the original attributes.
+   *Resolution:* Taught every block to return `<InnerBlocks.Content />` during save, ensuring nested content is serialized and replayed by the render callbacks so template, template part, and block edits persist.
 
 ### 2025-10-01 Sweep
 1. **InnerBlocks Migration for Marketing Sections**
