@@ -102,6 +102,18 @@
       "wideSize": "1600px"
     }
   },
+  "templateParts": [
+    {
+      "name": "header",
+      "title": "Header",
+      "area": "header"
+    },
+    {
+      "name": "footer-neon",
+      "title": "Neon Footer",
+      "area": "footer"
+    }
+  ],
   "customTemplates": [
     {
       "name": "home-landing",

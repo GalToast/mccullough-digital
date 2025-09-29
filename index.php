@@ -46,7 +46,7 @@ wp_body_open();
     if ( function_exists( 'block_footer_area' ) ) {
         block_footer_area();
     } elseif ( function_exists( 'block_template_part' ) ) {
-        block_template_part( 'footer' );
+        block_template_part( 'footer-neon' );
     }
     ?>
 </div>

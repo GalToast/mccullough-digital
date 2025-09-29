@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.16 - 2025-10-11 =
+* **Footer Refresh:** Versioned the neon footer template part to `footer-neon` and updated every template plus the PHP fallback so sites previously customised in the Site Editor now load the CTA-led grid without manual resets.
+* **Template Registration:** Registered the header and neon footer template parts in `theme.json` to keep them grouped correctly inside the Site Editor.
+
 = 1.2.15 - 2025-10-10 =
 * **Footer Glow-Up:** Rebuilt the footer into a CTA-led neon grid with Caveat headlines, quick links, and contact details so the closing section mirrors the hero/header energy on both the front end and in the Site Editor.
 * **Starfield Twinkle:** Layered faster parallax drift and brightness pulses across the footer starfield while adding motion-reduction fallbacks and freeing the footer logo to scale via new shared size tokens.
