@@ -4,6 +4,12 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-11 Sweep
+1. **Neon Footer Still Showing Legacy Layout**
+   *Files:* `parts/footer-neon.html`, `templates/404.html`, `templates/archive.html`, `templates/front-page.html`, `templates/home-landing.html`, `templates/index.html`, `templates/page-wide.html`, `templates/search.html`, `templates/singular.html`, `index.php`, `theme.json`
+   *Issue:* Sites that had previously customised the `footer` template part kept loading the legacy single-column footer even after the neon CTA grid shipped because the database-stored slug overrode the file version.
+   *Resolution:* Versioned the footer template part to `footer-neon`, updated every template reference plus the PHP bootstrap fallback, and registered the new slug in `theme.json` so fresh installs and existing sites immediately render the revamped footer.
+
 ### 2025-10-10 Sweep
 1. **Footer Starfield Felt Static**
    *Files:* `style.css`
