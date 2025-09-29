@@ -4,6 +4,22 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-10 Sweep
+1. **Footer Starfield Felt Static**
+   *Files:* `style.css`
+   *Issue:* The footer's star layers only drifted slowly on long loops, so there was no parallax or brightness variation to make the twinkle visible.
+   *Resolution:* Replaced the single `move-stars` loop with layered drift/twinkle animations at staggered speeds and delays, added blend/blur treatments per layer, and ensured the motion disables cleanly for reduced-motion users.
+
+2. **Footer Logo Was Still Squished**
+   *Files:* `style.css`
+   *Issue:* The global `.custom-logo` height locked the footer mark to the header's 60px cap, so the footer override never gained enough height to respect the logo's aspect ratio.
+   *Resolution:* Introduced shared logo size variables, reset the footer logo to `height: auto` with a dedicated max height, and preserved the header sizing via the new `--logo-size-header` token.
+
+3. **Footer Layout Didn’t Match the Hero Vibe**
+   *Files:* `parts/footer.html`, `style.css`, `editor-style.css`
+   *Issue:* The footer stacked a logo, title, and social icons with minimal styling, lacking the neon gradients, CTA energy, and typography established by the hero/header.
+   *Resolution:* Rebuilt the footer into a CTA-first grid with glowing dividers, Caveat headlines, quick-link and contact panels, and mirrored the styling in the editor preview so the closing section carries the hero’s neon tone.
+
 ### 2025-10-09 Sweep
 1. **Header Hover Highlight Missing**
    *Files:* `style.css`, `standalone.html`
