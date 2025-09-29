@@ -4,6 +4,12 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-09 Sweep
+1. **Header Hover Highlight Missing**
+   *Files:* `style.css`, `standalone.html`
+   *Issue:* Removing the static header divider also stripped the transparent base border, so the neon cyan accent never appeared on hover because there was no border to recolor.
+   *Resolution:* Restored the header border as a transparent baseline and kept the hover state swapping the color, preserving the clean resting state while allowing the requested neon underline to return.
+
 ### 2025-10-08 Sweep
 1. **Front-End CTA Gradient Desync**
    *Files:* `style.css`, `blocks/cta/style.css`, `standalone.html`

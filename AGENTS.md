@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-09):**
+    - Restored the transparent header border baseline so the neon hover underline returns without reintroducing a visible divider at rest in both the theme CSS and standalone preview.
 - **Latest (2025-10-08):**
     - Synced the front-end CTA, hero, and read more buttons with the editor treatment so the gradient flood, halo glow, and hover color swap all animate identically across the theme, block styles, and standalone preview.
 - **Latest (2025-10-07):**
