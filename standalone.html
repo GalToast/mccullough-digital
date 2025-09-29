@@ -36,8 +36,17 @@
             --neon-magenta: #ff00e0;
             --deep-purple: #9400d3;
             --background-dark: #0b0c10;
+            --surface-dark: #14161c;
+            --surface-border: #1d2330;
             --text-primary: #e6f1ff;
             --text-secondary: #c5d8f2;
+            --z-index-default: 1;
+            --z-index-background: 0;
+            --z-index-content: 2;
+            --z-index-header: 1000;
+            --z-index-modal: 1001;
+            --logo-size-header: clamp(56px, 6vw, 68px);
+            --logo-size-footer: clamp(96px, 14vw, 140px);
         }
 
         /* --- Base reset --- */
@@ -645,7 +654,97 @@
         .learn-more.is-static:hover {
             transform: none;
         }
-        
+
+        @keyframes star-drift-slow {
+            from { background-position: 0 0; }
+            to   { background-position: -2200px 1600px; }
+        }
+
+        @keyframes star-drift-medium {
+            from { background-position: 0 0; }
+            to   { background-position: 2000px -2000px; }
+        }
+
+        @keyframes star-drift-fast {
+            from { background-position: 0 0; }
+            to   { background-position: -2400px -2000px; }
+        }
+
+        @keyframes star-twinkle-soft {
+            0%, 100% {
+                opacity: 0.35;
+                filter: brightness(0.8);
+            }
+            40% {
+                opacity: 0.75;
+                filter: brightness(1.25);
+            }
+            70% {
+                opacity: 0.55;
+                filter: brightness(1);
+            }
+        }
+
+        @keyframes star-twinkle-bold {
+            0%, 100% {
+                opacity: 0.45;
+                filter: brightness(0.85);
+            }
+            25% {
+                opacity: 0.85;
+                filter: brightness(1.4);
+            }
+            55% {
+                opacity: 0.6;
+                filter: brightness(1.1);
+            }
+            82% {
+                opacity: 0.95;
+                filter: brightness(1.55);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #masthead.site-header,
+            #masthead.site-header::before,
+            .cta-button,
+            .cta-button::before,
+            .cta-button::after,
+            .wp-block-button__link.cta-button,
+            .wp-block-button__link.cta-button::before,
+            .wp-block-button__link.cta-button::after,
+            .post-card .wp-block-read-more a,
+            .post-card .wp-block-read-more a::before,
+            .post-card .wp-block-read-more a::after {
+                transition: none;
+            }
+
+            .main-navigation.wp-block-navigation .wp-block-navigation-item__content:hover,
+            .main-navigation.wp-block-navigation .wp-block-navigation-item__content:focus-visible,
+            .cta-button:hover .btn-text,
+            .cta-button:focus-visible .btn-text,
+            .wp-block-button__link.cta-button:hover .btn-text,
+            .wp-block-button__link.cta-button:focus-visible .btn-text,
+            .post-card .wp-block-read-more a:hover .btn-text,
+            .post-card .wp-block-read-more a:focus-visible .btn-text {
+                animation: none;
+            }
+
+            .cta-button::after,
+            .wp-block-button__link.cta-button::after,
+            .post-card .wp-block-read-more a::after {
+                transition: opacity 0.45s ease;
+            }
+
+            .stars,
+            .stars2,
+            .stars3 {
+                animation: none;
+                opacity: 0.5;
+                filter: none;
+            }
+        }
+
         /* --- About Section --- */
         #about p {
             max-width: 800px;
@@ -656,35 +755,347 @@
             color: var(--text-secondary);
         }
         
-        /* --- CTA Section --- */
-        .cta-section {
-            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta));
-            text-align: center;
-        }
-        .cta-section h2 {
-            color: #fff;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
-        }
-        
-        .cta-section .cta-button {
-            border-color: #fff;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        /* --- Footer --- */
+        #colophon.site-footer {
+            background-color: var(--background-dark);
+            padding: 80px 5%;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+            border-top: 2px solid var(--surface-border);
         }
 
-        .cta-section .cta-button:hover {
-            background: #fff;
-            color: var(--neon-magenta);
-            box-shadow: 0 0 20px #fff, 0 0 40px #fff;
+        .stars,
+        .stars2,
+        .stars3 {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            pointer-events: none;
+            z-index: var(--z-index-background);
+            background-position: 0 0;
+            will-change: background-position, opacity, filter;
         }
-        
-        /* --- Footer --- */
-        .site-footer {
-            background: #000;
+
+        .stars .wp-block-group__inner-container,
+        .stars2 .wp-block-group__inner-container,
+        .stars3 .wp-block-group__inner-container {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .stars {
+            background: transparent url('./assets/stars.svg') repeat;
+            background-size: 2200px 2200px;
+            opacity: 0.4;
+            animation: star-drift-slow 90s linear infinite, star-twinkle-soft 7s ease-in-out infinite;
+        }
+
+        .stars2 {
+            background: transparent url('./assets/stars2.svg') repeat;
+            background-size: 2000px 2000px;
+            opacity: 0.55;
+            mix-blend-mode: screen;
+            filter: blur(0.4px);
+            animation: star-drift-medium 75s linear infinite, star-twinkle-bold 5.5s ease-in-out infinite;
+            animation-delay: 0s, 1.2s;
+        }
+
+        .stars3 {
+            background: transparent url('./assets/stars3.svg') repeat;
+            background-size: 2400px 2400px;
+            opacity: 0.75;
+            filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.25));
+            animation: star-drift-fast 60s linear infinite, star-twinkle-bold 4.2s ease-in-out infinite;
+            animation-delay: 0s, 2.1s;
+        }
+
+        .footer-container {
+            max-width: min(1200px, 92vw);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(40px, 6vw, 72px);
+            position: relative;
+            z-index: var(--z-index-content);
+            align-items: stretch;
+        }
+
+        .footer-cta {
+            position: relative;
+            padding: clamp(32px, 5vw, 56px);
+            border-radius: 32px;
+            background:
+                radial-gradient(circle at 12% 18%, rgba(0, 229, 255, 0.32), transparent 62%),
+                radial-gradient(circle at 82% 24%, rgba(255, 0, 224, 0.26), transparent 60%),
+                rgba(10, 13, 22, 0.92);
+            border: 1px solid rgba(0, 229, 255, 0.22);
+            box-shadow: 0 25px 70px rgba(0, 229, 255, 0.18), 0 35px 90px rgba(255, 0, 224, 0.14);
+            overflow: hidden;
             text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
-            color: #888;
+        }
+
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            inset: -15%;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.35), transparent 65%);
+            filter: blur(55px);
+            opacity: 0.55;
+            z-index: 0;
+        }
+
+        .footer-cta > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-cta__title {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(2.75rem, 8vw, 4.75rem);
+            color: var(--text-primary);
+            margin: 0 0 10px;
+            text-shadow: 0 0 16px rgba(0, 229, 255, 0.45), 0 0 24px rgba(255, 0, 224, 0.35);
+        }
+
+        .footer-cta__description {
+            font-size: clamp(1rem, 2.6vw, 1.3rem);
+            color: var(--text-secondary);
+            margin: 0 0 clamp(20px, 4vw, 32px);
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-cta__buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .footer-cta__link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-decoration: none;
+            padding: 14px 26px;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 229, 255, 0.36);
+            background: rgba(9, 13, 21, 0.65);
+            transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-cta__link:hover,
+        .footer-cta__link:focus-visible {
+            color: var(--background-dark);
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(0, 229, 255, 0.25);
+            background: linear-gradient(120deg, rgba(0, 229, 255, 0.95), rgba(255, 0, 224, 0.9));
+        }
+
+        .footer-cta__link:focus-visible,
+        .footer-nav a:focus-visible,
+        .footer-contact a:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 4px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.7), rgba(255, 0, 224, 0.6), transparent);
+            opacity: 0.65;
+        }
+
+        .footer-core {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: clamp(24px, 5vw, 48px);
+            align-items: start;
+        }
+
+        .footer-branding,
+        .footer-links,
+        .footer-social,
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .footer-branding .wp-block-site-logo {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .footer-branding .custom-logo-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-branding .custom-logo {
+            height: auto;
+            width: auto;
+            max-height: var(--logo-size-footer);
+            margin-bottom: 0;
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+            transition: filter 0.3s ease;
+        }
+
+        .footer-branding .custom-logo-link:hover .custom-logo,
+        .footer-branding .custom-logo-link:focus-visible .custom-logo {
+            filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.8)) drop-shadow(0 0 10px rgba(255, 0, 224, 0.55));
+        }
+
+        .footer-branding .wp-block-site-title {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(2.2rem, 6vw, 3.2rem);
+            color: var(--text-primary);
+            margin: 0;
+            text-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+        }
+
+        .footer-tagline {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin: 0;
+            max-width: 320px;
+        }
+
+        .footer-section-title {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.85rem;
+            color: rgba(230, 241, 255, 0.65);
+            margin: 0 0 16px;
+        }
+
+        .footer-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: color 0.25s ease, text-shadow 0.25s ease;
+        }
+
+        .footer-nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            transition: width 0.25s ease;
+            box-shadow: 0 0 6px rgba(0, 229, 255, 0.55);
+        }
+
+        .footer-nav a:hover,
+        .footer-nav a:focus-visible {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.55);
+        }
+
+        .footer-nav a:hover::after,
+        .footer-nav a:focus-visible::after {
+            width: 100%;
+        }
+
+        .social-links-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 18px;
+        }
+
+        .wp-social-link a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            background: rgba(9, 13, 21, 0.55);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+            position: relative;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+        }
+
+        .wp-social-link svg,
+        .wp-social-link__icon {
+            height: 24px;
+            width: 24px;
+            fill: currentColor;
+        }
+
+        .wp-social-link__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: 800;
+        }
+
+        .wp-social-link a:hover,
+        .wp-social-link a:focus-visible {
+            border-color: transparent;
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 14px 40px rgba(0, 229, 255, 0.3);
+            background: linear-gradient(120deg, rgba(0, 229, 255, 0.95), rgba(255, 0, 224, 0.9));
+            color: var(--background-dark);
+        }
+
+        .wp-social-link a:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 4px;
+        }
+
+        .footer-contact a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.25s ease, text-shadow 0.25s ease;
+        }
+
+        .footer-contact a:hover,
+        .footer-contact a:focus-visible {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
+        }
+
+        .site-info {
+            font-size: 0.9em;
+            text-align: center;
+            color: rgba(197, 216, 242, 0.8);
         }
 
 
@@ -718,6 +1129,35 @@
             .menu-toggle.is-active .bar:nth-child(2) { opacity: 0; }
             .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            .footer-container {
+                align-items: center;
+                text-align: center;
+                gap: 48px;
+            }
+
+            .footer-core {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            .footer-branding,
+            .footer-social,
+            .footer-contact {
+                align-items: center;
+            }
+
+            .footer-links {
+                align-items: center;
+            }
+
+            .footer-branding .wp-block-site-logo {
+                justify-content: center;
+            }
+
+            .footer-nav {
+                align-items: center;
+            }
         }
 
     </style>
@@ -746,7 +1186,7 @@
             <ul id="primary-menu" class="menu">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#colophon">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -817,17 +1257,90 @@
             </div>
         </section>
 
-        <!-- Final CTA Section -->
-        <section id="contact" class="cta-section">
-             <div class="container">
-                <h2 class="section-title">Ready to Create?</h2>
-                <a href="mailto:contact@mccullough.digital" class="cta-button"><span class="btn-text">Let's Talk</span></a>
-            </div>
-        </section>
     </main>
 
-    <footer class="site-footer">
-        <p>&copy; 2024 McCullough Digital. All Rights Reserved. Let's build the future.</p>
+    <footer id="colophon" class="site-footer">
+        <div class="wp-block-group stars" aria-hidden="true"></div>
+        <div class="wp-block-group stars2" aria-hidden="true"></div>
+        <div class="wp-block-group stars3" aria-hidden="true"></div>
+
+        <div class="wp-block-group footer-container">
+            <div class="wp-block-group footer-cta">
+                <h2 class="footer-cta__title">Ready to build your next luminous launch?</h2>
+                <p class="footer-cta__description">
+                    From bold strategy to neon-soaked visuals, we craft digital experiences that glow across every screen.
+                    Let&#8217;s make something unforgettable together.
+                </p>
+                <div class="wp-block-buttons footer-cta__buttons">
+                    <div class="wp-block-button cta-button">
+                        <a class="wp-block-button__link cta-button" href="/contact">
+                            <span class="btn-text">Start a Project</span>
+                        </a>
+                    </div>
+                    <div class="wp-block-button">
+                        <a class="wp-block-button__link footer-cta__link" href="/portfolio">View Our Work</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wp-block-group footer-divider" aria-hidden="true"></div>
+
+            <div class="wp-block-group footer-core">
+                <div class="wp-block-group footer-branding">
+                    <div class="wp-block-site-logo">
+                        <a href="#" class="custom-logo-link">
+                            <img src="https://i.imgur.com/n1hJ4O1.png" alt="McCullough Digital Logo" class="custom-logo">
+                        </a>
+                    </div>
+                    <h2 class="wp-block-site-title">McCullough Digital</h2>
+                    <p class="footer-tagline">Digital experiences with a neon soul—crafted in Columbus and deployed worldwide.</p>
+                </div>
+
+                <div class="wp-block-group footer-links">
+                    <p class="footer-section-title">Quick Links</p>
+                    <ul class="footer-nav">
+                        <li><a href="/services">Services</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/journal">Journal</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="wp-block-group footer-social">
+                    <p class="footer-section-title">Follow</p>
+                    <ul class="wp-block-social-links social-links-menu">
+                        <li class="wp-social-link">
+                            <a href="https://www.facebook.com/mcculloughdigital" aria-label="Facebook">
+                                <span aria-hidden="true" class="wp-social-link__icon">Fb</span>
+                                <span class="screen-reader-text">Facebook</span>
+                            </a>
+                        </li>
+                        <li class="wp-social-link">
+                            <a href="https://www.instagram.com/mcculloughdigital" aria-label="Instagram">
+                                <span aria-hidden="true" class="wp-social-link__icon">Ig</span>
+                                <span class="screen-reader-text">Instagram</span>
+                            </a>
+                        </li>
+                        <li class="wp-social-link">
+                            <a href="https://www.linkedin.com/company/mccullough-digital/" aria-label="LinkedIn">
+                                <span aria-hidden="true" class="wp-social-link__icon">In</span>
+                                <span class="screen-reader-text">LinkedIn</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="wp-block-group footer-contact">
+                    <p class="footer-section-title">Say hello</p>
+                    <p><a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a></p>
+                    <p><a href="/contact">Book a discovery call →</a></p>
+                </div>
+            </div>
+
+            <div class="wp-block-group site-info footer-legal">
+                <p class="has-text-align-center">&copy; 2025 McCullough Digital. Crafted with heart, strategy, and a dash of neon.</p>
+            </div>
+        </div>
     </footer>
 
     <script>

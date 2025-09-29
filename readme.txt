@@ -36,6 +36,7 @@ This theme does not have any widget areas registered by default.
 = 1.2.15 - 2025-10-10 =
 * **Footer Glow-Up:** Rebuilt the footer into a CTA-led neon grid with Caveat headlines, quick links, and contact details so the closing section mirrors the hero/header energy on both the front end and in the Site Editor.
 * **Starfield Twinkle:** Layered faster parallax drift and brightness pulses across the footer starfield while adding motion-reduction fallbacks and freeing the footer logo to scale via new shared size tokens.
+* **Standalone Preview Sync:** Updated `standalone.html` to mirror the CTA-first footer grid and starfield so offline demos reflect the production WordPress experience.
 
 = 1.2.14 - 2025-10-09 =
 * **Header Hover Highlight:** Reintroduced the transparent baseline border on the fixed header so the neon cyan underline and hover glow animate as intended without showing a divider at rest.

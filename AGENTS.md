@@ -12,6 +12,7 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Latest (2025-10-10):**
     - Intensified the footer starfield with layered parallax drift and brightness pulses that respect `prefers-reduced-motion` while keeping the neon skyline alive.
     - Freed the footer logo from the header lock and rebuilt the footer into a CTA-led, neon-accented grid that mirrors the hero's typography and gradients.
+    - Synced the standalone preview's footer with the CTA-led neon grid so local demos match the block theme output, complete with the refreshed starfield.
 - **Latest (2025-10-09):**
     - Restored the transparent header border baseline so the neon hover underline returns without reintroducing a visible divider at rest in both the theme CSS and standalone preview.
 - **Latest (2025-10-08):**
