@@ -15,7 +15,12 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
    *Issue:* The global `.custom-logo` height locked the footer mark to the header's 60px cap, so the footer override never gained enough height to respect the logo's aspect ratio.
    *Resolution:* Introduced shared logo size variables, reset the footer logo to `height: auto` with a dedicated max height, and preserved the header sizing via the new `--logo-size-header` token.
 
-3. **Footer Layout Didn’t Match the Hero Vibe**
+3. **Standalone Preview Footer Stayed Minimal**
+   *Files:* `standalone.html`
+   *Issue:* The standalone demo continued to show the legacy single-column footer with dated copy, so local previews missed the CTA grid, contact details, and layered starfield now shipping in the block theme.
+   *Resolution:* Rebuilt the standalone footer to mirror the block template, including the CTA headline, quick links, stylised social icons, animated starfield layers, and responsive alignments.
+
+4. **Footer Layout Didn’t Match the Hero Vibe**
    *Files:* `parts/footer.html`, `style.css`, `editor-style.css`
    *Issue:* The footer stacked a logo, title, and social icons with minimal styling, lacking the neon gradients, CTA energy, and typography established by the hero/header.
    *Resolution:* Rebuilt the footer into a CTA-first grid with glowing dividers, Caveat headlines, quick-link and contact panels, and mirrored the styling in the editor preview so the closing section carries the hero’s neon tone.
