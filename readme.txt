@@ -1,7 +1,7 @@
 === McCullough Digital ===
 Contributors: McCullough Digital
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.9
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,6 +36,7 @@ This theme does not have any widget areas registered by default.
 = 1.2.16 - 2025-10-11 =
 * **Footer Refresh:** Versioned the neon footer template part to `footer-neon` and updated every template plus the PHP fallback so sites previously customised in the Site Editor now load the CTA-led grid without manual resets.
 * **Template Registration:** Registered the header and neon footer template parts in `theme.json` to keep them grouped correctly inside the Site Editor.
+* **Compatibility Update:** Verified compatibility with WordPress 6.9 and updated project documentation to reflect the supported version.
 
 = 1.2.15 - 2025-10-10 =
 * **Footer Glow-Up:** Rebuilt the footer into a CTA-led neon grid with Caveat headlines, quick links, and contact details so the closing section mirrors the hero/header energy on both the front end and in the Site Editor.

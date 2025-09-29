@@ -1,6 +1,6 @@
-# Bug Fix Report — 2025-10-03
+# Bug Fix Report — 2025-10-11
 
-This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the growing set of production-impacting fixes and continuous improvements in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the growing set of production-impacting fixes and continuous improvements in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
 
@@ -9,6 +9,11 @@ This report now tracks the 2025-09-27 through 2025-10-03 sweeps, covering the gr
    *Files:* `parts/footer-neon.html`, `templates/404.html`, `templates/archive.html`, `templates/front-page.html`, `templates/home-landing.html`, `templates/index.html`, `templates/page-wide.html`, `templates/search.html`, `templates/singular.html`, `index.php`, `theme.json`
    *Issue:* Sites that had previously customised the `footer` template part kept loading the legacy single-column footer even after the neon CTA grid shipped because the database-stored slug overrode the file version.
    *Resolution:* Versioned the footer template part to `footer-neon`, updated every template reference plus the PHP bootstrap fallback, and registered the new slug in `theme.json` so fresh installs and existing sites immediately render the revamped footer.
+
+2. **Services Heading Reappeared After Deletion**
+   *Files:* `blocks/services/editor.js`, `build/blocks/services/editor.js`
+   *Issue:* The Services block automatically reinserted its heading whenever authors deleted it, overriding intentional edits and preventing alternate layouts.
+   *Resolution:* Limited the legacy heading migration to a single run so new InnerBlocks edits take precedence and the heading stays removed when users intentionally delete it.
 
 ### 2025-10-10 Sweep
 1. **Footer Starfield Felt Static**
