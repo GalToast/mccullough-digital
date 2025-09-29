@@ -12,6 +12,7 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Latest (2025-10-11):**
     - Renamed the neon footer template part to `footer-neon` and updated every template plus the PHP fallback so installs bypass stale Site Editor overrides and immediately load the rebuilt CTA grid.
     - Registered the header and neon footer template parts in `theme.json` for clearer organisation inside the Site Editor.
+    - Limited the Services block's legacy heading migration to a single run so authors can intentionally remove the section title without it being reinstated.
 - **Latest (2025-10-10):**
     - Intensified the footer starfield with layered parallax drift and brightness pulses that respect `prefers-reduced-motion` while keeping the neon skyline alive.
     - Freed the footer logo from the header lock and rebuilt the footer into a CTA-led, neon-accented grid that mirrors the hero's typography and gradients.

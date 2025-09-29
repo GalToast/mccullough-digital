@@ -1,6 +1,6 @@
 import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
@@ -35,6 +35,7 @@ registerBlockType(metadata.name, {
     edit({ attributes, clientId }) {
         const { headline } = attributes;
         const blockProps = useBlockProps();
+        const hasSeededHeading = useRef(false);
 
         const { innerBlocks = [] } = useSelect(
             (select) => ({
@@ -47,6 +48,10 @@ registerBlockType(metadata.name, {
         const defaultHeadline = metadata?.attributes?.headline?.default ?? '';
 
         useEffect(() => {
+            if (hasSeededHeading.current) {
+                return;
+            }
+
             if (!Array.isArray(innerBlocks)) {
                 return;
             }
@@ -54,12 +59,14 @@ registerBlockType(metadata.name, {
             const hasHeading = innerBlocks.some((block) => block.name === 'core/heading');
 
             if (hasHeading) {
+                hasSeededHeading.current = true;
                 return;
             }
 
             const resolvedHeadline = headline || defaultHeadline;
 
             if (!resolvedHeadline) {
+                hasSeededHeading.current = true;
                 return;
             }
 
@@ -70,6 +77,7 @@ registerBlockType(metadata.name, {
             });
 
             insertBlocks(headingBlock, 0, clientId, false);
+            hasSeededHeading.current = true;
         }, [clientId, defaultHeadline, headline, innerBlocks, insertBlocks]);
 
         return (
