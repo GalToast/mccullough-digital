@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.14 - 2025-10-09 =
+* **Header Hover Highlight:** Reintroduced the transparent baseline border on the fixed header so the neon cyan underline and hover glow animate as intended without showing a divider at rest.
+
 = 1.2.13 - 2025-10-08 =
 * **CTA Gradient Sync:** Matched the public CTA, hero, and read-more buttons with the editor flood-fill treatment so the cyan-to-magenta gradient, halo glow, and hover text swap animate identically across every surface.
 
