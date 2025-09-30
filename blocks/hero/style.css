@@ -108,6 +108,21 @@
     transform: translateY(var(--hero-content-offset, 0px));
 }
 
+/* React Neon Button Mount Point */
+.wp-block-mccullough-digital-hero .hero-neon-button-mount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    z-index: 10;
+}
+
+@media (max-width: 768px) {
+    .wp-block-mccullough-digital-hero .hero-neon-button-mount {
+        margin-top: 20px;
+    }
+}
+
 /* Position button absolutely to the right - relative to hero section, not content */
 .wp-block-mccullough-digital-hero .wp-block-buttons {
     position: absolute;

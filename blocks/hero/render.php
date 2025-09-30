@@ -71,25 +71,23 @@ if ( '' === $inner_content ) {
     $raw_link    = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
     $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
 
+    // React Neon Button Mount Point
     if ( '' !== $button_text ) {
-        $button_label = sprintf(
-            '<span class="hero__cta-button-label">%s</span>',
-            esc_html( $button_text )
+        // Enqueue the React button script
+        wp_enqueue_script(
+            'mccullough-digital-hero-button',
+            get_template_directory_uri() . '/build/blocks/hero/hero-button.js',
+            array(), // React & ReactDOM will be bundled by Webpack
+            filemtime( get_template_directory() . '/build/blocks/hero/hero-button.js' ),
+            true
         );
-
-        if ( '' !== $button_link ) {
-            ?>
-            <a href="<?php echo esc_url( $button_link ); ?>" class="hero__cta-button">
-                <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
-            </a>
-            <?php
-        } else {
-            ?>
-            <span class="hero__cta-button is-static" aria-hidden="true">
-                <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
-            </span>
-            <?php
-        }
+        
+        ?>
+        <div class="hero-neon-button-mount" 
+             data-button-text="<?php echo esc_attr( $button_text ); ?>"
+             data-button-link="<?php echo esc_url( $button_link ); ?>">
+        </div>
+        <?php
     }
 
     $inner_content = trim( (string) ob_get_clean() );
