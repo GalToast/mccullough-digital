@@ -21,10 +21,12 @@ $subheading = isset( $attributes['subheading'] ) ? $attributes['subheading'] : '
 // Image attributes
 $hero_image_url         = isset( $attributes['heroImageUrl'] ) ? esc_url( $attributes['heroImageUrl'] ) : '';
 $hero_image_alt         = isset( $attributes['heroImageAlt'] ) ? esc_attr( $attributes['heroImageAlt'] ) : '';
+$hero_image_width       = isset( $attributes['heroImageWidth'] ) ? intval( $attributes['heroImageWidth'] ) : 0;
 $image_position         = isset( $attributes['imagePosition'] ) ? $attributes['imagePosition'] : 'bottom-right';
 $image_size             = isset( $attributes['imageSize'] ) ? intval( $attributes['imageSize'] ) : 40;
 $image_opacity          = isset( $attributes['imageOpacity'] ) ? intval( $attributes['imageOpacity'] ) : 40;
 $image_vertical_offset  = isset( $attributes['imageVerticalOffset'] ) ? intval( $attributes['imageVerticalOffset'] ) : 0;
+$image_horizontal_offset = isset( $attributes['imageHorizontalOffset'] ) ? intval( $attributes['imageHorizontalOffset'] ) : 0;
 $hide_image_on_mobile   = isset( $attributes['hideImageOnMobile'] ) && $attributes['hideImageOnMobile'] === true;
 
 $inner_content = trim( (string) $content );
@@ -84,7 +86,9 @@ $image_container_class = implode( ' ', $image_container_classes );
 // Build inline styles for image container
 $image_styles = array();
 $image_styles[] = 'opacity: ' . ( $image_opacity / 100 ) . ';';
-$image_styles[] = 'width: clamp(200px, ' . $image_size . 'vw, 800px);';
+$image_styles[] = $hero_image_width > 0
+    ? 'width: calc(' . $image_size . ' / 100 * ' . $hero_image_width . 'px);'
+    : 'width: clamp(200px, ' . $image_size . 'vw, 800px);';
 
 $base_transforms = array(
     'bottom-center' => 'translateX(-50%)',
@@ -101,6 +105,10 @@ if ( isset( $base_transforms[ $image_position ] ) ) {
 
 if ( 0 !== $image_vertical_offset ) {
     $transform_parts[] = 'translateY(' . $image_vertical_offset . 'px)';
+}
+
+if ( 0 !== $image_horizontal_offset ) {
+    $transform_parts[] = 'translateX(' . $image_horizontal_offset . 'px)';
 }
 
 if ( ! empty( $transform_parts ) ) {

@@ -61,6 +61,10 @@
             "type": "string",
             "default": ""
         },
+        "heroImageWidth": {
+            "type": "number",
+            "default": 0
+        },
         "imagePosition": {
             "type": "string",
             "default": "bottom-right"
@@ -74,6 +78,10 @@
             "default": 40
         },
         "imageVerticalOffset": {
+            "type": "number",
+            "default": 0
+        },
+        "imageHorizontalOffset": {
             "type": "number",
             "default": 0
         },

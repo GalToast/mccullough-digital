@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-15 Sweep
+1. **Hero Artwork Controls Needed Horizontal Offset & Natural Scaling**
+   *Files:* `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `build/blocks/hero/editor.js`
+   *Issue:* Authors could only nudge the decorative hero image vertically, and the size slider topped out at a clamped 800px width, preventing precise horizontal placement or scaling to the asset's native resolution.
+   *Resolution:* Added a dedicated horizontal offset control, captured the media library's intrinsic width, and rebuilt the width calculation to honour the stored pixel size so the slider now reaches (and optionally exceeds) the original dimensions while keeping editor and front-end transforms in sync.
+
 ### 2025-09-29 Sweep (Code Quality & WordPress Compatibility)
 1. **Deprecated get_page_by_title() Function**
    *Files:* `functions.php`

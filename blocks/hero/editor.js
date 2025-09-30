@@ -94,6 +94,8 @@ registerBlockType(metadata.name, {
             imageSize,
             imageOpacity,
             imageVerticalOffset,
+            imageHorizontalOffset,
+            heroImageWidth,
             hideImageOnMobile,
         } = attributes;
         
@@ -177,11 +179,34 @@ registerBlockType(metadata.name, {
             subheading,
         ]);
 
+        const extractNaturalWidth = (media) => {
+            if (!media) {
+                return 0;
+            }
+
+            const {
+                width,
+                media_details: mediaDetails = {},
+                sizes = {},
+            } = media;
+
+            const detailsWidth = mediaDetails?.width;
+            const fullSizeWidth = sizes?.full?.width;
+
+            return (
+                detailsWidth
+                || fullSizeWidth
+                || width
+                || 0
+            );
+        };
+
         const onSelectImage = (media) => {
             setAttributes({
                 heroImageId: media.id,
                 heroImageUrl: media.url,
                 heroImageAlt: media.alt || '',
+                heroImageWidth: extractNaturalWidth(media),
             });
         };
 
@@ -190,6 +215,7 @@ registerBlockType(metadata.name, {
                 heroImageId: 0,
                 heroImageUrl: '',
                 heroImageAlt: '',
+                heroImageWidth: 0,
             });
         };
 
@@ -213,8 +239,13 @@ registerBlockType(metadata.name, {
 
             const styles = {
                 opacity: imageOpacity / 100,
-                width: `clamp(200px, ${imageSize}vw, 800px)`,
             };
+
+            if (heroImageWidth > 0) {
+                styles.width = `calc(${imageSize} / 100 * ${heroImageWidth}px)`;
+            } else {
+                styles.width = `clamp(200px, ${imageSize}vw, 800px)`;
+            }
 
             const transformParts = [];
 
@@ -224,6 +255,10 @@ registerBlockType(metadata.name, {
 
             if (imageVerticalOffset !== 0) {
                 transformParts.push(`translateY(${imageVerticalOffset}px)`);
+            }
+
+            if (imageHorizontalOffset !== 0) {
+                transformParts.push(`translateX(${imageHorizontalOffset}px)`);
             }
 
             if (transformParts.length > 0) {
@@ -317,7 +352,7 @@ registerBlockType(metadata.name, {
                                     value={imageSize}
                                     onChange={(value) => setAttributes({ imageSize: value })}
                                     min={10}
-                                    max={100}
+                                    max={200}
                                     step={5}
                                 />
 
@@ -338,6 +373,16 @@ registerBlockType(metadata.name, {
                                     max={200}
                                     step={10}
                                     help={__('Positive moves down, negative moves up', 'mccullough-digital')}
+                                />
+
+                                <RangeControl
+                                    label={__('Horizontal Offset (px)', 'mccullough-digital')}
+                                    value={imageHorizontalOffset}
+                                    onChange={(value) => setAttributes({ imageHorizontalOffset: value })}
+                                    min={-200}
+                                    max={200}
+                                    step={10}
+                                    help={__('Positive moves right, negative moves left', 'mccullough-digital')}
                                 />
 
                                 <ToggleControl
