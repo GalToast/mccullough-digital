@@ -460,9 +460,188 @@
         });
     };
 
+    // Load GSAP from CDN
+    const loadGSAP = () => {
+        return new Promise((resolve, reject) => {
+            // Check if GSAP already loaded
+            if (window.gsap) {
+                resolve(window.gsap);
+                return;
+            }
+            
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
+            script.onload = () => resolve(window.gsap);
+            script.onerror = reject;
+            document.head.appendChild(script);
+        });
+    };
+
+    // Initialize advanced magnetic jelly button effect with GSAP
+    const initMagneticButtons = async () => {
+        try {
+            const gsap = await loadGSAP();
+            
+            const heroBlocks = document.querySelectorAll('.wp-block-mccullough-digital-hero');
+            
+            heroBlocks.forEach((hero) => {
+                const buttons = hero.querySelectorAll('.cta-button, .wp-block-button__link');
+                
+                buttons.forEach((button) => {
+                    // Create child elements for border and glow that GSAP can target
+                    const border = document.createElement('div');
+                    border.className = 'button-border';
+                    const glow = document.createElement('div');
+                    glow.className = 'button-glow';
+                    const textWrapper = document.createElement('span');
+                    textWrapper.className = 'button-text-wrapper';
+                    
+                    // Move button text into wrapper
+                    while (button.firstChild) {
+                        textWrapper.appendChild(button.firstChild);
+                    }
+                    
+                    // Append in correct order
+                    button.appendChild(glow);
+                    button.appendChild(border);
+                    button.appendChild(textWrapper);
+                    
+                    const magneticArea = 250;
+                    let targetX = 0;
+                    let targetY = 0;
+                    let targetScaleX = 1;
+                    let targetScaleY = 1;
+                    
+                    // Mouse move handler for magnetic effect
+                    const handleMouseMove = (e) => {
+                        const rect = button.getBoundingClientRect();
+                        const buttonCenterX = rect.left + rect.width / 2;
+                        const buttonCenterY = rect.top + rect.height / 2;
+                        
+                        const distanceX = e.clientX - buttonCenterX;
+                        const distanceY = e.clientY - buttonCenterY;
+                        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                        
+                        if (distance < magneticArea) {
+                            const pull = Math.pow((magneticArea - distance) / magneticArea, 1.2);
+                            
+                            // Movement
+                            targetX = distanceX * pull * 0.5;
+                            targetY = distanceY * pull * 0.5;
+                            
+                            // DRAMATIC Jelly deformation
+                            const angle = Math.atan2(distanceY, distanceX);
+                            const stretchAmount = pull * 0.35;
+                            
+                            const horizontalFactor = Math.abs(Math.cos(angle));
+                            const verticalFactor = Math.abs(Math.sin(angle));
+                            
+                            if (horizontalFactor > verticalFactor) {
+                                targetScaleX = 1 + stretchAmount;
+                                targetScaleY = 1 - stretchAmount * 0.7;
+                            } else {
+                                targetScaleY = 1 + stretchAmount;
+                                targetScaleX = 1 - stretchAmount * 0.7;
+                            }
+                            
+                            // Animate all layers together with GSAP
+                            gsap.to([button, border, glow], {
+                                x: targetX,
+                                y: targetY,
+                                scaleX: targetScaleX,
+                                scaleY: targetScaleY,
+                                duration: 0.6,
+                                ease: 'power2.out'
+                            });
+                            
+                            // Show glow on proximity
+                            gsap.to(glow, {
+                                opacity: 1,
+                                scale: 1.2,
+                                duration: 0.3,
+                                ease: 'power2.out'
+                            });
+                        } else {
+                            // Return to original state
+                            gsap.to([button, border, glow], {
+                                x: 0,
+                                y: 0,
+                                scaleX: 1,
+                                scaleY: 1,
+                                duration: 0.8,
+                                ease: 'elastic.out(1, 0.5)'
+                            });
+                            
+                            gsap.to(glow, {
+                                opacity: 0,
+                                scale: 1,
+                                duration: 0.3,
+                                ease: 'power2.out'
+                            });
+                        }
+                    };
+                    
+                    // Reset on mouse leave
+                    const handleMouseLeave = () => {
+                        gsap.to([button, border, glow], {
+                            x: 0,
+                            y: 0,
+                            scaleX: 1,
+                            scaleY: 1,
+                            duration: 0.8,
+                            ease: 'elastic.out(1, 0.5)'
+                        });
+                        
+                        gsap.to(glow, {
+                            opacity: 0,
+                            scale: 1,
+                            duration: 0.3
+                        });
+                    };
+                    
+                    // Add event listeners
+                    document.addEventListener('mousemove', handleMouseMove, { passive: true });
+                    button.addEventListener('mouseleave', handleMouseLeave);
+                    
+                    // Enhanced click effect with GSAP
+                    button.addEventListener('click', (e) => {
+                        const timeline = gsap.timeline();
+                        
+                        timeline
+                            .to([button, border, glow], {
+                                scale: 0.8,
+                                rotation: -5,
+                                duration: 0.08,
+                                ease: 'power2.in'
+                            })
+                            .to([button, border, glow], {
+                                scale: 1.15,
+                                rotation: 5,
+                                duration: 0.12,
+                                ease: 'power2.out'
+                            })
+                            .to([button, border, glow], {
+                                scale: 1,
+                                rotation: 0,
+                                duration: 0.15,
+                                ease: 'elastic.out(1, 0.3)'
+                            });
+                    });
+                });
+            });
+        } catch (error) {
+            console.error('Failed to load GSAP:', error);
+            // Fallback: buttons still work, just without fancy effects
+        }
+    };
+
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init, { once: true });
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            initMagneticButtons();
+        }, { once: true });
     } else {
         init();
+        initMagneticButtons();
     }
 })();

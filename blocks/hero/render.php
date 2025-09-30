@@ -20,7 +20,7 @@ if ( ! in_array( $content_alignment, $allowed_alignments, true ) ) {
 $alignment_class = 'is-content-' . $content_alignment;
 
 $content_offset = isset( $attributes['contentOffset'] ) ? floatval( $attributes['contentOffset'] ) : 0;
-$min_offset     = 0;
+$min_offset     = -300;
 $max_offset     = 240;
 $content_offset = max( $min_offset, min( $max_offset, $content_offset ) );
 $content_offset = round( $content_offset, 2 );

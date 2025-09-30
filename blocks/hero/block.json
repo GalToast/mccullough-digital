@@ -101,7 +101,7 @@
         "contentOffset": {
             "type": "number",
             "default": 0,
-            "minimum": 0,
+            "minimum": -300,
             "maximum": 240
         }
     },

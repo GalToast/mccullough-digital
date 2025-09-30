@@ -24,12 +24,8 @@ const defaultSubheading = metadata?.attributes?.subheading?.default ?? '';
 const defaultButtonText = metadata?.attributes?.buttonText?.default
     ?? __('Start a Project', 'mccullough-digital');
 const defaultButtonLink = metadata?.attributes?.buttonLink?.default ?? '';
-const MIN_CONTENT_OFFSET = Number(
-    metadata?.attributes?.contentOffset?.minimum ?? 0
-);
-const MAX_CONTENT_OFFSET = Number(
-    metadata?.attributes?.contentOffset?.maximum ?? 240
-);
+const MIN_CONTENT_OFFSET = -300; // Allow moving content UP
+const MAX_CONTENT_OFFSET = 240;
 
 const {
     innerBlocks: {
@@ -471,16 +467,16 @@ registerBlockType(metadata.name, {
                             }}
                         />
                         <RangeControl
-                            label={__('Content Offset (px)', 'mccullough-digital')}
+                            label={__('Vertical Position (px)', 'mccullough-digital')}
                             value={normalizedOffset}
                             onChange={(value) =>
                                 setAttributes({ contentOffset: clampOffset(value) })
                             }
                             min={MIN_CONTENT_OFFSET}
                             max={MAX_CONTENT_OFFSET}
-                            step={4}
+                            step={10}
                             allowReset
-                            help={__('Adds extra top padding inside the content stack.', 'mccullough-digital')}
+                            help={__('Negative values move content UP, positive values move content DOWN', 'mccullough-digital')}
                         />
                     </PanelBody>
                 </InspectorControls>

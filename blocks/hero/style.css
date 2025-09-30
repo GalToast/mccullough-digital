@@ -13,6 +13,12 @@
 
 .wp-block-mccullough-digital-hero.is-content-top {
     align-items: flex-start;
+    padding-top: var(--mcd-header-offset, var(--header-height));
+}
+
+.wp-block-mccullough-digital-hero.is-content-top .hero-content {
+    padding-top: 40px; /* Space from top */
+    margin-top: 0;
 }
 
 .wp-block-mccullough-digital-hero.is-content-center {
@@ -36,7 +42,7 @@
 .wp-block-mccullough-digital-hero .hero__image-container {
     position: absolute;
     height: auto;
-    z-index: 1;
+    z-index: 2; /* Below text (z-index: 3) but above canvas (z-index: 1) */
     pointer-events: none;
 }
 
@@ -91,8 +97,117 @@
 
 .wp-block-mccullough-digital-hero .hero-content {
     position: relative;
-    z-index: 2;
-    padding-top: var(--hero-content-offset, 0px);
+    z-index: 3; /* Higher than image */
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    transform: translateY(var(--hero-content-offset, 0px));
+}
+
+/* Position button absolutely to the right - relative to hero section, not content */
+.wp-block-mccullough-digital-hero .wp-block-buttons {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+/* Circular Magnetic Button - Improved Readability */
+.wp-block-mccullough-digital-hero .cta-button,
+.wp-block-mccullough-digital-hero .wp-block-button__link {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    background: var(--background-dark);
+    border: none;
+    position: relative;
+    cursor: pointer;
+    overflow: visible;
+    will-change: transform;
+}
+
+/* Button text wrapper - actual DOM element created by GSAP */
+.wp-block-mccullough-digital-hero .button-text-wrapper {
+    position: relative;
+    z-index: 3;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Gradient border layer - actual DOM element created by GSAP */
+.wp-block-mccullough-digital-hero .button-border {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--deep-purple));
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Outer glow layer - actual DOM element created by GSAP */
+.wp-block-mccullough-digital-hero .button-glow {
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.4), rgba(255, 0, 224, 0.4));
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.wp-block-mccullough-digital-hero .cta-button:active,
+.wp-block-mccullough-digital-hero .wp-block-button__link:active {
+    animation: jolt-click 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes jolt-click {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(0.85) rotate(-8deg); }
+    50% { transform: scale(1.15) rotate(8deg); }
+    75% { transform: scale(0.95) rotate(-4deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Enhanced hover glow */
+/* Hover glow effect now handled by GSAP in view.js */
+.wp-block-mccullough-digital-hero .cta-button:hover .button-glow,
+.wp-block-mccullough-digital-hero .wp-block-button__link:hover .button-glow {
+    opacity: 1;
+}
+
+.wp-block-mccullough-digital-hero .cta-button:hover,
+.wp-block-mccullough-digital-hero .wp-block-button__link:hover {
+    color: #fff;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .wp-block-mccullough-digital-hero .wp-block-buttons {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        margin-top: 40px;
+    }
+    
+    .wp-block-mccullough-digital-hero .cta-button,
+    .wp-block-mccullough-digital-hero .wp-block-button__link {
+        width: 140px;
+        height: 140px;
+        font-size: 1rem;
+    }
 }
 
 .wp-block-mccullough-digital-hero .hero__headline {
@@ -102,6 +217,21 @@
     margin: 0 0 20px 0;
     line-height: 1.1;
     text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+    position: relative;
+    z-index: 3;
+}
+
+/* Respect WordPress text alignment classes */
+.wp-block-mccullough-digital-hero .hero__headline.has-text-align-left {
+    text-align: left;
+}
+
+.wp-block-mccullough-digital-hero .hero__headline.has-text-align-center {
+    text-align: center;
+}
+
+.wp-block-mccullough-digital-hero .hero__headline.has-text-align-right {
+    text-align: right;
 }
 
 .wp-block-mccullough-digital-hero .hero__headline-text,
@@ -163,4 +293,6 @@
     max-width: 800px;
     margin: 0 auto 40px auto;
     font-weight: 300;
+    position: relative;
+    z-index: 3;
 }
