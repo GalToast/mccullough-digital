@@ -209,53 +209,50 @@
 }
 
 /* Footer Preview */
-.editor-styles-wrapper .footer-container {
-    max-width: min(1200px, 92vw);
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(32px, 5vw, 60px);
+.editor-styles-wrapper #colophon.site-footer {
     position: relative;
-    align-items: stretch;
-}
-
-.editor-styles-wrapper .footer-shell {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(28px, 4.5vw, 48px);
-    padding: clamp(32px, 5vw, 56px);
-    border-radius: 36px;
-    background:
+    padding: clamp(48px, 6vw, 84px) clamp(24px, 6vw, 64px);
+    color: var(--text-secondary);
+    background-color: var(--background-dark);
+    background-image:
         radial-gradient(circle at 10% 18%, rgba(0, 229, 255, 0.3), transparent 60%),
         radial-gradient(circle at 85% 20%, rgba(255, 0, 224, 0.24), transparent 58%),
-        linear-gradient(160deg, rgba(8, 12, 22, 0.9), rgba(8, 12, 22, 0.75));
-    border: 1px solid rgba(0, 229, 255, 0.18);
-    box-shadow: 0 30px 90px rgba(0, 229, 255, 0.18), 0 50px 120px rgba(255, 0, 224, 0.12);
+        linear-gradient(160deg, rgba(8, 12, 22, 0.9), rgba(8, 12, 22, 0.78));
     overflow: hidden;
     isolation: isolate;
 }
 
-.editor-styles-wrapper .footer-shell::before,
-.editor-styles-wrapper .footer-shell::after {
+.editor-styles-wrapper #colophon.site-footer::before,
+.editor-styles-wrapper #colophon.site-footer::after {
     content: '';
     position: absolute;
     inset: -30%;
     background: radial-gradient(circle, rgba(0, 229, 255, 0.32), transparent 68%);
     filter: blur(70px);
     opacity: 0.45;
-    z-index: 0;
+    pointer-events: none;
+    z-index: var(--z-index-default);
 }
 
-.editor-styles-wrapper .footer-shell::after {
+.editor-styles-wrapper #colophon.site-footer::after {
     inset: -25% -25% -45% -25%;
     background: radial-gradient(circle, rgba(255, 0, 224, 0.24), transparent 70%);
     opacity: 0.35;
 }
 
-.editor-styles-wrapper .footer-shell > * {
+.editor-styles-wrapper .footer-container {
+    max-width: min(1200px, 92vw);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 4vw, 44px);
     position: relative;
-    z-index: 1;
+    align-items: stretch;
+}
+
+.editor-styles-wrapper .footer-container > * {
+    position: relative;
+    z-index: var(--z-index-default);
 }
 
 .editor-styles-wrapper .footer-headline {
@@ -289,16 +286,12 @@
     color: rgba(214, 231, 255, 0.85);
 }
 
-.editor-styles-wrapper .footer-divider {
+.editor-styles-wrapper .wp-block-separator.footer-separator {
+    margin: 0;
+    border: none;
     height: 1px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.7), rgba(255, 0, 224, 0.6), transparent);
-    opacity: 0.65;
-}
-
-.editor-styles-wrapper .footer-divider--subtle {
-    opacity: 0.35;
-    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), rgba(255, 0, 224, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.55), rgba(255, 0, 224, 0.5), transparent);
+    opacity: 0.45;
 }
 
 .editor-styles-wrapper .footer-nav a,
