@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.30 - 2025-10-23 =
+* **Hero CTA 3D Tilt:** Extended the magnetic button script with Framer Motion-style rotateX/rotateY easing and a `transform-style: preserve-3d` surface so the neon shell leans toward the pointer while reduced-motion users stay on the flat fallback.
+
 = 1.2.29 - 2025-10-22 =
 * **Neon Hero CTA Orbiters:** Layered a sheen pass, orbiting sparks, and ripple feedback on the hero call-to-action by rebuilding the vanilla enhancement script to inject reusable surface shells, respect reduced-motion, and keep the label accessible while the button leans toward the pointer.
 * **Editor Preview Sync:** Mirrored the refreshed CTA gradients, glow timings, and typography inside `editor-style.css` so Site Editor previews show the same neon sphere even without the runtime script.

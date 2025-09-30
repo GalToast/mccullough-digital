@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-23 Sweep
+1. **Hero CTA 3D Tilt**
+   *Files:* `blocks/hero/view.js`, `blocks/hero/style.css`, `style.css`, `readme.txt`, `AGENTS.md`, `bug-report.md`
+   *Issue:* The neon hero CTA leaned toward the pointer via translation and stretch only, leaving the surface visually flat compared to the creative comps that showed a subtle 3D tilt.
+   *Resolution:* Added rotateX/rotateY values to the pointer tracking loop, pushed the surface wrapper into a preserved 3D context with perspective transforms, zeroed the rotation when reduced motion is requested, and documented the new rotation variables across project notes.
+
 ### 2025-10-22 Sweep
 1. **Neon Hero CTA Orbiters & Ripples**
    *Files:* `blocks/hero/view.js`, `blocks/hero/style.css`, `editor-style.css`, `style.css`, `readme.txt`, `AGENTS.md`
