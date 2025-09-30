@@ -24,6 +24,12 @@ const defaultSubheading = metadata?.attributes?.subheading?.default ?? '';
 const defaultButtonText = metadata?.attributes?.buttonText?.default
     ?? __('Start a Project', 'mccullough-digital');
 const defaultButtonLink = metadata?.attributes?.buttonLink?.default ?? '';
+const MIN_CONTENT_OFFSET = Number(
+    metadata?.attributes?.contentOffset?.minimum ?? 0
+);
+const MAX_CONTENT_OFFSET = Number(
+    metadata?.attributes?.contentOffset?.maximum ?? 240
+);
 
 const {
     innerBlocks: {
@@ -102,13 +108,24 @@ registerBlockType(metadata.name, {
         } = attributes;
 
         const alignmentOptions = ['top', 'center', 'bottom'];
+        const clampOffset = (value) => {
+            const numericValue = Number(value);
+
+            if (!Number.isFinite(numericValue)) {
+                return MIN_CONTENT_OFFSET;
+            }
+
+            return Math.min(
+                MAX_CONTENT_OFFSET,
+                Math.max(MIN_CONTENT_OFFSET, numericValue)
+            );
+        };
         const normalizedAlignment = alignmentOptions.includes(contentAlignment)
             ? contentAlignment
             : 'center';
         const alignmentClass = `is-content-${normalizedAlignment}`;
 
-        const parsedOffset = Number(contentOffset);
-        const normalizedOffset = Number.isFinite(parsedOffset) ? parsedOffset : 0;
+        const normalizedOffset = clampOffset(contentOffset);
 
         const blockProps = useBlockProps({
             className: ['hero', alignmentClass].filter(Boolean).join(' '),
@@ -457,11 +474,12 @@ registerBlockType(metadata.name, {
                             label={__('Content Offset (px)', 'mccullough-digital')}
                             value={normalizedOffset}
                             onChange={(value) =>
-                                setAttributes({ contentOffset: value ?? 0 })
+                                setAttributes({ contentOffset: clampOffset(value) })
                             }
-                            min={0}
-                            max={240}
+                            min={MIN_CONTENT_OFFSET}
+                            max={MAX_CONTENT_OFFSET}
                             step={4}
+                            allowReset
                             help={__('Adds extra top padding inside the content stack.', 'mccullough-digital')}
                         />
                     </PanelBody>

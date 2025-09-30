@@ -100,7 +100,9 @@
         },
         "contentOffset": {
             "type": "number",
-            "default": 0
+            "default": 0,
+            "minimum": 0,
+            "maximum": 240
         }
     },
     "innerBlocks": {
