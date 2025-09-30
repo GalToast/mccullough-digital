@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.17 - 2025-10-12 =
+* **Footer Shell Refresh:** Removed the standalone CTA card, re-centred the headline/description inside a single gradient shell, and tightened spacing so the neon footer feels intentional without leaving a huge black void beneath the legal line.
+
 = 1.2.16 - 2025-10-11 =
 * **Footer Refresh:** Versioned the neon footer template part to `footer-neon` and updated every template plus the PHP fallback so sites previously customised in the Site Editor now load the CTA-led grid without manual resets.
 * **Template Registration:** Registered the header and neon footer template parts in `theme.json` to keep them grouped correctly inside the Site Editor.

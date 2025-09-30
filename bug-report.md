@@ -4,6 +4,12 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-12 Sweep
+1. **Footer CTA Card Stuck Above Site Info**
+   *Files:* `parts/footer-neon.html`, `style.css`, `editor-style.css`
+   *Issue:* The neon footer always rendered a standalone CTA card with duplicate copy and buttons the client no longer wanted, and the surrounding layout left an oversized block of empty space beneath the legal text.
+   *Resolution:* Removed the CTA block, rebuilt the footer template around a single gradient "shell" that carries the neon glow into the core columns, added a compact headline/description treatment, and tightened spacing so the footer collapses cleanly without the unwanted black void.
+
 ### 2025-10-11 Sweep
 1. **Neon Footer Still Showing Legacy Layout**
    *Files:* `parts/footer-neon.html`, `templates/404.html`, `templates/archive.html`, `templates/front-page.html`, `templates/home-landing.html`, `templates/index.html`, `templates/page-wide.html`, `templates/search.html`, `templates/singular.html`, `index.php`, `theme.json`
