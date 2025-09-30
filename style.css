@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.27
+Version:       1.2.28
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -270,8 +270,8 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 
 /* --- CTA Button Styles --- */
 
-.cta-button,
-.wp-block-button__link.cta-button,
+.cta-button:not(.hero__cta-button),
+.wp-block-button__link.cta-button:not(.hero__cta-button),
 .post-card .wp-block-read-more a {
     padding: 15px 42px;
     font-family: 'Nunito', sans-serif;
@@ -294,8 +294,8 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     will-change: transform, box-shadow;
 }
 
-.cta-button::before,
-.wp-block-button__link.cta-button::before,
+.cta-button:not(.hero__cta-button)::before,
+.wp-block-button__link.cta-button:not(.hero__cta-button)::before,
 .post-card .wp-block-read-more a::before {
     content: '';
     position: absolute;
@@ -309,8 +309,8 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     z-index: 0;
 }
 
-.cta-button::after,
-.wp-block-button__link.cta-button::after,
+.cta-button:not(.hero__cta-button)::after,
+.wp-block-button__link.cta-button:not(.hero__cta-button)::after,
 .post-card .wp-block-read-more a::after {
     content: '';
     position: absolute;
@@ -324,18 +324,18 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     z-index: -1;
 }
 
-.cta-button .btn-text,
-.wp-block-button__link.cta-button .btn-text,
+.cta-button:not(.hero__cta-button) .btn-text,
+.wp-block-button__link.cta-button:not(.hero__cta-button) .btn-text,
 .post-card .wp-block-read-more a .btn-text {
     position: relative;
     z-index: 1;
     transition: letter-spacing 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
 }
 
-.cta-button:hover,
-.cta-button:focus-visible,
-.wp-block-button__link.cta-button:hover,
-.wp-block-button__link.cta-button:focus-visible,
+.cta-button:not(.hero__cta-button):hover,
+.cta-button:not(.hero__cta-button):focus-visible,
+.wp-block-button__link.cta-button:not(.hero__cta-button):hover,
+.wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible,
 .post-card .wp-block-read-more a:hover,
 .post-card .wp-block-read-more a:focus-visible {
     transform: translateY(-4px) scale(1.03);
@@ -343,20 +343,20 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     box-shadow: 0 18px 40px rgba(0, 229, 255, 0.35), 0 0 36px rgba(255, 0, 224, 0.3);
 }
 
-.cta-button:hover::before,
-.cta-button:focus-visible::before,
-.wp-block-button__link.cta-button:hover::before,
-.wp-block-button__link.cta-button:focus-visible::before,
+.cta-button:not(.hero__cta-button):hover::before,
+.cta-button:not(.hero__cta-button):focus-visible::before,
+.wp-block-button__link.cta-button:not(.hero__cta-button):hover::before,
+.wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible::before,
 .post-card .wp-block-read-more a:hover::before,
 .post-card .wp-block-read-more a:focus-visible::before {
     opacity: 1;
     transform: scaleX(1);
 }
 
-.cta-button:hover .btn-text,
-.cta-button:focus-visible .btn-text,
-.wp-block-button__link.cta-button:hover .btn-text,
-.wp-block-button__link.cta-button:focus-visible .btn-text,
+.cta-button:not(.hero__cta-button):hover .btn-text,
+.cta-button:not(.hero__cta-button):focus-visible .btn-text,
+.wp-block-button__link.cta-button:not(.hero__cta-button):hover .btn-text,
+.wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible .btn-text,
 .post-card .wp-block-read-more a:hover .btn-text,
 .post-card .wp-block-read-more a:focus-visible .btn-text {
     letter-spacing: 0.1em;
@@ -364,39 +364,39 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     text-shadow: 0 0 12px rgba(0, 229, 255, 0.4), 0 0 24px rgba(255, 0, 224, 0.35);
 }
 
-.cta-button:hover::after,
-.cta-button:focus-visible::after,
-.wp-block-button__link.cta-button:hover::after,
-.wp-block-button__link.cta-button:focus-visible::after,
+.cta-button:not(.hero__cta-button):hover::after,
+.cta-button:not(.hero__cta-button):focus-visible::after,
+.wp-block-button__link.cta-button:not(.hero__cta-button):hover::after,
+.wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible::after,
 .post-card .wp-block-read-more a:hover::after,
 .post-card .wp-block-read-more a:focus-visible::after {
     opacity: 0.95;
     transform: scale(1);
 }
 
-.cta-button:focus-visible,
-.wp-block-button__link.cta-button:focus-visible,
+.cta-button:not(.hero__cta-button):focus-visible,
+.wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible,
 .post-card .wp-block-read-more a:focus-visible {
     outline: 3px solid var(--neon-cyan);
     outline-offset: 4px;
 }
 
-.cta-button.is-static,
-.wp-block-button__link.cta-button.is-static,
+.cta-button.is-static:not(.hero__cta-button),
+.wp-block-button__link.cta-button.is-static:not(.hero__cta-button),
 .post-card .wp-block-read-more a.is-static {
     pointer-events: none;
     cursor: default;
     transform: none;
 }
 
-.cta-button.is-static::before,
-.wp-block-button__link.cta-button.is-static::before,
+.cta-button.is-static:not(.hero__cta-button)::before,
+.wp-block-button__link.cta-button.is-static:not(.hero__cta-button)::before,
 .post-card .wp-block-read-more a.is-static::before {
     display: none;
 }
 
-.cta-button.is-static::after,
-.wp-block-button__link.cta-button.is-static::after,
+.cta-button.is-static:not(.hero__cta-button)::after,
+.wp-block-button__link.cta-button.is-static:not(.hero__cta-button)::after,
 .post-card .wp-block-read-more a.is-static::after {
     display: none;
 }

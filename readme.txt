@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.28 - 2025-10-21 =
+* **Hero CTA Jelly Redesign:** Rebuilt the hero call-to-action around a dedicated `.hero__cta-button` and lightweight CSS-variable animation so the circular jelly surface stays smooth, the label remains visible, and the editor plus standalone preview mirror the front-end magnetic behaviour without GSAP.
+
 = 1.2.27 - 2025-10-20 =
 * **Hero CTA Magnetic Guard:** Prevented repeated hero script loads from duplicating button glow/border layers by reusing existing wrappers, wrapping only raw text nodes, and rebinding GSAP listeners without mutating the DOM.
 

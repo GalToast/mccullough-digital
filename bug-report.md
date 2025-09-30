@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-21 Sweep
+1. **Hero CTA Jelly Rebuild**
+   *Files:* `blocks/hero/render.php`, `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/style.css`, `blocks/hero/view.js`, `build/blocks/hero/editor.js`, `editor-style.css`, `style.css`, `standalone.html`
+   *Issue:* The hero reused the global `.cta-button` pill while the GSAP script injected extra glow layers, causing stacked pseudo elements, jittery stretching, and text hidden beneath overlays so the CTA appeared glitchy instead of smooth.
+   *Resolution:* Introduced a dedicated `.hero__cta-button` wrapper with single-layer markup, replaced the GSAP routine with a lightweight pointer tracker that feeds CSS variables for translation/stretch/glow, and mirrored the circular jelly styling across front-end, editor, and standalone previews while keeping reduced-motion fallbacks intact.
+
 ### 2025-10-20 Sweep
 1. **Hero CTA Magnetic Layers Duplicating**
    *Files:* `blocks/hero/view.js`, `style.css`, `readme.txt`, `AGENTS.md`, `bug-report.md`

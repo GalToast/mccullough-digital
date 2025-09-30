@@ -145,7 +145,7 @@
                     [
                         "core/button",
                         {
-                            "className": "cta-button",
+                            "className": "hero__cta-button",
                             "text": "Start a Project"
                         }
                     ]

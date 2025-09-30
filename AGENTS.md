@@ -16,6 +16,11 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-21) - Hero Magnetic CTA Redesign
+- Replaced the hero CTA markup with a dedicated `.hero__cta-button` wrapper so it no longer inherits the global pill surface, keeps the label on its own layer, and supports static fallbacks without extra spans.
+- Rebuilt the magnetic hover effect without GSAP by driving translation, stretch, and glow through CSS custom properties that follow pointer events, clamp deformation, and respect reduced-motion and touch input.
+- Synced the editor preview, standalone HTML demo, and global CTA rules with the new hero styling so every surface renders the circular jelly design consistently.
+
 ### Latest (2025-10-20) - Magnetic CTA Idempotency
 - Hardened the hero CTA magnetic button enhancement so repeated script loads reuse the existing glow/border layers, skip rewrapping nested markup, and simply rebind the GSAP listeners while leaving the DOM untouched.
 
