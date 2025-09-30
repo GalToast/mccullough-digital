@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.22 - 2025-10-15 =
+* **Hero Artwork Precision:** Added horizontal offset and intrinsic-width scaling to the hero image controls so decorative art can align precisely and scale beyond its native size from inside the editor.
+
 = 1.2.21 - 2025-10-14 =
 * **Hero Preview Parity:** Matched the editor's decorative image classes and inline styles with the front-end render so position, size, opacity, and offset controls now update instantly while hide-on-mobile states stay accurate.
 * **Offset Alignment Fix:** Composed vertical offset transforms with the base centring transforms so offsetting artwork no longer breaks `bottom-center`, `center-right`, `center-left`, or `center` placements.

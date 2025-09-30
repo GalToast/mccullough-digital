@@ -16,6 +16,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-15)
+- Added horizontal offset and natural-size scaling to the hero decorative image so authors can fine-tune artwork placement and enlarge assets beyond their defaults without leaving the block editor.
+
 ### Latest (2025-10-14)
 - Synced the hero block editor preview with the front-end decorative image logic so size, position, opacity, and vertical offset controls now respond live while keeping hide-on-mobile classes in step.
 - Preserved centred hero image transforms when applying a vertical offset so the artwork stays aligned in both the editor and on the front end.
