@@ -481,31 +481,62 @@
     const initMagneticButtons = async () => {
         try {
             const gsap = await loadGSAP();
-            
+
             const heroBlocks = document.querySelectorAll('.wp-block-mccullough-digital-hero');
-            
+
             heroBlocks.forEach((hero) => {
                 const buttons = hero.querySelectorAll('.cta-button, .wp-block-button__link');
-                
+
                 buttons.forEach((button) => {
-                    // Create child elements for border and glow that GSAP can target
-                    const border = document.createElement('div');
-                    border.className = 'button-border';
-                    const glow = document.createElement('div');
-                    glow.className = 'button-glow';
-                    const textWrapper = document.createElement('span');
-                    textWrapper.className = 'button-text-wrapper';
-                    
-                    // Move button text into wrapper
-                    while (button.firstChild) {
-                        textWrapper.appendChild(button.firstChild);
+                    const alreadyEnhanced = button.dataset.magneticEnhanced === 'true';
+
+                    // Clean up any prior listeners from earlier script loads.
+                    if (button.__magneticState && typeof button.__magneticState.cleanup === 'function') {
+                        button.__magneticState.cleanup();
                     }
-                    
-                    // Append in correct order
-                    button.appendChild(glow);
-                    button.appendChild(border);
-                    button.appendChild(textWrapper);
-                    
+
+                    let glow = button.querySelector(':scope > .button-glow');
+                    let border = button.querySelector(':scope > .button-border');
+                    let textWrapper = button.querySelector(':scope > .button-text-wrapper');
+
+                    if (!glow) {
+                        glow = document.createElement('div');
+                        glow.className = 'button-glow';
+                        button.appendChild(glow);
+                    }
+
+                    if (!border) {
+                        border = document.createElement('div');
+                        border.className = 'button-border';
+                        button.appendChild(border);
+                    }
+
+                    if (!textWrapper) {
+                        textWrapper = document.createElement('span');
+                        textWrapper.className = 'button-text-wrapper';
+                    }
+
+                    const moveDirectTextNodes = () => {
+                        const directTextNodes = Array.from(button.childNodes).filter((node) => node.nodeType === Node.TEXT_NODE);
+
+                        directTextNodes.forEach((node) => {
+                            textWrapper.appendChild(node);
+                        });
+                    };
+
+                    if (!textWrapper.parentNode) {
+                        button.appendChild(textWrapper);
+                    }
+
+                    if (!alreadyEnhanced) {
+                        // First-time enhancement: wrap raw text nodes and mark the button.
+                        moveDirectTextNodes();
+                        button.dataset.magneticEnhanced = 'true';
+                    } else {
+                        // Repeated loads: ensure any new raw text nodes are wrapped without duplicating layers.
+                        moveDirectTextNodes();
+                    }
+
                     const magneticArea = 250;
                     let targetX = 0;
                     let targetY = 0;
@@ -602,11 +633,11 @@
                     // Add event listeners
                     document.addEventListener('mousemove', handleMouseMove, { passive: true });
                     button.addEventListener('mouseleave', handleMouseLeave);
-                    
+
                     // Enhanced click effect with GSAP
-                    button.addEventListener('click', (e) => {
+                    const handleClick = () => {
                         const timeline = gsap.timeline();
-                        
+
                         timeline
                             .to([button, border, glow], {
                                 scale: 0.8,
@@ -626,7 +657,17 @@
                                 duration: 0.15,
                                 ease: 'elastic.out(1, 0.3)'
                             });
-                    });
+                    };
+
+                    button.addEventListener('click', handleClick);
+
+                    button.__magneticState = {
+                        cleanup: () => {
+                            document.removeEventListener('mousemove', handleMouseMove);
+                            button.removeEventListener('mouseleave', handleMouseLeave);
+                            button.removeEventListener('click', handleClick);
+                        }
+                    };
                 });
             });
         } catch (error) {

@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.27 - 2025-10-20 =
+* **Hero CTA Magnetic Guard:** Prevented repeated hero script loads from duplicating button glow/border layers by reusing existing wrappers, wrapping only raw text nodes, and rebinding GSAP listeners without mutating the DOM.
+
 = 1.2.26 - 2025-10-19 =
 * **Hero Top Alignment:** Replaced the duplicated masthead offset with a gentle clamp so top-aligned hero layouts hug the fixed header without reopening the gap on desktop.
 * **Editor Parity:** Mirrored the hero alignment classes, content stack layout, and CTA offset variable inside `editor-style.css` so authors preview the same vertical behaviour as the front end while adjusting the offset slider.
