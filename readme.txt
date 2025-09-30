@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.18 - 2025-10-13 =
+* **Neon Footer Flattening:** Moved the gradient glow and padding onto the site footer itself, removed the inner shell wrapper, and swapped the chunky dividers for a slim separator so the section now stretches edge-to-edge without losing the neon wash.
+
 = 1.2.17 - 2025-10-12 =
 * **Footer Shell Refresh:** Removed the standalone CTA card, re-centred the headline/description inside a single gradient shell, and tightened spacing so the neon footer feels intentional without leaving a huge black void beneath the legal line.
 

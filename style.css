@@ -500,12 +500,34 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 
 /* --- Footer --- */
 #colophon.site-footer {
-    background-color: var(--background-dark);
-    padding: clamp(56px, 8vw, 104px) 5%;
-    color: var(--text-secondary);
     position: relative;
+    padding: clamp(48px, 6vw, 84px) clamp(24px, 6vw, 64px);
+    color: var(--text-secondary);
+    background-color: var(--background-dark);
+    background-image:
+        radial-gradient(circle at 10% 18%, rgba(0, 229, 255, 0.3), transparent 60%),
+        radial-gradient(circle at 85% 20%, rgba(255, 0, 224, 0.24), transparent 58%),
+        linear-gradient(160deg, rgba(8, 12, 22, 0.9), rgba(8, 12, 22, 0.78));
     overflow: hidden;
-    border-top: 1px solid rgba(230, 241, 255, 0.22);
+    isolation: isolate;
+}
+
+#colophon.site-footer::before,
+#colophon.site-footer::after {
+    content: '';
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.32), transparent 68%);
+    filter: blur(70px);
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: var(--z-index-default);
+}
+
+#colophon.site-footer::after {
+    inset: -25% -25% -45% -25%;
+    background: radial-gradient(circle, rgba(255, 0, 224, 0.24), transparent 70%);
+    opacity: 0.35;
 }
 
 /* Starfield Background */
@@ -562,49 +584,15 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: clamp(32px, 5vw, 60px);
+    gap: clamp(28px, 4vw, 44px);
     position: relative;
     z-index: var(--z-index-content);
     align-items: stretch;
 }
 
-.footer-shell {
+.footer-container > * {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(28px, 4.5vw, 48px);
-    padding: clamp(32px, 5vw, 56px);
-    border-radius: 36px;
-    background:
-        radial-gradient(circle at 10% 18%, rgba(0, 229, 255, 0.3), transparent 60%),
-        radial-gradient(circle at 85% 20%, rgba(255, 0, 224, 0.24), transparent 58%),
-        linear-gradient(160deg, rgba(8, 12, 22, 0.9), rgba(8, 12, 22, 0.75));
-    border: 1px solid rgba(0, 229, 255, 0.18);
-    box-shadow: 0 30px 90px rgba(0, 229, 255, 0.18), 0 50px 120px rgba(255, 0, 224, 0.12);
-    overflow: hidden;
-    isolation: isolate;
-}
-
-.footer-shell::before,
-.footer-shell::after {
-    content: '';
-    position: absolute;
-    inset: -30%;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.32), transparent 68%);
-    filter: blur(70px);
-    opacity: 0.45;
-    z-index: 0;
-}
-
-.footer-shell::after {
-    inset: -25% -25% -45% -25%;
-    background: radial-gradient(circle, rgba(255, 0, 224, 0.24), transparent 70%);
-    opacity: 0.35;
-}
-
-.footer-shell > * {
-    position: relative;
-    z-index: 1;
+    z-index: var(--z-index-default);
 }
 
 .footer-headline {
@@ -638,16 +626,12 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     color: rgba(214, 231, 255, 0.85);
 }
 
-.footer-divider {
+.wp-block-separator.footer-separator {
+    margin: 0;
+    border: none;
     height: 1px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.7), rgba(255, 0, 224, 0.6), transparent);
-    opacity: 0.65;
-}
-
-.footer-divider--subtle {
-    opacity: 0.35;
-    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), rgba(255, 0, 224, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.55), rgba(255, 0, 224, 0.5), transparent);
+    opacity: 0.45;
 }
 
 .footer-nav a:focus-visible,

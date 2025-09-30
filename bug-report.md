@@ -4,6 +4,12 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
 
 ## Fixed Bugs
 
+### 2025-10-13 Sweep
+1. **Footer Shell Caused Redundant Padding & Dividers**
+   *Files:* `parts/footer-neon.html`, `style.css`, `editor-style.css`
+   *Issue:* The neon footer still wrapped its content in an inner `.footer-shell`, leaving duplicate padding, rounded edges, and gradient borders that stopped the section from spanning edge-to-edge. Legacy divider blocks also forced extra vertical spacing that made the legal line feel detached.
+   *Resolution:* Moved the gradient glow and padding directly onto `#colophon`, removed the shell wrapper, trimmed the layout gap, and replaced the thick dividers with a single slim separator so the footer breathes without an inner card.
+
 ### 2025-10-12 Sweep
 1. **Footer CTA Card Stuck Above Site Info**
    *Files:* `parts/footer-neon.html`, `style.css`, `editor-style.css`

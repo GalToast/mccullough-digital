@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-13):**
+    - Flattened the neon footer wrapper so the gradient glow now lives on the footer container, removed redundant dividers, and tightened spacing so the colophon spans edge-to-edge without an inner shell.
 - **Latest (2025-10-12):**
     - Replaced the standalone footer CTA card with a gradient-wrapped shell that keeps the neon glow, centres the headline/description, and tightens spacing so the legal line no longer floats above a vast black void.
 - **Latest (2025-10-11):**
