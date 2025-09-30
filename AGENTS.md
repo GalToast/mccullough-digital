@@ -16,6 +16,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+-### Latest (2025-10-26) - Neon Ring Mask Compatibility
+- Safari and Chromium were discarding the jelly ring's `calc()`-based radial mask, so the conic gradient filled the entire button. We replaced the shorthand mask with explicit `mask-image`/`mask-repeat` pairs that use plain percentage stops and a no-repeat sizing band. Keep any future tweaks within that mask structure so Safari, Chrome, and Edge all preserve the hollow center.
+- Bumped the theme to v1.2.32 and documented the mask fix across `readme.txt` and `bug-report.md`.
+
 ### Latest (2025-10-24) - Hero React CTA Mount
 - Implemented the React-based neon jelly CTA and MutationObserver guard so each hero block hydrates once, restores the fallback link when scripts fail, and mirrors reduced-motion preferences in the mounted experience.
 - Ensure any future adjustments keep the fallback markup in `render.php` aligned with the React props and leave the `.hero-neon-button-mount--hydrated` class intact for CSS targeting.

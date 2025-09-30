@@ -240,8 +240,12 @@ export function InteractiveNeonButton({
               background: "conic-gradient(rgba(0,255,255,.9), rgba(255,0,200,.9), rgba(0,255,255,.9))",
               animation: "spin360 8s linear infinite",
               filter: "blur(0.2px) saturate(1.2)",
-              WebkitMask: "radial-gradient(closest-side, transparent calc(100% - 6px), #000 calc(100% - 6px))",
-              mask: "radial-gradient(closest-side, transparent calc(100% - 6px), #000 calc(100% - 6px))",
+              WebkitMaskImage: "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)",
+              WebkitMaskRepeat: 'no-repeat',
+              WebkitMaskSize: '100% 100%',
+              maskImage: "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)",
+              maskRepeat: 'no-repeat',
+              maskSize: '100% 100%',
               mixBlendMode: "screen",
             }} />
 

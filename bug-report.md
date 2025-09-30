@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-26 Sweep
+1. **Hero CTA Neon Ring Mask Fallback**
+   *Files:* `blocks/hero/components/NeonJellyButton.jsx`, `build/blocks/hero/hero-button.js`
+   *Issue:* Safari and Chromium rejected the ring layer's `-webkit-mask` shorthand because its radial gradient stops relied on `calc()` offsets, so the conic gradient painted the entire sphere instead of leaving a hollow neon band.
+   *Resolution:* Replaced the shorthand mask with explicit `mask-image`/`mask-repeat` declarations that use plain percentage stops and `no-repeat` sizing, restoring the transparent center across Safari, Chrome, Edge, and Firefox.
+
 ### 2025-10-24 Sweep
 1. **Hero CTA React Hydration**
    *Files:* `blocks/hero/components/NeonJellyButton.jsx`, `blocks/hero/hero-button.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `build/blocks/hero/hero-button.js`, `build/blocks/hero/hero-button.asset.php`
