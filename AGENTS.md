@@ -16,6 +16,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-23) - Hero CTA Tilt Depth
+- Added a Framer Motion-inspired 3D tilt to the hero CTA by extending the pointer tracking script with rotateX/rotateY easing, updating the surface wrapper to respect `transform-style: preserve-3d`, and zeroing the effect for reduced-motion users.
+- Documented the 3D tilt upgrade alongside the existing neon CTA notes so future sweeps know the rotation variables must stay in sync across JS and CSS fallbacks.
+
 ### Latest (2025-10-22) - Neon CTA Orbiters
 - Added a reusable enhancement layer in `blocks/hero/view.js` that builds the neon sphere shell, orbiting sparks, and ripple pool exactly once per button, reuses them on subsequent initialisations, and still respects reduced-motion plus keyboard activation.
 - Rebuilt the hero CTA styling in `blocks/hero/style.css` and `editor-style.css` so the sheen sweep, scanline, halo, and label glow all match the new circular neon treatment while keeping accessible fallbacks for static markup.

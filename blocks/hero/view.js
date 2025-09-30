@@ -46,6 +46,8 @@
                 scaleY: 1,
                 glow: 0,
                 press: 0,
+                rotateX: 0,
+                rotateY: 0,
             };
 
             const state = {
@@ -197,6 +199,8 @@
                 button.style.setProperty('--hero-cta-scale-y', current.scaleY.toFixed(4));
                 button.style.setProperty('--hero-cta-glow', current.glow.toFixed(4));
                 button.style.setProperty('--hero-cta-press', current.press.toFixed(4));
+                button.style.setProperty('--hero-cta-rotate-x', `${current.rotateX.toFixed(3)}deg`);
+                button.style.setProperty('--hero-cta-rotate-y', `${current.rotateY.toFixed(3)}deg`);
             };
 
             const cancelAnimation = () => {
@@ -216,6 +220,7 @@
                 const easingScale = state.pointerActive ? 0.18 : 0.12;
                 const easingGlow = state.pointerActive ? 0.16 : 0.1;
                 const easingPress = 0.24;
+                const easingRotate = state.pointerActive ? 0.18 : 0.12;
 
                 const updateValue = (key, easing) => {
                     const difference = target[key] - current[key];
@@ -234,6 +239,8 @@
                 updateValue('scaleY', easingScale);
                 updateValue('glow', easingGlow);
                 updateValue('press', easingPress);
+                updateValue('rotateX', easingRotate);
+                updateValue('rotateY', easingRotate);
 
                 applyStyles();
 
@@ -294,14 +301,30 @@
                 const influenceRadius = Math.max(rect.width, rect.height) * 1.6;
 
                 if (influenceRadius <= 0) {
-                    updateTarget({ x: 0, y: 0, scaleX: 1, scaleY: 1, glow: 0 });
+                    updateTarget({
+                        x: 0,
+                        y: 0,
+                        scaleX: 1,
+                        scaleY: 1,
+                        glow: 0,
+                        rotateX: 0,
+                        rotateY: 0,
+                    });
                     return;
                 }
 
                 const falloff = clamp(1 - (distance / influenceRadius), 0, 1);
 
                 if (falloff <= 0) {
-                    updateTarget({ x: 0, y: 0, scaleX: 1, scaleY: 1, glow: 0 });
+                    updateTarget({
+                        x: 0,
+                        y: 0,
+                        scaleX: 1,
+                        scaleY: 1,
+                        glow: 0,
+                        rotateX: 0,
+                        rotateY: 0,
+                    });
                     return;
                 }
 
@@ -324,12 +347,20 @@
 
                 const glow = clamp(0.2 + influence * 0.85, 0, 1);
 
+                const normalizedX = clamp(distanceX / (rect.width / 2 || 1), -1, 1);
+                const normalizedY = clamp(distanceY / (rect.height / 2 || 1), -1, 1);
+                const rotationStrength = 14;
+                const rotateX = clamp(-normalizedY * rotationStrength * influence, -rotationStrength, rotationStrength);
+                const rotateY = clamp(normalizedX * rotationStrength * influence, -rotationStrength, rotationStrength);
+
                 updateTarget({
                     x: targetX,
                     y: targetY,
                     scaleX,
                     scaleY,
                     glow,
+                    rotateX,
+                    rotateY,
                 });
             };
 
