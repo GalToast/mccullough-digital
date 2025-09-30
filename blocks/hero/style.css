@@ -7,7 +7,6 @@
     text-align: center;
     position: relative; /* Needed for positioning the canvas */
     background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
-    padding-top: var(--mcd-header-offset, var(--header-height));
     overflow: hidden; /* Hide anything that goes outside the hero */
 }
 
@@ -111,8 +110,8 @@
 .wp-block-mccullough-digital-hero .wp-block-buttons {
     position: absolute;
     right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: var(--hero-cta-offset, clamp(64px, 12vh, 200px));
+    transform: none;
     z-index: 10;
 }
 
@@ -198,6 +197,7 @@
         position: relative;
         right: auto;
         top: auto;
+        bottom: auto;
         transform: none;
         margin-top: 40px;
     }

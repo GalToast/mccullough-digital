@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.25 - 2025-10-18 =
+* **Hero Header Alignment:** Removed the extra masthead offset from the hero block and anchored the CTA buttons to a bottom off
+set so the section now sits flush beneath the fixed header while the desktop button rests lower on the canvas.
+
 = 1.2.24 - 2025-10-17 =
 * **Hero Content Layout Controls:** Added vertical alignment presets and a clamped 0–240px padding offset to the hero block, persisting the `is-content-*` class and `--hero-content-offset` variable so authors can pin copy to the top, middle, or bottom while nudging the stack without custom CSS.
 

@@ -4,6 +4,15 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-18 Sweep
+1. **Hero Offset & CTA Elevation**
+   *Files:* `blocks/hero/style.css`, `editor-style.css`
+   *Issue:* The hero block stacked the site-wide header offset on top of the layout padding, leaving a visible gap beneath the 
+masthead, and the CTA button was vertically centred so it rose and fell with the headline instead of sitting lower on the canva
+s.
+   *Resolution:* Dropped the redundant top padding from the hero wrapper and anchored the CTA to a consistent bottom offset, ke
+eping the top-aligned layout option while freeing the button to rest lower on desktop without affecting the mobile layout.
+
 ### 2025-10-17 Sweep
 1. **Hero Content Stack Locked to Middle**
    *Files:* `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `build/blocks/hero/editor.js`
