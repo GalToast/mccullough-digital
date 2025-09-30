@@ -4,6 +4,22 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-19 Sweep
+1. **Hero Top Alignment Still Overpadded**
+   *Files:* `blocks/hero/style.css`, `style.css`, `readme.txt`, `AGENTS.md`, `bug-report.md`
+   *Issue:* Setting the hero content to `top` reinstated the full masthead offset, reopening a visible gap between the fixed header and the section on the live site.
+   *Resolution:* Replaced the header-height variable with a gentle clamp so the hero now tucks beneath the masthead while keeping a modest buffer for the content stack.
+
+2. **Hero Alignment Preview Drift in Editor**
+   *Files:* `editor-style.css`
+   *Issue:* The Site Editor ignored the hero alignment modifiers and offset variable, so top- or bottom-aligned layouts still appeared centred and the offset slider had no visible effect while authoring.
+   *Resolution:* Mirrored the front-end alignment classes, stack layout, and CTA offset styles inside the editor stylesheet so previews honour each vertical alignment and reflect the offset translation.
+
+3. **Decorative Hero Art Halo Visible**
+   *Files:* `blocks/hero/style.css`
+   *Issue:* The background-removed hero illustration retained a faint white fringe that bled through on dark canvases despite the existing drop shadow.
+   *Resolution:* Layered denser, tinted drop shadows to envelop the artwork edges and mask the halo without flattening the glow effect.
+
 ### 2025-10-18 Sweep
 1. **Hero Offset & CTA Elevation**
    *Files:* `blocks/hero/style.css`, `editor-style.css`
