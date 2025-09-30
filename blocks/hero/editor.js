@@ -193,6 +193,52 @@ registerBlockType(metadata.name, {
             });
         };
 
+        const buildImagePresentation = () => {
+            const baseTransforms = {
+                'bottom-center': 'translateX(-50%)',
+                'center-right': 'translateY(-50%)',
+                'center-left': 'translateY(-50%)',
+                center: 'translate(-50%, -50%)',
+            };
+
+            const classes = ['hero__image-container'];
+
+            if (imagePosition) {
+                classes.push(`hero__image-position--${imagePosition}`);
+            }
+
+            if (hideImageOnMobile) {
+                classes.push('hero__image-hide-mobile');
+            }
+
+            const styles = {
+                opacity: imageOpacity / 100,
+                width: `clamp(200px, ${imageSize}vw, 800px)`,
+            };
+
+            const transformParts = [];
+
+            if (baseTransforms[imagePosition]) {
+                transformParts.push(baseTransforms[imagePosition]);
+            }
+
+            if (imageVerticalOffset !== 0) {
+                transformParts.push(`translateY(${imageVerticalOffset}px)`);
+            }
+
+            if (transformParts.length > 0) {
+                styles.transform = transformParts.join(' ');
+            }
+
+            return {
+                className: classes.join(' '),
+                styles,
+            };
+        };
+
+        const { className: imageContainerClassName, styles: imageStyles } =
+            buildImagePresentation();
+
         return (
             <>
                 <InspectorControls>
@@ -312,12 +358,7 @@ registerBlockType(metadata.name, {
                         role="presentation"
                     />
                     {heroImageUrl && (
-                        <div 
-                            className="hero__image-container"
-                            style={{
-                                opacity: imageOpacity / 100,
-                            }}
-                        >
+                        <div className={imageContainerClassName} style={imageStyles}>
                             <img
                                 src={heroImageUrl}
                                 alt={heroImageAlt}

@@ -20,6 +20,17 @@ This report tracks all production-impacting fixes and continuous improvements in
    *Issue:* The build configuration didn't generate source maps, making debugging difficult during development.
    *Resolution:* Added `devtool` configuration to generate `eval-source-map` for development and regular `source-map` for production builds.
 
+### 2025-10-14 Sweep
+1. **Hero Image Controls Ignored in Editor Preview**
+   *Files:* `blocks/hero/editor.js`, `build/blocks/hero/editor.js`
+   *Issue:* The Site Editor only applied opacity to the decorative hero image, so changes to size, position, vertical offset, and the hide-on-mobile toggle never appeared during authoring even though the published front end responded.
+   *Resolution:* Mirrored the PHP render logic inside the editor script to append the same modifier classes and inline width/transform styles, ensuring every control now updates instantly within the canvas.
+
+2. **Vertical Offset Broke Centred Hero Artwork**
+   *Files:* `blocks/hero/render.php`
+   *Issue:* Applying a vertical offset replaced the hero image transform entirely, removing the base centring translate values and causing the artwork to drift off-target for `bottom-center`, `center-right`, `center-left`, and `center` positions.
+   *Resolution:* Composed the offset with the existing base transforms so adjustments stack instead of overwrite, preserving alignment across both the editor preview and live markup.
+
 ### 2025-10-13 Sweep
 1. **Footer Shell Caused Redundant Padding & Dividers**
    *Files:* `parts/footer-neon.html`, `style.css`, `editor-style.css`

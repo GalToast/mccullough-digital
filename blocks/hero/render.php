@@ -85,8 +85,26 @@ $image_container_class = implode( ' ', $image_container_classes );
 $image_styles = array();
 $image_styles[] = 'opacity: ' . ( $image_opacity / 100 ) . ';';
 $image_styles[] = 'width: clamp(200px, ' . $image_size . 'vw, 800px);';
-if ( $image_vertical_offset !== 0 ) {
-    $image_styles[] = 'transform: translateY(' . $image_vertical_offset . 'px);';
+
+$base_transforms = array(
+    'bottom-center' => 'translateX(-50%)',
+    'center-right'  => 'translateY(-50%)',
+    'center-left'   => 'translateY(-50%)',
+    'center'        => 'translate(-50%, -50%)',
+);
+
+$transform_parts = array();
+
+if ( isset( $base_transforms[ $image_position ] ) ) {
+    $transform_parts[] = $base_transforms[ $image_position ];
+}
+
+if ( 0 !== $image_vertical_offset ) {
+    $transform_parts[] = 'translateY(' . $image_vertical_offset . 'px)';
+}
+
+if ( ! empty( $transform_parts ) ) {
+    $image_styles[] = 'transform: ' . implode( ' ', $transform_parts ) . ';';
 }
 $image_style_attr = implode( ' ', $image_styles );
 ?>
