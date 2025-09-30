@@ -56,6 +56,10 @@
                 current: { ...restState },
                 target: { ...restState },
                 rafId: null,
+                layers: {
+                    surface: null,
+                    ripples: null,
+                },
             };
 
             const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -92,7 +96,97 @@
                 return label;
             };
 
-            ensureLabelWrapper();
+            const ensureLayers = () => {
+                const label = ensureLabelWrapper();
+
+                if (!label) {
+                    return;
+                }
+
+                let surface = button.querySelector(':scope > .hero__cta-button-surface');
+
+                if (!surface) {
+                    surface = document.createElement('span');
+                    surface.className = 'hero__cta-button-surface';
+                    surface.setAttribute('aria-hidden', 'true');
+                    button.insertBefore(surface, label);
+                }
+
+                let core = surface.querySelector(':scope > .hero__cta-button-core');
+
+                if (!core) {
+                    core = document.createElement('span');
+                    core.className = 'hero__cta-button-core';
+                    core.setAttribute('aria-hidden', 'true');
+                    surface.appendChild(core);
+                }
+
+                let sheen = surface.querySelector(':scope > .hero__cta-button-sheen');
+
+                if (!sheen) {
+                    sheen = document.createElement('span');
+                    sheen.className = 'hero__cta-button-sheen';
+                    sheen.setAttribute('aria-hidden', 'true');
+                    surface.appendChild(sheen);
+                }
+
+                let scanline = surface.querySelector(':scope > .hero__cta-button-scanline');
+
+                if (!scanline) {
+                    scanline = document.createElement('span');
+                    scanline.className = 'hero__cta-button-scanline';
+                    scanline.setAttribute('aria-hidden', 'true');
+                    surface.appendChild(scanline);
+                }
+
+                let orbiters = surface.querySelector(':scope > .hero__cta-button-orbiters');
+
+                if (!orbiters) {
+                    orbiters = document.createElement('span');
+                    orbiters.className = 'hero__cta-button-orbiters';
+                    orbiters.setAttribute('aria-hidden', 'true');
+                    surface.appendChild(orbiters);
+                }
+
+                const desiredOrbiters = 4;
+                const existingOrbiters = orbiters.querySelectorAll(':scope > .hero__cta-button-orb');
+
+                if (existingOrbiters.length !== desiredOrbiters) {
+                    existingOrbiters.forEach((node, index) => {
+                        if (index >= desiredOrbiters) {
+                            node.remove();
+                        }
+                    });
+
+                    for (let index = existingOrbiters.length; index < desiredOrbiters; index += 1) {
+                        const orb = document.createElement('span');
+                        orb.className = 'hero__cta-button-orb';
+                        orb.dataset.heroOrbIndex = String(index);
+                        orbiters.appendChild(orb);
+                    }
+                }
+
+                Array.from(orbiters.querySelectorAll(':scope > .hero__cta-button-orb')).forEach((orb, index) => {
+                    orb.dataset.heroOrbIndex = String(index);
+                });
+
+                let ripples = button.querySelector(':scope > .hero__cta-button-ripples');
+
+                if (!ripples) {
+                    ripples = document.createElement('span');
+                    ripples.className = 'hero__cta-button-ripples';
+                    ripples.setAttribute('aria-hidden', 'true');
+                    button.insertBefore(ripples, label);
+                }
+
+                button.appendChild(label);
+                button.classList.add('hero__cta-button--enhanced');
+
+                state.layers.surface = surface;
+                state.layers.ripples = ripples;
+            };
+
+            ensureLayers();
 
             const applyStyles = () => {
                 const { current } = state;
@@ -264,11 +358,38 @@
                 reset();
             };
 
+            const spawnRipple = (event) => {
+                if (state.prefersReducedMotion || !state.layers.ripples) {
+                    return;
+                }
+
+                if (event && 'isPrimary' in event && event.isPrimary === false) {
+                    return;
+                }
+
+                const rect = button.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'hero__cta-button-ripple';
+
+                const x = event ? event.clientX - rect.left : rect.width / 2;
+                const y = event ? event.clientY - rect.top : rect.height / 2;
+
+                ripple.style.setProperty('--hero-cta-ripple-x', `${x}px`);
+                ripple.style.setProperty('--hero-cta-ripple-y', `${y}px`);
+
+                state.layers.ripples.appendChild(ripple);
+
+                window.setTimeout(() => {
+                    ripple.remove();
+                }, 720);
+            };
+
             const handlePointerDown = (event) => {
                 if (event.pointerType === 'touch') {
                     state.coarsePointer = true;
                 }
 
+                spawnRipple(event);
                 updateTarget({ press: 1 });
             };
 
@@ -284,6 +405,7 @@
             const handleKeyDown = (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
                     updateTarget({ press: 1 });
+                    spawnRipple(null);
                 }
             };
 
@@ -311,6 +433,9 @@
                     state.prefersReducedMotion = matches;
 
                     if (matches) {
+                        if (state.layers.ripples) {
+                            state.layers.ripples.innerHTML = '';
+                        }
                         reset(true);
                     }
                 },

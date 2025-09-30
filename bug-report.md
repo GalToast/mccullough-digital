@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-22 Sweep
+1. **Neon Hero CTA Orbiters & Ripples**
+   *Files:* `blocks/hero/view.js`, `blocks/hero/style.css`, `editor-style.css`, `style.css`, `readme.txt`, `AGENTS.md`
+   *Issue:* The hero CTA redesign shipped as a static jelly sphere without the neon orbiters, ripple feedback, or sheen requested in the latest creative, and the Site Editor still previewed the older glow treatment.
+   *Resolution:* Extended the vanilla enhancement script to inject a reusable neon shell with orbiting sparks and ripple pools that honour reduced motion, refreshed the front-end and editor styles with the new gradients and animations, bumped the theme to 1.2.29, and documented the upgrade across project notes.
+
 ### 2025-10-21 Sweep
 1. **Hero CTA Jelly Rebuild**
    *Files:* `blocks/hero/render.php`, `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/style.css`, `blocks/hero/view.js`, `build/blocks/hero/editor.js`, `editor-style.css`, `style.css`, `standalone.html`

@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.29 - 2025-10-22 =
+* **Neon Hero CTA Orbiters:** Layered a sheen pass, orbiting sparks, and ripple feedback on the hero call-to-action by rebuilding the vanilla enhancement script to inject reusable surface shells, respect reduced-motion, and keep the label accessible while the button leans toward the pointer.
+* **Editor Preview Sync:** Mirrored the refreshed CTA gradients, glow timings, and typography inside `editor-style.css` so Site Editor previews show the same neon sphere even without the runtime script.
+
 = 1.2.28 - 2025-10-21 =
 * **Hero CTA Jelly Redesign:** Rebuilt the hero call-to-action around a dedicated `.hero__cta-button` and lightweight CSS-variable animation so the circular jelly surface stays smooth, the label remains visible, and the editor plus standalone preview mirror the front-end magnetic behaviour without GSAP.
 
