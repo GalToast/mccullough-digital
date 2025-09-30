@@ -9,14 +9,26 @@
  * @package McCullough_Digital
  */
 
-$wrapper_attributes = get_block_wrapper_attributes(
-    [
-        'class' => 'hero',
-    ]
-);
-
 $headline   = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
 $subheading = isset( $attributes['subheading'] ) ? $attributes['subheading'] : '';
+
+$content_alignment = isset( $attributes['contentAlignment'] ) ? $attributes['contentAlignment'] : 'center';
+$allowed_alignments = array( 'top', 'center', 'bottom' );
+if ( ! in_array( $content_alignment, $allowed_alignments, true ) ) {
+    $content_alignment = 'center';
+}
+$alignment_class = 'is-content-' . $content_alignment;
+
+$content_offset = isset( $attributes['contentOffset'] ) ? floatval( $attributes['contentOffset'] ) : 0;
+$content_offset = round( $content_offset, 2 );
+$offset_style    = sprintf( '--hero-content-offset: %spx;', $content_offset );
+
+$wrapper_attributes = get_block_wrapper_attributes(
+    array(
+        'class' => trim( 'hero ' . $alignment_class ),
+        'style' => $offset_style,
+    )
+);
 
 // Image attributes
 $hero_image_url         = isset( $attributes['heroImageUrl'] ) ? esc_url( $attributes['heroImageUrl'] ) : '';

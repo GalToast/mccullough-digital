@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-17 Sweep
+1. **Hero Content Stack Locked to Middle**
+   *Files:* `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `build/blocks/hero/editor.js`
+   *Issue:* The hero block always centred its copy vertically and lacked spacing controls, forcing authors to resort to custom CSS or spacer blocks to align the content near the top or bottom of the viewport.
+   *Resolution:* Added saved block attributes for vertical alignment and content padding offset, surfaced matching editor controls, and wired the classes plus CSS variable through the PHP render so both the editor and front-end respect the new layout options without manual code.
+
 ### 2025-10-16 Sweep
 1. **Hero Image Width Fallback Ignored Size Slider**
    *Files:* `blocks/hero/editor.js`, `blocks/hero/render.php`, `build/blocks/hero/editor.js`

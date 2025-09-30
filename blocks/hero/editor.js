@@ -97,10 +97,24 @@ registerBlockType(metadata.name, {
             imageHorizontalOffset,
             heroImageWidth,
             hideImageOnMobile,
+            contentAlignment,
+            contentOffset,
         } = attributes;
-        
+
+        const alignmentOptions = ['top', 'center', 'bottom'];
+        const normalizedAlignment = alignmentOptions.includes(contentAlignment)
+            ? contentAlignment
+            : 'center';
+        const alignmentClass = `is-content-${normalizedAlignment}`;
+
+        const parsedOffset = Number(contentOffset);
+        const normalizedOffset = Number.isFinite(parsedOffset) ? parsedOffset : 0;
+
         const blockProps = useBlockProps({
-            className: 'hero',
+            className: ['hero', alignmentClass].filter(Boolean).join(' '),
+            style: {
+                '--hero-content-offset': `${normalizedOffset}px`,
+            },
         });
 
         const hasMigrated = useRef(false);
@@ -295,8 +309,8 @@ registerBlockType(metadata.name, {
         return (
             <>
                 <InspectorControls>
-                    <PanelBody 
-                        title={__('Hero Image', 'mccullough-digital')} 
+                    <PanelBody
+                        title={__('Hero Image', 'mccullough-digital')}
                         initialOpen={true}
                     >
                         <MediaUploadCheck>
@@ -411,6 +425,45 @@ registerBlockType(metadata.name, {
                                 />
                             </>
                         )}
+                    </PanelBody>
+                    <PanelBody
+                        title={__('Content Layout', 'mccullough-digital')}
+                        initialOpen={false}
+                    >
+                        <SelectControl
+                            label={__('Vertical Alignment', 'mccullough-digital')}
+                            value={normalizedAlignment}
+                            options={[
+                                {
+                                    label: __('Top', 'mccullough-digital'),
+                                    value: 'top',
+                                },
+                                {
+                                    label: __('Center', 'mccullough-digital'),
+                                    value: 'center',
+                                },
+                                {
+                                    label: __('Bottom', 'mccullough-digital'),
+                                    value: 'bottom',
+                                },
+                            ]}
+                            onChange={(value) => {
+                                if (alignmentOptions.includes(value)) {
+                                    setAttributes({ contentAlignment: value });
+                                }
+                            }}
+                        />
+                        <RangeControl
+                            label={__('Content Offset (px)', 'mccullough-digital')}
+                            value={normalizedOffset}
+                            onChange={(value) =>
+                                setAttributes({ contentOffset: value ?? 0 })
+                            }
+                            min={0}
+                            max={240}
+                            step={4}
+                            help={__('Adds extra top padding inside the content stack.', 'mccullough-digital')}
+                        />
                     </PanelBody>
                 </InspectorControls>
 
