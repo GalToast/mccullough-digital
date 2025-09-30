@@ -501,11 +501,11 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 /* --- Footer --- */
 #colophon.site-footer {
     background-color: var(--background-dark);
-    padding: 80px 5%;
+    padding: clamp(56px, 8vw, 104px) 5%;
     color: var(--text-secondary);
     position: relative;
     overflow: hidden;
-    border-top: 2px solid var(--text-secondary);
+    border-top: 1px solid rgba(230, 241, 255, 0.22);
 }
 
 /* Starfield Background */
@@ -562,93 +562,80 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: clamp(40px, 6vw, 72px);
+    gap: clamp(32px, 5vw, 60px);
     position: relative;
     z-index: var(--z-index-content);
     align-items: stretch;
 }
 
-.footer-cta {
+.footer-shell {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(28px, 4.5vw, 48px);
     padding: clamp(32px, 5vw, 56px);
-    border-radius: 32px;
+    border-radius: 36px;
     background:
-        radial-gradient(circle at 12% 18%, rgba(0, 229, 255, 0.32), transparent 62%),
-        radial-gradient(circle at 82% 24%, rgba(255, 0, 224, 0.26), transparent 60%),
-        rgba(10, 13, 22, 0.92);
-    border: 1px solid rgba(0, 229, 255, 0.22);
-    box-shadow: 0 25px 70px rgba(0, 229, 255, 0.18), 0 35px 90px rgba(255, 0, 224, 0.14);
+        radial-gradient(circle at 10% 18%, rgba(0, 229, 255, 0.3), transparent 60%),
+        radial-gradient(circle at 85% 20%, rgba(255, 0, 224, 0.24), transparent 58%),
+        linear-gradient(160deg, rgba(8, 12, 22, 0.9), rgba(8, 12, 22, 0.75));
+    border: 1px solid rgba(0, 229, 255, 0.18);
+    box-shadow: 0 30px 90px rgba(0, 229, 255, 0.18), 0 50px 120px rgba(255, 0, 224, 0.12);
     overflow: hidden;
-    text-align: center;
+    isolation: isolate;
 }
 
-.footer-cta::before {
+.footer-shell::before,
+.footer-shell::after {
     content: '';
     position: absolute;
-    inset: -15%;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.35), transparent 65%);
-    filter: blur(55px);
-    opacity: 0.55;
+    inset: -30%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.32), transparent 68%);
+    filter: blur(70px);
+    opacity: 0.45;
     z-index: 0;
 }
 
-.footer-cta > * {
+.footer-shell::after {
+    inset: -25% -25% -45% -25%;
+    background: radial-gradient(circle, rgba(255, 0, 224, 0.24), transparent 70%);
+    opacity: 0.35;
+}
+
+.footer-shell > * {
     position: relative;
     z-index: 1;
 }
 
-.footer-cta__title {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(2.75rem, 8vw, 4.75rem);
-    color: var(--text-primary);
-    margin: 0 0 10px;
-    text-shadow: 0 0 16px rgba(0, 229, 255, 0.45), 0 0 24px rgba(255, 0, 224, 0.35);
-}
-
-.footer-cta__description {
-    font-size: clamp(1rem, 2.6vw, 1.3rem);
-    color: var(--text-secondary);
-    margin: 0 0 clamp(20px, 4vw, 32px);
-    max-width: 620px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.footer-cta__buttons {
+.footer-headline {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    justify-content: center;
-}
-
-.footer-cta__link {
-    display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    color: var(--neon-cyan);
-    font-weight: 700;
-    text-decoration: none;
-    padding: 14px 26px;
-    border-radius: 999px;
-    border: 1px solid rgba(0, 229, 255, 0.36);
-    background: rgba(9, 13, 21, 0.65);
-    transition: color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    gap: 12px;
+    text-align: center;
 }
 
-.footer-cta__link:hover,
-.footer-cta__link:focus-visible {
-    color: var(--background-dark);
-    border-color: transparent;
-    transform: translateY(-3px);
-    box-shadow: 0 14px 40px rgba(0, 229, 255, 0.25);
-    background: linear-gradient(120deg, rgba(0, 229, 255, 0.95), rgba(255, 0, 224, 0.9));
+.footer-eyebrow {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: 0.75rem;
+    color: rgba(230, 241, 255, 0.7);
 }
 
-.footer-cta__link:focus-visible,
-.footer-nav a:focus-visible,
-.footer-contact a:focus-visible {
-    outline: 2px solid var(--neon-cyan);
-    outline-offset: 4px;
+.footer-headline__title {
+    margin: 0;
+    font-family: 'Caveat', cursive;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    color: var(--text-primary);
+    text-shadow: 0 0 14px rgba(0, 229, 255, 0.5), 0 0 26px rgba(255, 0, 224, 0.35);
+}
+
+.footer-headline__description {
+    margin: 0;
+    max-width: 640px;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    color: rgba(214, 231, 255, 0.85);
 }
 
 .footer-divider {
@@ -656,6 +643,17 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     border-radius: 999px;
     background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.7), rgba(255, 0, 224, 0.6), transparent);
     opacity: 0.65;
+}
+
+.footer-divider--subtle {
+    opacity: 0.35;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.45), rgba(255, 0, 224, 0.4), transparent);
+}
+
+.footer-nav a:focus-visible,
+.footer-contact a:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 4px;
 }
 
 .footer-core {

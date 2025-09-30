@@ -9,6 +9,8 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+- **Latest (2025-10-12):**
+    - Replaced the standalone footer CTA card with a gradient-wrapped shell that keeps the neon glow, centres the headline/description, and tightens spacing so the legal line no longer floats above a vast black void.
 - **Latest (2025-10-11):**
     - Renamed the neon footer template part to `footer-neon` and updated every template plus the PHP fallback so installs bypass stale Site Editor overrides and immediately load the rebuilt CTA grid.
     - Registered the header and neon footer template parts in `theme.json` for clearer organisation inside the Site Editor.
