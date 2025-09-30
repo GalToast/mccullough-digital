@@ -60,7 +60,13 @@ export function InteractiveNeonButton({
   }, []);
 
   // Handlers
+  const isFinePointer = (pointerType) => !pointerType || pointerType === "mouse" || pointerType === "pen";
+
   const handlePointerMove = (e) => {
+    if (!isFinePointer(e.pointerType)) {
+      return;
+    }
+
     if (!btnRef.current) return;
     const rect = btnRef.current.getBoundingClientRect();
     const cx = rect.left + rect.width/2;
@@ -99,12 +105,14 @@ export function InteractiveNeonButton({
 
   const handlePointerDown = (e) => {
     setPressed(true);
-    spawnRipple(e);
+    if (isFinePointer(e.pointerType)) {
+      spawnRipple(e);
+    }
   };
 
-  const handlePointerUp = () => {
+  const handlePointerUp = (e) => {
     setPressed(false);
-    if (showBurst) {
+    if (isFinePointer(e.pointerType) && showBurst) {
       const id = ++ids.current.burst;
       setBursts((b) => [...b, { id }]);
       setTimeout(() => setBursts((b) => b.filter(x => x.id !== id)), 600);

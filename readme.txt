@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.31 - 2025-10-24 =
+* **Hero React CTA:** Replaced the vanilla neon button with a React-powered jelly sphere that mounts once per hero instance, mirrors reduced-motion preferences, and leaves a styled fallback link for no-JS contexts.
+* **Hydration Guardrails:** Added dataset guards, MutationObserver cleanup, and fallback restoration so repeated script loads or block rerenders never double-initialise the hero CTA.
+
 = 1.2.30 - 2025-10-23 =
 * **Hero CTA 3D Tilt:** Extended the magnetic button script with Framer Motion-style rotateX/rotateY easing and a `transform-style: preserve-3d` surface so the neon shell leans toward the pointer while reduced-motion users stay on the flat fallback.
 

@@ -16,6 +16,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-24) - Hero React CTA Mount
+- Implemented the React-based neon jelly CTA and MutationObserver guard so each hero block hydrates once, restores the fallback link when scripts fail, and mirrors reduced-motion preferences in the mounted experience.
+- Ensure any future adjustments keep the fallback markup in `render.php` aligned with the React props and leave the `.hero-neon-button-mount--hydrated` class intact for CSS targeting.
+
 ### Latest (2025-10-23) - Hero CTA Tilt Depth
 - Added a Framer Motion-inspired 3D tilt to the hero CTA by extending the pointer tracking script with rotateX/rotateY easing, updating the surface wrapper to respect `transform-style: preserve-3d`, and zeroing the effect for reduced-motion users.
 - Documented the 3D tilt upgrade alongside the existing neon CTA notes so future sweeps know the rotation variables must stay in sync across JS and CSS fallbacks.

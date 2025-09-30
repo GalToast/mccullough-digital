@@ -81,11 +81,40 @@ if ( '' === $inner_content ) {
             filemtime( get_template_directory() . '/build/blocks/hero/hero-button.js' ),
             true
         );
-        
+
+        $mount_attributes = array(
+            'class'              => 'hero-neon-button-mount',
+            'data-button-text'   => $button_text,
+            'data-button-link'   => $button_link,
+            'data-fallback-type' => '' === $button_link ? 'static' : 'link',
+        );
+
+        $attributes_string = '';
+        foreach ( $mount_attributes as $attr_key => $attr_value ) {
+            if ( '' === $attr_value && 'data-button-link' === $attr_key ) {
+                // Avoid printing empty href-like attribute to keep markup tidy.
+                continue;
+            }
+
+            $attributes_string .= sprintf( ' %1$s="%2$s"', esc_attr( $attr_key ), esc_attr( $attr_value ) );
+        }
+
         ?>
-        <div class="hero-neon-button-mount" 
-             data-button-text="<?php echo esc_attr( $button_text ); ?>"
-             data-button-link="<?php echo esc_url( $button_link ); ?>">
+        <div<?php echo $attributes_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>>
+            <?php if ( '' !== $button_link ) : ?>
+                <a class="hero-neon-button-fallback hero__cta-button"
+                   data-hero-fallback="link"
+                   href="<?php echo esc_url( $button_link ); ?>">
+                    <span class="hero-neon-button-fallback__label"><?php echo esc_html( $button_text ); ?></span>
+                </a>
+            <?php else : ?>
+                <span class="hero-neon-button-fallback hero__cta-button"
+                      data-hero-fallback="static"
+                      role="button"
+                      tabindex="0">
+                    <span class="hero-neon-button-fallback__label"><?php echo esc_html( $button_text ); ?></span>
+                </span>
+            <?php endif; ?>
         </div>
         <?php
     }
