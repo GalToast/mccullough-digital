@@ -12,7 +12,7 @@
 
 .wp-block-mccullough-digital-hero.is-content-top {
     align-items: flex-start;
-    padding-top: var(--mcd-header-offset, var(--header-height));
+    padding-top: clamp(24px, 6vh, 96px);
 }
 
 .wp-block-mccullough-digital-hero.is-content-top .hero-content {
@@ -49,7 +49,9 @@
     width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 14px 40px rgba(11, 12, 16, 0.8))
+        drop-shadow(0 0 45px rgba(16, 18, 26, 0.75))
+        drop-shadow(0 0 60px rgba(0, 229, 255, 0.4));
 }
 
 /* Position variants */

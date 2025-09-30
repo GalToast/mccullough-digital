@@ -33,6 +33,11 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.26 - 2025-10-19 =
+* **Hero Top Alignment:** Replaced the duplicated masthead offset with a gentle clamp so top-aligned hero layouts hug the fixed header without reopening the gap on desktop.
+* **Editor Parity:** Mirrored the hero alignment classes, content stack layout, and CTA offset variable inside `editor-style.css` so authors preview the same vertical behaviour as the front end while adjusting the offset slider.
+* **Decorative Glow:** Layered stronger drop shadows around the hero artwork to mask the light halo left by background removal against dark canvases.
+
 = 1.2.25 - 2025-10-18 =
 * **Hero Header Alignment:** Removed the extra masthead offset from the hero block and anchored the CTA buttons to a bottom off
 set so the section now sits flush beneath the fixed header while the desktop button rests lower on the canvas.
