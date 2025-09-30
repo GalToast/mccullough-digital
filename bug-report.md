@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-24 Sweep
+1. **Hero CTA React Hydration**
+   *Files:* `blocks/hero/components/NeonJellyButton.jsx`, `blocks/hero/hero-button.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `build/blocks/hero/hero-button.js`, `build/blocks/hero/hero-button.asset.php`
+   *Issue:* The neon button upgrade referenced a React implementation that was never bundled, leaving the hero CTA empty when JavaScript was disabled and susceptible to double mounting when scripts reloaded.
+   *Resolution:* Ported the jelly CTA into a React component with reduced-motion toggles, mounted it from a dedicated bundle with MutationObserver guards, restored the fallback link markup, and updated the styles so hydration hides the static markup while keeping it accessible offline.
+
 ### 2025-10-23 Sweep
 1. **Hero CTA 3D Tilt**
    *Files:* `blocks/hero/view.js`, `blocks/hero/style.css`, `style.css`, `readme.txt`, `AGENTS.md`, `bug-report.md`

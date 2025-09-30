@@ -113,6 +113,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     min-height: 160px;
     z-index: 10;
 }
@@ -121,6 +122,23 @@
     .wp-block-mccullough-digital-hero .hero-neon-button-mount {
         margin-top: 20px;
     }
+}
+
+.wp-block-mccullough-digital-hero .hero-neon-button-mount .hero-neon-button-react-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.wp-block-mccullough-digital-hero .hero-neon-button-fallback--hidden {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
 }
 
 /* Position button absolutely to the right - relative to hero section, not content */
