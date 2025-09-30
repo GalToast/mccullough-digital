@@ -88,7 +88,7 @@ $image_styles = array();
 $image_styles[] = 'opacity: ' . ( $image_opacity / 100 ) . ';';
 $image_styles[] = $hero_image_width > 0
     ? 'width: calc(' . $image_size . ' / 100 * ' . $hero_image_width . 'px);'
-    : 'width: clamp(200px, ' . $image_size . 'vw, 800px);';
+    : 'width: ' . $image_size . 'vw;';
 
 $base_transforms = array(
     'bottom-center' => 'translateX(-50%)',

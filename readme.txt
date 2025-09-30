@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.23 - 2025-10-16 =
+* **Hero Image Size Slider Reliability:** Ensured the hero block falls back to responsive viewport scaling and backfills intrinsic media widths so legacy content without stored pixel data still honours the size control in both the editor and on the front end.
+
 = 1.2.22 - 2025-10-15 =
 * **Hero Artwork Precision:** Added horizontal offset and intrinsic-width scaling to the hero image controls so decorative art can align precisely and scale beyond its native size from inside the editor.
 

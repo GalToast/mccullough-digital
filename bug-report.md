@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-16 Sweep
+1. **Hero Image Width Fallback Ignored Size Slider**
+   *Files:* `blocks/hero/editor.js`, `blocks/hero/render.php`, `build/blocks/hero/editor.js`
+   *Issue:* Legacy hero blocks without a stored `heroImageWidth` defaulted to a hard-clamped 800px editor preview and front-end render, so the image size slider couldn't enlarge or shrink artwork based on the chosen percentage.
+   *Resolution:* Retrieve the selected media's intrinsic width on load and fall back to percentage-based viewport sizing when pixels are unavailable, keeping the size slider effective across both the editor and public output.
+
 ### 2025-10-15 Sweep
 1. **Hero Artwork Controls Needed Horizontal Offset & Natural Scaling**
    *Files:* `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `build/blocks/hero/editor.js`

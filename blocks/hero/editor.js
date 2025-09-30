@@ -112,6 +112,46 @@ registerBlockType(metadata.name, {
         );
         const { replaceInnerBlocks } = useDispatch('core/block-editor');
 
+        const extractNaturalWidth = (media) => {
+            if (!media) {
+                return 0;
+            }
+
+            const {
+                width,
+                media_details: mediaDetails = {},
+                sizes = {},
+            } = media;
+
+            const detailsWidth = mediaDetails?.width;
+            const fullSizeWidth = sizes?.full?.width;
+
+            return (
+                detailsWidth
+                || fullSizeWidth
+                || width
+                || 0
+            );
+        };
+
+        const heroMedia = useSelect(
+            (select) =>
+                heroImageId ? select('core').getMedia(heroImageId) : null,
+            [heroImageId]
+        );
+
+        useEffect(() => {
+            if (!heroImageId || !heroMedia) {
+                return;
+            }
+
+            const naturalWidth = extractNaturalWidth(heroMedia);
+
+            if (naturalWidth && naturalWidth !== heroImageWidth) {
+                setAttributes({ heroImageWidth: naturalWidth });
+            }
+        }, [heroImageId, heroImageWidth, heroMedia, setAttributes]);
+
         useEffect(() => {
             if (hasMigrated.current) {
                 return;
@@ -179,28 +219,6 @@ registerBlockType(metadata.name, {
             subheading,
         ]);
 
-        const extractNaturalWidth = (media) => {
-            if (!media) {
-                return 0;
-            }
-
-            const {
-                width,
-                media_details: mediaDetails = {},
-                sizes = {},
-            } = media;
-
-            const detailsWidth = mediaDetails?.width;
-            const fullSizeWidth = sizes?.full?.width;
-
-            return (
-                detailsWidth
-                || fullSizeWidth
-                || width
-                || 0
-            );
-        };
-
         const onSelectImage = (media) => {
             setAttributes({
                 heroImageId: media.id,
@@ -244,7 +262,7 @@ registerBlockType(metadata.name, {
             if (heroImageWidth > 0) {
                 styles.width = `calc(${imageSize} / 100 * ${heroImageWidth}px)`;
             } else {
-                styles.width = `clamp(200px, ${imageSize}vw, 800px)`;
+                styles.width = `${imageSize}vw`;
             }
 
             const transformParts = [];
