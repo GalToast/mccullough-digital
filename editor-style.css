@@ -149,8 +149,13 @@
     text-align: center;
     position: relative;
     background: radial-gradient(circle, rgba(20, 22, 28, 0.9) 0%, var(--background-dark) 70%);
-    padding-top: var(--mcd-header-offset, var(--header-height));
     overflow: hidden;
+}
+
+.editor-styles-wrapper .hero .wp-block-buttons {
+    position: absolute;
+    right: 8%;
+    bottom: clamp(64px, 12vh, 200px);
 }
 
 .editor-styles-wrapper .hero-canvas-placeholder {

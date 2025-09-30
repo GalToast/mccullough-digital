@@ -16,6 +16,12 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-18) - Hero Layout Polish
+- Removed the duplicate masthead offset from the hero block so the section now sits flush beneath the fixed header while keepin
+g the top-aligned layout option intact.
+- Anchored the hero CTA to a bottom offset instead of the heading's vertical midpoint, freeing the button to live lower on the 
+canvas regardless of copy length.
+
 ### Latest (2025-10-17)
 - Introduced hero content layout controls that save vertical alignment (`top`, `center`, `bottom`) and a clamped 0–240px padding offset in block attributes. The editor now emits the matching `is-content-*` class plus a `--hero-content-offset` CSS variable so both the live render and dynamic fallback stay in sync.
 
