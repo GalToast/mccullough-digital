@@ -16,6 +16,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-17)
+- Introduced hero content layout controls that store vertical alignment (`top`, `center`, `bottom`) and a pixel offset in block attributes so both the editor and front-end renders share the same spacing adjustments.
+
 ### Latest (2025-10-16)
 - Expanded the hero image fallback width handling to honour the size slider even when legacy content lacks stored media dimensions by retrieving intrinsic widths and defaulting to responsive viewport scaling.
 

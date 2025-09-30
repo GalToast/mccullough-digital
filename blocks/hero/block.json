@@ -88,6 +88,19 @@
         "hideImageOnMobile": {
             "type": "boolean",
             "default": false
+        },
+        "contentAlignment": {
+            "type": "string",
+            "enum": [
+                "top",
+                "center",
+                "bottom"
+            ],
+            "default": "center"
+        },
+        "contentOffset": {
+            "type": "number",
+            "default": 0
         }
     },
     "innerBlocks": {
