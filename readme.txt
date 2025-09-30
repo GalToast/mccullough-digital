@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.21 - 2025-10-14 =
+* **Hero Preview Parity:** Matched the editor's decorative image classes and inline styles with the front-end render so position, size, opacity, and offset controls now update instantly while hide-on-mobile states stay accurate.
+* **Offset Alignment Fix:** Composed vertical offset transforms with the base centring transforms so offsetting artwork no longer breaks `bottom-center`, `center-right`, `center-left`, or `center` placements.
+
 = 1.2.18 - 2025-10-13 =
 * **Neon Footer Flattening:** Moved the gradient glow and padding onto the site footer itself, removed the inner shell wrapper, and swapped the chunky dividers for a slim separator so the section now stretches edge-to-edge without losing the neon wash.
 
