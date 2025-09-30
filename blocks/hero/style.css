@@ -155,7 +155,7 @@
 .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
 .wp-block-mccullough-digital-hero .cta-button,
 .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
-    --hero-cta-size: clamp(152px, 18vw, 204px);
+    --hero-cta-size: clamp(112px, 15vw, 144px);
     --hero-cta-translate-x: 0px;
     --hero-cta-translate-y: 0px;
     --hero-cta-scale-x: 1;
@@ -515,7 +515,7 @@
     .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
     .wp-block-mccullough-digital-hero .cta-button,
     .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
-        --hero-cta-size: clamp(128px, 44vw, 168px);
+        --hero-cta-size: clamp(112px, 15vw, 144px);
         font-size: clamp(0.9rem, 3.4vw, 1.02rem);
     }
 }
