@@ -12,12 +12,20 @@
 $wrapper_attributes = get_block_wrapper_attributes(
     [
         'class' => 'hero',
-    ],
-    $block
+    ]
 );
 
 $headline   = isset( $attributes['headline'] ) ? $attributes['headline'] : '';
 $subheading = isset( $attributes['subheading'] ) ? $attributes['subheading'] : '';
+
+// Image attributes
+$hero_image_url         = isset( $attributes['heroImageUrl'] ) ? esc_url( $attributes['heroImageUrl'] ) : '';
+$hero_image_alt         = isset( $attributes['heroImageAlt'] ) ? esc_attr( $attributes['heroImageAlt'] ) : '';
+$image_position         = isset( $attributes['imagePosition'] ) ? $attributes['imagePosition'] : 'bottom-right';
+$image_size             = isset( $attributes['imageSize'] ) ? intval( $attributes['imageSize'] ) : 40;
+$image_opacity          = isset( $attributes['imageOpacity'] ) ? intval( $attributes['imageOpacity'] ) : 40;
+$image_vertical_offset  = isset( $attributes['imageVerticalOffset'] ) ? intval( $attributes['imageVerticalOffset'] ) : 0;
+$hide_image_on_mobile   = isset( $attributes['hideImageOnMobile'] ) && $attributes['hideImageOnMobile'] === true;
 
 $inner_content = trim( (string) $content );
 
@@ -64,10 +72,32 @@ if ( '' === $inner_content ) {
 
     $inner_content = trim( (string) ob_get_clean() );
 }
+
+// Build image container classes
+$image_container_classes = array( 'hero__image-container' );
+$image_container_classes[] = 'hero__image-position--' . $image_position;
+if ( $hide_image_on_mobile ) {
+    $image_container_classes[] = 'hero__image-hide-mobile';
+}
+$image_container_class = implode( ' ', $image_container_classes );
+
+// Build inline styles for image container
+$image_styles = array();
+$image_styles[] = 'opacity: ' . ( $image_opacity / 100 ) . ';';
+$image_styles[] = 'width: clamp(200px, ' . $image_size . 'vw, 800px);';
+if ( $image_vertical_offset !== 0 ) {
+    $image_styles[] = 'transform: translateY(' . $image_vertical_offset . 'px);';
+}
+$image_style_attr = implode( ' ', $image_styles );
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
     <canvas class="hero__particle-canvas" aria-hidden="true" role="presentation"></canvas>
+    <?php if ( '' !== $hero_image_url ) : ?>
+        <div class="<?php echo esc_attr( $image_container_class ); ?>" aria-hidden="true" style="<?php echo esc_attr( $image_style_attr ); ?>">
+            <img src="<?php echo $hero_image_url; ?>" alt="<?php echo $hero_image_alt; ?>" class="hero__decorative-image" />
+        </div>
+    <?php endif; ?>
     <div class="hero-content">
         <?php echo $inner_content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content contains sanitized inner blocks/fallback markup. ?>
     </div>

@@ -20,6 +20,68 @@
     z-index: 1;
 }
 
+/* --- Hero Decorative Image --- */
+.wp-block-mccullough-digital-hero .hero__image-container {
+    position: absolute;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.wp-block-mccullough-digital-hero .hero__decorative-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+/* Position variants */
+.wp-block-mccullough-digital-hero .hero__image-position--bottom-right {
+    right: 5%;
+    bottom: 0;
+}
+
+.wp-block-mccullough-digital-hero .hero__image-position--bottom-left {
+    left: 5%;
+    bottom: 0;
+}
+
+.wp-block-mccullough-digital-hero .hero__image-position--bottom-center {
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+}
+
+.wp-block-mccullough-digital-hero .hero__image-position--center-right {
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wp-block-mccullough-digital-hero .hero__image-position--center-left {
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wp-block-mccullough-digital-hero .hero__image-position--center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Mobile visibility */
+@media (max-width: 768px) {
+    .wp-block-mccullough-digital-hero .hero__image-hide-mobile {
+        display: none;
+    }
+    
+    .wp-block-mccullough-digital-hero .hero__image-container:not(.hero__image-hide-mobile) {
+        width: clamp(150px, 50vw, 300px) !important;
+        opacity: 0.3 !important;
+    }
+}
+
 .wp-block-mccullough-digital-hero .hero-content {
     position: relative;
     z-index: 2;

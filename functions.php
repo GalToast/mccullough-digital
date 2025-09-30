@@ -164,7 +164,21 @@ function mcd_maybe_seed_home_page() {
   }
 
   if ( ! $page ) {
-    $page = get_page_by_title( __( 'Home', 'mccullough-digital' ) );
+    $pages = get_posts(
+      [
+        'post_type'              => 'page',
+        'title'                  => __( 'Home', 'mccullough-digital' ),
+        'post_status'            => 'all',
+        'numberposts'            => 1,
+        'update_post_term_cache' => false,
+        'update_post_meta_cache' => false,
+        'orderby'                => 'post_date ID',
+        'order'                  => 'ASC',
+      ]
+    );
+    if ( ! empty( $pages ) ) {
+      $page = $pages[0];
+    }
   }
 
   if ( $page ) {

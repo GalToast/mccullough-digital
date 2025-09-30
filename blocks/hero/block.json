@@ -48,6 +48,38 @@
         "buttonLink": {
             "type": "string",
             "default": ""
+        },
+        "heroImageId": {
+            "type": "number",
+            "default": 0
+        },
+        "heroImageUrl": {
+            "type": "string",
+            "default": ""
+        },
+        "heroImageAlt": {
+            "type": "string",
+            "default": ""
+        },
+        "imagePosition": {
+            "type": "string",
+            "default": "bottom-right"
+        },
+        "imageSize": {
+            "type": "number",
+            "default": 40
+        },
+        "imageOpacity": {
+            "type": "number",
+            "default": 40
+        },
+        "imageVerticalOffset": {
+            "type": "number",
+            "default": 0
+        },
+        "hideImageOnMobile": {
+            "type": "boolean",
+            "default": false
         }
     },
     "innerBlocks": {

@@ -1,4 +1,10 @@
 (() => {
+    // Configuration constants
+    const CONFIG = {
+        MAX_LOGO_ROTATE: 15, // Maximum rotation angle for 3D tilt effect
+        HEADER_RESIZE_DEBOUNCE: 150, // Debounce delay for resize events (ms)
+    };
+
     const init = () => {
         const createMotionPreferenceQuery = () => {
             if (typeof window.matchMedia !== 'function') {
@@ -30,6 +36,13 @@
         };
 
         const initBlockMenu = (menuToggle, navBlock) => {
+            if (!menuToggle || !navBlock) {
+                if (console && console.warn) {
+                    console.warn('Header: Menu toggle or navigation block not found');
+                }
+                return;
+            }
+
             const syncToggleState = () => {
                 const isOpen = navBlock.classList.contains('is-menu-open');
                 menuToggle.classList.toggle('is-active', isOpen);
@@ -60,6 +73,7 @@
         );
         const navBlock = document.querySelector('.site-header .wp-block-navigation');
 
+        // Initialize menu only if both elements exist
         if (blockMenuToggle && navBlock) {
             initBlockMenu(blockMenuToggle, navBlock);
         }
@@ -86,15 +100,19 @@
                 }
             };
 
-            registerMenuStateCallback((open) => {
-                isMenuOpen = open;
-                if (isMenuOpen) {
-                    header.classList.remove('hide');
-                }
-                setHeaderOffset();
-            });
+            // Register callback only after navBlock has been checked
+            if (navBlock) {
+                registerMenuStateCallback((open) => {
+                    isMenuOpen = open;
+                    if (isMenuOpen) {
+                        header.classList.remove('hide');
+                    }
+                    setHeaderOffset();
+                });
 
-            dispatchMenuState(navBlock ? navBlock.classList.contains('is-menu-open') : false);
+                // Dispatch initial state
+                dispatchMenuState(navBlock.classList.contains('is-menu-open'));
+            }
 
             setHeaderOffset();
             window.addEventListener('load', setHeaderOffset);
@@ -135,7 +153,7 @@
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
                     refreshHeaderMetrics();
-                }, 150);
+                }, CONFIG.HEADER_RESIZE_DEBOUNCE);
             };
 
             window.addEventListener('scroll', handleScroll, { passive: true });
@@ -197,11 +215,11 @@
             updateHeaderVisibility();
         }
 
+        // Logo 3D tilt effect
         const logoContainer = document.querySelector('.site-branding');
         if (logoContainer) {
             const logoLink = logoContainer.querySelector('.custom-logo-link');
             if (logoLink) {
-                const maxRotate = 15;
                 let animationFrameId = null;
 
                 const shouldAnimate = () => !prefersReducedMotion.matches;
@@ -222,8 +240,8 @@
                         const x = e.clientX - rect.left;
                         const y = e.clientY - rect.top;
                         const { width, height } = rect;
-                        const rotateY = maxRotate * ((x - width / 2) / (width / 2));
-                        const rotateX = -maxRotate * ((y - height / 2) / (height / 2));
+                        const rotateY = CONFIG.MAX_LOGO_ROTATE * ((x - width / 2) / (width / 2));
+                        const rotateX = -CONFIG.MAX_LOGO_ROTATE * ((y - height / 2) / (height / 2));
                         logoLink.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
                     });
                 });

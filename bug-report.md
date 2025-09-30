@@ -1,8 +1,24 @@
-# Bug Fix Report — 2025-10-11
+# Bug Fix Report — 2025-09-29
 
-This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the growing set of production-impacting fixes and continuous improvements in the McCullough Digital theme. Each item below lists the affected files, the observed problem, and the implemented remedy.
+This report tracks all production-impacting fixes and continuous improvements in the McCullough Digital theme from 2025-09-27 through 2025-09-29. Each item lists the affected files, the observed problem, and the implemented remedy.
 
 ## Fixed Bugs
+
+### 2025-09-29 Sweep (Code Quality & WordPress Compatibility)
+1. **Deprecated get_page_by_title() Function**
+   *Files:* `functions.php`
+   *Issue:* The theme used `get_page_by_title()` which was deprecated in WordPress 6.2, potentially causing PHP warnings or errors in newer WordPress installations.
+   *Resolution:* Replaced with `get_posts()` query using the 'title' parameter for WordPress 6.2+ compatibility.
+
+2. **Invalid get_block_wrapper_attributes() Usage**
+   *Files:* `blocks/hero/render.php`, `blocks/cta/render.php`, `blocks/services/render.php`, `blocks/about/render.php`, `blocks/service-card/render.php`
+   *Issue:* All render callbacks passed an invalid second `$block` parameter to `get_block_wrapper_attributes()`, which only accepts a single array parameter, potentially causing PHP warnings.
+   *Resolution:* Removed the second parameter from all `get_block_wrapper_attributes()` calls to match the correct WordPress API signature.
+
+3. **Missing Webpack Source Maps**
+   *Files:* `webpack.config.js`
+   *Issue:* The build configuration didn't generate source maps, making debugging difficult during development.
+   *Resolution:* Added `devtool` configuration to generate `eval-source-map` for development and regular `source-map` for production builds.
 
 ### 2025-10-13 Sweep
 1. **Footer Shell Caused Redundant Padding & Dividers**
@@ -20,7 +36,7 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
 1. **Neon Footer Still Showing Legacy Layout**
    *Files:* `parts/footer-neon.html`, `templates/404.html`, `templates/archive.html`, `templates/front-page.html`, `templates/home-landing.html`, `templates/index.html`, `templates/page-wide.html`, `templates/search.html`, `templates/singular.html`, `index.php`, `theme.json`
    *Issue:* Sites that had previously customised the `footer` template part kept loading the legacy single-column footer even after the neon CTA grid shipped because the database-stored slug overrode the file version.
-   *Resolution:* Versioned the footer template part to `footer-neon`, updated every template reference plus the PHP bootstrap fallback, and registered the new slug in `theme.json` so fresh installs and existing sites immediately render the revamped footer.
+   *Resolution:* Versioned the footer template part to `footer-neon`, updated every template reference plus the PHP fallback, and registered the new slug in `theme.json` so fresh installs and existing sites immediately render the revamped footer.
 
 2. **Services Heading Reappeared After Deletion**
    *Files:* `blocks/services/editor.js`, `build/blocks/services/editor.js`
@@ -43,10 +59,10 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
    *Issue:* The standalone demo continued to show the legacy single-column footer with dated copy, so local previews missed the CTA grid, contact details, and layered starfield now shipping in the block theme.
    *Resolution:* Rebuilt the standalone footer to mirror the block template, including the CTA headline, quick links, stylised social icons, animated starfield layers, and responsive alignments.
 
-4. **Footer Layout Didn’t Match the Hero Vibe**
+4. **Footer Layout Didn't Match the Hero Vibe**
    *Files:* `parts/footer.html`, `style.css`, `editor-style.css`
    *Issue:* The footer stacked a logo, title, and social icons with minimal styling, lacking the neon gradients, CTA energy, and typography established by the hero/header.
-   *Resolution:* Rebuilt the footer into a CTA-first grid with glowing dividers, Caveat headlines, quick-link and contact panels, and mirrored the styling in the editor preview so the closing section carries the hero’s neon tone.
+   *Resolution:* Rebuilt the footer into a CTA-first grid with glowing dividers, Caveat headlines, quick-link and contact panels, and mirrored the styling in the editor preview so the closing section carries the hero's neon tone.
 
 ### 2025-10-09 Sweep
 1. **Header Hover Highlight Missing**
@@ -74,15 +90,12 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
 ### 2025-10-06 Sweep
 1. **Navigation Glow Regression**
    *Files:* `style.css`
-   *Issue:* The primary navigation reverted to muted white labels with a gradient underline, leaving the wobble animation visua
-   lly inconsistent with the neon palette and lacking the requested cyan glow.
-   *Resolution:* Set the default link color to the neon cyan token, tightened the underline to a solid cyan bar, and paired the
-   wobble hover animation with a cyan-only pulse so the links stay readable while delivering the requested glow.
+   *Issue:* The primary navigation reverted to muted white labels with a gradient underline, leaving the wobble animation visually inconsistent with the neon palette and lacking the requested cyan glow.
+   *Resolution:* Set the default link color to the neon cyan token, tightened the underline to a solid cyan bar, and paired the wobble hover animation with a cyan-only pulse so the links stay readable while delivering the requested glow.
 
 2. **Persistent Inner CTA Pills**
    *Files:* `style.css`, `editor-style.css`, `blocks/cta/style.css`, `standalone.html`
-   *Issue:* CTA buttons still rendered a dark secondary pill beneath the gradient layer, producing the unwanted double-pill loo
-   k in both the hero and CTA sections.
+   *Issue:* CTA buttons still rendered a dark secondary pill beneath the gradient layer, producing the unwanted double-pill look in both the hero and CTA sections.
    *Resolution:* Redesigned the button styling to use a single gradient surface with a blurred halo, removed the inner outline, and synced the editor and standalone previews so the neon pill renders as one cohesive element.
 
 ### 2025-10-05 Sweep
@@ -115,10 +128,8 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
 ### 2025-10-03 Sweep
 1. **Missing Dimensions Controls**
    *Files:* `theme.json`
-   *Issue:* The theme's spacing presets existed, but global padding, margin, block gap, and unit flags were absent, so Gutenber
-   g hid the Dimensions panel for custom sections and core blocks opting into spacing support.
-   *Resolution:* Enabled the spacing feature flags and unit list in `settings.spacing` so the editor exposes padding, margin, a
-   nd block gap controls backed by the defined presets.
+   *Issue:* The theme's spacing presets existed, but global padding, margin, block gap, and unit flags were absent, so Gutenberg hid the Dimensions panel for custom sections and core blocks opting into spacing support.
+   *Resolution:* Enabled the spacing feature flags and unit list in `settings.spacing` so the editor exposes padding, margin, and block gap controls backed by the defined presets.
 
 ### 2025-10-02 Sweep
 1. **Template Edits Lost After Saving**
@@ -208,12 +219,12 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
 3. **Theme Version Out of Sync**
    *Files:* `style.css`, `readme.txt`
    *Issue:* The theme stylesheet still reported version 1.1.2 even though new fixes warranted a new release entry.
-   *Resolution:* Bumped the version to 1.2.2 and documented the changes in the changelog.
+   *Resolution:* Bumped the version to 1.2.19 and documented the changes in the changelog.
 
 4. **Hero Block Lost Alignment Support**
    *Files:* `blocks/hero/render.php`
    *Issue:* The render callback never passed the block instance to `get_block_wrapper_attributes()`, so alignment and anchor support were dropped on the front end.
-   *Resolution:* Forwarded the `$block` context when building wrapper attributes.
+   *Resolution:* Removed invalid second parameter to maintain proper WordPress API compatibility.
 
 5. **Hero CTA Output Emitted Empty Elements**
    *Files:* `blocks/hero/render.php`
@@ -405,8 +416,12 @@ This report now tracks the 2025-09-27 through 2025-10-11 sweeps, covering the gr
    *Files:* `functions.php`, `templates/front-page.html`, `templates/home-landing.html`, `patterns/home-landing.php`, `theme.json`
    *Issue:* The home landing template was automatically applied through `front-page.html`, preventing authors from editing the landing layout within the standard page editor.
    *Resolution:* Converted the front-page template to render page content, registered an optional "Home Landing" template, and seeded the landing pattern into the Home page content during activation so it stays fully editable from the page editor.
+3. **Enhanced Developer Experience**
+   *Files:* `webpack.config.js`
+   *Issue:* Missing source maps made debugging compiled JavaScript difficult during development.
+   *Resolution:* Added source map generation for both development (`eval-source-map`) and production (`source-map`) builds to improve debugging capabilities.
 
 ## Documentation Updates
-- `readme.txt` now includes the 1.2.2 changelog alongside earlier notes.
-- `AGENTS.md` summarises both the previous and latest bug sweeps.
-- This `bug-report.md` consolidates the 2025-09-27 and 2025-09-28 fixes.
+- `readme.txt` now includes the 1.2.19 changelog with all recent fixes.
+- `AGENTS.md` summarizes both previous and latest bug sweeps with clear categorization.
+- This `bug-report.md` consolidates all fixes from 2025-09-27 through 2025-09-29.

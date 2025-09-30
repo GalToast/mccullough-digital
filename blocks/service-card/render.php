@@ -12,8 +12,7 @@
 $wrapper_attributes = get_block_wrapper_attributes(
     [
         'class' => 'service-card',
-    ],
-    $block
+    ]
 );
 
 $title = isset( $attributes['title'] ) ? $attributes['title'] : '';

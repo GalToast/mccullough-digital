@@ -10,8 +10,7 @@
  */
 
 $wrapper_attributes = get_block_wrapper_attributes(
-    [],
-    $block
+    []
 );
 
 $inner_classes = [ 'container' ];

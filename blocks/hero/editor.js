@@ -5,7 +5,17 @@ import { useSelect, useDispatch } from '@wordpress/data';
 import {
     useBlockProps,
     InnerBlocks,
+    InspectorControls,
+    MediaUpload,
+    MediaUploadCheck,
 } from '@wordpress/block-editor';
+import {
+    PanelBody,
+    Button,
+    SelectControl,
+    RangeControl,
+    ToggleControl,
+} from '@wordpress/components';
 
 import metadata from './block.json';
 
@@ -71,8 +81,22 @@ const DEFAULT_BUTTON_TEXT = defaultButtonText;
 
 registerBlockType(metadata.name, {
     ...metadata,
-    edit({ attributes, clientId }) {
-        const { headline, subheading, buttonText, buttonLink } = attributes;
+    edit({ attributes, setAttributes, clientId }) {
+        const { 
+            headline, 
+            subheading, 
+            buttonText, 
+            buttonLink,
+            heroImageId,
+            heroImageUrl,
+            heroImageAlt,
+            imagePosition,
+            imageSize,
+            imageOpacity,
+            imageVerticalOffset,
+            hideImageOnMobile,
+        } = attributes;
+        
         const blockProps = useBlockProps({
             className: 'hero',
         });
@@ -153,14 +177,154 @@ registerBlockType(metadata.name, {
             subheading,
         ]);
 
+        const onSelectImage = (media) => {
+            setAttributes({
+                heroImageId: media.id,
+                heroImageUrl: media.url,
+                heroImageAlt: media.alt || '',
+            });
+        };
+
+        const onRemoveImage = () => {
+            setAttributes({
+                heroImageId: 0,
+                heroImageUrl: '',
+                heroImageAlt: '',
+            });
+        };
+
         return (
             <>
+                <InspectorControls>
+                    <PanelBody 
+                        title={__('Hero Image', 'mccullough-digital')} 
+                        initialOpen={true}
+                    >
+                        <MediaUploadCheck>
+                            <MediaUpload
+                                onSelect={onSelectImage}
+                                allowedTypes={['image']}
+                                value={heroImageId}
+                                render={({ open }) => (
+                                    <div style={{ marginBottom: '16px' }}>
+                                        {!heroImageUrl ? (
+                                            <Button
+                                                onClick={open}
+                                                variant="secondary"
+                                                style={{ width: '100%' }}
+                                            >
+                                                {__('Select Hero Image', 'mccullough-digital')}
+                                            </Button>
+                                        ) : (
+                                            <>
+                                                <img
+                                                    src={heroImageUrl}
+                                                    alt={heroImageAlt}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: 'auto',
+                                                        marginBottom: '8px',
+                                                        borderRadius: '4px',
+                                                    }}
+                                                />
+                                                <div style={{ display: 'flex', gap: '8px' }}>
+                                                    <Button
+                                                        onClick={open}
+                                                        variant="secondary"
+                                                        style={{ flex: 1 }}
+                                                    >
+                                                        {__('Replace Image', 'mccullough-digital')}
+                                                    </Button>
+                                                    <Button
+                                                        onClick={onRemoveImage}
+                                                        variant="secondary"
+                                                        isDestructive
+                                                    >
+                                                        {__('Remove', 'mccullough-digital')}
+                                                    </Button>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                )}
+                            />
+                        </MediaUploadCheck>
+
+                        {heroImageUrl && (
+                            <>
+                                <SelectControl
+                                    label={__('Image Position', 'mccullough-digital')}
+                                    value={imagePosition}
+                                    options={[
+                                        { label: __('Bottom Right', 'mccullough-digital'), value: 'bottom-right' },
+                                        { label: __('Bottom Left', 'mccullough-digital'), value: 'bottom-left' },
+                                        { label: __('Bottom Center', 'mccullough-digital'), value: 'bottom-center' },
+                                        { label: __('Center Right', 'mccullough-digital'), value: 'center-right' },
+                                        { label: __('Center Left', 'mccullough-digital'), value: 'center-left' },
+                                        { label: __('Center', 'mccullough-digital'), value: 'center' },
+                                    ]}
+                                    onChange={(value) => setAttributes({ imagePosition: value })}
+                                />
+
+                                <RangeControl
+                                    label={__('Image Size (%)', 'mccullough-digital')}
+                                    value={imageSize}
+                                    onChange={(value) => setAttributes({ imageSize: value })}
+                                    min={10}
+                                    max={100}
+                                    step={5}
+                                />
+
+                                <RangeControl
+                                    label={__('Opacity (%)', 'mccullough-digital')}
+                                    value={imageOpacity}
+                                    onChange={(value) => setAttributes({ imageOpacity: value })}
+                                    min={0}
+                                    max={100}
+                                    step={5}
+                                />
+
+                                <RangeControl
+                                    label={__('Vertical Offset (px)', 'mccullough-digital')}
+                                    value={imageVerticalOffset}
+                                    onChange={(value) => setAttributes({ imageVerticalOffset: value })}
+                                    min={-200}
+                                    max={200}
+                                    step={10}
+                                    help={__('Positive moves down, negative moves up', 'mccullough-digital')}
+                                />
+
+                                <ToggleControl
+                                    label={__('Hide on Mobile', 'mccullough-digital')}
+                                    checked={hideImageOnMobile}
+                                    onChange={(value) => setAttributes({ hideImageOnMobile: value })}
+                                    help={__('Hide the image on screens smaller than 768px', 'mccullough-digital')}
+                                />
+                            </>
+                        )}
+                    </PanelBody>
+                </InspectorControls>
+
                 <section {...blockProps}>
                     <div
                         className="hero-canvas-placeholder"
                         aria-hidden="true"
                         role="presentation"
                     />
+                    {heroImageUrl && (
+                        <div 
+                            className="hero__image-container"
+                            style={{
+                                opacity: imageOpacity / 100,
+                            }}
+                        >
+                            <img
+                                src={heroImageUrl}
+                                alt={heroImageAlt}
+                                className="hero__decorative-image"
+                            />
+                        </div>
+                    )}
                     <div className="hero-content">
                         <InnerBlocks
                             allowedBlocks={ allowedHeroBlocks }

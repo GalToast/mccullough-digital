@@ -16,4 +16,6 @@ files.forEach((file) => {
 module.exports = {
   ...defaultConfig,
   entry: entries,
+  // Add source maps for better debugging
+  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
 };

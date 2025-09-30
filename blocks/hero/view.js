@@ -1,4 +1,17 @@
 (() => {
+    // Configuration constants
+    const CONFIG = {
+        STAR_DENSITY: 2500,
+        MAX_STARS: 600,
+        MAX_SHOOTING_STARS: 3,
+        STAR_SIZE_RANGE: { min: 0.5, max: 2.5 },
+        STAR_VELOCITY_RANGE: { min: 0.05, max: 0.15 },
+        TWINKLE_SPEED_RANGE: { min: 0.005, max: 0.02 },
+        SHOOTING_STAR_LENGTH_RANGE: { min: 20, max: 80 },
+        SHOOTING_STAR_SPEED_RANGE: { min: 6, max: 14 },
+        SHOOTING_STAR_SIZE_RANGE: { min: 0.5, max: 2 },
+    };
+
     const init = () => {
         const heroBlocks = document.querySelectorAll('.wp-block-mccullough-digital-hero');
 
@@ -161,12 +174,18 @@
             const canvas = hero.querySelector('.hero__particle-canvas');
 
             if (!canvas) {
+                if (console && console.warn) {
+                    console.warn('Hero block: Canvas element not found for starfield');
+                }
                 return null;
             }
 
             const context = canvas.getContext('2d');
 
             if (!context) {
+                if (console && console.error) {
+                    console.error('Hero block: Failed to get 2D canvas context - canvas rendering not supported');
+                }
                 return null;
             }
 
@@ -182,10 +201,6 @@
                 isVisible: true,
                 resizeHandler: null,
             };
-
-            const density = 2500;
-            const maxStars = 600;
-            const maxShootingStars = 3;
 
             const setCanvasSize = () => {
                 const rect = hero.getBoundingClientRect();
@@ -208,28 +223,28 @@
             const createStar = () => ({
                 x: Math.random() * state.width,
                 y: Math.random() * state.height,
-                size: Math.random() * 2 + 0.5,
-                vy: Math.random() * 0.1 + 0.05,
-                twinkleSpeed: Math.random() * 0.015 + 0.005,
+                size: Math.random() * (CONFIG.STAR_SIZE_RANGE.max - CONFIG.STAR_SIZE_RANGE.min) + CONFIG.STAR_SIZE_RANGE.min,
+                vy: Math.random() * (CONFIG.STAR_VELOCITY_RANGE.max - CONFIG.STAR_VELOCITY_RANGE.min) + CONFIG.STAR_VELOCITY_RANGE.min,
+                twinkleSpeed: Math.random() * (CONFIG.TWINKLE_SPEED_RANGE.max - CONFIG.TWINKLE_SPEED_RANGE.min) + CONFIG.TWINKLE_SPEED_RANGE.min,
                 twinkleOffset: Math.random() * 100,
             });
 
             const createShootingStar = () => ({
                 x: Math.random() * state.width + 100,
                 y: -(Math.random() * state.height * 0.5),
-                len: Math.random() * 60 + 20,
-                speed: Math.random() * 8 + 6,
-                size: Math.random() * 1.5 + 0.5,
+                len: Math.random() * (CONFIG.SHOOTING_STAR_LENGTH_RANGE.max - CONFIG.SHOOTING_STAR_LENGTH_RANGE.min) + CONFIG.SHOOTING_STAR_LENGTH_RANGE.min,
+                speed: Math.random() * (CONFIG.SHOOTING_STAR_SPEED_RANGE.max - CONFIG.SHOOTING_STAR_SPEED_RANGE.min) + CONFIG.SHOOTING_STAR_SPEED_RANGE.min,
+                size: Math.random() * (CONFIG.SHOOTING_STAR_SIZE_RANGE.max - CONFIG.SHOOTING_STAR_SIZE_RANGE.min) + CONFIG.SHOOTING_STAR_SIZE_RANGE.min,
             });
 
             const repopulate = () => {
                 const starCount = Math.min(
-                    maxStars,
-                    Math.max(50, Math.round((state.width * state.height) / density))
+                    CONFIG.MAX_STARS,
+                    Math.max(50, Math.round((state.width * state.height) / CONFIG.STAR_DENSITY))
                 );
 
                 state.stars = Array.from({ length: starCount }, createStar);
-                state.shootingStars = Array.from({ length: maxShootingStars }, createShootingStar);
+                state.shootingStars = Array.from({ length: CONFIG.MAX_SHOOTING_STARS }, createShootingStar);
             };
 
             const drawStars = () => {
