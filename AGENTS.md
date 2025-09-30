@@ -16,6 +16,11 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Enhancement:** Added source map generation to webpack config for improved debugging in both development and production environments.
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
+### Latest (2025-10-22) - Neon CTA Orbiters
+- Added a reusable enhancement layer in `blocks/hero/view.js` that builds the neon sphere shell, orbiting sparks, and ripple pool exactly once per button, reuses them on subsequent initialisations, and still respects reduced-motion plus keyboard activation.
+- Rebuilt the hero CTA styling in `blocks/hero/style.css` and `editor-style.css` so the sheen sweep, scanline, halo, and label glow all match the new circular neon treatment while keeping accessible fallbacks for static markup.
+- Bumped the theme to v1.2.29 and documented the neon CTA upgrades across `readme.txt` and `bug-report.md`.
+
 ### Latest (2025-10-21) - Hero Magnetic CTA Redesign
 - Replaced the hero CTA markup with a dedicated `.hero__cta-button` wrapper so it no longer inherits the global pill surface, keeps the label on its own layer, and supports static fallbacks without extra spans.
 - Rebuilt the magnetic hover effect without GSAP by driving translation, stretch, and glow through CSS custom properties that follow pointer events, clamp deformation, and respect reduced-motion and touch input.

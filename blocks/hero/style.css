@@ -117,12 +117,12 @@
     z-index: 10;
 }
 
-/* Magnetic jelly CTA */
+/* Magnetic neon CTA */
 .wp-block-mccullough-digital-hero .hero__cta-button,
 .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
 .wp-block-mccullough-digital-hero .cta-button,
 .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
-    --hero-cta-size: clamp(140px, 18vw, 180px);
+    --hero-cta-size: clamp(152px, 18vw, 204px);
     --hero-cta-translate-x: 0px;
     --hero-cta-translate-y: 0px;
     --hero-cta-scale-x: 1;
@@ -139,17 +139,17 @@
     padding: 0;
     text-decoration: none;
     font-weight: 700;
-    font-size: clamp(1rem, 1.8vw, 1.2rem);
-    letter-spacing: 0.04em;
-    color: var(--text-primary);
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    letter-spacing: 0.08em;
+    color: #eaf9ff;
     background: none;
     border: none;
     cursor: pointer;
     isolation: isolate;
     box-shadow:
-        0 18px calc(36px + 40px * var(--hero-cta-glow)) rgba(3, 6, 14, 0.6),
-        0 0 calc(16px + 52px * var(--hero-cta-glow)) rgba(0, 229, 255, 0.45),
-        0 0 calc(12px + 40px * var(--hero-cta-glow)) rgba(255, 0, 224, 0.35);
+        0 20px calc(34px + 52px * var(--hero-cta-glow)) rgba(6, 8, 18, 0.72),
+        0 0 calc(20px + 56px * var(--hero-cta-glow)) rgba(0, 229, 255, 0.55),
+        0 0 calc(18px + 52px * var(--hero-cta-glow)) rgba(255, 0, 224, 0.45);
     transform:
         translate3d(
             var(--hero-cta-translate-x),
@@ -169,11 +169,12 @@
             )
         );
     transition:
-        color 0.3s ease,
-        box-shadow 0.4s ease,
+        color 0.25s ease,
+        box-shadow 0.35s ease,
         transform 0.15s ease;
     will-change: transform, box-shadow;
-    overflow: visible;
+    filter: saturate(1.1);
+    animation: hero-cta-neonPulse 1.7s ease-in-out infinite;
 }
 
 .wp-block-mccullough-digital-hero .hero__cta-button::before,
@@ -185,16 +186,15 @@
     inset: 0;
     border-radius: inherit;
     background:
-        radial-gradient(circle at 30% 25%, rgba(0, 229, 255, 0.55), transparent 62%),
-        radial-gradient(circle at 75% 70%, rgba(255, 0, 224, 0.45), transparent 68%),
-        linear-gradient(135deg, rgba(9, 12, 20, 0.9), rgba(23, 28, 44, 0.75));
+        radial-gradient(120% 120% at 32% 32%, rgba(0, 229, 255, 0.42), transparent 58%),
+        radial-gradient(120% 120% at 72% 68%, rgba(255, 0, 224, 0.38), transparent 65%),
+        radial-gradient(80% 80% at 50% 50%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 35%, transparent 70%),
+        linear-gradient(145deg, rgba(12, 15, 20, 0.92), rgba(21, 26, 38, 0.8));
     box-shadow:
-        inset 0 12px 24px rgba(255, 255, 255, 0.08),
-        inset 0 -18px 36px rgba(5, 6, 18, 0.85);
-    transition:
-        opacity 0.4s ease,
-        transform 0.4s ease;
-    z-index: 1;
+        inset 0 14px 32px rgba(255, 255, 255, 0.08),
+        inset 0 -18px 42px rgba(6, 8, 18, 0.85);
+    transition: transform 0.35s ease;
+    z-index: 0;
 }
 
 .wp-block-mccullough-digital-hero .hero__cta-button::after,
@@ -203,45 +203,149 @@
 .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button::after {
     content: '';
     position: absolute;
-    inset: -18px;
+    inset: -20px;
     border-radius: inherit;
     background:
-        radial-gradient(circle at 32% 32%, rgba(0, 229, 255, 0.45), transparent 65%),
-        radial-gradient(circle at 70% 70%, rgba(255, 0, 224, 0.38), transparent 70%);
+        radial-gradient(circle at 32% 32%, rgba(0, 229, 255, 0.55), transparent 68%),
+        radial-gradient(circle at 70% 70%, rgba(255, 0, 224, 0.45), transparent 72%);
     opacity: clamp(0, var(--hero-cta-glow), 1);
-    transform: scale(calc(0.9 + var(--hero-cta-glow) * 0.25));
-    filter: blur(calc(4px + 18px * var(--hero-cta-glow)));
-    transition:
-        opacity 0.35s ease,
-        transform 0.4s ease,
-        filter 0.35s ease;
+    transform: scale(calc(0.9 + var(--hero-cta-glow) * 0.28));
+    filter: blur(calc(6px + 22px * var(--hero-cta-glow)));
+    transition: opacity 0.35s ease, transform 0.4s ease, filter 0.35s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-surface {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    background: rgba(9, 12, 18, 0.92);
     z-index: 0;
 }
 
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-    .wp-block-mccullough-digital-hero .hero__cta-button::before,
-    .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button::before,
-    .wp-block-mccullough-digital-hero .cta-button::before,
-    .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button::before {
-        backdrop-filter: blur(14px) saturate(120%);
-        -webkit-backdrop-filter: blur(14px) saturate(120%);
-    }
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-core {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(120% 120% at 30% 30%, rgba(0, 229, 255, 0.3), transparent 60%),
+        radial-gradient(120% 120% at 70% 70%, rgba(255, 0, 224, 0.28), transparent 62%),
+        radial-gradient(78% 78% at 50% 50%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 36%, transparent 70%);
+    box-shadow:
+        inset 0 0 42px rgba(0, 229, 255, 0.35),
+        inset 0 0 64px rgba(255, 0, 224, 0.32);
+    mix-blend-mode: screen;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-sheen {
+    position: absolute;
+    inset: -32%;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+    opacity: 0.26;
+    transform: translate(-120%, -120%) rotate(25deg);
+    animation: hero-cta-sheen 2.8s linear infinite;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-scanline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -60%;
+    height: 60%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+    animation: hero-cta-scan 2.6s ease-in-out infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.18;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orbiters {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    z-index: 1;
+    --hero-cta-orbit-radius: calc(var(--hero-cta-size) * 0.46);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    transform-origin: calc(var(--hero-cta-orbit-radius) + 16px) 0;
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.8), 0 0 20px rgba(0, 229, 255, 0.6);
+    animation: hero-cta-orbit 7.2s linear infinite;
+    filter: saturate(1.35);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb[data-hero-orb-index='1'] {
+    animation-duration: 8.4s;
+    box-shadow: 0 0 14px rgba(255, 0, 224, 0.8), 0 0 20px rgba(255, 0, 224, 0.6);
+    background: rgba(255, 0, 224, 1);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb[data-hero-orb-index='0'],
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb[data-hero-orb-index='2'] {
+    background: rgba(0, 229, 255, 1);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb[data-hero-orb-index='2'] {
+    animation-duration: 9.4s;
+    transform-origin: calc(var(--hero-cta-orbit-radius) + 8px) 0;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb[data-hero-orb-index='3'] {
+    animation-duration: 10.2s;
+    background: rgba(255, 0, 224, 1);
+    box-shadow: 0 0 12px rgba(255, 0, 224, 0.75), 0 0 20px rgba(255, 0, 224, 0.55);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-ripples {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-ripple {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    left: var(--hero-cta-ripple-x);
+    top: var(--hero-cta-ripple-y);
+    transform: translate(-50%, -50%) scale(0.2);
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.5), 0 0 14px rgba(255, 0, 224, 0.45);
+    mix-blend-mode: screen;
+    opacity: 0.85;
+    animation: hero-cta-ripple 0.68s ease-out forwards;
 }
 
 .wp-block-mccullough-digital-hero .hero__cta-button-label,
 .wp-block-mccullough-digital-hero .cta-button .btn-text {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0 12px;
-    min-width: 40%;
+    min-width: 42%;
+    text-transform: uppercase;
     text-align: center;
     text-shadow:
-        0 4px 12px rgba(6, 8, 18, 0.75),
-        0 0 22px rgba(0, 229, 255, 0.35);
-    transition: text-shadow 0.35s ease, letter-spacing 0.35s ease;
+        0 6px 22px rgba(6, 8, 18, 0.85),
+        0 0 18px rgba(0, 229, 255, 0.55),
+        0 0 26px rgba(255, 0, 224, 0.35);
+    letter-spacing: 0.08em;
 }
 
 .wp-block-mccullough-digital-hero .hero__cta-button:hover,
@@ -252,11 +356,11 @@
 .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button:focus-visible,
 .wp-block-mccullough-digital-hero .cta-button:focus-visible,
 .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button:focus-visible {
-    color: var(--text-primary);
+    color: #f4fbff;
     outline: none;
     box-shadow:
-        0 20px 70px rgba(0, 229, 255, 0.45),
-        0 0 70px rgba(255, 0, 224, 0.4),
+        0 26px 86px rgba(0, 229, 255, 0.55),
+        0 0 86px rgba(255, 0, 224, 0.5),
         0 0 0 3px rgba(0, 229, 255, 0.35);
 }
 
@@ -290,8 +394,70 @@
     --hero-cta-scale-y: 1 !important;
     --hero-cta-glow: 0 !important;
     --hero-cta-press: 0 !important;
-    transition: none;
     transform: translate3d(0, 0, 0) scale(1);
+    animation: none;
+}
+
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__cta-button--enhanced .hero__cta-button-sheen,
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__cta-button--enhanced .hero__cta-button-scanline,
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__cta-button--enhanced .hero__cta-button-orb {
+    animation: none;
+}
+
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__cta-button--enhanced .hero__cta-button-ripple {
+    animation-duration: 0.35s;
+}
+
+@keyframes hero-cta-neonPulse {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.55))
+            drop-shadow(0 0 18px rgba(255, 0, 224, 0.55));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.85))
+            drop-shadow(0 0 32px rgba(255, 0, 224, 0.85));
+    }
+}
+
+@keyframes hero-cta-sheen {
+    0% {
+        transform: translate(-120%, -120%) rotate(25deg);
+    }
+
+    100% {
+        transform: translate(120%, 120%) rotate(25deg);
+    }
+}
+
+@keyframes hero-cta-orbit {
+    from {
+        transform: rotate(0deg) translateX(calc(var(--hero-cta-orbit-radius) + 8px)) rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(calc(var(--hero-cta-orbit-radius) + 8px)) rotate(-360deg);
+    }
+}
+
+@keyframes hero-cta-ripple {
+    to {
+        transform: translate(-50%, -50%) scale(4.1);
+        opacity: 0;
+    }
+}
+
+@keyframes hero-cta-scan {
+    0% {
+        opacity: 0.12;
+        transform: translateY(-120%);
+    }
+
+    100% {
+        opacity: 0.12;
+        transform: translateY(120%);
+    }
 }
 
 /* Mobile responsive */
@@ -309,8 +475,23 @@
     .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
     .wp-block-mccullough-digital-hero .cta-button,
     .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
-        --hero-cta-size: clamp(120px, 40vw, 150px);
-        font-size: clamp(0.95rem, 3.4vw, 1.05rem);
+        --hero-cta-size: clamp(128px, 44vw, 168px);
+        font-size: clamp(0.9rem, 3.4vw, 1.02rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wp-block-mccullough-digital-hero .hero__cta-button,
+    .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
+    .wp-block-mccullough-digital-hero .cta-button,
+    .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
+        animation: none;
+    }
+
+    .wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-sheen,
+    .wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-scanline,
+    .wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-orb {
+        animation: none;
     }
 }
 
