@@ -129,6 +129,8 @@
     --hero-cta-scale-y: 1;
     --hero-cta-glow: 0;
     --hero-cta-press: 0;
+    --hero-cta-rotate-x: 0deg;
+    --hero-cta-rotate-y: 0deg;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -223,6 +225,11 @@
     overflow: hidden;
     background: rgba(9, 12, 18, 0.92);
     z-index: 0;
+    transform-style: preserve-3d;
+    transform: perspective(640px)
+        rotateX(var(--hero-cta-rotate-x))
+        rotateY(var(--hero-cta-rotate-y));
+    will-change: transform;
 }
 
 .wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-core {
@@ -486,6 +493,8 @@
     .wp-block-mccullough-digital-hero .cta-button,
     .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
         animation: none;
+        --hero-cta-rotate-x: 0deg;
+        --hero-cta-rotate-y: 0deg;
     }
 
     .wp-block-mccullough-digital-hero .hero__cta-button--enhanced .hero__cta-button-sheen,
