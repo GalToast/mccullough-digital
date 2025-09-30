@@ -34,7 +34,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.24 - 2025-10-17 =
-* **Hero Content Layout Controls:** Added vertical alignment presets and a fine-grained padding offset to the hero block so authors can pin copy to the top, middle, or bottom of the viewport while nudging the stack down without custom CSS.
+* **Hero Content Layout Controls:** Added vertical alignment presets and a clamped 0–240px padding offset to the hero block, persisting the `is-content-*` class and `--hero-content-offset` variable so authors can pin copy to the top, middle, or bottom while nudging the stack without custom CSS.
 
 = 1.2.23 - 2025-10-16 =
 * **Hero Image Size Slider Reliability:** Ensured the hero block falls back to responsive viewport scaling and backfills intrinsic media widths so legacy content without stored pixel data still honours the size control in both the editor and on the front end.

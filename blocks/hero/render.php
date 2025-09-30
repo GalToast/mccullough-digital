@@ -20,8 +20,11 @@ if ( ! in_array( $content_alignment, $allowed_alignments, true ) ) {
 $alignment_class = 'is-content-' . $content_alignment;
 
 $content_offset = isset( $attributes['contentOffset'] ) ? floatval( $attributes['contentOffset'] ) : 0;
+$min_offset     = 0;
+$max_offset     = 240;
+$content_offset = max( $min_offset, min( $max_offset, $content_offset ) );
 $content_offset = round( $content_offset, 2 );
-$offset_style    = sprintf( '--hero-content-offset: %spx;', $content_offset );
+$offset_style   = sprintf( '--hero-content-offset: %spx;', $content_offset );
 
 $wrapper_attributes = get_block_wrapper_attributes(
     array(

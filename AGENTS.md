@@ -17,7 +17,7 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Theme Version:** Bumped to 1.2.19 to reflect code quality improvements and WordPress API compliance fixes.
 
 ### Latest (2025-10-17)
-- Introduced hero content layout controls that store vertical alignment (`top`, `center`, `bottom`) and a pixel offset in block attributes so both the editor and front-end renders share the same spacing adjustments.
+- Introduced hero content layout controls that save vertical alignment (`top`, `center`, `bottom`) and a clamped 0–240px padding offset in block attributes. The editor now emits the matching `is-content-*` class plus a `--hero-content-offset` CSS variable so both the live render and dynamic fallback stay in sync.
 
 ### Latest (2025-10-16)
 - Expanded the hero image fallback width handling to honour the size slider even when legacy content lacks stored media dimensions by retrieving intrinsic widths and defaulting to responsive viewport scaling.
