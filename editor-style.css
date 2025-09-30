@@ -26,8 +26,8 @@
     color: var(--neon-cyan);
 }
 
-.editor-styles-wrapper .cta-button,
-.editor-styles-wrapper .wp-block-button__link.cta-button {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button),
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -48,15 +48,15 @@
     isolation: isolate;
 }
 
-.editor-styles-wrapper .cta-button .btn-text,
-.editor-styles-wrapper .wp-block-button__link.cta-button .btn-text {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button) .btn-text,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button) .btn-text {
     position: relative;
     z-index: 1;
     transition: letter-spacing 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
 }
 
-.editor-styles-wrapper .cta-button::before,
-.editor-styles-wrapper .wp-block-button__link.cta-button::before {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button)::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button)::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -69,8 +69,8 @@
     z-index: 0;
 }
 
-.editor-styles-wrapper .cta-button::after,
-.editor-styles-wrapper .wp-block-button__link.cta-button::after {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button)::after,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button)::after {
     content: '';
     position: absolute;
     inset: -18px;
@@ -83,28 +83,28 @@
     z-index: -1;
 }
 
-.editor-styles-wrapper .cta-button:focus-visible,
-.editor-styles-wrapper .cta-button:hover,
-.editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible,
-.editor-styles-wrapper .wp-block-button__link.cta-button:hover {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button):focus-visible,
+.editor-styles-wrapper .cta-button:not(.hero__cta-button):hover,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button):hover {
     transform: translateY(-4px) scale(1.03);
     color: var(--background-dark);
     border-color: transparent;
     box-shadow: 0 18px 40px rgba(0, 229, 255, 0.35), 0 0 36px rgba(255, 0, 224, 0.3);
 }
 
-.editor-styles-wrapper .cta-button:focus-visible::before,
-.editor-styles-wrapper .cta-button:hover::before,
-.editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible::before,
-.editor-styles-wrapper .wp-block-button__link.cta-button:hover::before {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button):focus-visible::before,
+.editor-styles-wrapper .cta-button:not(.hero__cta-button):hover::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button):hover::before {
     transform: scaleX(1);
     opacity: 1;
 }
 
-.editor-styles-wrapper .cta-button:focus-visible::after,
-.editor-styles-wrapper .cta-button:hover::after,
-.editor-styles-wrapper .wp-block-button__link.cta-button:focus-visible::after,
-.editor-styles-wrapper .wp-block-button__link.cta-button:hover::after {
+.editor-styles-wrapper .cta-button:not(.hero__cta-button):focus-visible::after,
+.editor-styles-wrapper .cta-button:not(.hero__cta-button):hover::after,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button):focus-visible::after,
+.editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button):hover::after {
     opacity: 0.95;
     transform: scale(1);
 }
@@ -176,6 +176,174 @@
     bottom: var(--hero-cta-offset, clamp(64px, 12vh, 200px));
     transform: none;
     z-index: 10;
+}
+
+.editor-styles-wrapper .hero__cta-button,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button,
+.editor-styles-wrapper .hero .cta-button {
+    --hero-cta-size: clamp(140px, 20vw, 180px);
+    --hero-cta-translate-x: 0px;
+    --hero-cta-translate-y: 0px;
+    --hero-cta-scale-x: 1;
+    --hero-cta-scale-y: 1;
+    --hero-cta-glow: 0;
+    --hero-cta-press: 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--hero-cta-size);
+    height: var(--hero-cta-size);
+    border-radius: 999px;
+    padding: 0;
+    font-weight: 700;
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    isolation: isolate;
+    box-shadow:
+        0 18px calc(36px + 36px * var(--hero-cta-glow)) rgba(3, 6, 14, 0.6),
+        0 0 calc(18px + 46px * var(--hero-cta-glow)) rgba(0, 229, 255, 0.45),
+        0 0 calc(14px + 34px * var(--hero-cta-glow)) rgba(255, 0, 224, 0.35);
+    transform:
+        translate3d(
+            var(--hero-cta-translate-x),
+            var(--hero-cta-translate-y),
+            0
+        )
+        scaleX(
+            calc(
+                var(--hero-cta-scale-x)
+                * (1 - var(--hero-cta-press) * 0.12)
+            )
+        )
+        scaleY(
+            calc(
+                var(--hero-cta-scale-y)
+                * (1 + var(--hero-cta-press) * 0.18)
+            )
+        );
+    transition: color 0.3s ease, box-shadow 0.4s ease, transform 0.15s ease;
+    will-change: transform, box-shadow;
+}
+
+.editor-styles-wrapper .hero__cta-button::before,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button::before,
+.editor-styles-wrapper .hero .cta-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(0, 229, 255, 0.55), transparent 62%),
+        radial-gradient(circle at 75% 70%, rgba(255, 0, 224, 0.45), transparent 68%),
+        linear-gradient(135deg, rgba(9, 12, 20, 0.9), rgba(23, 28, 44, 0.75));
+    box-shadow:
+        inset 0 12px 24px rgba(255, 255, 255, 0.08),
+        inset 0 -18px 36px rgba(5, 6, 18, 0.85);
+    z-index: 1;
+}
+
+.editor-styles-wrapper .hero__cta-button::after,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button::after,
+.editor-styles-wrapper .hero .cta-button::after {
+    content: '';
+    position: absolute;
+    inset: -18px;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at 32% 32%, rgba(0, 229, 255, 0.45), transparent 65%),
+        radial-gradient(circle at 70% 70%, rgba(255, 0, 224, 0.38), transparent 70%);
+    opacity: clamp(0, var(--hero-cta-glow), 1);
+    transform: scale(calc(0.9 + var(--hero-cta-glow) * 0.25));
+    filter: blur(calc(4px + 18px * var(--hero-cta-glow)));
+    transition: opacity 0.35s ease, transform 0.4s ease, filter 0.35s ease;
+    z-index: 0;
+}
+
+.editor-styles-wrapper .hero__cta-button-label,
+.editor-styles-wrapper .hero .cta-button .btn-text {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    min-width: 40%;
+    text-align: center;
+    text-shadow:
+        0 4px 12px rgba(6, 8, 18, 0.75),
+        0 0 22px rgba(0, 229, 255, 0.35);
+}
+
+.editor-styles-wrapper .hero__cta-button.is-static,
+.editor-styles-wrapper .hero .cta-button.is-static {
+    cursor: default;
+    pointer-events: none;
+}
+
+.editor-styles-wrapper .hero.is-reduced-motion .hero__cta-button,
+.editor-styles-wrapper .hero.is-reduced-motion .wp-block-button__link.hero__cta-button,
+.editor-styles-wrapper .hero.is-reduced-motion .cta-button {
+    --hero-cta-translate-x: 0px !important;
+    --hero-cta-translate-y: 0px !important;
+    --hero-cta-scale-x: 1 !important;
+    --hero-cta-scale-y: 1 !important;
+    --hero-cta-glow: 0 !important;
+    --hero-cta-press: 0 !important;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: none;
+}
+
+.editor-styles-wrapper .hero__cta-button:focus-visible,
+.editor-styles-wrapper .hero__cta-button:hover,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button:focus-visible,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button:hover,
+.editor-styles-wrapper .hero .cta-button:focus-visible,
+.editor-styles-wrapper .hero .cta-button:hover {
+    color: var(--text-primary);
+    outline: none;
+    box-shadow:
+        0 20px 70px rgba(0, 229, 255, 0.45),
+        0 0 70px rgba(255, 0, 224, 0.4),
+        0 0 0 3px rgba(0, 229, 255, 0.35);
+}
+
+.editor-styles-wrapper .hero__cta-button:focus-visible::after,
+.editor-styles-wrapper .hero__cta-button:hover::after,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button:focus-visible::after,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button:hover::after,
+.editor-styles-wrapper .hero .cta-button:focus-visible::after,
+.editor-styles-wrapper .hero .cta-button:hover::after {
+    opacity: 1;
+}
+
+.editor-styles-wrapper .hero__cta-button:focus-visible::before,
+.editor-styles-wrapper .wp-block-button__link.hero__cta-button:focus-visible::before,
+.editor-styles-wrapper .hero .cta-button:focus-visible::before {
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .editor-styles-wrapper .hero .wp-block-buttons {
+        position: relative;
+        right: auto;
+        top: auto;
+        bottom: auto;
+        transform: none;
+        margin-top: 40px;
+    }
+
+    .editor-styles-wrapper .hero__cta-button,
+    .editor-styles-wrapper .wp-block-button__link.hero__cta-button,
+    .editor-styles-wrapper .hero .cta-button {
+        --hero-cta-size: clamp(120px, 45vw, 150px);
+        font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+    }
 }
 
 .editor-styles-wrapper .hero-canvas-placeholder {
@@ -486,8 +654,8 @@
     margin-inline: auto;
 }
 
-.editor-styles-wrapper .cta-section .cta-button,
-.editor-styles-wrapper .cta-section .wp-block-button__link.cta-button {
+.editor-styles-wrapper .cta-section .cta-button:not(.hero__cta-button),
+.editor-styles-wrapper .cta-section .wp-block-button__link.cta-button:not(.hero__cta-button) {
     border-color: var(--text-primary);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }

@@ -67,7 +67,7 @@ const {
                     [
                         'core/button',
                         {
-                            className: 'cta-button',
+                            className: 'hero__cta-button',
                             text: defaultButtonText,
                             url: defaultButtonLink,
                         },
@@ -211,7 +211,7 @@ registerBlockType(metadata.name, {
 
             if (buttonText || buttonLink) {
                 const button = createBlock('core/button', {
-                    className: 'cta-button',
+                    className: 'hero__cta-button',
                     text: buttonText || DEFAULT_BUTTON_TEXT,
                     url: buttonLink || undefined,
                 });

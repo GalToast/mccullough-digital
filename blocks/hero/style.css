@@ -117,80 +117,181 @@
     z-index: 10;
 }
 
-/* Circular Magnetic Button - Improved Readability */
+/* Magnetic jelly CTA */
+.wp-block-mccullough-digital-hero .hero__cta-button,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
 .wp-block-mccullough-digital-hero .cta-button,
-.wp-block-mccullough-digital-hero .wp-block-button__link {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    padding: 0;
-    display: flex;
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
+    --hero-cta-size: clamp(140px, 18vw, 180px);
+    --hero-cta-translate-x: 0px;
+    --hero-cta-translate-y: 0px;
+    --hero-cta-scale-x: 1;
+    --hero-cta-scale-y: 1;
+    --hero-cta-glow: 0;
+    --hero-cta-press: 0;
+    position: relative;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.15rem;
+    width: var(--hero-cta-size);
+    height: var(--hero-cta-size);
+    border-radius: 999px;
+    padding: 0;
+    text-decoration: none;
     font-weight: 700;
-    text-align: center;
-    color: #fff;
-    background: var(--background-dark);
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    background: none;
     border: none;
-    position: relative;
     cursor: pointer;
+    isolation: isolate;
+    box-shadow:
+        0 18px calc(36px + 40px * var(--hero-cta-glow)) rgba(3, 6, 14, 0.6),
+        0 0 calc(16px + 52px * var(--hero-cta-glow)) rgba(0, 229, 255, 0.45),
+        0 0 calc(12px + 40px * var(--hero-cta-glow)) rgba(255, 0, 224, 0.35);
+    transform:
+        translate3d(
+            var(--hero-cta-translate-x),
+            var(--hero-cta-translate-y),
+            0
+        )
+        scaleX(
+            calc(
+                var(--hero-cta-scale-x)
+                * (1 - var(--hero-cta-press) * 0.12)
+            )
+        )
+        scaleY(
+            calc(
+                var(--hero-cta-scale-y)
+                * (1 + var(--hero-cta-press) * 0.18)
+            )
+        );
+    transition:
+        color 0.3s ease,
+        box-shadow 0.4s ease,
+        transform 0.15s ease;
+    will-change: transform, box-shadow;
     overflow: visible;
-    will-change: transform;
 }
 
-/* Button text wrapper - actual DOM element created by GSAP */
-.wp-block-mccullough-digital-hero .button-text-wrapper {
-    position: relative;
-    z-index: 3;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-}
-
-/* Gradient border layer - actual DOM element created by GSAP */
-.wp-block-mccullough-digital-hero .button-border {
+.wp-block-mccullough-digital-hero .hero__cta-button::before,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button::before,
+.wp-block-mccullough-digital-hero .cta-button::before,
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button::before {
+    content: '';
     position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--deep-purple));
+    inset: 0;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(0, 229, 255, 0.55), transparent 62%),
+        radial-gradient(circle at 75% 70%, rgba(255, 0, 224, 0.45), transparent 68%),
+        linear-gradient(135deg, rgba(9, 12, 20, 0.9), rgba(23, 28, 44, 0.75));
+    box-shadow:
+        inset 0 12px 24px rgba(255, 255, 255, 0.08),
+        inset 0 -18px 36px rgba(5, 6, 18, 0.85);
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
     z-index: 1;
-    pointer-events: none;
 }
 
-/* Outer glow layer - actual DOM element created by GSAP */
-.wp-block-mccullough-digital-hero .button-glow {
+.wp-block-mccullough-digital-hero .hero__cta-button::after,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button::after,
+.wp-block-mccullough-digital-hero .cta-button::after,
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button::after {
+    content: '';
     position: absolute;
-    inset: -8px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.4), rgba(255, 0, 224, 0.4));
-    opacity: 0;
+    inset: -18px;
+    border-radius: inherit;
+    background:
+        radial-gradient(circle at 32% 32%, rgba(0, 229, 255, 0.45), transparent 65%),
+        radial-gradient(circle at 70% 70%, rgba(255, 0, 224, 0.38), transparent 70%);
+    opacity: clamp(0, var(--hero-cta-glow), 1);
+    transform: scale(calc(0.9 + var(--hero-cta-glow) * 0.25));
+    filter: blur(calc(4px + 18px * var(--hero-cta-glow)));
+    transition:
+        opacity 0.35s ease,
+        transform 0.4s ease,
+        filter 0.35s ease;
     z-index: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
 }
 
-.wp-block-mccullough-digital-hero .cta-button:active,
-.wp-block-mccullough-digital-hero .wp-block-button__link:active {
-    animation: jolt-click 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+    .wp-block-mccullough-digital-hero .hero__cta-button::before,
+    .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button::before,
+    .wp-block-mccullough-digital-hero .cta-button::before,
+    .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button::before {
+        backdrop-filter: blur(14px) saturate(120%);
+        -webkit-backdrop-filter: blur(14px) saturate(120%);
+    }
 }
 
-@keyframes jolt-click {
-    0% { transform: scale(1) rotate(0deg); }
-    25% { transform: scale(0.85) rotate(-8deg); }
-    50% { transform: scale(1.15) rotate(8deg); }
-    75% { transform: scale(0.95) rotate(-4deg); }
-    100% { transform: scale(1) rotate(0deg); }
+.wp-block-mccullough-digital-hero .hero__cta-button-label,
+.wp-block-mccullough-digital-hero .cta-button .btn-text {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    min-width: 40%;
+    text-align: center;
+    text-shadow:
+        0 4px 12px rgba(6, 8, 18, 0.75),
+        0 0 22px rgba(0, 229, 255, 0.35);
+    transition: text-shadow 0.35s ease, letter-spacing 0.35s ease;
 }
 
-/* Enhanced hover glow */
-/* Hover glow effect now handled by GSAP in view.js */
-.wp-block-mccullough-digital-hero .cta-button:hover .button-glow,
-.wp-block-mccullough-digital-hero .wp-block-button__link:hover .button-glow {
+.wp-block-mccullough-digital-hero .hero__cta-button:hover,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button:hover,
+.wp-block-mccullough-digital-hero .cta-button:hover,
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button:hover,
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button:focus-visible,
+.wp-block-mccullough-digital-hero .cta-button:focus-visible,
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button:focus-visible {
+    color: var(--text-primary);
+    outline: none;
+    box-shadow:
+        0 20px 70px rgba(0, 229, 255, 0.45),
+        0 0 70px rgba(255, 0, 224, 0.4),
+        0 0 0 3px rgba(0, 229, 255, 0.35);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible::before,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button:focus-visible::before,
+.wp-block-mccullough-digital-hero .cta-button:focus-visible::before,
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button:focus-visible::before {
+    transform: scale(1.02);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible::after,
+.wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button:focus-visible::after,
+.wp-block-mccullough-digital-hero .cta-button:focus-visible::after,
+.wp-block-mccullough-digital-hero .wp-block-button__link.cta-button:focus-visible::after {
     opacity: 1;
 }
 
-.wp-block-mccullough-digital-hero .cta-button:hover,
-.wp-block-mccullough-digital-hero .wp-block-button__link:hover {
-    color: #fff;
+.wp-block-mccullough-digital-hero .hero__cta-button.is-static,
+.wp-block-mccullough-digital-hero .cta-button.is-static {
+    cursor: default;
+    pointer-events: none;
+}
+
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__cta-button,
+.wp-block-mccullough-digital-hero.is-reduced-motion .wp-block-button__link.hero__cta-button,
+.wp-block-mccullough-digital-hero.is-reduced-motion .cta-button,
+.wp-block-mccullough-digital-hero.is-reduced-motion .wp-block-button__link.cta-button {
+    --hero-cta-translate-x: 0px !important;
+    --hero-cta-translate-y: 0px !important;
+    --hero-cta-scale-x: 1 !important;
+    --hero-cta-scale-y: 1 !important;
+    --hero-cta-glow: 0 !important;
+    --hero-cta-press: 0 !important;
+    transition: none;
+    transform: translate3d(0, 0, 0) scale(1);
 }
 
 /* Mobile responsive */
@@ -203,12 +304,13 @@
         transform: none;
         margin-top: 40px;
     }
-    
+
+    .wp-block-mccullough-digital-hero .hero__cta-button,
+    .wp-block-mccullough-digital-hero .wp-block-button__link.hero__cta-button,
     .wp-block-mccullough-digital-hero .cta-button,
-    .wp-block-mccullough-digital-hero .wp-block-button__link {
-        width: 140px;
-        height: 140px;
-        font-size: 1rem;
+    .wp-block-mccullough-digital-hero .wp-block-button__link.cta-button {
+        --hero-cta-size: clamp(120px, 40vw, 150px);
+        font-size: clamp(0.95rem, 3.4vw, 1.05rem);
     }
 }
 

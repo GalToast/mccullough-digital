@@ -36,6 +36,321 @@
 
         const prefersReducedMotion = createMotionPreferenceQuery();
         const heroState = new Map();
+        const magneticButtons = new Set();
+
+        const createMagneticButton = (button) => {
+            const restState = {
+                x: 0,
+                y: 0,
+                scaleX: 1,
+                scaleY: 1,
+                glow: 0,
+                press: 0,
+            };
+
+            const state = {
+                element: button,
+                prefersReducedMotion: false,
+                pointerActive: false,
+                coarsePointer: false,
+                current: { ...restState },
+                target: { ...restState },
+                rafId: null,
+            };
+
+            const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+            const ensureLabelWrapper = () => {
+                const existing = button.querySelector(':scope > .hero__cta-button-label');
+
+                if (existing) {
+                    return existing;
+                }
+
+                const legacy = button.querySelector(':scope > .btn-text');
+
+                if (legacy) {
+                    legacy.classList.add('hero__cta-button-label');
+                    return legacy;
+                }
+
+                const label = document.createElement('span');
+                label.className = 'hero__cta-button-label';
+
+                const directTextNodes = Array.from(button.childNodes).filter((node) => node.nodeType === Node.TEXT_NODE);
+
+                directTextNodes.forEach((node) => {
+                    label.appendChild(node);
+                });
+
+                if (button.firstChild) {
+                    button.insertBefore(label, button.firstChild);
+                } else {
+                    button.appendChild(label);
+                }
+
+                return label;
+            };
+
+            ensureLabelWrapper();
+
+            const applyStyles = () => {
+                const { current } = state;
+
+                button.style.setProperty('--hero-cta-translate-x', `${current.x.toFixed(3)}px`);
+                button.style.setProperty('--hero-cta-translate-y', `${current.y.toFixed(3)}px`);
+                button.style.setProperty('--hero-cta-scale-x', current.scaleX.toFixed(4));
+                button.style.setProperty('--hero-cta-scale-y', current.scaleY.toFixed(4));
+                button.style.setProperty('--hero-cta-glow', current.glow.toFixed(4));
+                button.style.setProperty('--hero-cta-press', current.press.toFixed(4));
+            };
+
+            const cancelAnimation = () => {
+                if (state.rafId) {
+                    window.cancelAnimationFrame(state.rafId);
+                    state.rafId = null;
+                }
+            };
+
+            const step = () => {
+                state.rafId = null;
+
+                const { current, target } = state;
+                let needsNextFrame = false;
+
+                const easingActive = state.pointerActive ? 0.2 : 0.14;
+                const easingScale = state.pointerActive ? 0.18 : 0.12;
+                const easingGlow = state.pointerActive ? 0.16 : 0.1;
+                const easingPress = 0.24;
+
+                const updateValue = (key, easing) => {
+                    const difference = target[key] - current[key];
+
+                    if (Math.abs(difference) > 0.001) {
+                        current[key] += difference * easing;
+                        needsNextFrame = true;
+                    } else {
+                        current[key] = target[key];
+                    }
+                };
+
+                updateValue('x', easingActive);
+                updateValue('y', easingActive);
+                updateValue('scaleX', easingScale);
+                updateValue('scaleY', easingScale);
+                updateValue('glow', easingGlow);
+                updateValue('press', easingPress);
+
+                applyStyles();
+
+                if (needsNextFrame) {
+                    state.rafId = window.requestAnimationFrame(step);
+                }
+            };
+
+            const requestFrame = () => {
+                if (!state.rafId) {
+                    state.rafId = window.requestAnimationFrame(step);
+                }
+            };
+
+            const updateTarget = (values) => {
+                let didUpdate = false;
+
+                Object.keys(values).forEach((key) => {
+                    if (Object.prototype.hasOwnProperty.call(state.target, key)) {
+                        const nextValue = values[key];
+
+                        if (state.target[key] !== nextValue) {
+                            state.target[key] = nextValue;
+                            didUpdate = true;
+                        }
+                    }
+                });
+
+                if (didUpdate) {
+                    requestFrame();
+                }
+            };
+
+            const reset = (immediate = false) => {
+                state.pointerActive = false;
+                state.coarsePointer = false;
+                state.target = { ...restState };
+
+                if (immediate) {
+                    cancelAnimation();
+                    state.current = { ...restState };
+                    applyStyles();
+                    return;
+                }
+
+                requestFrame();
+            };
+
+            const computeFromEvent = (event) => {
+                const rect = button.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+
+                const distanceX = event.clientX - centerX;
+                const distanceY = event.clientY - centerY;
+                const distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+
+                const influenceRadius = Math.max(rect.width, rect.height) * 1.6;
+
+                if (influenceRadius <= 0) {
+                    updateTarget({ x: 0, y: 0, scaleX: 1, scaleY: 1, glow: 0 });
+                    return;
+                }
+
+                const falloff = clamp(1 - (distance / influenceRadius), 0, 1);
+
+                if (falloff <= 0) {
+                    updateTarget({ x: 0, y: 0, scaleX: 1, scaleY: 1, glow: 0 });
+                    return;
+                }
+
+                const influence = Math.pow(falloff, 1.1);
+                const maxTranslation = Math.max(rect.width, rect.height) * 0.18;
+                const translationStrength = 0.32;
+                const rawX = clamp(distanceX * translationStrength, -maxTranslation, maxTranslation);
+                const rawY = clamp(distanceY * translationStrength, -maxTranslation, maxTranslation);
+                const targetX = rawX * influence;
+                const targetY = rawY * influence;
+
+                const angle = Math.atan2(distanceY, distanceX);
+                const absCos = Math.abs(Math.cos(angle));
+                const absSin = Math.abs(Math.sin(angle));
+                const stretchBase = 0.05 + (influence * 0.09);
+                const stretchX = stretchBase * absCos;
+                const stretchY = stretchBase * absSin;
+                const scaleX = clamp(1 + stretchX - stretchY * 0.35, 0.88, 1.18);
+                const scaleY = clamp(1 + stretchY - stretchX * 0.35, 0.88, 1.18);
+
+                const glow = clamp(0.2 + influence * 0.85, 0, 1);
+
+                updateTarget({
+                    x: targetX,
+                    y: targetY,
+                    scaleX,
+                    scaleY,
+                    glow,
+                });
+            };
+
+            const handlePointerEnter = (event) => {
+                state.coarsePointer = event.pointerType === 'touch';
+
+                if (state.prefersReducedMotion || state.coarsePointer) {
+                    reset();
+                    return;
+                }
+
+                state.pointerActive = true;
+                computeFromEvent(event);
+            };
+
+            const handlePointerMove = (event) => {
+                if (state.prefersReducedMotion || state.coarsePointer) {
+                    return;
+                }
+
+                state.pointerActive = true;
+                computeFromEvent(event);
+            };
+
+            const handlePointerLeave = () => {
+                reset();
+            };
+
+            const handlePointerDown = (event) => {
+                if (event.pointerType === 'touch') {
+                    state.coarsePointer = true;
+                }
+
+                updateTarget({ press: 1 });
+            };
+
+            const handlePointerUp = () => {
+                updateTarget({ press: 0 });
+            };
+
+            const handleBlur = () => {
+                updateTarget({ press: 0 });
+                reset();
+            };
+
+            const handleKeyDown = (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    updateTarget({ press: 1 });
+                }
+            };
+
+            const handleKeyUp = (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    updateTarget({ press: 0 });
+                }
+            };
+
+            button.addEventListener('pointerenter', handlePointerEnter, { passive: true });
+            button.addEventListener('pointermove', handlePointerMove, { passive: true });
+            button.addEventListener('pointerleave', handlePointerLeave, { passive: true });
+            button.addEventListener('pointerdown', handlePointerDown);
+            button.addEventListener('pointerup', handlePointerUp);
+            button.addEventListener('pointercancel', handlePointerUp);
+            button.addEventListener('blur', handleBlur, true);
+            button.addEventListener('keydown', handleKeyDown);
+            button.addEventListener('keyup', handleKeyUp);
+
+            applyStyles();
+
+            const api = {
+                element: button,
+                setMotionPreference: (matches) => {
+                    state.prefersReducedMotion = matches;
+
+                    if (matches) {
+                        reset(true);
+                    }
+                },
+                destroy: () => {
+                    reset(true);
+                    button.removeEventListener('pointerenter', handlePointerEnter);
+                    button.removeEventListener('pointermove', handlePointerMove);
+                    button.removeEventListener('pointerleave', handlePointerLeave);
+                    button.removeEventListener('pointerdown', handlePointerDown);
+                    button.removeEventListener('pointerup', handlePointerUp);
+                    button.removeEventListener('pointercancel', handlePointerUp);
+                    button.removeEventListener('blur', handleBlur, true);
+                    button.removeEventListener('keydown', handleKeyDown);
+                    button.removeEventListener('keyup', handleKeyUp);
+                    magneticButtons.delete(api);
+                    delete button.__heroMagneticInstance;
+                },
+                reset,
+                updateTarget,
+            };
+
+            return api;
+        };
+
+        const setupMagneticButtons = (hero) => {
+            const interactiveButtons = hero.querySelectorAll('.hero__cta-button:not(.is-static), .cta-button:not(.is-static)');
+
+            interactiveButtons.forEach((button) => {
+                if (button.__heroMagneticInstance) {
+                    button.__heroMagneticInstance.setMotionPreference(prefersReducedMotion.matches);
+                    magneticButtons.add(button.__heroMagneticInstance);
+                    return;
+                }
+
+                const api = createMagneticButton(button);
+                api.setMotionPreference(prefersReducedMotion.matches);
+                button.__heroMagneticInstance = api;
+                magneticButtons.add(api);
+            });
+        };
 
         const supportsResizeObserver = 'ResizeObserver' in window;
         const supportsIntersectionObserver = 'IntersectionObserver' in window;
@@ -406,9 +721,15 @@
             heroBlocks.forEach((hero) => {
                 hero.classList.toggle('is-reduced-motion', prefersReducedMotion.matches);
             });
+
+            magneticButtons.forEach((instance) => {
+                instance.setMotionPreference(prefersReducedMotion.matches);
+            });
         };
 
         heroBlocks.forEach((hero) => {
+            setupMagneticButtons(hero);
+
             if (hero.dataset.heroInitialized === 'true') {
                 return;
             }
@@ -443,6 +764,7 @@
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 heroState.forEach((instance) => instance.stop());
+                magneticButtons.forEach((instance) => instance.reset(true));
             } else {
                 updateMotionPreference();
             }
@@ -452,6 +774,9 @@
             heroState.forEach((instance) => instance.destroy());
             heroState.clear();
 
+            magneticButtons.forEach((instance) => instance.destroy());
+            magneticButtons.clear();
+
             if (hasModernMotionListener) {
                 prefersReducedMotion.removeEventListener('change', motionListener);
             } else if (hasLegacyMotionListener) {
@@ -460,229 +785,11 @@
         });
     };
 
-    // Load GSAP from CDN
-    const loadGSAP = () => {
-        return new Promise((resolve, reject) => {
-            // Check if GSAP already loaded
-            if (window.gsap) {
-                resolve(window.gsap);
-                return;
-            }
-            
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
-            script.onload = () => resolve(window.gsap);
-            script.onerror = reject;
-            document.head.appendChild(script);
-        });
-    };
-
-    // Initialize advanced magnetic jelly button effect with GSAP
-    const initMagneticButtons = async () => {
-        try {
-            const gsap = await loadGSAP();
-
-            const heroBlocks = document.querySelectorAll('.wp-block-mccullough-digital-hero');
-
-            heroBlocks.forEach((hero) => {
-                const buttons = hero.querySelectorAll('.cta-button, .wp-block-button__link');
-
-                buttons.forEach((button) => {
-                    const alreadyEnhanced = button.dataset.magneticEnhanced === 'true';
-
-                    // Clean up any prior listeners from earlier script loads.
-                    if (button.__magneticState && typeof button.__magneticState.cleanup === 'function') {
-                        button.__magneticState.cleanup();
-                    }
-
-                    let glow = button.querySelector(':scope > .button-glow');
-                    let border = button.querySelector(':scope > .button-border');
-                    let textWrapper = button.querySelector(':scope > .button-text-wrapper');
-
-                    if (!glow) {
-                        glow = document.createElement('div');
-                        glow.className = 'button-glow';
-                        button.appendChild(glow);
-                    }
-
-                    if (!border) {
-                        border = document.createElement('div');
-                        border.className = 'button-border';
-                        button.appendChild(border);
-                    }
-
-                    if (!textWrapper) {
-                        textWrapper = document.createElement('span');
-                        textWrapper.className = 'button-text-wrapper';
-                    }
-
-                    const moveDirectTextNodes = () => {
-                        const directTextNodes = Array.from(button.childNodes).filter((node) => node.nodeType === Node.TEXT_NODE);
-
-                        directTextNodes.forEach((node) => {
-                            textWrapper.appendChild(node);
-                        });
-                    };
-
-                    if (!textWrapper.parentNode) {
-                        button.appendChild(textWrapper);
-                    }
-
-                    if (!alreadyEnhanced) {
-                        // First-time enhancement: wrap raw text nodes and mark the button.
-                        moveDirectTextNodes();
-                        button.dataset.magneticEnhanced = 'true';
-                    } else {
-                        // Repeated loads: ensure any new raw text nodes are wrapped without duplicating layers.
-                        moveDirectTextNodes();
-                    }
-
-                    const magneticArea = 250;
-                    let targetX = 0;
-                    let targetY = 0;
-                    let targetScaleX = 1;
-                    let targetScaleY = 1;
-                    
-                    // Mouse move handler for magnetic effect
-                    const handleMouseMove = (e) => {
-                        const rect = button.getBoundingClientRect();
-                        const buttonCenterX = rect.left + rect.width / 2;
-                        const buttonCenterY = rect.top + rect.height / 2;
-                        
-                        const distanceX = e.clientX - buttonCenterX;
-                        const distanceY = e.clientY - buttonCenterY;
-                        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-                        
-                        if (distance < magneticArea) {
-                            const pull = Math.pow((magneticArea - distance) / magneticArea, 1.2);
-                            
-                            // Movement
-                            targetX = distanceX * pull * 0.5;
-                            targetY = distanceY * pull * 0.5;
-                            
-                            // DRAMATIC Jelly deformation
-                            const angle = Math.atan2(distanceY, distanceX);
-                            const stretchAmount = pull * 0.35;
-                            
-                            const horizontalFactor = Math.abs(Math.cos(angle));
-                            const verticalFactor = Math.abs(Math.sin(angle));
-                            
-                            if (horizontalFactor > verticalFactor) {
-                                targetScaleX = 1 + stretchAmount;
-                                targetScaleY = 1 - stretchAmount * 0.7;
-                            } else {
-                                targetScaleY = 1 + stretchAmount;
-                                targetScaleX = 1 - stretchAmount * 0.7;
-                            }
-                            
-                            // Animate all layers together with GSAP
-                            gsap.to([button, border, glow], {
-                                x: targetX,
-                                y: targetY,
-                                scaleX: targetScaleX,
-                                scaleY: targetScaleY,
-                                duration: 0.6,
-                                ease: 'power2.out'
-                            });
-                            
-                            // Show glow on proximity
-                            gsap.to(glow, {
-                                opacity: 1,
-                                scale: 1.2,
-                                duration: 0.3,
-                                ease: 'power2.out'
-                            });
-                        } else {
-                            // Return to original state
-                            gsap.to([button, border, glow], {
-                                x: 0,
-                                y: 0,
-                                scaleX: 1,
-                                scaleY: 1,
-                                duration: 0.8,
-                                ease: 'elastic.out(1, 0.5)'
-                            });
-                            
-                            gsap.to(glow, {
-                                opacity: 0,
-                                scale: 1,
-                                duration: 0.3,
-                                ease: 'power2.out'
-                            });
-                        }
-                    };
-                    
-                    // Reset on mouse leave
-                    const handleMouseLeave = () => {
-                        gsap.to([button, border, glow], {
-                            x: 0,
-                            y: 0,
-                            scaleX: 1,
-                            scaleY: 1,
-                            duration: 0.8,
-                            ease: 'elastic.out(1, 0.5)'
-                        });
-                        
-                        gsap.to(glow, {
-                            opacity: 0,
-                            scale: 1,
-                            duration: 0.3
-                        });
-                    };
-                    
-                    // Add event listeners
-                    document.addEventListener('mousemove', handleMouseMove, { passive: true });
-                    button.addEventListener('mouseleave', handleMouseLeave);
-
-                    // Enhanced click effect with GSAP
-                    const handleClick = () => {
-                        const timeline = gsap.timeline();
-
-                        timeline
-                            .to([button, border, glow], {
-                                scale: 0.8,
-                                rotation: -5,
-                                duration: 0.08,
-                                ease: 'power2.in'
-                            })
-                            .to([button, border, glow], {
-                                scale: 1.15,
-                                rotation: 5,
-                                duration: 0.12,
-                                ease: 'power2.out'
-                            })
-                            .to([button, border, glow], {
-                                scale: 1,
-                                rotation: 0,
-                                duration: 0.15,
-                                ease: 'elastic.out(1, 0.3)'
-                            });
-                    };
-
-                    button.addEventListener('click', handleClick);
-
-                    button.__magneticState = {
-                        cleanup: () => {
-                            document.removeEventListener('mousemove', handleMouseMove);
-                            button.removeEventListener('mouseleave', handleMouseLeave);
-                            button.removeEventListener('click', handleClick);
-                        }
-                    };
-                });
-            });
-        } catch (error) {
-            console.error('Failed to load GSAP:', error);
-            // Fallback: buttons still work, just without fancy effects
-        }
-    };
-
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             init();
-            initMagneticButtons();
         }, { once: true });
     } else {
         init();
-        initMagneticButtons();
     }
 })();
