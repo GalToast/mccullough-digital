@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-20 Sweep
+1. **Hero CTA Magnetic Layers Duplicating**
+   *Files:* `blocks/hero/view.js`, `style.css`, `readme.txt`, `AGENTS.md`, `bug-report.md`
+   *Issue:* Reinitialising the hero script wrapped CTA buttons repeatedly, duplicating the glow/border layers and breaking the GSAP jelly effect when the script loaded more than once.
+   *Resolution:* Added a dataset guard so previously enhanced buttons bail before DOM mutations, reuse existing glow/border/text wrappers, and rebind GSAP listeners idempotently so repeated loads leave a single glow/border pair while keeping the cursor tracking intact.
+
 ### 2025-10-19 Sweep
 1. **Hero Top Alignment Still Overpadded**
    *Files:* `blocks/hero/style.css`, `style.css`, `readme.txt`, `AGENTS.md`, `bug-report.md`
