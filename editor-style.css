@@ -31,6 +31,18 @@
     background-color: var(--background-dark);
 }
 
+.editor-styles-wrapper .site-header .custom-logo,
+.editor-styles-wrapper .wp-block-site-logo .custom-logo {
+    height: var(--logo-size-header);
+    max-height: var(--logo-size-header);
+    width: auto;
+    max-width: 100%;
+    display: block;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 5px rgba(0, 229, 255, 0.6));
+    will-change: transform, filter;
+}
+
 .editor-styles-wrapper a {
     color: var(--neon-cyan);
 }

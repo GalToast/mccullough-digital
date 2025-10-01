@@ -9,6 +9,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-08) - Header Logo Sizing Clamp
+- **Front-End Guard:** Scoped the masthead logo rule to `.site-header .custom-logo` and `.wp-block-site-logo .custom-logo`, kept the height tied to `--logo-size-header`, and added responsive max constraints so oversized uploads stop stretching the fixed header while preserving intrinsic width.
+- **Editor Parity:** Mirrored the scoped selector and sizing cap in `editor-style.css` so the Site Editor preview matches the front-end masthead behaviour and no longer shifts the header offset when authors swap logos.
 -### Latest (2025-11-07) - Neon Blog Archive Template
 - **Blog Mockup Landed:** Rebuilt the archive and index templates with the radial hero, search bar, category filters, and featured-first post grid so the blog listing mirrors the latest design while keeping the layout driven by blocks and patterns.
 - **Style Sync:** Added the blog hero, filter pills, card grid, and pagination treatments to `style.css` and `editor-style.css`, ensuring the Site Editor preview matches the front end and the new pattern keeps semantic `<article>` wrappers for each post.

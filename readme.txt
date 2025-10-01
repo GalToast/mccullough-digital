@@ -34,6 +34,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
+* **Header Logo Clamp:** Scoped the masthead logo styling to outrank WordPress core selectors and added max constraints so oversize uploads respect `--logo-size-header` without inflating the fixed header or Site Editor preview.
 * **Neon Blog Archive Template:** Rebuilt the archive and index templates around a radial hero, live search, pill-style category filters, and a featured post grid with matching editor styles so the blog listing mirrors the new mockup without duplicating markup in patterns.
 
 = 1.2.38 - 2025-11-06 =
