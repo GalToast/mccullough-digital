@@ -9,6 +9,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-07) - Neon Blog Archive Template
+- **Blog Mockup Landed:** Rebuilt the archive and index templates with the radial hero, search bar, category filters, and featured-first post grid so the blog listing mirrors the latest design while keeping the layout driven by blocks and patterns.
+- **Style Sync:** Added the blog hero, filter pills, card grid, and pagination treatments to `style.css` and `editor-style.css`, ensuring the Site Editor preview matches the front end and the new pattern keeps semantic `<article>` wrappers for each post.
 -### Latest (2025-11-06) - Hero CTA Alignment & Popover Fixes
 - **Editor Popovers Freed:** Released the hero wrapper's overflow clamp and moved clipping to the canvas/image layers so the neon button's URL popover opens fully in the Site Editor.
 - **Alignment Controls Restored:** Removed hero-specific centring overrides and updated the neon button block so align and spacing controls now position the CTA left, centre, or right with custom breathing room.
