@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.35 - 2025-10-29 =
+* **Hero CTA Hydration Everywhere:** Always enqueue the neon jelly CTA script and wrap saved buttons in a `.hero-neon-button-mount` so Site Editor and front-end renders hydrate even when authors edit the inner `core/button`, while the original markup stays in place for no-JS fallbacks.
+
 = 1.2.34 - 2025-10-28 =
 * **Link Semantics Restored:** Allow the neon hero CTA to hydrate as a `<motion.a>` when a URL exists, preserving native link behaviours like new-tab navigation, context menus, and assistive tech exposure while keeping the button fallback for empty links.
 * **Responsive Label Layout:** Size the jelly button label and padding from the measured orb diameter and relax word breaking so default copy such as "Start a Project" stays horizontal instead of stacking each letter inside the sphere.
