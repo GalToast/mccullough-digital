@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-03 Sweep
+1. **Standalone Neon Button Block**
+   *Files:* `blocks/button/block.json`, `blocks/button/editor.js`, `blocks/button/render.php`, `blocks/button/style.css`, `build/blocks/button/editor.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`, `style.css`
+   *Issue:* Editors could only access the gradient sweep CTA inside the hero block, forcing duplicate hero sections or manual class hacking to reuse the neon button elsewhere.
+   *Resolution:* Registered a dedicated `mccullough-digital/button` block with toolbar link control, new-tab toggle, and shared `.hero__cta-button-label` markup so the hero styling and hover animation follow the button across any section.
+
 ### 2025-11-02 Sweep
 1. **Hero CTA Sweep Direction & Base Tint**
    *Files:* `blocks/hero/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`

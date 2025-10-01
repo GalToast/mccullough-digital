@@ -280,6 +280,12 @@
     outline: none;
 }
 
+.editor-styles-wrapper .hero__cta-button-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .editor-styles-wrapper .hero-content > .wp-block-buttons {
     width: 100%;
     display: flex;

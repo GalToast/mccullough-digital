@@ -72,16 +72,21 @@ if ( '' === $inner_content ) {
     $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
 
     if ( '' !== $button_text ) {
+        $button_label = sprintf(
+            '<span class="hero__cta-button-label">%s</span>',
+            esc_html( $button_text )
+        );
+
         if ( '' !== $button_link ) {
             ?>
             <a class="cta-button hero__cta-button" href="<?php echo esc_url( $button_link ); ?>">
-                <?php echo esc_html( $button_text ); ?>
+                <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
             </a>
             <?php
         } else {
             ?>
             <button class="cta-button hero__cta-button" type="button">
-                <?php echo esc_html( $button_text ); ?>
+                <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
             </button>
             <?php
         }
