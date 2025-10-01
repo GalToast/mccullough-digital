@@ -10,6 +10,12 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+### Latest (2025-10-28) - Hero CTA Link Semantics & Label Layout
+- **Accessibility:** The React jelly button now renders a `<motion.a>` whenever a link is provided, so keyboard modifiers, conte
+xt menus, and assistive technology see a real anchor while the motion-driven `<motion.button>` fallback remains for empty URLs.
+- **Legibility:** The CTA label sizing, padding, and wrapping derive from the measured sphere diameter, keeping phrases like “St
+art a Project” on one or two readable lines instead of stacking single letters vertically inside the orb.
+
 ### Latest (2025-10-27) - Hero CTA Magnetism & Mask Fallbacks
 - **Critical:** Rebound the Framer Motion springs to the `<motion.button>` wrapper so the actual click target now follows the jelly sphere. Any future tweaks to magnetism or press squish must stay on the outer button to keep pointer math and hit testing aligned.
 - **Compatibility:** Added a runtime CSS mask support check around the neon ring and a radial halo fallback so browsers that ignore `mask-image` (or its WebKit variant) no longer flood the label with the conic gradient. Preserve this guard when iterating on the ring visuals.
