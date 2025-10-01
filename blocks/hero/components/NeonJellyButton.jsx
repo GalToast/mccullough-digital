@@ -14,6 +14,9 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
  */
 export function InteractiveNeonButton({
   label = "Start a project",
+  href,
+  target,
+  rel,
   onClick,
   magneticRadius = 150, // Reduced for better control
   magneticStrength = 0.3, // Increased for more noticeable effect
@@ -23,7 +26,6 @@ export function InteractiveNeonButton({
   showBurst = true,
 }) {
   const btnRef = useRef(null);
-  const containerRef = useRef(null);
   const [isPressed, setPressed] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -51,12 +53,14 @@ export function InteractiveNeonButton({
 
   // Responsive orbit radius
   const [orbitRadius, setOrbitRadius] = useState(64);
+  const [buttonDiameter, setButtonDiameter] = useState(128);
   useEffect(() => {
     if (!btnRef.current) return;
     const ro = new ResizeObserver(() => {
       if (!btnRef.current) return;
       const r = btnRef.current.getBoundingClientRect();
       setOrbitRadius(Math.max(42, r.width / 2 - 10));
+      setButtonDiameter(Math.max(r.width, r.height));
     });
     ro.observe(btnRef.current);
     return () => ro.disconnect();
@@ -143,7 +147,9 @@ export function InteractiveNeonButton({
       setBursts((b) => [...b, { id }]);
       setTimeout(() => setBursts((b) => b.filter((x) => x.id !== id)), 600);
     }
-    onClick?.();
+    if (!href) {
+      onClick?.();
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -152,12 +158,14 @@ export function InteractiveNeonButton({
       setPressed(true);
     }
   };
-  
+
   const handleKeyUp = (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       setPressed(false);
-      onClick?.();
+      if (!href) {
+        onClick?.();
+      }
     }
   };
 
@@ -202,12 +210,18 @@ export function InteractiveNeonButton({
     );
   }, []);
 
+  const RootElement = href ? motion.a : motion.button;
+
+  const labelFontSize = clamp(buttonDiameter * 0.135, 14, 19);
+  const labelPadding = clamp(buttonDiameter * 0.18, 16, 26);
+  const labelLineHeight = clamp(buttonDiameter / 100, 1.15, 1.35);
+
   return (
     <>
       <style>{`
-        @keyframes neonPulse { 
-          0%, 100% { 
-            filter: drop-shadow(0 0 12px rgba(0,255,255,.5)) drop-shadow(0 0 16px rgba(255,0,200,.5)); 
+        @keyframes neonPulse {
+          0%, 100% {
+            filter: drop-shadow(0 0 12px rgba(0,255,255,.5)) drop-shadow(0 0 16px rgba(255,0,200,.5));
           } 
           50% { 
             filter: drop-shadow(0 0 26px rgba(0,255,255,.85)) drop-shadow(0 0 32px rgba(255,0,200,.85)); 
@@ -243,24 +257,35 @@ export function InteractiveNeonButton({
         </defs>
       </svg>
 
-      <motion.button
+      <RootElement
         ref={btnRef}
-        role="button"
         aria-label={label}
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
-        onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
+        {...(!href
+          ? {
+              onKeyDown: handleKeyDown,
+              onKeyUp: handleKeyUp,
+              type: "button",
+            }
+          : {})}
+        {...(href
+          ? {
+              href,
+              target,
+              rel,
+            }
+          : {})}
         style={{
           position: "relative",
           userSelect: "none",
           isolation: "isolate",
           height: "clamp(7rem, 15vw, 9rem)",
           width: "clamp(7rem, 15vw, 9rem)",
-          minHeight: "112px",
-          minWidth: "112px",
+          minHeight: "118px",
+          minWidth: "118px",
           borderRadius: "9999px",
           outline: "none",
           border: "none",
@@ -521,7 +546,7 @@ export function InteractiveNeonButton({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: "0 clamp(12px, 3vw, 20px)",
+                padding: `0 ${labelPadding}px`,
               }}
             >
               <span
@@ -529,17 +554,17 @@ export function InteractiveNeonButton({
                   pointerEvents: "none",
                   textAlign: "center",
                   fontWeight: 600,
-                  letterSpacing: "0.02em",
-                  fontSize: "clamp(10px, 2vw, 13px)",
-                  lineHeight: 1.2,
+                  letterSpacing: "0.06em",
+                  fontSize: `${labelFontSize}px`,
+                  lineHeight: labelLineHeight,
                   color: "#eaf9ff",
                   textShadow:
                     "0 0 6px rgba(0,255,255,.55), 0 0 10px rgba(255,0,200,.55)",
                   userSelect: "none",
                   whiteSpace: "normal",
-                  wordBreak: "break-word",
+                  wordBreak: "normal",
                   hyphens: "auto",
-                  maxWidth: "100%",
+                  maxWidth: "82%",
                   display: "block",
                   textTransform: "uppercase",
                 }}
@@ -549,7 +574,7 @@ export function InteractiveNeonButton({
             </div>
           </div>
         </motion.div>
-      </motion.button>
+      </RootElement>
     </>
   );
 }

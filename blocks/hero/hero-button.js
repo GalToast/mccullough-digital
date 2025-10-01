@@ -50,6 +50,14 @@ const mountButton = (container) => {
   const candidateHref = (container.dataset.buttonLink || '').trim();
   const fallbackHref = fallback instanceof HTMLAnchorElement ? (fallback.getAttribute('href') || '').trim() : '';
   const href = [candidateHref, fallbackHref].find((value) => value && value !== '#') || '';
+  const candidateTarget = (container.dataset.buttonTarget || '').trim();
+  const fallbackTarget =
+    fallback instanceof HTMLAnchorElement ? (fallback.getAttribute('target') || '').trim() : '';
+  const target = [candidateTarget, fallbackTarget].find((value) => value) || '';
+  const candidateRel = (container.dataset.buttonRel || '').trim();
+  const fallbackRel =
+    fallback instanceof HTMLAnchorElement ? (fallback.getAttribute('rel') || '').trim() : '';
+  const rel = [candidateRel, fallbackRel].find((value) => value) || '';
 
   const rootNode = ensureRoot(container);
   const root = createRoot(rootNode);
@@ -59,18 +67,29 @@ const mountButton = (container) => {
     root.render(
       <InteractiveNeonButton
         label={label}
-        onClick={() => {
-          if (!href) {
-            return;
-          }
+        href={href || undefined}
+        target={target || undefined}
+        rel={rel || undefined}
+        onClick={
+          href
+            ? undefined
+            : () => {
+                if (!fallback) {
+                  return;
+                }
 
-          try {
-            window.location.href = href;
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error('Unable to navigate to hero CTA link', error);
-          }
-        }}
+                try {
+                  if (typeof fallback.click === 'function') {
+                    fallback.click();
+                  } else {
+                    fallback.dispatchEvent(new Event('click', { bubbles: true }));
+                  }
+                } catch (error) {
+                  // eslint-disable-next-line no-console
+                  console.error('Unable to trigger hero CTA fallback activation', error);
+                }
+              }
+        }
         strobe={!reducedMotion}
         showOrbiters={!reducedMotion}
         showPointerTrail={!reducedMotion}

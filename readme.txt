@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.34 - 2025-10-28 =
+* **Link Semantics Restored:** Allow the neon hero CTA to hydrate as a `<motion.a>` when a URL exists, preserving native link behaviours like new-tab navigation, context menus, and assistive tech exposure while keeping the button fallback for empty links.
+* **Responsive Label Layout:** Size the jelly button label and padding from the measured orb diameter and relax word breaking so default copy such as "Start a Project" stays horizontal instead of stacking each letter inside the sphere.
+
 = 1.2.33 - 2025-10-27 =
 * **Magnetic Hit Target Realignment:** Routed the Framer Motion springs onto the outer `<motion.button>` so the jelly sphere and its clickable hit area move together, restoring the magnetism effect for mouse and pen users.
 * **Neon Ring Mask Fallback:** Wrapped the spinning conic ring in a CSS mask support check and provided a radial halo fallback so browsers without `mask-image` support keep the label readable instead of flooding it with the gradient.

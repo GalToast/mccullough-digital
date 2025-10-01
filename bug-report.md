@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-28 Sweep
+1. **Hero CTA Link Semantics & Label Layout**
+   *Files:* `blocks/hero/hero-button.js`, `blocks/hero/components/NeonJellyButton.jsx`, `build/blocks/hero/hero-button.js`, `AGENTS.md`, `readme.txt`, `style.css`, `bug-report.md`
+   *Issue:* After hydration the hero CTA always downgraded to a `<motion.button>` that hijacked navigation with `window.location.href`, stripping anchor behaviours like modifier-key tabs and assistive tech link exposure. The static sizing also forced multi-word copy such as "Start a Project" into single-character vertical stacks inside the orb.
+   *Resolution:* Passed the resolved link data into the React component so it renders a `<motion.a>` when URLs exist while keeping the animated button fallback for empty targets, and tied the label font sizing/padding to the measured sphere diameter with relaxed word wrapping so standard hero copy remains legible on one or two lines.
+
 ### 2025-10-27 Sweep
 1. **Hero CTA Magnetism & Mask Guard**
    *Files:* `blocks/hero/components/NeonJellyButton.jsx`, `build/blocks/hero/hero-button.js`, `AGENTS.md`, `readme.txt`, `bug-report.md`
