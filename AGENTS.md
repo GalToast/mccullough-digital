@@ -10,6 +10,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+### Latest (2025-11-01) - Hero CTA Gradient Sweep
+- **Animated Sweep:** Rebuilt the static `.hero__cta-button` styles in `blocks/hero/style.css` and `editor-style.css` so anchors and buttons share an inline-flex neon pill with the masthead gradient sweeping across on hover/focus while preserving a dark resting surface, halo glow, and accessible outlines.
+
 ### Latest (2025-10-31) - About Story Defaults
 - **Richer Defaults:** Updated the About block metadata to prefill mission, founder, and proof paragraphs plus a CTA button so every new insertion surfaces the full storytelling stack.
 - **Pattern Sync:** Rebuilt the Home Landing and standalone About section patterns to embed the same copy structure, ensuring seeded pages and manual inserts stay consistent.

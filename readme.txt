@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.38 - Unreleased =
+* **Hero CTA Gradient Sweep:** Refresh the `.hero__cta-button` styling with an inline-flex neon pill, masthead-inspired gradient hover sweep, halo glow, and matching Site Editor treatment while keeping the dark resting surface and focus outline accessible.
+
 = 1.2.37 - 2025-10-31 =
 * **About Story Defaults:** Seed the About block and its companion patterns with mission, founder, proof, and CTA copy so new installs and reinserts surface the full narrative without manual editing.
 
