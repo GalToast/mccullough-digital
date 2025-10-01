@@ -169,4 +169,7 @@ canvas regardless of copy length.
 - Theme uses CSS custom properties for consistent theming
 - SVG sanitization allows safe inline styles while preventing XSS
 
+## Design Resources
+- **Web and Graphic Design 101.md**: A comprehensive guide covering foundational design principles, advanced techniques, UI/UX best practices, responsive design, accessibility (WCAG), information architecture, design psychology, and emerging technologies. This resource serves as a reference for design decisions, best practices, and industry standards when working on the theme.
+
 Keep documentation (this file, `readme.txt`, and `bug-report.md`) in sync with every bug sweep so downstream contributors understand the latest fixes.
