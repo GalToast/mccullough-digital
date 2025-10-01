@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.33 - 2025-10-27 =
+* **Magnetic Hit Target Realignment:** Routed the Framer Motion springs onto the outer `<motion.button>` so the jelly sphere and its clickable hit area move together, restoring the magnetism effect for mouse and pen users.
+* **Neon Ring Mask Fallback:** Wrapped the spinning conic ring in a CSS mask support check and provided a radial halo fallback so browsers without `mask-image` support keep the label readable instead of flooding it with the gradient.
+
 = 1.2.32 - 2025-10-26 =
 * **Neon Ring Mask Compatibility:** Rewrote the hero CTA's conic ring mask to use Safari- and Chromium-safe radial gradients with explicit mask sizing so the neon band stays hollow instead of flooding the button interior.
 

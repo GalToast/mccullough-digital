@@ -10,6 +10,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+### Latest (2025-10-27) - Hero CTA Magnetism & Mask Fallbacks
+- **Critical:** Rebound the Framer Motion springs to the `<motion.button>` wrapper so the actual click target now follows the jelly sphere. Any future tweaks to magnetism or press squish must stay on the outer button to keep pointer math and hit testing aligned.
+- **Compatibility:** Added a runtime CSS mask support check around the neon ring and a radial halo fallback so browsers that ignore `mask-image` (or its WebKit variant) no longer flood the label with the conic gradient. Preserve this guard when iterating on the ring visuals.
+
 ### Latest (2025-09-29) - Code Quality & WordPress Compatibility
 - **Critical:** Replaced deprecated `get_page_by_title()` function with `get_posts()` query for WordPress 6.2+ compatibility, eliminating potential PHP warnings.
 - **Critical:** Fixed invalid `get_block_wrapper_attributes()` usage across all block render files by removing the unsupported second parameter, ensuring proper WordPress API compliance.
