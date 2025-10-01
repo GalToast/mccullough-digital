@@ -33,6 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.36 - 2025-10-30 =
+* **Hero CTA Simplified:** Retired the neon React bundle and `.hero-neon-button-mount` wrapper so the hero block now renders a standard `.cta-button.hero__cta-button` anchor (or `<button>` when no link is stored) with automatic bottom spacing in both the front end and Site Editor.
+* **Hero Script Cleanup:** Removed the CTA magnetism and neon layer orchestration from `blocks/hero/view.js`, leaving only the starfield and decorative canvas logic to run on load.
+
 = 1.2.35 - 2025-10-29 =
 * **Hero CTA Hydration Everywhere:** Always enqueue the neon jelly CTA script and wrap saved buttons in a `.hero-neon-button-mount` so Site Editor and front-end renders hydrate even when authors edit the inner `core/button`, while the original markup stays in place for no-JS fallbacks.
 

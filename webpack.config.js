@@ -14,9 +14,6 @@ files.forEach((file) => {
   entries[entryName] = path.resolve(process.cwd(), file);
 });
 
-// Add the hero button React component as a separate entry
-entries['blocks/hero/hero-button'] = path.resolve(process.cwd(), './blocks/hero/hero-button.js');
-
 module.exports = {
   ...defaultConfig,
   entry: entries,
