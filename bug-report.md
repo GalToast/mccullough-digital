@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-01 Sweep
+1. **Hero CTA Gradient Sweep**
+   *Files:* `blocks/hero/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The simplified hero CTA reverted to the generic `.cta-button` styling, losing the masthead's gradient sweep, halo, and focus polish in both the front end and Site Editor previews.
+   *Resolution:* Reintroduced a dedicated `.hero__cta-button` treatment with inline-flex layout, dark resting surface, gradient hover sweep, halo glow, and matching editor styles plus accessible focus outlines.
+
 ### 2025-10-31 Sweep
 1. **About Block Story Defaults**
    *Files:* `blocks/about/block.json`, `blocks/about/editor.js`, `patterns/home-landing.php`, `patterns/about-section.php`, `build/blocks/about/editor.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`, `style.css`

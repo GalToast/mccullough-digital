@@ -122,6 +122,84 @@
 
 .wp-block-mccullough-digital-hero .hero__cta-button {
     align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65ch;
+    margin-inline: auto;
+    padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 1.9vw, 1.15rem);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--text-primary, #e6f1ff);
+    background: linear-gradient(180deg, rgba(8, 11, 18, 0.78), rgba(8, 11, 18, 0.6));
+    border: 1px solid rgba(230, 241, 255, 0.22);
+    border-radius: 999px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+    transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease,
+        transform 0.35s ease, background-color 0.35s ease;
+    isolation: isolate;
+    z-index: 0;
+    cursor: pointer;
+    appearance: none;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button::before,
+.wp-block-mccullough-digital-hero .hero__cta-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.45s ease;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button::before {
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+    transform: translateX(110%);
+    opacity: 0.85;
+    z-index: -1;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button::after {
+    inset: -35%;
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.35), transparent 55%),
+        radial-gradient(circle at 70% 30%, rgba(255, 0, 224, 0.3), transparent 60%);
+    opacity: 0;
+    transform: scale(0.9);
+    filter: blur(12px);
+    z-index: -2;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:hover,
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible {
+    color: var(--background-dark, #0b0c10);
+    border-color: transparent;
+    box-shadow: 0 22px 46px rgba(0, 229, 255, 0.3), 0 0 42px rgba(255, 0, 224, 0.28);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:hover::before,
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible::before {
+    transform: translateX(0);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:hover::after,
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible::after {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:focus-visible {
+    outline: 2px solid var(--neon-cyan);
+    outline-offset: 4px;
+}
+
+.wp-block-mccullough-digital-hero .hero__cta-button:focus:not(:focus-visible) {
+    outline: none;
 }
 
 
