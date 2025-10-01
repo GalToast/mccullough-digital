@@ -21,7 +21,9 @@
     align-items: center;
     justify-content: center;
     gap: 0.65ch;
-    margin-inline: auto;
+    margin-left: 0;
+    margin-right: 0;
+    align-self: auto;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
     font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     font-weight: 700;
@@ -41,6 +43,19 @@
     z-index: 0;
     cursor: pointer;
     appearance: none;
+}
+
+.wp-block-mccullough-digital-button.alignleft .hero__cta-button {
+    margin-right: auto;
+}
+
+.wp-block-mccullough-digital-button.alignright .hero__cta-button {
+    margin-left: auto;
+}
+
+.wp-block-mccullough-digital-button.aligncenter .hero__cta-button {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .wp-block-mccullough-digital-button .hero__cta-button::before,

@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-06 Sweep
+1. **Hero Neon Button Alignment & Popover Access**
+   *Files:* `blocks/hero/style.css`, `blocks/button/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The hero block's overflow clamp cut off the neon button's link popover in the Site Editor, while hero and button styles forced the CTA wrapper and button to stay centred, preventing align left/right selections and squashing custom spacing.
+   *Resolution:* Shifted overflow clipping to the canvas and decorative image layers so toolbar popovers can escape the hero wrapper, and removed the forced centring rules so the neon button now honours align classes and custom margins across the hero and standalone block.
+
 ### 2025-11-05 Sweep
 1. **Section CTA Defaults Trimmed**
    *Files:* `blocks/about/block.json`, `blocks/about/editor.js`, `blocks/cta/block.json`, `blocks/cta/editor.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`

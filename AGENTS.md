@@ -9,6 +9,9 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-06) - Hero CTA Alignment & Popover Fixes
+- **Editor Popovers Freed:** Released the hero wrapper's overflow clamp and moved clipping to the canvas/image layers so the neon button's URL popover opens fully in the Site Editor.
+- **Alignment Controls Restored:** Removed hero-specific centring overrides and updated the neon button block so align and spacing controls now position the CTA left, centre, or right with custom breathing room.
 
 -### Latest (2025-11-05) - Section CTA Defaults Trimmed
 - **Hero-Only Seeding:** Kept the neon CTA auto-inserted for the hero while removing it from the About and CTA default templates so those sections stay optional by default yet still allow the custom button to be added manually.

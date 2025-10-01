@@ -7,7 +7,6 @@
     text-align: center;
     position: relative; /* Needed for positioning the canvas */
     background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
-    overflow: hidden; /* Hide anything that goes outside the hero */
 }
 
 .wp-block-mccullough-digital-hero.is-content-top {
@@ -35,6 +34,19 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    border-radius: inherit;
+    overflow: hidden;
+}
+
+.wp-block-mccullough-digital-hero .hero-canvas-placeholder {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    overflow: hidden;
+    background: radial-gradient(circle at 20% 20%, rgba(0, 229, 255, 0.25), transparent 60%),
+        radial-gradient(circle at 80% 30%, rgba(255, 0, 224, 0.2), transparent 60%),
+        radial-gradient(circle at 50% 80%, rgba(148, 0, 211, 0.25), transparent 65%);
 }
 
 /* --- Hero Decorative Image --- */
@@ -43,6 +55,8 @@
     height: auto;
     z-index: 2; /* Below text (z-index: 3) but above canvas (z-index: 1) */
     pointer-events: none;
+    border-radius: inherit;
+    overflow: hidden;
 }
 
 .wp-block-mccullough-digital-hero .hero__decorative-image {
@@ -122,13 +136,45 @@
     justify-content: center;
 }
 
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons.alignleft,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button.alignleft {
+    justify-content: flex-start;
+}
+
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons.alignright,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button.alignright {
+    justify-content: flex-end;
+}
+
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons.aligncenter,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button.aligncenter {
+    justify-content: center;
+}
+
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons.alignleft .hero__cta-button,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button.alignleft .hero__cta-button {
+    margin-right: auto;
+}
+
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons.alignright .hero__cta-button,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button.alignright .hero__cta-button {
+    margin-left: auto;
+}
+
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons.aligncenter .hero__cta-button,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button.aligncenter .hero__cta-button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .wp-block-mccullough-digital-hero .hero__cta-button {
-    align-self: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.65ch;
-    margin-inline: auto;
+    margin-left: 0;
+    margin-right: 0;
+    align-self: auto;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
     font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     font-weight: 700;
