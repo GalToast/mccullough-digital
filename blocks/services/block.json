@@ -35,7 +35,8 @@
     "innerBlocks": {
         "allowedBlocks": [
             "core/heading",
-            "mccullough-digital/service-card"
+            "mccullough-digital/service-card",
+            "mccullough-digital/button"
         ],
         "templateLock": false,
         "template": [

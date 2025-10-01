@@ -50,7 +50,8 @@
             "core/group",
             "core/image",
             "core/buttons",
-            "core/button"
+            "core/button",
+            "mccullough-digital/button"
         ],
         "templateLock": false,
         "template": [
@@ -83,25 +84,6 @@
                     "placeholder": "Add proof statement…",
                     "content": "We integrate everything—from your website and social media to your Google Business Profile and ad campaigns—into one cohesive strategy for growth."
                 }
-            ],
-            [
-                "core/buttons",
-                {
-                    "layout": {
-                        "type": "flex",
-                        "justifyContent": "left"
-                    }
-                },
-                [
-                    [
-                        "core/button",
-                        {
-                            "className": "is-style-fill",
-                            "text": "Learn Our Story",
-                            "url": "/about/"
-                        }
-                    ]
-                ]
             ]
         ]
     },

@@ -113,7 +113,8 @@
             "core/buttons",
             "core/group",
             "core/image",
-            "core/media-text"
+            "core/media-text",
+            "mccullough-digital/button"
         ],
         "templateLock": false,
         "template": [
@@ -134,22 +135,10 @@
                 }
             ],
             [
-                "core/buttons",
+                "mccullough-digital/button",
                 {
-                    "layout": {
-                        "type": "flex",
-                        "justifyContent": "center"
-                    }
-                },
-                [
-                    [
-                        "core/button",
-                        {
-                            "className": "hero__cta-button",
-                            "text": "Start a Project"
-                        }
-                    ]
-                ]
+                    "buttonText": "Start a Project"
+                }
             ]
         ]
     },

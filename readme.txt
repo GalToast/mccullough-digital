@@ -34,6 +34,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.38 - Unreleased =
+* **Section CTA Allowlist:** Updated the hero, services, about, and CTA sections to allow the `mccullough-digital/button` block while keeping the neon CTA auto-seeded only in the hero so other sections stay optional by default.
 * **Standalone Neon Button Block:** Added a reusable `mccullough-digital/button` block so editors can drop the hero's gradient sweep CTA anywhere, complete with toolbar link control and optional new-tab toggle.
 * **Hero CTA Gradient Sweep:** Lighten the `.hero__cta-button` resting tint and flip the sweep animation to originate from the left, ensuring the neon gradient floods the pill left-to-right in both the front end and Site Editor while preserving the glow and focus outline.
 * **Shared CTA Label Wrapper:** Wrap hero CTA text in `.hero__cta-button-label` so the hero and standalone button share identical inline-flex label styling.

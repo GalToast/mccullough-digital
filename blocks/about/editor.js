@@ -19,6 +19,7 @@ const {
             'core/image',
             'core/buttons',
             'core/button',
+            'mccullough-digital/button',
         ],
         template: aboutTemplate = [
             [
@@ -52,25 +53,6 @@ const {
                     content:
                         'We integrate everything—from your website and social media to your Google Business Profile and ad campaigns—into one cohesive strategy for growth.',
                 },
-            ],
-            [
-                'core/buttons',
-                {
-                    layout: {
-                        type: 'flex',
-                        justifyContent: 'left',
-                    },
-                },
-                [
-                    [
-                        'core/button',
-                        {
-                            className: 'is-style-fill',
-                            text: 'Learn Our Story',
-                            url: '/about/',
-                        },
-                    ],
-                ],
             ],
         ],
         templateLock: aboutTemplateLock = false,

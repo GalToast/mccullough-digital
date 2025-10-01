@@ -23,6 +23,7 @@ const {
             'core/buttons',
             'core/group',
             'core/image',
+            'mccullough-digital/button',
         ],
         template: ctaTemplate = [
             [
@@ -33,25 +34,6 @@ const {
                     placeholder: __('Add CTA headline…', 'mccullough-digital'),
                     content: defaultHeadline,
                 },
-            ],
-            [
-                'core/buttons',
-                {
-                    layout: {
-                        type: 'flex',
-                        justifyContent: 'center',
-                    },
-                },
-                [
-                    [
-                        'core/button',
-                        {
-                            className: 'cta-button',
-                            text: defaultButtonText,
-                            url: defaultButtonLink,
-                        },
-                    ],
-                ],
             ],
         ],
         templateLock: ctaTemplateLock = false,
@@ -98,24 +80,12 @@ registerBlockType(metadata.name, {
             }
 
             if (buttonText || buttonLink) {
-                const button = createBlock('core/button', {
-                    className: 'cta-button',
-                    text: buttonText || defaultButtonText,
-                    url: buttonLink || undefined,
+                const neonButton = createBlock('mccullough-digital/button', {
+                    buttonText: buttonText || defaultButtonText,
+                    buttonLink: buttonLink || '',
                 });
 
-                const buttonsWrapper = createBlock(
-                    'core/buttons',
-                    {
-                        layout: {
-                            type: 'flex',
-                            justifyContent: 'center',
-                        },
-                    },
-                    [button]
-                );
-
-                generatedBlocks.push(buttonsWrapper);
+                generatedBlocks.push(neonButton);
             }
 
             if (generatedBlocks.length === 0) {

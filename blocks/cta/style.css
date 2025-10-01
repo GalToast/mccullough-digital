@@ -29,13 +29,15 @@
     margin-inline: auto;
 }
 
-.wp-block-mccullough-digital-cta .wp-block-buttons {
+.wp-block-mccullough-digital-cta .wp-block-buttons,
+.wp-block-mccullough-digital-cta .wp-block-mccullough-digital-button {
     justify-content: center;
     gap: 0;
     width: 100%;
 }
 
-.wp-block-mccullough-digital-cta .wp-block-button {
+.wp-block-mccullough-digital-cta .wp-block-button,
+.wp-block-mccullough-digital-cta .wp-block-mccullough-digital-button {
     margin: 0;
 }
 
