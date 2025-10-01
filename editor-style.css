@@ -170,207 +170,6 @@
     margin-top: 0;
 }
 
-.editor-styles-wrapper .hero .wp-block-buttons {
-    position: absolute;
-    right: 8%;
-    bottom: var(--hero-cta-offset, clamp(64px, 12vh, 200px));
-    transform: none;
-    z-index: 10;
-}
-
-.editor-styles-wrapper .hero__cta-button,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button,
-.editor-styles-wrapper .hero .cta-button {
-    --hero-cta-size: clamp(152px, 22vw, 204px);
-    --hero-cta-translate-x: 0px;
-    --hero-cta-translate-y: 0px;
-    --hero-cta-scale-x: 1;
-    --hero-cta-scale-y: 1;
-    --hero-cta-glow: 0;
-    --hero-cta-press: 0;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--hero-cta-size);
-    height: var(--hero-cta-size);
-    border-radius: 999px;
-    padding: 0;
-    font-weight: 700;
-    font-size: clamp(0.95rem, 1.9vw, 1.1rem);
-    letter-spacing: 0.08em;
-    color: #eaf9ff;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    isolation: isolate;
-    box-shadow:
-        0 20px calc(34px + 52px * var(--hero-cta-glow)) rgba(6, 8, 18, 0.72),
-        0 0 calc(20px + 56px * var(--hero-cta-glow)) rgba(0, 229, 255, 0.55),
-        0 0 calc(18px + 52px * var(--hero-cta-glow)) rgba(255, 0, 224, 0.45);
-    transform:
-        translate3d(
-            var(--hero-cta-translate-x),
-            var(--hero-cta-translate-y),
-            0
-        )
-        scaleX(
-            calc(
-                var(--hero-cta-scale-x)
-                * (1 - var(--hero-cta-press) * 0.12)
-            )
-        )
-        scaleY(
-            calc(
-                var(--hero-cta-scale-y)
-                * (1 + var(--hero-cta-press) * 0.18)
-            )
-        );
-    transition: color 0.25s ease, box-shadow 0.35s ease, transform 0.15s ease;
-    will-change: transform, box-shadow;
-    animation: hero-cta-neonPulse 1.7s ease-in-out infinite;
-}
-
-.editor-styles-wrapper .hero__cta-button::before,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button::before,
-.editor-styles-wrapper .hero .cta-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background:
-        radial-gradient(120% 120% at 32% 32%, rgba(0, 229, 255, 0.42), transparent 58%),
-        radial-gradient(120% 120% at 72% 68%, rgba(255, 0, 224, 0.38), transparent 65%),
-        radial-gradient(80% 80% at 50% 50%, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 35%, transparent 70%),
-        linear-gradient(145deg, rgba(12, 15, 20, 0.92), rgba(21, 26, 38, 0.8));
-    box-shadow:
-        inset 0 14px 32px rgba(255, 255, 255, 0.08),
-        inset 0 -18px 42px rgba(6, 8, 18, 0.85);
-    z-index: 0;
-}
-
-.editor-styles-wrapper .hero__cta-button::after,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button::after,
-.editor-styles-wrapper .hero .cta-button::after {
-    content: '';
-    position: absolute;
-    inset: -20px;
-    border-radius: inherit;
-    background:
-        radial-gradient(circle at 32% 32%, rgba(0, 229, 255, 0.55), transparent 68%),
-        radial-gradient(circle at 70% 70%, rgba(255, 0, 224, 0.45), transparent 72%);
-    opacity: clamp(0, var(--hero-cta-glow), 1);
-    transform: scale(calc(0.9 + var(--hero-cta-glow) * 0.28));
-    filter: blur(calc(6px + 22px * var(--hero-cta-glow)));
-    transition: opacity 0.35s ease, transform 0.4s ease, filter 0.35s ease;
-    z-index: -1;
-}
-
-.editor-styles-wrapper .hero__cta-button-label,
-.editor-styles-wrapper .hero .cta-button .btn-text {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 12px;
-    min-width: 42%;
-    text-transform: uppercase;
-    text-align: center;
-    text-shadow:
-        0 6px 22px rgba(6, 8, 18, 0.85),
-        0 0 18px rgba(0, 229, 255, 0.55),
-        0 0 26px rgba(255, 0, 224, 0.35);
-    letter-spacing: 0.08em;
-}
-
-.editor-styles-wrapper .hero__cta-button.is-static,
-.editor-styles-wrapper .hero .cta-button.is-static {
-    cursor: default;
-    pointer-events: none;
-}
-
-.editor-styles-wrapper .hero.is-reduced-motion .hero__cta-button,
-.editor-styles-wrapper .hero.is-reduced-motion .wp-block-button__link.hero__cta-button,
-.editor-styles-wrapper .hero.is-reduced-motion .cta-button {
-    --hero-cta-translate-x: 0px !important;
-    --hero-cta-translate-y: 0px !important;
-    --hero-cta-scale-x: 1 !important;
-    --hero-cta-scale-y: 1 !important;
-    --hero-cta-glow: 0 !important;
-    --hero-cta-press: 0 !important;
-    transform: translate3d(0, 0, 0) scale(1);
-    animation: none;
-}
-
-.editor-styles-wrapper .hero__cta-button:focus-visible,
-.editor-styles-wrapper .hero__cta-button:hover,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button:focus-visible,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button:hover,
-.editor-styles-wrapper .hero .cta-button:focus-visible,
-.editor-styles-wrapper .hero .cta-button:hover {
-    color: #f4fbff;
-    outline: none;
-    box-shadow:
-        0 26px 86px rgba(0, 229, 255, 0.55),
-        0 0 86px rgba(255, 0, 224, 0.5),
-        0 0 0 3px rgba(0, 229, 255, 0.35);
-}
-
-.editor-styles-wrapper .hero__cta-button:focus-visible::before,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button:focus-visible::before,
-.editor-styles-wrapper .hero .cta-button:focus-visible::before {
-    transform: scale(1.02);
-}
-
-.editor-styles-wrapper .hero__cta-button:focus-visible::after,
-.editor-styles-wrapper .hero__cta-button:hover::after,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button:focus-visible::after,
-.editor-styles-wrapper .wp-block-button__link.hero__cta-button:hover::after,
-.editor-styles-wrapper .hero .cta-button:focus-visible::after,
-.editor-styles-wrapper .hero .cta-button:hover::after {
-    opacity: 1;
-}
-
-@keyframes hero-cta-neonPulse {
-    0%,
-    100% {
-        filter: drop-shadow(0 0 14px rgba(0, 229, 255, 0.55))
-            drop-shadow(0 0 18px rgba(255, 0, 224, 0.55));
-    }
-
-    50% {
-        filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.85))
-            drop-shadow(0 0 32px rgba(255, 0, 224, 0.85));
-    }
-}
-
-@media (max-width: 768px) {
-    .editor-styles-wrapper .hero .wp-block-buttons {
-        position: relative;
-        right: auto;
-        top: auto;
-        bottom: auto;
-        transform: none;
-        margin-top: 40px;
-    }
-
-    .editor-styles-wrapper .hero__cta-button,
-    .editor-styles-wrapper .wp-block-button__link.hero__cta-button,
-    .editor-styles-wrapper .hero .cta-button {
-        --hero-cta-size: clamp(128px, 48vw, 168px);
-        font-size: clamp(0.9rem, 3.6vw, 1.02rem);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .editor-styles-wrapper .hero__cta-button,
-    .editor-styles-wrapper .wp-block-button__link.hero__cta-button,
-    .editor-styles-wrapper .hero .cta-button {
-        animation: none;
-    }
-}
 
 .editor-styles-wrapper .hero-canvas-placeholder {
     position: absolute;
@@ -390,9 +189,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: clamp(24px, 6vw, 48px);
+    padding-bottom: clamp(32px, 10vh, 120px);
     transform: translateY(var(--hero-content-offset, 0px));
 }
+
+.editor-styles-wrapper .hero-content > .wp-block-buttons,
+.editor-styles-wrapper .hero-content > .hero__cta-button {
+    margin-top: auto;
+}
+
+.editor-styles-wrapper .hero-content > .wp-block-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.editor-styles-wrapper .hero__cta-button {
+    align-self: center;
+}
+
 
 .editor-styles-wrapper .hero h1 {
     font-family: 'Caveat', cursive;

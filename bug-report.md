@@ -4,6 +4,14 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-30 Sweep
+1. **Hero CTA Simplification**
+   *Files:* `blocks/hero/render.php`, `blocks/hero/style.css`, `editor-style.css`, `blocks/hero/view.js`, `webpack.config.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The neon hero CTA depended on a dedicated React bundle, magnetism helpers, and bespoke wrapper markup. When JavaScript failed or authors needed a lightweight fallback, the markup stayed bloated and the obsolete bundle lingered in the build outputs and documentation.
+   *Resolution:* Removed the React bundle and `.hero-neon-button-mount` wrapper, restored the hero CTA to the global `.cta-button` anchor/button treatment, reworked the hero layout styles so button groups settle at the bottom of `.hero-content` in both front-end and editor views, pared the view script back to starfield rendering, and updated tooling and docs to reflect the simplified setup.
+
+> The hero CTA items below document the retired neon implementation and are preserved for historical context.
+
 ### 2025-10-29 Sweep
 1. **Hero CTA Mount Reliability**
    *Files:* `blocks/hero/render.php`, `AGENTS.md`, `readme.txt`, `style.css`, `bug-report.md`

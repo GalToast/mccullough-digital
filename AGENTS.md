@@ -10,6 +10,13 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+### Latest (2025-10-30) - Hero CTA Simplification
+- **Static CTA:** Removed the neon React button bundle and `.hero-neon-button-mount` wrapper. The PHP render now outputs the saved CTA markup directly as a `.cta-button.hero__cta-button` anchor (or `<button>` when no link is stored) so the hero falls back gracefully without JavaScript.
+- **Layout Parity:** Updated the front-end and editor hero styles to let `.hero-content` push button groups to the bottom with `margin-top: auto`, reusing the global `.cta-button` treatment instead of bespoke neon layers.
+- **JS Cleanup:** Trimmed `blocks/hero/view.js` down to the starfield and decorative logic so no magnetism helpers or CTA layer orchestration run on load, matching the simplified markup and styles.
+
+> Older hero CTA notes below (2025-10-29 through 2025-10-21) describe the retired neon implementation and are kept for historical context only.
+
 ### Latest (2025-10-29) - Hero CTA Mount Reliability
 - **Hydration Everywhere:** The PHP render now wraps saved hero CTA buttons in a `.hero-neon-button-mount` wrapper and enqueues `build/blocks/hero/hero-button.js` whenever a call-to-action exists, so React hydrates in both the Site Editor preview and the published front end.
 - **Graceful Fallbacks:** The wrapper preserves the original `<a>` or `<button>` markup inside the mount, keeping the no-JavaScript experience accessible while exposing the CTA text/link to the React bundle.
