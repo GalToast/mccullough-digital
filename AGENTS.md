@@ -10,6 +10,14 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+-### Latest (2025-11-05) - Section CTA Defaults Trimmed
+- **Hero-Only Seeding:** Kept the neon CTA auto-inserted for the hero while removing it from the About and CTA default templates so those sections stay optional by default yet still allow the custom button to be added manually.
+- **Editor Parity:** Updated the About and CTA editor fallbacks to match the template change so legacy migrations still hydrate saved buttons, but fresh inserts no longer spawn one automatically.
+
+-### Latest (2025-11-04) - Section Button Allowlist
+- **Neon CTA Everywhere:** Added the `mccullough-digital/button` block to the hero, services, about, and CTA section allowlists so editors can drop the neon sweep button directly inside every marketing section without swapping block types.
+- **Template Sync:** Updated the hero default template plus supporting styles to seed the custom button instead of `core/button`, and mirrored the layout helpers in both front-end and editor styles so the flex centering still works with the new wrapper.
+
 -### Latest (2025-11-03) - Neon Button Block
 - **Reusable CTA:** Added a `mccullough-digital/button` block that outputs the hero CTA markup so editors can drop a single neon button anywhere. The block ships with the gradient sweep styles, optional new-tab toggle, and toolbar link control.
 - **Label Wrapper:** Wrapped hero CTA text in `.hero__cta-button-label` so both the hero and standalone button share the same inline-flex label styling.

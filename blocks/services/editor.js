@@ -11,6 +11,7 @@ const {
         allowedBlocks: allowedServiceBlocks = [
             'core/heading',
             'mccullough-digital/service-card',
+            'mccullough-digital/button',
         ],
         template: servicesTemplate = [
             [

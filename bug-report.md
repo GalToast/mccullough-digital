@@ -4,6 +4,18 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-05 Sweep
+1. **Section CTA Defaults Trimmed**
+   *Files:* `blocks/about/block.json`, `blocks/about/editor.js`, `blocks/cta/block.json`, `blocks/cta/editor.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The About and CTA sections still spawned the neon button automatically, contradicting the requirement that only the hero pre-seed the CTA while keeping it optional elsewhere.
+   *Resolution:* Removed the neon button from the About and CTA default templates and editor fallbacks while preserving the allowlist so legacy migrations can hydrate saved CTAs and editors can insert the block manually when needed.
+
+### 2025-11-04 Sweep
+1. **Section CTA Allowlist Sync**
+   *Files:* `blocks/hero/block.json`, `blocks/hero/editor.js`, `blocks/hero/style.css`, `blocks/services/block.json`, `blocks/services/editor.js`, `blocks/about/block.json`, `blocks/about/editor.js`, `blocks/cta/block.json`, `blocks/cta/editor.js`, `blocks/cta/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The new neon button block could not be inserted into the hero, services, about, or CTA sections because their InnerBlocks allowlists still restricted custom CTA blocks, and the seeded templates defaulted back to `core/button`, breaking parity with the reusable neon styling.
+   *Resolution:* Added `mccullough-digital/button` to each section's allowed blocks, swapped default templates and editor fallbacks to seed the neon button where appropriate, and mirrored the flex centring helpers in both front-end and editor styles so the custom wrapper aligns like the previous button groups.
+
 ### 2025-11-03 Sweep
 1. **Standalone Neon Button Block**
    *Files:* `blocks/button/block.json`, `blocks/button/editor.js`, `blocks/button/render.php`, `blocks/button/style.css`, `build/blocks/button/editor.js`, `blocks/hero/render.php`, `blocks/hero/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`, `style.css`

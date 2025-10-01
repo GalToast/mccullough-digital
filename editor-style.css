@@ -195,6 +195,7 @@
 }
 
 .editor-styles-wrapper .hero-content > .wp-block-buttons,
+.editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button,
 .editor-styles-wrapper .hero-content > .hero__cta-button {
     margin-top: auto;
 }
@@ -286,7 +287,8 @@
     justify-content: center;
 }
 
-.editor-styles-wrapper .hero-content > .wp-block-buttons {
+.editor-styles-wrapper .hero-content > .wp-block-buttons,
+.editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -587,6 +589,11 @@
 .editor-styles-wrapper .cta-section .wp-block-button__link.cta-button:not(.hero__cta-button) {
     border-color: var(--text-primary);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.editor-styles-wrapper .cta-section .wp-block-mccullough-digital-button {
+    justify-content: center;
+    width: 100%;
 }
 
 /* ============================================

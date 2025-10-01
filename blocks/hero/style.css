@@ -110,11 +110,13 @@
 }
 
 .wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button,
 .wp-block-mccullough-digital-hero .hero-content > .hero__cta-button {
     margin-top: auto;
 }
 
-.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons {
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-buttons,
+.wp-block-mccullough-digital-hero .hero-content > .wp-block-mccullough-digital-button {
     width: 100%;
     display: flex;
     justify-content: center;

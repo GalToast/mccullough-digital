@@ -53,7 +53,8 @@
             "core/list",
             "core/buttons",
             "core/group",
-            "core/image"
+            "core/image",
+            "mccullough-digital/button"
         ],
         "templateLock": false,
         "template": [
@@ -65,25 +66,6 @@
                     "placeholder": "Add CTA headline…",
                     "content": "Ready to Create?"
                 }
-            ],
-            [
-                "core/buttons",
-                {
-                    "layout": {
-                        "type": "flex",
-                        "justifyContent": "center"
-                    }
-                },
-                [
-                    [
-                        "core/button",
-                        {
-                            "className": "cta-button",
-                            "text": "Let's Talk",
-                            "url": "mailto:contact@mccullough.digital"
-                        }
-                    ]
-                ]
             ]
         ]
     },

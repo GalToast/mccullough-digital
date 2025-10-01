@@ -37,6 +37,7 @@ const {
             'core/group',
             'core/image',
             'core/media-text',
+            'mccullough-digital/button',
         ],
         template: heroTemplate = [
             [
@@ -56,23 +57,11 @@ const {
                 },
             ],
             [
-                'core/buttons',
+                'mccullough-digital/button',
                 {
-                    layout: {
-                        type: 'flex',
-                        justifyContent: 'center',
-                    },
+                    buttonText: defaultButtonText,
+                    buttonLink: defaultButtonLink,
                 },
-                [
-                    [
-                        'core/button',
-                        {
-                            className: 'hero__cta-button',
-                            text: defaultButtonText,
-                            url: defaultButtonLink,
-                        },
-                    ],
-                ],
             ],
         ],
         templateLock: heroTemplateLock = false,
@@ -210,24 +199,12 @@ registerBlockType(metadata.name, {
             }
 
             if (buttonText || buttonLink) {
-                const button = createBlock('core/button', {
-                    className: 'hero__cta-button',
-                    text: buttonText || DEFAULT_BUTTON_TEXT,
-                    url: buttonLink || undefined,
+                const neonButton = createBlock('mccullough-digital/button', {
+                    buttonText: buttonText || DEFAULT_BUTTON_TEXT,
+                    buttonLink: buttonLink || '',
                 });
 
-                const buttonsWrapper = createBlock(
-                    'core/buttons',
-                    {
-                        layout: {
-                            type: 'flex',
-                            justifyContent: 'center',
-                        },
-                    },
-                    [button]
-                );
-
-                generatedBlocks.push(buttonsWrapper);
+                generatedBlocks.push(neonButton);
             }
 
             if (generatedBlocks.length === 0) {
