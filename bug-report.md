@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-31 Sweep
+1. **About Block Story Defaults**
+   *Files:* `blocks/about/block.json`, `blocks/about/editor.js`, `patterns/home-landing.php`, `patterns/about-section.php`, `build/blocks/about/editor.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`, `style.css`
+   *Issue:* The About block only seeded a generic headline and single paragraph, leaving new pages without the mission, founder introduction, proof point, or CTA requested for the homepage copy refresh.
+   *Resolution:* Expanded the block defaults with mission, founder, and proof paragraphs plus a prefilled buttons row, updated the Home Landing and standalone About patterns to match, regenerated the editor script bundle, and documented the richer defaults across project notes and changelog with a version bump.
+
 ### 2025-10-30 Sweep
 1. **Hero CTA Simplification**
    *Files:* `blocks/hero/render.php`, `blocks/hero/style.css`, `editor-style.css`, `blocks/hero/view.js`, `webpack.config.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`

@@ -35,11 +35,11 @@
     "attributes": {
         "headline": {
             "type": "string",
-            "default": "About Us"
+            "default": "Your Digital Partner from Day One"
         },
         "text": {
             "type": "string",
-            "default": "McCullough Digital is a small team of developers, designers, and strategists passionate about building beautiful things for the web. We thrive on collaboration and exist to create digital tools that help our clients succeed. We believe in clean code, thoughtful design, and a relentless pursuit of quality."
+            "default": "McCullough Digital was founded to give new and growing businesses a powerful online voice. We integrate everything—from your website and social media to your Google Business Profile and ad campaigns—into one cohesive strategy for growth."
         }
     },
     "innerBlocks": {
@@ -48,7 +48,9 @@
             "core/paragraph",
             "core/list",
             "core/group",
-            "core/image"
+            "core/image",
+            "core/buttons",
+            "core/button"
         ],
         "templateLock": false,
         "template": [
@@ -58,15 +60,48 @@
                     "level": 2,
                     "className": "section-title",
                     "placeholder": "Add about headline…",
-                    "content": "About Us"
+                    "content": "Your Digital Partner from Day One"
                 }
             ],
             [
                 "core/paragraph",
                 {
                     "placeholder": "Add about text…",
-                    "content": "McCullough Digital is a small team of developers, designers, and strategists passionate about building beautiful things for the web. We thrive on collaboration and exist to create digital tools that help our clients succeed. We believe in clean code, thoughtful design, and a relentless pursuit of quality."
+                    "content": "McCullough Digital was founded to give new and growing businesses a powerful online voice. We handle the complex digital world so you can focus on running your business."
                 }
+            ],
+            [
+                "core/paragraph",
+                {
+                    "placeholder": "Add founder introduction…",
+                    "content": "As the founder, I bring a passion for technology and a deep understanding of what it takes to get noticed online. We're not just a service provider; we're your dedicated digital launchpad."
+                }
+            ],
+            [
+                "core/paragraph",
+                {
+                    "placeholder": "Add proof statement…",
+                    "content": "We integrate everything—from your website and social media to your Google Business Profile and ad campaigns—into one cohesive strategy for growth."
+                }
+            ],
+            [
+                "core/buttons",
+                {
+                    "layout": {
+                        "type": "flex",
+                        "justifyContent": "left"
+                    }
+                },
+                [
+                    [
+                        "core/button",
+                        {
+                            "className": "is-style-fill",
+                            "text": "Learn Our Story",
+                            "url": "/about/"
+                        }
+                    ]
+                ]
             ]
         ]
     },

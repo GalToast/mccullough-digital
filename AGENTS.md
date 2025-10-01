@@ -10,6 +10,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+### Latest (2025-10-31) - About Story Defaults
+- **Richer Defaults:** Updated the About block metadata to prefill mission, founder, and proof paragraphs plus a CTA button so every new insertion surfaces the full storytelling stack.
+- **Pattern Sync:** Rebuilt the Home Landing and standalone About section patterns to embed the same copy structure, ensuring seeded pages and manual inserts stay consistent.
+
 ### Latest (2025-10-30) - Hero CTA Simplification
 - **Static CTA:** Removed the neon React button bundle and `.hero-neon-button-mount` wrapper. The PHP render now outputs the saved CTA markup directly as a `.cta-button.hero__cta-button` anchor (or `<button>` when no link is stored) so the hero falls back gracefully without JavaScript.
 - **Layout Parity:** Updated the front-end and editor hero styles to let `.hero-content` push button groups to the bottom with `margin-top: auto`, reusing the global `.cta-button` treatment instead of bespoke neon layers.

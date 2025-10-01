@@ -33,6 +33,9 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
+= 1.2.37 - 2025-10-31 =
+* **About Story Defaults:** Seed the About block and its companion patterns with mission, founder, proof, and CTA copy so new installs and reinserts surface the full narrative without manual editing.
+
 = 1.2.36 - 2025-10-30 =
 * **Hero CTA Simplified:** Retired the neon React bundle and `.hero-neon-button-mount` wrapper so the hero block now renders a standard `.cta-button.hero__cta-button` anchor (or `<button>` when no link is stored) with automatic bottom spacing in both the front end and Site Editor.
 * **Hero Script Cleanup:** Removed the CTA magnetism and neon layer orchestration from `blocks/hero/view.js`, leaving only the starfield and decorative canvas logic to run on load.
