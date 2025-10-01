@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-27 Sweep
+1. **Hero CTA Magnetism & Mask Guard**
+   *Files:* `blocks/hero/components/NeonJellyButton.jsx`, `build/blocks/hero/hero-button.js`, `AGENTS.md`, `readme.txt`, `bug-report.md`
+   *Issue:* The neon jelly button's Framer Motion springs only translated an inner wrapper, leaving the clickable `<motion.button>` static so the magnetism felt broken. Simultaneously, browsers lacking `mask-image` support rendered the spinning conic ring as a solid fill that washed the "Start a project" label in purple.
+   *Resolution:* Moved the spring-driven translation and press squish onto the `<motion.button>` hit target, kept 3D rotation on the inner layer to preserve the jelly feel, and added a runtime CSS mask support check that swaps in a radial halo fallback when masks are unavailable so the label remains legible.
+
 ### 2025-10-26 Sweep
 1. **Hero CTA Neon Ring Mask Fallback**
    *Files:* `blocks/hero/components/NeonJellyButton.jsx`, `build/blocks/hero/hero-button.js`

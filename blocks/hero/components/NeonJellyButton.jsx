@@ -147,6 +147,13 @@ export function InteractiveNeonButton({
       "radial-gradient(110% 110% at 70% 70%, rgba(255,0,200,0.22) 0%, rgba(0,0,0,0) 55%)," +
       "radial-gradient(70% 70% at 50% 50%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 70%)",
   }), []);
+  const supportsMask = useMemo(() => {
+    if (typeof CSS === "undefined" || typeof CSS.supports !== "function") {
+      return true;
+    }
+    const mask = "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)";
+    return CSS.supports("mask-image", mask) || CSS.supports("-webkit-mask-image", mask);
+  }, []);
 
   return (
     <>
@@ -199,21 +206,21 @@ export function InteractiveNeonButton({
           ...(strobe ? { animation: "neonPulse 1.6s ease-in-out infinite" } : {}),
           transformStyle: "preserve-3d",
           transition: 'box-shadow 200ms, transform 200ms, filter 200ms',
+          x: sx,
+          y: sy,
+          scaleX: pressScaleX,
+          scaleY: pressScaleY,
         }}
         className="rm"
       >
         {/* Magnetic transform & jelly squish */}
-        <motion.div style={{ 
+        <motion.div style={{
           position: 'absolute',
           inset: 0,
           borderRadius: '9999px',
           willChange: 'transform',
-          x: sx, 
-          y: sy, 
-          rotateX: rotX, 
-          rotateY: rotY, 
-          scaleX: pressScaleX, 
-          scaleY: pressScaleY 
+          rotateX: rotX,
+          rotateY: rotY,
         }}>
           {/* Core sphere */}
           <div style={{ 
@@ -232,22 +239,35 @@ export function InteractiveNeonButton({
             }} />
 
             {/* Rotating conic neon border (ring) */}
-            <div style={{
-              pointerEvents: 'none',
-              position: 'absolute',
-              inset: 0,
-              borderRadius: '9999px',
-              background: "conic-gradient(rgba(0,255,255,.9), rgba(255,0,200,.9), rgba(0,255,255,.9))",
-              animation: "spin360 8s linear infinite",
-              filter: "blur(0.2px) saturate(1.2)",
-              WebkitMaskImage: "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)",
-              WebkitMaskRepeat: 'no-repeat',
-              WebkitMaskSize: '100% 100%',
-              maskImage: "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)",
-              maskRepeat: 'no-repeat',
-              maskSize: '100% 100%',
-              mixBlendMode: "screen",
-            }} />
+            {supportsMask ? (
+              <div style={{
+                pointerEvents: 'none',
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '9999px',
+                background: "conic-gradient(rgba(0,255,255,.9), rgba(255,0,200,.9), rgba(0,255,255,.9))",
+                animation: "spin360 8s linear infinite",
+                filter: "blur(0.2px) saturate(1.2)",
+                WebkitMaskImage: "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)",
+                WebkitMaskRepeat: 'no-repeat',
+                WebkitMaskSize: '100% 100%',
+                maskImage: "radial-gradient(circle at center, transparent 63%, rgba(0,0,0,.7) 72%, #000 78%)",
+                maskRepeat: 'no-repeat',
+                maskSize: '100% 100%',
+                mixBlendMode: "screen",
+              }} />
+            ) : (
+              <div style={{
+                pointerEvents: 'none',
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '9999px',
+                background: "radial-gradient(circle at center, rgba(0,0,0,0) 56%, rgba(0,255,255,0.42) 70%, rgba(255,0,200,0.38) 86%, rgba(0,0,0,0) 100%)",
+                filter: "blur(1.2px)",
+                opacity: 0.95,
+                mixBlendMode: "screen",
+              }} />
+            )}
 
             {/* Soft inner ring */}
             <div style={{
