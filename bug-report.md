@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-08 Sweep
+1. **Header Logo Sizing Clamp**
+   *Files:* `style.css`, `editor-style.css`, `AGENTS.md`, `readme.txt`, `bug-report.md`
+   *Issue:* Oversized brand uploads relied on the core `.wp-block-site-logo img` rule, causing the masthead logo to exceed `--logo-size-header`, stretch the fixed header, and spike the `--mcd-header-offset` calculation in both the front end and Site Editor preview.
+   *Resolution:* Scoped the masthead logo styling to `.site-header .custom-logo` and `.wp-block-site-logo .custom-logo`, tied the height to `--logo-size-header`, and added responsive width and max-height constraints in both CSS bundles so oversized files scale down without disturbing the header offset or Site Editor preview.
+
 ### 2025-11-07 Sweep
 1. **Neon Blog Archive Template**
    *Files:* `templates/archive.html`, `templates/index.html`, `patterns/post-card-grid.php`, `style.css`, `editor-style.css`, `AGENTS.md`, `readme.txt`
