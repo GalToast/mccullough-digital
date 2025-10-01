@@ -17,6 +17,8 @@ const {
             'core/list',
             'core/group',
             'core/image',
+            'core/buttons',
+            'core/button',
         ],
         template: aboutTemplate = [
             [
@@ -34,6 +36,41 @@ const {
                     placeholder: __('Add about text…', 'mccullough-digital'),
                     content: defaultText,
                 },
+            ],
+            [
+                'core/paragraph',
+                {
+                    placeholder: __('Add founder introduction…', 'mccullough-digital'),
+                    content:
+                        "As the founder, I bring a passion for technology and a deep understanding of what it takes to get noticed online. We're not just a service provider; we're your dedicated digital launchpad.",
+                },
+            ],
+            [
+                'core/paragraph',
+                {
+                    placeholder: __('Add proof statement…', 'mccullough-digital'),
+                    content:
+                        'We integrate everything—from your website and social media to your Google Business Profile and ad campaigns—into one cohesive strategy for growth.',
+                },
+            ],
+            [
+                'core/buttons',
+                {
+                    layout: {
+                        type: 'flex',
+                        justifyContent: 'left',
+                    },
+                },
+                [
+                    [
+                        'core/button',
+                        {
+                            className: 'is-style-fill',
+                            text: 'Learn Our Story',
+                            url: '/about/',
+                        },
+                    ],
+                ],
             ],
         ],
         templateLock: aboutTemplateLock = false,
