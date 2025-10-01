@@ -10,6 +10,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+-### Latest (2025-11-03) - Neon Button Block
+- **Reusable CTA:** Added a `mccullough-digital/button` block that outputs the hero CTA markup so editors can drop a single neon button anywhere. The block ships with the gradient sweep styles, optional new-tab toggle, and toolbar link control.
+- **Label Wrapper:** Wrapped hero CTA text in `.hero__cta-button-label` so both the hero and standalone button share the same inline-flex label styling.
+
 ### Latest (2025-11-02) - Hero CTA Sweep Direction & Base
 - **Transparent Base:** Lightened the `.hero__cta-button` resting surface in `blocks/hero/style.css` and `editor-style.css` to a nearly transparent tint so the pill no longer shows a dark interior before the gradient sweep animates.
 - **Left-to-Right Fill:** Flipped the sweep pseudo-element to rest off the left edge, producing the requested left-to-right gradient reveal on hover and focus in both the front end and Site Editor previews.
