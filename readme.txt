@@ -33,7 +33,10 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
-= 1.2.38 - Unreleased =
+= 1.2.39 - Unreleased =
+* **Neon Blog Archive Template:** Rebuilt the archive and index templates around a radial hero, live search, pill-style category filters, and a featured post grid with matching editor styles so the blog listing mirrors the new mockup without duplicating markup in patterns.
+
+= 1.2.38 - 2025-11-06 =
 * **Hero CTA Alignment Controls:** Freed the hero wrapper overflow and centring overrides so the neon button's URL popover opens fully while align and spacing controls can park the CTA left, centre, or right with extra breathing room.
 * **Section CTA Allowlist:** Updated the hero, services, about, and CTA sections to allow the `mccullough-digital/button` block while keeping the neon CTA auto-seeded only in the hero so other sections stay optional by default.
 * **Standalone Neon Button Block:** Added a reusable `mccullough-digital/button` block so editors can drop the hero's gradient sweep CTA anywhere, complete with toolbar link control and optional new-tab toggle.

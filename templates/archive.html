@@ -1,36 +1,48 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"site-content","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"main","className":"site-content blog-archive","layout":{"type":"constrained"}} -->
     <!-- wp:query {"query":{"inherit":true}} -->
-        <!-- wp:group {"className":"page-header-container","layout":{"type":"constrained"}} -->
-            <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-                <!-- wp:query-title {"type":"archive","textAlign":"center","level":1,"className":"section-title"} /-->
+        <!-- wp:group {"className":"blog-hero","layout":{"type":"constrained","justifyContent":"center"}} -->
+            <!-- wp:group {"className":"blog-hero__inner","layout":{"type":"constrained","justifyContent":"center"}} -->
+                <!-- wp:query-title {"type":"archive","textAlign":"center","level":1,"className":"blog-hero__title"} /-->
+
+                <!-- wp:term-description {"textAlign":"center","className":"blog-hero__description"} /-->
+
+                <!-- wp:paragraph {"align":"center","className":"blog-hero__intro"} -->
+                <p class="has-text-align-center blog-hero__intro">Insights, tutorials, and stories from the world of web development and digital design.</p>
+                <!-- /wp:paragraph -->
+
+                <!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search articles...","buttonText":"Search","buttonUseIcon":false,"className":"blog-search"} /-->
             <!-- /wp:group -->
         <!-- /wp:group -->
 
-        <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+        <!-- wp:group {"className":"category-filters","layout":{"type":"constrained"}} -->
+            <!-- wp:group {"className":"category-filters__inner","layout":{"type":"flex","justifyContent":"center","orientation":"horizontal","flexWrap":"wrap"}} -->
+                <!-- wp:categories {"showHierarchy":false,"showPostCounts":false,"className":"category-filters__list"} /-->
+            <!-- /wp:group -->
+        <!-- /wp:group -->
+
+        <!-- wp:group {"className":"blog-archive__loop container","layout":{"type":"constrained"}} -->
             <!-- wp:post-template {"tagName":"div","className":"post-listing-grid"} -->
                 <!-- wp:pattern {"slug":"mccullough-digital/post-card"} /-->
             <!-- /wp:post-template -->
 
-            <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
-                <!-- wp:query-pagination-previous /-->
-                <!-- wp:query-pagination-numbers /-->
-                <!-- wp:query-pagination-next /-->
-            <!-- /wp:query-pagination -->
-        <!-- /wp:group -->
-
-        <!-- wp:query-no-results -->
-            <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
+            <!-- wp:query-no-results -->
                 <!-- wp:group {"className":"no-results not-found","layout":{"type":"constrained"}} -->
                     <!-- wp:paragraph -->
                     <p>It seems we can’t find what you’re looking for. Perhaps searching can help.</p>
                     <!-- /wp:paragraph -->
 
-                    <!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search","buttonUseIcon":true} /-->
+                    <!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search articles...","buttonText":"Search","buttonUseIcon":false,"className":"blog-search"} /-->
                 <!-- /wp:group -->
-            <!-- /wp:group -->
-        <!-- /wp:query-no-results -->
+            <!-- /wp:query-no-results -->
+
+            <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"},"className":"pagination"} -->
+                <!-- wp:query-pagination-previous /-->
+                <!-- wp:query-pagination-numbers /-->
+                <!-- wp:query-pagination-next /-->
+            <!-- /wp:query-pagination -->
+        <!-- /wp:group -->
     <!-- /wp:query -->
 <!-- /wp:group -->
 

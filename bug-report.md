@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-07 Sweep
+1. **Neon Blog Archive Template**
+   *Files:* `templates/archive.html`, `templates/index.html`, `patterns/post-card-grid.php`, `style.css`, `editor-style.css`, `AGENTS.md`, `readme.txt`
+   *Issue:* The archive and index templates still used the generic grid header without the neon hero, category filters, or featured post layout from the approved blog mockup, leaving the listing visually off-brand and duplicating markup inside patterns.
+   *Resolution:* Rebuilt the archive and index templates with the radial hero, search bar, and filter strip, refactored the post card pattern to emit semantic `<article>` wrappers with metadata, and synced front-end/editor styling plus documentation so the Site Editor preview matches the updated design.
+
 ### 2025-11-06 Sweep
 1. **Hero Neon Button Alignment & Popover Access**
    *Files:* `blocks/hero/style.css`, `blocks/button/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
