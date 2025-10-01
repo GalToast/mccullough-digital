@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-02 Sweep
+1. **Hero CTA Sweep Direction & Base Tint**
+   *Files:* `blocks/hero/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The hero call-to-action still displayed a dark pill at rest and the gradient sweep animated from right to left, clashing with the left-to-right creative direction and leaving the button interior dull until hover completed.
+   *Resolution:* Replaced the dark resting gradient with a nearly transparent base tint so the pill stays luminous before interaction, and shifted the sweep pseudo-element to start off the left edge, producing a left-to-right gradient fill across both the live site and Site Editor preview.
+
 ### 2025-11-01 Sweep
 1. **Hero CTA Gradient Sweep**
    *Files:* `blocks/hero/style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`

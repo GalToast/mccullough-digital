@@ -10,6 +10,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 
 ## Bug Fix & Improvement Highlights
 
+### Latest (2025-11-02) - Hero CTA Sweep Direction & Base
+- **Transparent Base:** Lightened the `.hero__cta-button` resting surface in `blocks/hero/style.css` and `editor-style.css` to a nearly transparent tint so the pill no longer shows a dark interior before the gradient sweep animates.
+- **Left-to-Right Fill:** Flipped the sweep pseudo-element to rest off the left edge, producing the requested left-to-right gradient reveal on hover and focus in both the front end and Site Editor previews.
+
 ### Latest (2025-11-01) - Hero CTA Gradient Sweep
 - **Animated Sweep:** Rebuilt the static `.hero__cta-button` styles in `blocks/hero/style.css` and `editor-style.css` so anchors and buttons share an inline-flex neon pill with the masthead gradient sweeping across on hover/focus while preserving a dark resting surface, halo glow, and accessible outlines.
 
