@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-10-29 Sweep
+1. **Hero CTA Mount Reliability**
+   *Files:* `blocks/hero/render.php`, `AGENTS.md`, `readme.txt`, `style.css`, `bug-report.md`
+   *Issue:* The neon CTA React bundle only enqueued when the hero fell back to attribute-driven markup, so edited InnerBlocks renders lost hydration in the Site Editor preview and on the live site. Without hydration, the neon button effect disappeared and reduced-motion fallbacks never activated.
+   *Resolution:* Always enqueue the hero CTA bundle whenever a button is present, wrap saved buttons in a `.hero-neon-button-mount` that exposes the label/link via data attributes, and keep the original markup inside the wrapper so no-JavaScript visitors retain a functional anchor/button fallback.
+
 ### 2025-10-28 Sweep
 1. **Hero CTA Link Semantics & Label Layout**
    *Files:* `blocks/hero/hero-button.js`, `blocks/hero/components/NeonJellyButton.jsx`, `build/blocks/hero/hero-button.js`, `AGENTS.md`, `readme.txt`, `style.css`, `bug-report.md`
