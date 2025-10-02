@@ -12,7 +12,7 @@ Text Domain:   mccullough-digital
 
 /* --- Variables --- */
 :root {
-    --header-height: 80px;
+    --header-height: 100px;
     --mcd-header-offset: var(--header-height);
     /* New Softer Palette */
     --neon-cyan: #00e5ff;
