@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-11 Sweep
+1. **Blog Archive Loop Editor Preview**
+   *Files:* `blocks/blog-archive-loop/editor.js`, `blocks/blog-archive-loop/block.json`, `build/blocks/blog-archive-loop/editor.js`, `build/blocks/blog-archive-loop/editor.asset.php`
+   *Issue:* The dynamic loop block lacked an editor script, causing the Site Editor to flag it as unsupported and hide the PHP-rendered layout while authors curated the Blog Home template.
+   *Resolution:* Registered the block inside a new editor bundle that leverages `ServerSideRender` for previews, hid the block from the inserter to keep it template-only, and rebuilt production assets so the Site Editor now mirrors the front end without warnings.
+
 ### 2025-11-09 Sweep
 1. **Blog Hero Glitch Parity**
    *Files:* `js/header-scripts.js`, `style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
