@@ -13,6 +13,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 - **Server Preview:** Added an editor-only script that registers `mccullough-digital/blog-archive-loop` with `ServerSideRender` so the Site Editor mirrors the PHP output without unsupported notices.
 - **Inserter Guard:** Kept the block template-only by disabling the inserter while bundling the new script through the build pipeline for automatic enqueueing.
 - **Docs Synced:** Recorded the block preview and inserter guard updates across `AGENTS.md`, `bug-report.md`, and `readme.txt` per repository guidelines.
+-### Latest (2025-11-11) - Blog Hero Header Offset
+- **Archive Offset Restored:** Reinstated the `.site-content.blog-archive` padding so the blog listing respects the fixed header offset token instead of zeroing it out.
+- **Hero Padding Clamp:** Trimmed the `.blog-hero` top padding to a simple clamp, letting the wrapper supply the masthead offset while keeping the intended breathing room.
+- **Build & Docs:** Rebuilt theme assets via `npm run build` and logged the offset correction in `bug-report.md` and `readme.txt`.
 -### Latest (2025-11-10) - Blog Archive Loop Block
 - **Dynamic Loop:** Added a `mccullough-digital/blog-archive-loop` server-rendered block that outputs the curated category pills, a standalone latest-post hero, the remaining grid, and pagination while respecting the active archive context.
 - **Markup Cleanup:** Replaced the template-level Query Loop with the new block in `templates/index.html` and `templates/archive.html`, updated search/404 templates to the shared `.post-grid` class, and trimmed the post-card pattern so badges are exclusive to the featured hero.
