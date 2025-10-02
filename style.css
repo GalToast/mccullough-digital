@@ -1088,6 +1088,58 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     animation: subtle-glow 3s ease-in-out infinite;
 }
 
+.blog-hero__title-text,
+.blog-hero__title-text--visual {
+    display: inline-block;
+}
+
+.blog-hero__title-text--visual {
+    white-space: normal;
+}
+
+.blog-hero__word {
+    display: inline-flex;
+    gap: 0;
+}
+
+.blog-hero__letter {
+    display: inline-block;
+    position: relative;
+    cursor: default;
+}
+
+.blog-hero__letter:hover::before,
+.blog-hero__letter:hover::after,
+.blog-hero__letter:focus-visible::before,
+.blog-hero__letter:focus-visible::after {
+    content: attr(data-char);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: glitch 0.35s infinite;
+}
+
+.blog-hero__letter:hover::before,
+.blog-hero__letter:focus-visible::before {
+    color: var(--neon-cyan);
+    z-index: -1;
+    animation-direction: reverse;
+}
+
+.blog-hero__letter:hover::after,
+.blog-hero__letter:focus-visible::after {
+    color: var(--neon-magenta);
+    z-index: -2;
+}
+
+.blog-hero.is-reduced-motion .blog-hero__letter:hover::before,
+.blog-hero.is-reduced-motion .blog-hero__letter:hover::after,
+.blog-hero.is-reduced-motion .blog-hero__letter:focus-visible::before,
+.blog-hero.is-reduced-motion .blog-hero__letter:focus-visible::after {
+    animation: none;
+    content: none;
+}
+
 .blog-hero__description,
 .blog-hero__description p,
 .blog-hero__intro {

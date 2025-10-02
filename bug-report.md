@@ -4,6 +4,17 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-09 Sweep
+1. **Blog Hero Glitch Parity**
+   *Files:* `js/header-scripts.js`, `style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The blog archive heading remained plain text, so it never adopted the hero block’s glitch spans or reduced-motion toggles and fell short of the approved mockup’s interactive title.
+   *Resolution:* Extended the header enhancement script to rebuild `.blog-hero__title` into word and letter spans, added scoped hover/focus glitch styles with reduced-motion fallbacks to both CSS bundles, and documented the support across theme notes.
+
+2. **Latest Badge Query Guard**
+   *Files:* `functions.php`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* Every query loop rendered the “Most Recent” badge markup, leaving paged archives and secondary listings to mislabel older posts even when they were no longer the newest entry.
+   *Resolution:* Introduced a `render_block` filter that suppresses the badge outside the main posts query’s first page, ensuring only the true latest article carries the highlight while documentation reflects the logic.
+
 ### 2025-11-08 Sweep
 1. **Header Logo Sizing Clamp**
    *Files:* `style.css`, `editor-style.css`, `AGENTS.md`, `readme.txt`, `bug-report.md`

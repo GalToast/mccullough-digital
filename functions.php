@@ -413,3 +413,42 @@ function mcd_get_social_link_svg( $url ) {
 
     return $svg;
 }
+
+/**
+ * Limit the "Most Recent" badge to the primary blog query on the first page.
+ *
+ * @param string $block_content Rendered block markup.
+ * @param array  $block         Block context array.
+ * @return string Filtered block markup.
+ */
+function mcd_filter_latest_badge_markup( $block_content, $block ) {
+    if ( empty( $block_content ) || ! is_array( $block ) ) {
+        return $block_content;
+    }
+
+    if ( is_admin() ) {
+        return $block_content;
+    }
+
+    $block_name = isset( $block['blockName'] ) ? $block['blockName'] : null;
+
+    if ( 'core/paragraph' !== $block_name ) {
+        return $block_content;
+    }
+
+    $class_attribute = isset( $block['attrs']['className'] ) ? $block['attrs']['className'] : '';
+
+    if ( false === strpos( $class_attribute, 'latest-badge' ) && false === strpos( $block_content, 'latest-badge' ) ) {
+        return $block_content;
+    }
+
+    $show_badge = is_main_query() && is_home() && ! is_paged();
+
+    if ( $show_badge ) {
+        return $block_content;
+    }
+
+    return '';
+}
+
+add_filter( 'render_block', 'mcd_filter_latest_badge_markup', 10, 2 );
