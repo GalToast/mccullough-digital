@@ -15,6 +15,11 @@ This report tracks all production-impacting fixes and continuous improvements in
    *Issue:* Every query loop rendered the “Most Recent” badge markup, leaving paged archives and secondary listings to mislabel older posts even when they were no longer the newest entry.
    *Resolution:* Introduced a `render_block` filter that suppresses the badge outside the main posts query’s first page, ensuring only the true latest article carries the highlight while documentation reflects the logic.
 
+3. **Blog Archive Loop Separation**
+   *Files:* `blocks/blog-archive-loop/block.json`, `blocks/blog-archive-loop/render.php`, `templates/index.html`, `templates/archive.html`, `templates/search.html`, `templates/404.html`, `patterns/post-card-grid.php`, `style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The archive and index templates still depended on a single Query Loop with CSS hacks to style the first card, so the curated category pills, featured-post hero, and remaining grid could never match the mockup or respect pagination without duplicate markup.
+   *Resolution:* Registered a dynamic `mccullough-digital/blog-archive-loop` block that renders the pill navigation, standalone latest-post hero, remaining grid with empty-state messaging, and pagination; updated supporting templates and CSS (front end and editor) to consume the new layout and shared `.post-grid` class while trimming the post card pattern and syncing project docs.
+
 ### 2025-11-08 Sweep
 1. **Header Logo Sizing Clamp**
    *Files:* `style.css`, `editor-style.css`, `AGENTS.md`, `readme.txt`, `bug-report.md`
