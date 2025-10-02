@@ -12,6 +12,12 @@ Custom theme scaffold with fixed header, mobile menu, and simple template hierar
 
 McCullough Digital delivers a performant block theme with a fixed, auto-hiding header, animated hero canvas, and accessible CTA and service patterns. Every interactive element honours reduced motion preferences, preserves semantic markup, and avoids placeholder links so new installations ship production-ready content.
 
+== Documentation Map ==
+
+* **AGENTS.md** – Contributor workflow, build steps, and current focus items.
+* **bug-report.md** – Rolling QA log summarizing recent sweeps and pending regressions.
+* **Web and Graphic Design 101.md** – Design language, accessibility, and visual references.
+
 == Key Features ==
 
 * Dynamic header offsetting that keeps page content visible regardless of menu height or viewport changes.
