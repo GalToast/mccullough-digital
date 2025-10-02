@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.39
+Version:       1.2.40
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -399,6 +399,12 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
     pointer-events: none;
     cursor: default;
     transform: none;
+    background: none;
+    box-shadow: none;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0;
+    transition: none;
 }
 
 .cta-button.is-static:not(.hero__cta-button)::before,
@@ -411,6 +417,13 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 .wp-block-button__link.cta-button.is-static:not(.hero__cta-button)::after,
 .post-card .wp-block-read-more a.is-static::after {
     display: none;
+}
+
+.cta-button.is-static:not(.hero__cta-button) .btn-text,
+.wp-block-button__link.cta-button.is-static:not(.hero__cta-button) .btn-text,
+.post-card .wp-block-read-more a.is-static .btn-text {
+    text-shadow: none;
+    letter-spacing: normal;
 }
 
 @keyframes star-drift-slow {

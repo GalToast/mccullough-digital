@@ -151,7 +151,8 @@ h2.section-title::after {
     cursor: default;
     text-shadow: none;
     transform: none;
-    opacity: 0.75;
+    opacity: 1;
+    color: var(--text-secondary);
 }
 
 @media (prefers-reduced-motion: reduce) {

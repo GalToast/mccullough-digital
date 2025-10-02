@@ -34,8 +34,9 @@ $wrapper_attributes = get_block_wrapper_attributes(
 );
 
 // Image attributes
-$hero_image_url         = isset( $attributes['heroImageUrl'] ) ? esc_url( $attributes['heroImageUrl'] ) : '';
-$hero_image_alt         = isset( $attributes['heroImageAlt'] ) ? esc_attr( $attributes['heroImageAlt'] ) : '';
+$hero_image_id          = isset( $attributes['heroImageId'] ) ? intval( $attributes['heroImageId'] ) : 0;
+$hero_image_url         = isset( $attributes['heroImageUrl'] ) ? esc_url_raw( $attributes['heroImageUrl'] ) : '';
+$hero_image_alt_input   = isset( $attributes['heroImageAlt'] ) ? sanitize_text_field( $attributes['heroImageAlt'] ) : '';
 $hero_image_width       = isset( $attributes['heroImageWidth'] ) ? intval( $attributes['heroImageWidth'] ) : 0;
 $image_position         = isset( $attributes['imagePosition'] ) ? $attributes['imagePosition'] : 'bottom-right';
 $image_size             = isset( $attributes['imageSize'] ) ? intval( $attributes['imageSize'] ) : 40;
@@ -43,6 +44,17 @@ $image_opacity          = isset( $attributes['imageOpacity'] ) ? intval( $attrib
 $image_vertical_offset  = isset( $attributes['imageVerticalOffset'] ) ? intval( $attributes['imageVerticalOffset'] ) : 0;
 $image_horizontal_offset = isset( $attributes['imageHorizontalOffset'] ) ? intval( $attributes['imageHorizontalOffset'] ) : 0;
 $hide_image_on_mobile   = isset( $attributes['hideImageOnMobile'] ) && $attributes['hideImageOnMobile'] === true;
+
+$hero_image_alt = $hero_image_alt_input;
+
+if ( 0 !== $hero_image_id && '' === $hero_image_alt ) {
+    $attachment_alt = get_post_meta( $hero_image_id, '_wp_attachment_image_alt', true );
+    if ( is_string( $attachment_alt ) ) {
+        $hero_image_alt = sanitize_text_field( $attachment_alt );
+    }
+}
+
+$hero_image_alt = trim( $hero_image_alt );
 
 $inner_content = trim( (string) $content );
 
@@ -134,14 +146,82 @@ if ( 0 !== $image_horizontal_offset ) {
 if ( ! empty( $transform_parts ) ) {
     $image_styles[] = 'transform: ' . implode( ' ', $transform_parts ) . ';';
 }
-$image_style_attr = implode( ' ', $image_styles );
+$image_style_attr = trim( implode( ' ', $image_styles ) );
+
+$hero_image_markup = '';
+
+if ( 0 !== $hero_image_id ) {
+    $image_attributes = array(
+        'class'   => 'hero__decorative-image',
+        'loading' => 'lazy',
+        'alt'     => $hero_image_alt,
+    );
+
+    if ( '' === $hero_image_alt ) {
+        $image_attributes['role'] = 'presentation';
+    }
+
+    $hero_image_markup = wp_get_attachment_image( $hero_image_id, 'full', false, $image_attributes );
+
+    if ( ! $hero_image_markup && '' !== $hero_image_url ) {
+        $fallback_attributes = $image_attributes;
+        $fallback_attributes['src'] = $hero_image_url;
+
+        $hero_image_markup = '<img';
+
+        foreach ( $fallback_attributes as $attr_name => $attr_value ) {
+            $escaped_value    = 'src' === $attr_name ? esc_url( $attr_value ) : esc_attr( $attr_value );
+            $hero_image_markup .= sprintf( ' %s="%s"', esc_attr( $attr_name ), $escaped_value );
+        }
+
+        $hero_image_markup .= ' />';
+    }
+} elseif ( '' !== $hero_image_url ) {
+    $attr_pairs = array(
+        'src'     => $hero_image_url,
+        'class'   => 'hero__decorative-image',
+        'loading' => 'lazy',
+        'alt'     => $hero_image_alt,
+    );
+
+    if ( '' === $hero_image_alt ) {
+        $attr_pairs['role'] = 'presentation';
+    }
+
+    $hero_image_markup = '<img';
+
+    foreach ( $attr_pairs as $attr_name => $attr_value ) {
+        $escaped_value     = 'src' === $attr_name ? esc_url( $attr_value ) : esc_attr( $attr_value );
+        $hero_image_markup .= sprintf( ' %s="%s"', esc_attr( $attr_name ), $escaped_value );
+    }
+
+    $hero_image_markup .= ' />';
+}
+
+$image_container_attributes = array(
+    'class' => $image_container_class,
+);
+
+if ( '' !== $image_style_attr ) {
+    $image_container_attributes['style'] = $image_style_attr;
+}
+
+if ( '' === $hero_image_alt ) {
+    $image_container_attributes['aria-hidden'] = 'true';
+}
+
+$image_container_attr_string = '';
+
+foreach ( $image_container_attributes as $attr_name => $attr_value ) {
+    $image_container_attr_string .= sprintf( ' %s="%s"', esc_attr( $attr_name ), esc_attr( $attr_value ) );
+}
 ?>
 
 <section <?php echo $wrapper_attributes; ?>>
     <canvas class="hero__particle-canvas" aria-hidden="true" role="presentation"></canvas>
-    <?php if ( '' !== $hero_image_url ) : ?>
-        <div class="<?php echo esc_attr( $image_container_class ); ?>" aria-hidden="true" style="<?php echo esc_attr( $image_style_attr ); ?>">
-            <img src="<?php echo $hero_image_url; ?>" alt="<?php echo $hero_image_alt; ?>" class="hero__decorative-image" />
+    <?php if ( '' !== $hero_image_markup ) : ?>
+        <div<?php echo $image_container_attr_string; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Individually escaped above. ?>>
+            <?php echo $hero_image_markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup escaped through wp_get_attachment_image or attribute assembly. ?>
         </div>
     <?php endif; ?>
     <div class="hero-content">

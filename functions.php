@@ -160,13 +160,17 @@ function mcd_maybe_seed_home_page() {
   if ( $front_page_id ) {
     $front_page = get_post( $front_page_id );
 
-    if ( $front_page && 'page' === $front_page->post_type ) {
+    if ( $front_page && 'page' === $front_page->post_type && 'trash' !== $front_page->post_status ) {
       $page = $front_page;
     }
   }
 
   if ( ! $page ) {
     $page = get_page_by_path( 'home' );
+
+    if ( $page && 'trash' === $page->post_status ) {
+      $page = null;
+    }
   }
 
   if ( ! $page ) {
@@ -174,12 +178,14 @@ function mcd_maybe_seed_home_page() {
       [
         'post_type'              => 'page',
         'title'                  => __( 'Home', 'mccullough-digital' ),
-        'post_status'            => 'all',
+        'post_status'            => [ 'publish', 'pending', 'draft', 'future', 'private' ],
         'numberposts'            => 1,
         'update_post_term_cache' => false,
         'update_post_meta_cache' => false,
-        'orderby'                => 'post_date ID',
-        'order'                  => 'ASC',
+        'orderby'                => [
+          'post_date' => 'ASC',
+          'ID'        => 'ASC',
+        ],
       ]
     );
     if ( ! empty( $pages ) ) {
@@ -188,10 +194,6 @@ function mcd_maybe_seed_home_page() {
   }
 
   if ( $page ) {
-    if ( 'trash' === $page->post_status ) {
-      return;
-    }
-
     $existing_content = trim( (string) $page->post_content );
 
     if ( '' === wp_strip_all_tags( $existing_content ) ) {
