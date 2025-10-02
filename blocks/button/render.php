@@ -12,6 +12,7 @@
 $button_text = isset( $attributes['buttonText'] ) ? trim( wp_strip_all_tags( (string) $attributes['buttonText'] ) ) : '';
 $button_link = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
 $open_new_tab = isset( $attributes['opensInNewTab'] ) ? (bool) $attributes['opensInNewTab'] : false;
+$align = isset( $attributes['align'] ) ? ' align' . $attributes['align'] : '';
 
 if ( '' === $button_text ) {
     return '';
@@ -19,7 +20,7 @@ if ( '' === $button_text ) {
 
 $wrapper_attributes = get_block_wrapper_attributes(
     array(
-        'class' => 'mcd-button-block',
+        'class' => 'mcd-button-block' . $align,
     )
 );
 
@@ -30,35 +31,25 @@ $button_contents = sprintf(
 );
 
 if ( '' !== $button_link ) {
-    $link_attributes = array(
+    $link_attrs = array(
         'class' => $button_classes,
         'href'  => esc_url( $button_link ),
     );
 
     if ( $open_new_tab ) {
-        $link_attributes['target'] = '_blank';
-        $link_attributes['rel']    = 'noopener';
+        $link_attrs['target'] = '_blank';
+        $link_attrs['rel']    = 'noopener';
     }
 
-    $attribute_pairs = array();
-    foreach ( $link_attributes as $attribute => $value ) {
-        if ( '' === $value ) {
-            continue;
-        }
-
-        $attribute_pairs[] = sprintf(
-            '%1$s="%2$s"',
-            esc_attr( $attribute ),
-            esc_attr( $value )
-        );
+    $attrs_str = '';
+    foreach ( $link_attrs as $key => $value ) {
+        $attrs_str .= sprintf( ' %s="%s"', esc_attr( $key ), esc_attr( $value ) );
     }
-
-    $attributes_string = implode( ' ', $attribute_pairs );
 
     return sprintf(
-        '<div %1$s><a %2$s>%3$s</a></div>',
+        '<div %1$s><a%2$s>%3$s</a></div>',
         $wrapper_attributes,
-        $attributes_string,
+        $attrs_str,
         $button_contents
     );
 }

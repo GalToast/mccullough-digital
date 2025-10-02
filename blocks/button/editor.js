@@ -7,26 +7,31 @@ import {
     URLInputButton,
     InspectorControls,
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, Notice } from '@wordpress/components';
+import {
+    PanelBody,
+    ToggleControl,
+    Notice,
+    ToolbarGroup,
+} from '@wordpress/components';
 
 import metadata from './block.json';
 
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
     ...metadata,
-    edit({ attributes, setAttributes }) {
+    edit( { attributes, setAttributes } ) {
         const { buttonText, buttonLink, opensInNewTab } = attributes;
-        const blockProps = useBlockProps({
+        const blockProps = useBlockProps( {
             className: 'mcd-button-block',
-        });
+        } );
 
         const buttonBaseClass = 'cta-button hero__cta-button';
         const commonButtonProps = {
             className: buttonBaseClass,
         };
 
-        if (buttonLink) {
+        if ( buttonLink ) {
             commonButtonProps.href = buttonLink;
-            if (opensInNewTab) {
+            if ( opensInNewTab ) {
                 commonButtonProps.target = '_blank';
                 commonButtonProps.rel = 'noopener';
             }
@@ -37,10 +42,14 @@ registerBlockType(metadata.name, {
         return (
             <>
                 <BlockControls>
-                    <URLInputButton
-                        url={ buttonLink }
-                        onChange={ (url) => setAttributes({ buttonLink: url ?? '' }) }
-                    />
+                    <ToolbarGroup>
+                        <URLInputButton
+                            url={ buttonLink }
+                            onChange={ ( url ) =>
+                                setAttributes( { buttonLink: url ?? '' } )
+                            }
+                        />
+                    </ToolbarGroup>
                 </BlockControls>
                 <InspectorControls>
                     <PanelBody title={ __('Button Settings', 'mccullough-digital') }>
