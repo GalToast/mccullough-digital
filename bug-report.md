@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-12 Sweep
+1. **Masthead Fallback Offset Raised**
+   *Files:* `style.css`, `editor-style.css`, `standalone.html`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* Pages still lost the top of the blog hero when scripts failed to patch `--mcd-header-offset` because the fallback `--header-height` remained at 80px despite the masthead rendering closer to 100px tall.
+   *Resolution:* Increased the root `--header-height` token to 100px across the front-end, editor, and standalone bundles so the fixed header clears content before JavaScript runs, and documented the safeguard throughout project notes.
+
 ### 2025-11-11 Sweep
 1. **Blog Archive Loop Editor Preview**
    *Files:* `blocks/blog-archive-loop/editor.js`, `blocks/blog-archive-loop/block.json`, `build/blocks/blog-archive-loop/editor.js`, `build/blocks/blog-archive-loop/editor.asset.php`

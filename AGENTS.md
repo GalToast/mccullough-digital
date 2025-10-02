@@ -9,6 +9,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-12) - Masthead Fallback Offset
+- **Fallback Raised:** Increased the root `--header-height` token to 100px so pages maintain adequate scroll buffer beneath the fixed masthead even before JavaScript recalculates `--mcd-header-offset`.
+- **Parity Everywhere:** Mirrored the 100px fallback across `style.css`, `editor-style.css`, and `standalone.html` to keep the Site Editor, front end, and static preview aligned when scripts are disabled.
+- **Docs Synced:** Logged the fallback adjustment across `AGENTS.md`, `bug-report.md`, and `readme.txt` per repository guidelines.
 -### Latest (2025-11-11) - Blog Archive Loop Editor Preview
 - **Server Preview:** Added an editor-only script that registers `mccullough-digital/blog-archive-loop` with `ServerSideRender` so the Site Editor mirrors the PHP output without unsupported notices.
 - **Inserter Guard:** Kept the block template-only by disabling the inserter while bundling the new script through the build pipeline for automatic enqueueing.
