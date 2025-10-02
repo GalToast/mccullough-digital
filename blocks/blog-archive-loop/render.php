@@ -180,7 +180,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
             </section>
             <section class="blog-archive__loop container">
                 <div class="no-results not-found">
-                    <p><?php esc_html_e( 'It seems we can’t find what you’re looking for. Perhaps searching can help.', 'mccullough-digital' ); ?></p>
+                    <p><?php esc_html_e( 'It seems we can\'t find what you\'re looking for. Perhaps searching can help.', 'mccullough-digital' ); ?></p>
                     <?php get_search_form(); ?>
                 </div>
             </section>
@@ -321,3 +321,6 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
         return ob_get_clean();
     }
 }
+
+// Actually render the block when WordPress includes this file
+echo mcd_render_blog_archive_loop( $attributes, $content, $block );

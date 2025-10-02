@@ -61,6 +61,7 @@ if ( ! function_exists( 'wp_body_open' ) ) {
 function mcd_register_blocks() {
     $blocks_dir = get_stylesheet_directory() . '/blocks/';
     if ( ! file_exists( $blocks_dir ) || ! is_dir( $blocks_dir ) ) {
+        error_log('MCD Blocks: Directory does not exist: ' . $blocks_dir);
         return;
     }
 
@@ -74,7 +75,12 @@ function mcd_register_blocks() {
         $block_path = $blocks_dir . $block_folder;
 
         if ( is_dir( $block_path ) && file_exists( $block_path . '/block.json' ) ) {
-            register_block_type( $block_path );
+            $result = register_block_type( $block_path );
+            if ( $result ) {
+                error_log('MCD Blocks: Successfully registered block at: ' . $block_path);
+            } else {
+                error_log('MCD Blocks: Failed to register block at: ' . $block_path);
+            }
         }
     }
 }
@@ -452,3 +458,17 @@ function mcd_filter_latest_badge_markup( $block_content, $block ) {
 }
 
 add_filter( 'render_block', 'mcd_filter_latest_badge_markup', 10, 2 );
+
+/**
+ * Debug: Show which template is being used
+ */
+function mcd_debug_template() {
+    if ( is_admin() ) {
+        return;
+    }
+    global $template;
+    if ( current_user_can( 'manage_options' ) ) {
+        echo '<!-- Template being used: ' . esc_html( basename( $template ) ) . ' -->';
+    }
+}
+add_action( 'wp_footer', 'mcd_debug_template' );

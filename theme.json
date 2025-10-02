@@ -116,6 +116,13 @@
   ],
   "customTemplates": [
     {
+      "name": "home",
+      "title": "Blog Home",
+      "postTypes": [
+        "page"
+      ]
+    },
+    {
       "name": "home-landing",
       "title": "Home Landing Layout",
       "description": "Prebuilt McCullough Digital landing layout with hero, services, and CTA blocks.",
