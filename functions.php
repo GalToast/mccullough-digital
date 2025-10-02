@@ -41,6 +41,9 @@ function mcd_assets() {
   // Enqueue main stylesheet
   wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array( 'mcd-fonts' ), $theme_version );
 
+  // Enqueue blog header fix CSS
+  wp_enqueue_style( 'mcd-blog-fix', get_stylesheet_directory_uri() . '/blog-fix.css', array( 'mcd-style' ), $theme_version );
+
   // Cache-bust the theme interaction script by filemtime if possible
   $script_path = get_stylesheet_directory() . '/js/header-scripts.js';
   $ver         = file_exists( $script_path ) ? filemtime( $script_path ) : $theme_version;
