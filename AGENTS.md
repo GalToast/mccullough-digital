@@ -9,6 +9,10 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-09) - Blog Hero Glitch & Badge Guard
+- **Hero Glitch Clone:** Mirrored the hero block's per-letter glitch treatment on the blog archive title via `js/header-scripts.js` and scoped `.blog-hero__letter` styles in both CSS bundles, complete with reduced-motion fallbacks.
+- **Badge Filter:** Added a `render_block` guard that only surfaces the "Most Recent" badge on the main blog query's first page, ensuring paged archives and secondary loops no longer mislabel older posts.
+- **Docs Synced:** Recorded the glitch enhancement and badge logic across `AGENTS.md`, `bug-report.md`, and `readme.txt` per repo guidelines.
 -### Latest (2025-11-08) - Header Logo Sizing Clamp
 - **Front-End Guard:** Scoped the masthead logo rule to `.site-header .custom-logo` and `.wp-block-site-logo .custom-logo`, kept the height tied to `--logo-size-header`, and added responsive max constraints so oversized uploads stop stretching the fixed header while preserving intrinsic width.
 - **Editor Parity:** Mirrored the scoped selector and sizing cap in `editor-style.css` so the Site Editor preview matches the front-end masthead behaviour and no longer shifts the header offset when authors swap logos.

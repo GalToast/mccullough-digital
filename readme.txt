@@ -36,6 +36,8 @@ This theme does not have any widget areas registered by default.
 = 1.2.39 - Unreleased =
 * **Header Logo Clamp:** Scoped the masthead logo styling to outrank WordPress core selectors and added max constraints so oversize uploads respect `--logo-size-header` without inflating the fixed header or Site Editor preview.
 * **Neon Blog Archive Template:** Rebuilt the archive and index templates around a radial hero, live search, pill-style category filters, and a featured post grid with matching editor styles so the blog listing mirrors the new mockup without duplicating markup in patterns.
+* **Blog Hero Glitch Parity:** Extended the header enhancement script and blog hero styles so the archive title now splits into interactive glitch letters with proper reduced-motion fallbacks, matching the front-page hero treatment.
+* **Latest Badge Query Guard:** Limited the “Most Recent” badge to the main posts query on its first page, preventing paged archives and secondary loops from mislabeling older entries while keeping the grid markup clean elsewhere.
 
 = 1.2.38 - 2025-11-06 =
 * **Hero CTA Alignment Controls:** Freed the hero wrapper overflow and centring overrides so the neon button's URL popover opens fully while align and spacing controls can park the CTA left, centre, or right with extra breathing room.

@@ -266,6 +266,179 @@
                 }
             }
         }
+
+        const initBlogHeroGlitch = () => {
+            const blogHero = document.querySelector('.blog-hero');
+
+            if (!blogHero) {
+                return;
+            }
+
+            const title = blogHero.querySelector('.blog-hero__title');
+
+            if (!title) {
+                return;
+            }
+
+            if (title.dataset.blogHeroGlitchInitialized === 'true') {
+                return;
+            }
+
+            title.dataset.blogHeroGlitchInitialized = 'true';
+
+            const prepareHeadline = () => {
+                let textWrapper = title.querySelector('.blog-hero__title-text');
+
+                if (!textWrapper) {
+                    textWrapper = document.createElement('span');
+                    textWrapper.classList.add('blog-hero__title-text');
+
+                    const children = Array.from(title.childNodes);
+
+                    children.forEach((node) => {
+                        if (node === textWrapper) {
+                            return;
+                        }
+
+                        textWrapper.appendChild(node);
+                    });
+
+                    title.appendChild(textWrapper);
+                }
+
+                const rawText = textWrapper.textContent ? textWrapper.textContent.trim() : '';
+
+                if (!rawText || textWrapper.dataset.blogHeroTitleAnimated === 'true') {
+                    return;
+                }
+
+                textWrapper.dataset.blogHeroTitleAnimated = 'true';
+
+                let srText = title.querySelector('.blog-hero__title-text--sr');
+
+                if (!srText) {
+                    srText = textWrapper.cloneNode(true);
+                    srText.classList.add('blog-hero__title-text--sr', 'screen-reader-text');
+                    srText.setAttribute('data-blog-hero-sr-text', 'true');
+                    srText.setAttribute('aria-hidden', 'false');
+                    srText.setAttribute('role', 'text');
+
+                    srText.querySelectorAll('[id]').forEach((node) => {
+                        node.removeAttribute('id');
+                    });
+
+                    title.insertBefore(srText, textWrapper);
+                }
+
+                textWrapper.setAttribute('aria-hidden', 'true');
+                textWrapper.classList.add('blog-hero__title-text--visual');
+
+                if (
+                    typeof document.createTreeWalker !== 'function'
+                    || typeof window.NodeFilter === 'undefined'
+                ) {
+                    return;
+                }
+
+                const walker = document.createTreeWalker(
+                    textWrapper,
+                    window.NodeFilter.SHOW_TEXT,
+                    null,
+                    false
+                );
+
+                const textNodes = [];
+
+                while (walker.nextNode()) {
+                    textNodes.push(walker.currentNode);
+                }
+
+                textNodes.forEach((node) => {
+                    const text = node.textContent;
+
+                    if (!text) {
+                        return;
+                    }
+
+                    const fragment = document.createDocumentFragment();
+                    let currentWord = null;
+
+                    const flushWord = () => {
+                        if (currentWord && currentWord.childNodes.length) {
+                            fragment.appendChild(currentWord);
+                        }
+
+                        currentWord = null;
+                    };
+
+                    const normalizedText = text.replace(/\r\n/g, '\n');
+
+                    for (const char of normalizedText) {
+                        if (char === '\n' || char === '\r') {
+                            flushWord();
+                            fragment.appendChild(document.createElement('br'));
+                            continue;
+                        }
+
+                        if (char.trim() === '') {
+                            flushWord();
+                            fragment.appendChild(document.createTextNode(char));
+                            continue;
+                        }
+
+                        if (!currentWord) {
+                            currentWord = document.createElement('span');
+                            currentWord.classList.add('blog-hero__word');
+                        }
+
+                        const letter = document.createElement('span');
+                        letter.classList.add('blog-hero__letter');
+                        letter.dataset.char = char;
+                        letter.textContent = char;
+                        letter.setAttribute('aria-hidden', 'true');
+
+                        currentWord.appendChild(letter);
+                    }
+
+                    flushWord();
+
+                    if (node.parentNode) {
+                        node.parentNode.replaceChild(fragment, node);
+                    }
+                });
+            };
+
+            prepareHeadline();
+
+            const applyMotionPreference = () => {
+                blogHero.classList.toggle('is-reduced-motion', prefersReducedMotion.matches);
+            };
+
+            applyMotionPreference();
+
+            const motionListener = () => {
+                applyMotionPreference();
+            };
+
+            const hasModernMotionListener = typeof prefersReducedMotion.addEventListener === 'function';
+            const hasLegacyMotionListener = !hasModernMotionListener && typeof prefersReducedMotion.addListener === 'function';
+
+            if (hasModernMotionListener) {
+                prefersReducedMotion.addEventListener('change', motionListener);
+            } else if (hasLegacyMotionListener) {
+                prefersReducedMotion.addListener(motionListener);
+            }
+
+            window.addEventListener('unload', () => {
+                if (hasModernMotionListener) {
+                    prefersReducedMotion.removeEventListener('change', motionListener);
+                } else if (hasLegacyMotionListener) {
+                    prefersReducedMotion.removeListener(motionListener);
+                }
+            }, { once: true });
+        };
+
+        initBlogHeroGlitch();
     };
 
     if (document.readyState === 'loading') {
