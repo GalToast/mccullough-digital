@@ -12,7 +12,7 @@ Text Domain:   mccullough-digital
 
 /* --- Variables --- */
 :root {
-    --header-height: 100px;
+    --header-height: 70px;
     --mcd-header-offset: var(--header-height);
     --mcd-admin-bar-offset: 0px;
     /* New Softer Palette */
