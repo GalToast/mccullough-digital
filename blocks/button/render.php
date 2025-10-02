@@ -12,15 +12,15 @@
 $button_text = isset( $attributes['buttonText'] ) ? trim( wp_strip_all_tags( (string) $attributes['buttonText'] ) ) : '';
 $button_link = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
 $open_new_tab = isset( $attributes['opensInNewTab'] ) ? (bool) $attributes['opensInNewTab'] : false;
-$align = isset( $attributes['align'] ) ? ' align' . $attributes['align'] : '';
 
 if ( '' === $button_text ) {
     return '';
 }
 
+// get_block_wrapper_attributes() will add the correct alignment class based on the `align` attribute.
 $wrapper_attributes = get_block_wrapper_attributes(
     array(
-        'class' => 'mcd-button-block' . $align,
+        'class' => 'mcd-button-block',
     )
 );
 
