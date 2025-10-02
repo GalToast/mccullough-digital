@@ -16,7 +16,7 @@
   \**********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"name":"mccullough-digital/button","title":"Neon Button","category":"mcd-blocks","icon":"button","description":"A single call-to-action button that reuses the hero gradient sweep styling.","keywords":["button","cta","link"],"apiVersion":2,"supports":{"html":false,"anchor":true,"align":["left","center","right"],"spacing":{"margin":true,"padding":true}},"attributes":{"buttonText":{"type":"string","default":"Start a Project"},"buttonLink":{"type":"string","default":""},"opensInNewTab":{"type":"boolean","default":false}},"editorScript":"file:../../build/blocks/button/editor.js","style":"file:./style.css","render":"file:./render.php","textdomain":"mccullough-digital"}');
+module.exports = /*#__PURE__*/JSON.parse('{"name":"mccullough-digital/button","title":"Neon Button","category":"mcd-blocks","icon":"button","description":"A single call-to-action button that reuses the hero gradient sweep styling.","keywords":["button","cta","link"],"apiVersion":2,"supports":{"html":false,"anchor":true,"align":["left","center","right"],"spacing":{"margin":true,"padding":true}},"attributes":{"buttonText":{"type":"string","default":"Start a Project"},"buttonLink":{"type":"string","default":""},"opensInNewTab":{"type":"boolean","default":false},"align":{"type":"string","default":"none"}},"editorScript":"file:../../build/blocks/button/editor.js","style":"file:./style.css","render":"file:./render.php","textdomain":"mccullough-digital"}');
 
 /***/ }),
 
