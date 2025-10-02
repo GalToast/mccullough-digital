@@ -9,6 +9,11 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-11) - Hero Media Accessibility Sweep
+- **Responsive Hero Imagery:** Updated `blocks/hero/render.php` to prefer attachment IDs so WordPress emits responsive `srcset` markup, lazy-loading, and the saved alt text whenever editors provide it.
+- **Static CTA Readability:** Removed `aria-hidden` from CTA fallbacks, toned down `.is-static` styling in both CSS bundles, and kept service card copy visible to assistive technology whenever no link is set.
+- **Home Seeding Guard:** Adjusted `mcd_maybe_seed_home_page()` to skip trashed "Home" pages and continue hydrating the first live page (or create a new one) so pattern seeding never aborts early.
+- **Docs Synced:** Raised the documented WordPress minimum to 5.9 and noted the accessibility fixes across `AGENTS.md`, `bug-report.md`, and `readme.txt`.
 -### Latest (2025-11-10) - Blog Archive Loop Block
 - **Dynamic Loop:** Added a `mccullough-digital/blog-archive-loop` server-rendered block that outputs the curated category pills, a standalone latest-post hero, the remaining grid, and pagination while respecting the active archive context.
 - **Markup Cleanup:** Replaced the template-level Query Loop with the new block in `templates/index.html` and `templates/archive.html`, updated search/404 templates to the shared `.post-grid` class, and trimmed the post-card pattern so badges are exclusive to the featured hero.
@@ -209,7 +214,7 @@ canvas regardless of copy length.
 - Ensured all WordPress API calls use correct signatures to prevent PHP warnings and maintain forward compatibility.
 
 ## Development Notes
-- The theme requires WordPress 5.0+ and PHP 7.4+
+- The theme requires WordPress 5.9+ and PHP 7.4+
 - Build assets are tracked in `build/blocks/*/editor.js`
 - Block registrations are handled automatically via `functions.php`
 - Custom blocks support InnerBlocks for flexible content composition

@@ -1,6 +1,6 @@
 === McCullough Digital ===
 Contributors: McCullough Digital
-Requires at least: 5.0
+Requires at least: 5.9
 Tested up to: 6.9
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
@@ -33,7 +33,11 @@ This theme does not have any widget areas registered by default.
 
 == Changelog ==
 
-= 1.2.39 - Unreleased =
+= 1.2.40 - Unreleased =
+* **Hero Image Accessibility:** Let the hero image container expose descriptive alt text, pull attachment metadata when available, and render via `wp_get_attachment_image()` so responsive sources and lazy-loading are applied automatically.
+* **Static CTA States:** Keep CTA and service card copy visible to assistive technology and restyle static variants as neutral text so empty links are no longer implied when no URL is stored.
+* **Home Pattern Seeding:** Ignore trashed "Home" pages while seeding the landing layout to ensure a published page always receives the starter content.
+* **WordPress Requirement Bump:** Raised the documented minimum WordPress version to 5.9 to match the block theme features the codebase already relies on.
 * **Header Logo Clamp:** Scoped the masthead logo styling to outrank WordPress core selectors and added max constraints so oversize uploads respect `--logo-size-header` without inflating the fixed header or Site Editor preview.
 * **Neon Blog Archive Template:** Rebuilt the archive and index templates around a radial hero, live search, pill-style category filters, and a featured post grid with matching editor styles so the blog listing mirrors the new mockup without duplicating markup in patterns.
 * **Blog Hero Glitch Parity:** Extended the header enhancement script and blog hero styles so the archive title now splits into interactive glitch letters with proper reduced-motion fallbacks, matching the front-page hero treatment.

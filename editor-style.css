@@ -76,6 +76,25 @@
     transition: letter-spacing 0.35s ease, text-shadow 0.35s ease, transform 0.35s ease;
 }
 
+.editor-styles-wrapper .cta-button.is-static:not(.hero__cta-button),
+.editor-styles-wrapper .wp-block-button__link.cta-button.is-static:not(.hero__cta-button) {
+    pointer-events: none;
+    cursor: default;
+    transform: none;
+    background: none;
+    box-shadow: none;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0;
+    transition: none;
+}
+
+.editor-styles-wrapper .cta-button.is-static:not(.hero__cta-button) .btn-text,
+.editor-styles-wrapper .wp-block-button__link.cta-button.is-static:not(.hero__cta-button) .btn-text {
+    letter-spacing: normal;
+    text-shadow: none;
+}
+
 .editor-styles-wrapper .cta-button:not(.hero__cta-button)::before,
 .editor-styles-wrapper .wp-block-button__link.cta-button:not(.hero__cta-button)::before {
     content: '';
@@ -88,6 +107,13 @@
     transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s ease;
     opacity: 0;
     z-index: 0;
+}
+
+.editor-styles-wrapper .cta-button.is-static:not(.hero__cta-button)::before,
+.editor-styles-wrapper .wp-block-button__link.cta-button.is-static:not(.hero__cta-button)::before,
+.editor-styles-wrapper .cta-button.is-static:not(.hero__cta-button)::after,
+.editor-styles-wrapper .wp-block-button__link.cta-button.is-static:not(.hero__cta-button)::after {
+    display: none;
 }
 
 .editor-styles-wrapper .cta-button:not(.hero__cta-button)::after,
@@ -140,6 +166,15 @@
     font-weight: 700;
     color: var(--neon-cyan);
     text-decoration: none;
+}
+
+.editor-styles-wrapper .learn-more.is-static,
+.editor-styles-wrapper .wp-block-button__link.learn-more.is-static {
+    color: var(--text-secondary);
+    pointer-events: none;
+    cursor: default;
+    text-shadow: none;
+    transform: none;
 }
 
 .editor-styles-wrapper .container {

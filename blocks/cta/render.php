@@ -50,7 +50,7 @@ if ( ! $has_inner_block ) {
             <?php
         } else {
             ?>
-            <span class="cta-button is-static" aria-hidden="true">
+            <span class="cta-button is-static">
                 <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
             </span>
             <?php

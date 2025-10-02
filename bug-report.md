@@ -4,6 +4,27 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-11 Sweep
+1. **Hero Imagery Uses Attachment Metadata**
+   *Files:* `blocks/hero/render.php`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The hero image wrapper was always flagged `aria-hidden`, so descriptive alt text never surfaced, and the render callback ignored the stored attachment ID, preventing responsive sources or lazy-loading from being output.
+   *Resolution:* Reworked the render logic to prefer `heroImageId`, fetch attachment alt text when authors leave the custom field empty, and emit markup via `wp_get_attachment_image()` (falling back to sanitized `<img>` output) while only hiding the container when the image is decorative.
+
+2. **Static CTA Copy Remains Visible**
+   *Files:* `blocks/cta/render.php`, `blocks/service-card/render.php`, `blocks/services/style.css`, `style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* When no URL was provided, CTA and service card fallbacks rendered inside spans marked `aria-hidden` and retained neon button styling, leaving assistive-technology users with no call-to-action context while sighted users saw something that still looked clickable.
+   *Resolution:* Removed the hidden attribute, introduced neutral `.is-static` styling in both CSS bundles, and ensured fallback text stays accessible without imitating a link when no destination exists.
+
+3. **Home Seeding Skips Trashed Pages**
+   *Files:* `functions.php`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The activation routine bailed out as soon as it encountered a trashed page titled "Home", preventing the landing pattern from ever being seeded for live content.
+   *Resolution:* Filtered the lookup to non-trashed statuses, skipped trashed results from `get_page_by_path`, and continued searching so the first active page receives the seeded layout or a fresh page is created.
+
+4. **WordPress Minimum Clarified**
+   *Files:* `readme.txt`, `AGENTS.md`, `style.css`, `bug-report.md`
+   *Issue:* Documentation still claimed WordPress 5.0 compatibility even though the theme depends on block features introduced in 5.9, and the version header lagged the latest sweep.
+   *Resolution:* Raised the documented minimum to 5.9 across project docs and bumped the theme version to 1.2.40 to reflect the accessibility and reliability fixes.
+
 ### 2025-11-09 Sweep
 1. **Blog Hero Glitch Parity**
    *Files:* `js/header-scripts.js`, `style.css`, `editor-style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`

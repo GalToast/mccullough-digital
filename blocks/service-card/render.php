@@ -94,7 +94,7 @@ if ( '' === $cta_html && '' !== $link_text ) {
         <?php
     } else {
         ?>
-        <span class="learn-more is-static" aria-hidden="true">
+        <span class="learn-more is-static">
             <?php echo esc_html( $link_text ); ?>
         </span>
         <?php
