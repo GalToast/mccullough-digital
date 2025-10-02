@@ -9,6 +9,10 @@ This report tracks all production-impacting fixes and continuous improvements in
    *Files:* `blocks/blog-archive-loop/editor.js`, `blocks/blog-archive-loop/block.json`, `build/blocks/blog-archive-loop/editor.js`, `build/blocks/blog-archive-loop/editor.asset.php`
    *Issue:* The dynamic loop block lacked an editor script, causing the Site Editor to flag it as unsupported and hide the PHP-rendered layout while authors curated the Blog Home template.
    *Resolution:* Registered the block inside a new editor bundle that leverages `ServerSideRender` for previews, hid the block from the inserter to keep it template-only, and rebuilt production assets so the Site Editor now mirrors the front end without warnings.
+2. **Blog Archive Header Offset Regression**
+   *Files:* `style.css`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The blog archive wrapper removed the fixed-header padding, and the hero doubled the offset via an extra `calc()`, leaving the masthead covering the top of the hero while adding excess space above the content.
+   *Resolution:* Restored the `.site-content.blog-archive` padding to consume the header offset token, simplified the hero's top padding to a clamp-only value, rebuilt theme assets, and documented the fix across project notes.
 
 ### 2025-11-09 Sweep
 1. **Blog Hero Glitch Parity**

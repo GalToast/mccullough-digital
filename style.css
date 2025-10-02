@@ -1041,13 +1041,13 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 
 /* --- Blog Template --- */
 .site-content.blog-archive {
-    padding-top: 0;
+    padding-top: var(--mcd-header-offset, var(--header-height));
 }
 
 .blog-hero {
     position: relative;
     overflow: hidden;
-    padding: calc(var(--mcd-header-offset, var(--header-height)) + clamp(72px, 12vw, 140px)) 5% clamp(72px, 9vw, 120px);
+    padding: clamp(72px, 12vw, 140px) 5% clamp(72px, 9vw, 120px);
     background: radial-gradient(circle at 50% 30%, rgba(0, 229, 255, 0.15), transparent 60%),
         radial-gradient(circle at 80% 70%, rgba(255, 0, 224, 0.12), transparent 55%),
         var(--background-dark);

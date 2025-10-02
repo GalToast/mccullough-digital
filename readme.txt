@@ -34,6 +34,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
+* **Blog Hero Offset Correction:** Restored the blog archive header padding and simplified the hero's top spacing so the masthead no longer overlaps the hero while retaining the intended breathing room.
 * **Blog Archive Loop Preview:** Added an editor bundle that registers the dynamic loop block with `ServerSideRender`, hides it from the inserter, and ensures the Site Editor Blog Home template renders the PHP layout without unsupported notices.
 * **Header Logo Clamp:** Scoped the masthead logo styling to outrank WordPress core selectors and added max constraints so oversize uploads respect `--logo-size-header` without inflating the fixed header or Site Editor preview.
 * **Neon Blog Archive Template:** Rebuilt the archive and index templates around a radial hero, live search, pill-style category filters, and a featured post grid with matching editor styles so the blog listing mirrors the new mockup without duplicating markup in patterns.
