@@ -8,10 +8,6 @@
  */
 ?>
 <!-- wp:group {"tagName":"article","className":"post-card"} -->
-    <!-- wp:paragraph {"className":"latest-badge"} -->
-    Most Recent
-    <!-- /wp:paragraph -->
-
     <!-- wp:group {"className":"post-card-image","layout":{"type":"constrained"}} -->
         <!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9"} /-->
     <!-- /wp:group -->

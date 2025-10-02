@@ -9,6 +9,11 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-10) - Blog Archive Loop Block
+- **Dynamic Loop:** Added a `mccullough-digital/blog-archive-loop` server-rendered block that outputs the curated category pills, a standalone latest-post hero, the remaining grid, and pagination while respecting the active archive context.
+- **Markup Cleanup:** Replaced the template-level Query Loop with the new block in `templates/index.html` and `templates/archive.html`, updated search/404 templates to the shared `.post-grid` class, and trimmed the post-card pattern so badges are exclusive to the featured hero.
+- **Style Refresh:** Rebuilt front-end and editor CSS for the latest hero, pills, and grid; introduced placeholder fallbacks, empty-state messaging, and focus-visible states so the layout mirrors the mockup across devices.
+- **Docs Synced:** Recorded the loop block addition and styling refresh across `AGENTS.md`, `bug-report.md`, and `readme.txt`.
 -### Latest (2025-11-09) - Blog Hero Glitch & Badge Guard
 - **Hero Glitch Clone:** Mirrored the hero block's per-letter glitch treatment on the blog archive title via `js/header-scripts.js` and scoped `.blog-hero__letter` styles in both CSS bundles, complete with reduced-motion fallbacks.
 - **Badge Filter:** Added a `render_block` guard that only surfaces the "Most Recent" badge on the main blog query's first page, ensuring paged archives and secondary loops no longer mislabel older posts.

@@ -1,0 +1,12 @@
+{
+    "apiVersion": 3,
+    "name": "mccullough-digital/blog-archive-loop",
+    "title": "Blog Archive Loop",
+    "category": "mcd-blocks",
+    "description": "Outputs the curated category pills, featured latest post, and blog card grid with pagination.",
+    "supports": {
+        "align": false,
+        "html": false
+    },
+    "render": "file:./render.php"
+}

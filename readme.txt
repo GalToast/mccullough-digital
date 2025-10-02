@@ -38,6 +38,7 @@ This theme does not have any widget areas registered by default.
 * **Neon Blog Archive Template:** Rebuilt the archive and index templates around a radial hero, live search, pill-style category filters, and a featured post grid with matching editor styles so the blog listing mirrors the new mockup without duplicating markup in patterns.
 * **Blog Hero Glitch Parity:** Extended the header enhancement script and blog hero styles so the archive title now splits into interactive glitch letters with proper reduced-motion fallbacks, matching the front-page hero treatment.
 * **Latest Badge Query Guard:** Limited the “Most Recent” badge to the main posts query on its first page, preventing paged archives and secondary loops from mislabeling older entries while keeping the grid markup clean elsewhere.
+* **Blog Archive Loop Block:** Registered a `mccullough-digital/blog-archive-loop` dynamic block that renders curated category pills, a dedicated latest-post hero, the remaining `.post-grid` layout, and empty-state messaging with synchronized front-end/editor styling.
 
 = 1.2.38 - 2025-11-06 =
 * **Hero CTA Alignment Controls:** Freed the hero wrapper overflow and centring overrides so the neon button's URL popover opens fully while align and spacing controls can park the CTA left, centre, or right with extra breathing room.
