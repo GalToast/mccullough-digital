@@ -88,16 +88,51 @@
             let isMenuOpen = false;
             let isFocusWithin = false;
             let headerResizeObserver = null;
+            let adminBarResizeObserver = null;
+            let observedAdminBar = null;
             const rootElement = document.documentElement;
             const rootStyle = rootElement && rootElement.style;
 
             const setHeaderOffset = () => {
                 headerHeight = header.offsetHeight;
 
+                const adminBar = document.querySelector('#wpadminbar');
+                const adminBarHeight = adminBar ? adminBar.offsetHeight : 0;
+
                 if (rootStyle) {
                     const roundedHeight = Math.max(Math.round(headerHeight), 0);
+                    const roundedAdminHeight = Math.max(Math.round(adminBarHeight), 0);
                     rootStyle.setProperty('--mcd-header-offset', `${roundedHeight}px`);
+                    rootStyle.setProperty('--mcd-admin-bar-offset', `${roundedAdminHeight}px`);
                 }
+            };
+
+            const syncAdminBarObserver = () => {
+                if (typeof window.ResizeObserver !== 'function') {
+                    return;
+                }
+
+                const adminBar = document.querySelector('#wpadminbar');
+
+                if (!adminBarResizeObserver) {
+                    adminBarResizeObserver = new ResizeObserver(() => {
+                        setHeaderOffset();
+                    });
+                }
+
+                if (adminBar === observedAdminBar) {
+                    return;
+                }
+
+                if (observedAdminBar) {
+                    adminBarResizeObserver.unobserve(observedAdminBar);
+                }
+
+                if (adminBar) {
+                    adminBarResizeObserver.observe(adminBar);
+                }
+
+                observedAdminBar = adminBar || null;
             };
 
             // Register callback only after navBlock has been checked
@@ -108,6 +143,7 @@
                         header.classList.remove('hide');
                     }
                     setHeaderOffset();
+                    syncAdminBarObserver();
                 });
 
                 // Dispatch initial state
@@ -115,7 +151,11 @@
             }
 
             setHeaderOffset();
-            window.addEventListener('load', setHeaderOffset);
+            syncAdminBarObserver();
+            window.addEventListener('load', () => {
+                setHeaderOffset();
+                syncAdminBarObserver();
+            });
 
             const updateHeaderVisibility = () => {
                 const y = window.scrollY;
@@ -139,6 +179,7 @@
 
             const refreshHeaderMetrics = () => {
                 setHeaderOffset();
+                syncAdminBarObserver();
                 updateHeaderVisibility();
             };
 
@@ -162,6 +203,7 @@
             if (typeof window.ResizeObserver === 'function') {
                 headerResizeObserver = new ResizeObserver(() => {
                     setHeaderOffset();
+                    syncAdminBarObserver();
                 });
                 headerResizeObserver.observe(header);
             }
@@ -179,6 +221,10 @@
             window.addEventListener('unload', () => {
                 if (headerResizeObserver) {
                     headerResizeObserver.disconnect();
+                }
+
+                if (adminBarResizeObserver) {
+                    adminBarResizeObserver.disconnect();
                 }
 
                 if (document.fonts && typeof document.fonts.removeEventListener === 'function') {

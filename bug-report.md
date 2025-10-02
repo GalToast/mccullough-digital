@@ -4,6 +4,12 @@ This report tracks all production-impacting fixes and continuous improvements in
 
 ## Fixed Bugs
 
+### 2025-11-13 Sweep
+1. **Admin Bar Offset Sync**
+   *Files:* `style.css`, `editor-style.css`, `js/header-scripts.js`, `AGENTS.md`, `bug-report.md`, `readme.txt`
+   *Issue:* The masthead offset token ignored the 32–46px WordPress admin toolbar, so logged-in users still saw the hero and blog archive trapped beneath the combined header and toolbar despite the 100px fallback.
+   *Resolution:* Introduced a `--mcd-admin-bar-offset` variable with CSS fallbacks for toolbar heights, updated front-end and editor wrappers to pad against both masthead and admin bar, and extended the header script to measure `#wpadminbar` and update the variable whenever the toolbar resizes.
+
 ### 2025-11-12 Sweep
 1. **Masthead Fallback Offset Raised**
    *Files:* `style.css`, `editor-style.css`, `standalone.html`, `AGENTS.md`, `bug-report.md`, `readme.txt`

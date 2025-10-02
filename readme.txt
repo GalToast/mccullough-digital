@@ -34,6 +34,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
+* **Admin Toolbar Offset:** Added a `--mcd-admin-bar-offset` variable with desktop/mobile fallbacks, updated blog and menu wrappers to include it in their header padding, and extended the header script to measure `#wpadminbar` so logged-in views clear the combined toolbar and masthead.
 * **Header Offset Fallback Raised:** Increased the root `--header-height` token to 100px across front-end, editor, and standalone bundles so pages clear the fixed masthead even when header scripts fail.
 * **Blog Hero Offset Correction:** Restored the blog archive header padding and simplified the hero's top spacing so the masthead no longer overlaps the hero while retaining the intended breathing room.
 * **Blog Archive Loop Preview:** Added an editor bundle that registers the dynamic loop block with `ServerSideRender`, hides it from the inserter, and ensures the Site Editor Blog Home template renders the PHP layout without unsupported notices.

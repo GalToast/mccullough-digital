@@ -9,6 +9,11 @@ This repository contains the McCullough Digital block theme. The notes below sum
 4. **Always** update `AGENTS.md`, `bug-report.md`, and `readme.txt` to reflect any bug fixes or improvements.
 
 ## Bug Fix & Improvement Highlights
+-### Latest (2025-11-13) - Admin Bar Offset Sync
+- **Admin Bar Height:** Added a `--mcd-admin-bar-offset` token with admin toolbar fallbacks so logged-in views pad `main.site-content`, the blog archive wrapper, responsive menu overlay, and mobile hero against the combined masthead and WordPress toolbar.
+- **Editor Parity:** Mirrored the new variable and padding math in `editor-style.css` so Site Editor previews clear the toolbar the same way as the front end.
+- **Dynamic JS:** Updated `js/header-scripts.js` to measure `#wpadminbar`, store the height in the new CSS variable, and watch for toolbar resizes so runtime recalculations stay accurate.
+- **Docs Synced:** Logged the admin bar offset adjustments across `AGENTS.md`, `bug-report.md`, and `readme.txt` as required.
 -### Latest (2025-11-12) - Masthead Fallback Offset
 - **Fallback Raised:** Increased the root `--header-height` token to 100px so pages maintain adequate scroll buffer beneath the fixed masthead even before JavaScript recalculates `--mcd-header-offset`.
 - **Parity Everywhere:** Mirrored the 100px fallback across `style.css`, `editor-style.css`, and `standalone.html` to keep the Site Editor, front end, and static preview aligned when scripts are disabled.

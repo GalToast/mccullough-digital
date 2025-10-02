@@ -14,6 +14,7 @@ Text Domain:   mccullough-digital
 :root {
     --header-height: 100px;
     --mcd-header-offset: var(--header-height);
+    --mcd-admin-bar-offset: 0px;
     /* New Softer Palette */
     --neon-cyan: #00e5ff;
     --neon-magenta: #ff00e0;
@@ -54,6 +55,16 @@ body {
     color: var(--text-primary);
 }
 
+body.admin-bar {
+    --mcd-admin-bar-offset: 32px;
+}
+
+@media (max-width: 782px) {
+    body.admin-bar {
+        --mcd-admin-bar-offset: 46px;
+    }
+}
+
 .screen-reader-text {
     position: absolute;
     width: 1px;
@@ -67,7 +78,9 @@ body {
 }
 
 /* Ensure content doesn't hide behind fixed header */
-main.site-content { padding-top: var(--mcd-header-offset, var(--header-height)); }
+main.site-content {
+    padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
+}
 
 .container {
     width: 90%;
@@ -885,7 +898,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
         display: none;
         background-color: rgba(10, 10, 10, 0.95);
         backdrop-filter: blur(10px);
-        padding-top: var(--mcd-header-offset, var(--header-height));
+        padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
         align-items: center;
         justify-content: center;
     }
@@ -1041,7 +1054,7 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 
 /* --- Blog Template --- */
 .site-content.blog-archive {
-    padding-top: var(--mcd-header-offset, var(--header-height));
+    padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
 }
 
 .blog-hero {
@@ -1541,7 +1554,11 @@ main.site-content { padding-top: var(--mcd-header-offset, var(--header-height));
 
 @media (max-width: 768px) {
     .blog-hero {
-        padding: calc(var(--mcd-header-offset, var(--header-height)) + 56px) 24px clamp(56px, 10vw, 88px);
+        padding: calc(
+                var(--mcd-header-offset, var(--header-height))
+                + var(--mcd-admin-bar-offset, 0px)
+                + 56px
+            ) 24px clamp(56px, 10vw, 88px);
     }
 
     .blog-hero__inner {

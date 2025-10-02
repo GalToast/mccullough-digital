@@ -3,6 +3,7 @@
 :root {
     --header-height: 100px;
     --mcd-header-offset: var(--header-height);
+    --mcd-admin-bar-offset: 0px;
     --neon-cyan: #00e5ff;
     --neon-magenta: #ff00e0;
     --deep-purple: #9400d3;
@@ -723,13 +724,19 @@
 
 /* --- Blog Template Preview --- */
 .editor-styles-wrapper .site-content.blog-archive {
-    padding-top: 0;
+    padding-top: calc(
+        var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px)
+    );
 }
 
 .editor-styles-wrapper .blog-hero {
     position: relative;
     overflow: hidden;
-    padding: calc(var(--mcd-header-offset, var(--header-height)) + clamp(72px, 12vw, 140px)) 5% clamp(72px, 9vw, 120px);
+    padding: calc(
+            var(--mcd-header-offset, var(--header-height))
+            + var(--mcd-admin-bar-offset, 0px)
+            + clamp(72px, 12vw, 140px)
+        ) 5% clamp(72px, 9vw, 120px);
     background: radial-gradient(circle at 50% 30%, rgba(0, 229, 255, 0.15), transparent 60%),
         radial-gradient(circle at 80% 70%, rgba(255, 0, 224, 0.12), transparent 55%),
         var(--background-dark);
@@ -1155,7 +1162,11 @@
 
 @media (max-width: 768px) {
     .editor-styles-wrapper .blog-hero {
-        padding: calc(var(--mcd-header-offset, var(--header-height)) + 56px) 24px clamp(56px, 10vw, 88px);
+        padding: calc(
+                var(--mcd-header-offset, var(--header-height))
+                + var(--mcd-admin-bar-offset, 0px)
+                + 56px
+            ) 24px clamp(56px, 10vw, 88px);
     }
 
     .editor-styles-wrapper .category-filters {
