@@ -51,7 +51,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"footer-nav"} -->
-<ul class="footer-nav"><li><a href="/services">Services</a></li><li><a href="/about">About</a></li><li><a href="/journal">Journal</a></li><li><a href="/contact">Contact</a></li></ul>
+<ul class="footer-nav"><li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li><li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li><li><a href="<?php echo esc_url( home_url( '/journal/' ) ); ?>">Journal</a></li><li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li></ul>
 <!-- /wp:list -->
 </div>
 <!-- /wp:group -->
@@ -85,7 +85,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><a href="/contact">Book a discovery call →</a></p>
+<p><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Book a discovery call →</a></p>
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->

@@ -52,6 +52,9 @@ This theme does not have any widget areas registered by default.
 * **Neon Button Default Label Fallback:** Updated the neon button render callback and hero PHP fallback to pull the block metadata default whenever the saved label is empty, keeping the CTA visible on published pages and in legacy hero content.
 * **Neon Button Editor Link Guard:** Prevented the neon button's editor preview from following its stored URL so authors can continue editing after adding a link.
 * **Neon Button Default Label Restore (Editor):** Backfilled the button text attribute with the block's default label whenever it loads empty so the Site Editor always shows editable copy.
+* **Home Page Seeding Guardrails:** Replaced the fallback `get_posts()` title query with `get_page_by_title()` and only clear the `mcd_seed_home_page` flag after successful updates/inserts so the seeding routine targets the correct page and retries when prerequisites are missing.
+* **Block Registration Error Logging:** Detect `WP_Error` results from `register_block_type()` and surface their messages in the error log instead of reporting false positives.
+* **Dynamic Footer & Pattern Links:** Swap hard-coded quick-link slugs for `home_url()` helpers in the neon footer and about patterns so installs in subdirectories or with translated slugs keep working navigation.
 
 = 1.2.38 - 2025-11-06 =
 * **Hero CTA Alignment Controls:** Freed the hero wrapper overflow and centring overrides so the neon button's URL popover opens fully while align and spacing controls can park the CTA left, centre, or right with extra breathing room.

@@ -34,8 +34,8 @@
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
 <div class="wp-block-buttons">
-<!-- wp:button {"className":"is-style-fill","text":"Learn Our Story","url":"/about/"} -->
-<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/about/">Learn Our Story</a></div>
+<!-- wp:button {"className":"is-style-fill","text":"Learn Our Story","url":"<?php echo esc_url( home_url( '/about/' ) ); ?>"} -->
+<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/' ) ); ?>">Learn Our Story</a></div>
 <!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
