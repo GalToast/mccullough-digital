@@ -94,10 +94,13 @@ function mcd_register_blocks() {
 
         if ( is_dir( $block_path ) && file_exists( $block_path . '/block.json' ) ) {
             $result = register_block_type( $block_path );
-            if ( $result ) {
-                error_log('MCD Blocks: Successfully registered block at: ' . $block_path);
-            } else {
+
+            if ( is_wp_error( $result ) ) {
+                error_log('MCD Blocks: Failed to register block at: ' . $block_path . ' - ' . $result->get_error_message());
+            } elseif ( ! $result ) {
                 error_log('MCD Blocks: Failed to register block at: ' . $block_path);
+            } else {
+                error_log('MCD Blocks: Successfully registered block at: ' . $block_path);
             }
         }
     }
@@ -164,8 +167,6 @@ function mcd_maybe_seed_home_page() {
     return;
   }
 
-  delete_option( 'mcd_seed_home_page' );
-
   $pattern = $registry->get_registered( 'mccullough-digital/home-landing' );
 
   if ( empty( $pattern['content'] ) ) {
@@ -188,22 +189,10 @@ function mcd_maybe_seed_home_page() {
   }
 
   if ( ! $page ) {
-    $pages = get_posts(
-      [
-        'post_type'              => 'page',
-        'title'                  => __( 'Home', 'mccullough-digital' ),
-        'post_status'            => 'all',
-        'numberposts'            => 1,
-        'update_post_term_cache' => false,
-        'update_post_meta_cache' => false,
-        'orderby'                => 'post_date ID',
-        'order'                  => 'ASC',
-      ]
-    );
-    if ( ! empty( $pages ) ) {
-      $page = $pages[0];
-    }
+    $page = get_page_by_title( __( 'Home', 'mccullough-digital' ), OBJECT, 'page' );
   }
+
+  $seeded = false;
 
   if ( $page ) {
     if ( 'trash' === $page->post_status ) {
@@ -213,26 +202,38 @@ function mcd_maybe_seed_home_page() {
     $existing_content = trim( (string) $page->post_content );
 
     if ( '' === wp_strip_all_tags( $existing_content ) ) {
-      wp_update_post(
+      $updated = wp_update_post(
         [
           'ID'           => $page->ID,
           'post_content' => $pattern['content'],
-        ]
+        ],
+        true
       );
-    }
 
-    return;
+      if ( ! is_wp_error( $updated ) && $updated ) {
+        $seeded = true;
+      }
+    }
+  } else {
+    $inserted = wp_insert_post(
+      [
+        'post_title'   => __( 'Home', 'mccullough-digital' ),
+        'post_name'    => 'home',
+        'post_status'  => 'publish',
+        'post_type'    => 'page',
+        'post_content' => $pattern['content'],
+      ],
+      true
+    );
+
+    if ( ! is_wp_error( $inserted ) && $inserted ) {
+      $seeded = true;
+    }
   }
 
-  wp_insert_post(
-    [
-      'post_title'   => __( 'Home', 'mccullough-digital' ),
-      'post_name'    => 'home',
-      'post_status'  => 'publish',
-      'post_type'    => 'page',
-      'post_content' => $pattern['content'],
-    ]
-  );
+  if ( $seeded ) {
+    delete_option( 'mcd_seed_home_page' );
+  }
 }
 add_action( 'init', 'mcd_maybe_seed_home_page', 20 );
 

@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-16 — Home seeding retry + dynamic footer links**
+  - Result: Home-page seeding now resolves the intended page deterministically, only clears the option after successful updates/inserts, and the neon footer/about patterns generate quick links with `home_url()` so subdirectory installs avoid broken slugs.
+  - Follow-up: Re-test on a fresh activation once translations/localized slugs are available to confirm the helpers cover non-English installations.
 - **2025-11-15 — Hero fallback neon CTA label**
   - Result: Hero block PHP fallback now pulls the neon button's metadata default when the saved label is blank, so legacy hero content and cached renders surface the CTA with "Start a Project" even before inner blocks resave.
   - Follow-up: Confirm after translating the default label or when patterns change their seeded CTA copy.
