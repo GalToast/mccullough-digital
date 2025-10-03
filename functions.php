@@ -41,8 +41,23 @@ function mcd_assets() {
   // Enqueue main stylesheet
   wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array( 'mcd-fonts' ), $theme_version );
 
-  // Enqueue blog header fix CSS
-  wp_enqueue_style( 'mcd-blog-fix', get_stylesheet_directory_uri() . '/blog-fix.css', array( 'mcd-style' ), $theme_version );
+  // Enqueue blog header fix CSS (if it exists)
+  $blog_fix_path = get_stylesheet_directory() . '/blog-fix.css';
+  if ( file_exists( $blog_fix_path ) ) {
+    wp_enqueue_style( 'mcd-blog-fix', get_stylesheet_directory_uri() . '/blog-fix.css', array( 'mcd-style' ), $theme_version );
+  }
+
+  // Manually enqueue button block styles to ensure they load
+  $button_style_path = get_stylesheet_directory() . '/blocks/button/style.css';
+  if ( file_exists( $button_style_path ) ) {
+    $button_style_ver = filemtime( $button_style_path );
+    wp_enqueue_style(
+      'mcd-button-block',
+      get_stylesheet_directory_uri() . '/blocks/button/style.css',
+      array( 'mcd-style' ),
+      $button_style_ver
+    );
+  }
 
   // Cache-bust the theme interaction script by filemtime if possible
   $script_path = get_stylesheet_directory() . '/js/header-scripts.js';

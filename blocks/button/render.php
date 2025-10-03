@@ -9,11 +9,20 @@
  * @package McCullough_Digital
  */
 
+// Debug: Log what we're receiving (remove this after debugging)
+if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+    error_log( 'Button Block Attributes: ' . print_r( $attributes, true ) );
+}
+
 $button_text = isset( $attributes['buttonText'] ) ? trim( wp_strip_all_tags( (string) $attributes['buttonText'] ) ) : '';
 $button_link = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
 $open_new_tab = isset( $attributes['opensInNewTab'] ) ? (bool) $attributes['opensInNewTab'] : false;
 
+// If buttonText is empty, output a debug message instead of nothing
 if ( '' === $button_text ) {
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG && current_user_can( 'manage_options' ) ) {
+        return '<!-- Neon Button Block: No buttonText attribute received -->';
+    }
     return '';
 }
 
