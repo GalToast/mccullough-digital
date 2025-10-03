@@ -71,6 +71,14 @@ if ( '' === $inner_content ) {
     $raw_link    = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
     $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
 
+    if ( '' === $button_text && function_exists( 'mcd_get_neon_button_default_label' ) ) {
+        $button_text = mcd_get_neon_button_default_label();
+    }
+
+    if ( '' === $button_text ) {
+        $button_text = __( 'Start a Project', 'mccullough-digital' );
+    }
+
     if ( '' !== $button_text ) {
         $button_label = sprintf(
             '<span class="hero__cta-button-label">%s</span>',

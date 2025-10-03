@@ -490,3 +490,55 @@ function mcd_debug_template() {
     }
 }
 add_action( 'wp_footer', 'mcd_debug_template' );
+
+if ( ! function_exists( 'mcd_get_neon_button_default_label' ) ) {
+    /**
+     * Retrieve the default neon button label from the block definition.
+     *
+     * @return string
+     */
+    function mcd_get_neon_button_default_label() {
+        static $cached_default = null;
+
+        if ( null !== $cached_default ) {
+            return $cached_default;
+        }
+
+        $default_label = '';
+
+        if ( class_exists( 'WP_Block_Type_Registry' ) ) {
+            $block_type = WP_Block_Type_Registry::get_instance()->get_registered( 'mccullough-digital/button' );
+
+            if ( $block_type && isset( $block_type->attributes['buttonText']['default'] ) ) {
+                $default_label = trim( wp_strip_all_tags( (string) $block_type->attributes['buttonText']['default'] ) );
+            }
+        }
+
+        if ( '' === $default_label ) {
+            $block_metadata_path = trailingslashit( get_stylesheet_directory() ) . 'blocks/button/block.json';
+
+            if ( file_exists( $block_metadata_path ) ) {
+                if ( function_exists( 'wp_json_file_decode' ) ) {
+                    $metadata = wp_json_file_decode( $block_metadata_path, array( 'associative' => true ) );
+                    if ( is_wp_error( $metadata ) ) {
+                        $metadata = null;
+                    }
+                } else {
+                    $metadata = json_decode( file_get_contents( $block_metadata_path ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+                }
+
+                if ( is_array( $metadata ) && isset( $metadata['attributes']['buttonText']['default'] ) ) {
+                    $default_label = trim( wp_strip_all_tags( (string) $metadata['attributes']['buttonText']['default'] ) );
+                }
+            }
+        }
+
+        if ( '' === $default_label ) {
+            $default_label = __( 'Start a Project', 'mccullough-digital' );
+        }
+
+        $cached_default = $default_label;
+
+        return $cached_default;
+    }
+}

@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-15 — Hero fallback neon CTA label**
+  - Result: Hero block PHP fallback now pulls the neon button's metadata default when the saved label is blank, so legacy hero content and cached renders surface the CTA with "Start a Project" even before inner blocks resave.
+  - Follow-up: Confirm after translating the default label or when patterns change their seeded CTA copy.
 - **2025-11-14 — Neon button editor regression sweep**
   - Result: Editor now keeps the neon button clickable without leaving the editor when a link is set, and it restores the default "Start a Project" label whenever previously saved buttons load with an empty attribute.
   - Follow-up: Re-check after translating the default label or updating block editor RichText behaviour around empty strings.
