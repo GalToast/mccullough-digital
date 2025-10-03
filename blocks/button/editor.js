@@ -1,5 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
 import {
     useBlockProps,
     RichText,
@@ -20,6 +21,15 @@ registerBlockType( metadata.name, {
     ...metadata,
     edit( { attributes, setAttributes } ) {
         const { buttonText, buttonLink, opensInNewTab } = attributes;
+        const defaultButtonText =
+            metadata?.attributes?.buttonText?.default ||
+            __('Start a Project', 'mccullough-digital');
+
+        useEffect( () => {
+            if ( ! buttonText || buttonText.trim() === '' ) {
+                setAttributes( { buttonText: defaultButtonText } );
+            }
+        }, [ buttonText, defaultButtonText, setAttributes ] );
         const blockProps = useBlockProps( {
             className: 'mcd-button-block',
         } );
@@ -35,6 +45,9 @@ registerBlockType( metadata.name, {
                 commonButtonProps.target = '_blank';
                 commonButtonProps.rel = 'noopener';
             }
+            commonButtonProps.onClick = ( event ) => {
+                event.preventDefault();
+            };
         }
 
         const ButtonTag = buttonLink ? 'a' : 'button';
@@ -67,7 +80,7 @@ registerBlockType( metadata.name, {
                         <RichText
                             tagName="span"
                             className="hero__cta-button-label"
-                            value={ buttonText }
+                            value={ buttonText ?? '' }
                             onChange={ (value) => setAttributes({ buttonText: value }) }
                             allowedFormats={ [] }
                             placeholder={ __('Add button text…', 'mccullough-digital') }
