@@ -54,7 +54,10 @@ This theme does not have any widget areas registered by default.
 * **Neon Button Default Label Restore (Editor):** Backfilled the button text attribute with the block's default label whenever it loads empty so the Site Editor always shows editable copy.
 * **Home Page Seeding Guardrails:** Replaced the fallback `get_posts()` title query with `get_page_by_title()` and only clear the `mcd_seed_home_page` flag after successful updates/inserts so the seeding routine targets the correct page and retries when prerequisites are missing.
 * **Block Registration Error Logging:** Detect `WP_Error` results from `register_block_type()` and surface their messages in the error log instead of reporting false positives.
-* **Dynamic Footer & Pattern Links:** Swap hard-coded quick-link slugs for `home_url()` helpers in the neon footer and about patterns so installs in subdirectories or with translated slugs keep working navigation.
+* **About Link Resolver:** Centralised an `mcd_get_about_page_url()` helper that checks common About slugs/titles before falling back to `/about/`, wiring the CTA pattern and neon footer to the helper so renamed pages no longer ship broken links.
+* **Responsive Toggle Restore:** Let WordPress render its responsive navigation toggles by default and only suppress them above 769px, ensuring the hamburger + close buttons appear (and remain tappable) on narrow viewports.
+* **Blog Card Media Clamp:** Locked blog card thumbnails to a 16:9 aspect ratio on the front end and in the editor preview so the archive grid rows stay even regardless of original image height.
+* **Service CTA Tap Target:** Converted the service card "Learn more" link into an inline-flex pill with 44px minimum height so touch devices get an accessible hit area without losing the neon text treatment.
 
 = 1.2.38 - 2025-11-06 =
 * **Hero CTA Alignment Controls:** Freed the hero wrapper overflow and centring overrides so the neon button's URL popover opens fully while align and spacing controls can park the CTA left, centre, or right with extra breathing room.

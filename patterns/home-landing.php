@@ -7,6 +7,7 @@
  * Post Types: page
  */
 ?>
+<?php $mcd_about_link = mcd_get_about_page_url(); ?>
 <!-- wp:mccullough-digital/hero {"align":"full","headline":"Bringing Your Digital Vision to Life.","subheading":"We build beautiful, high-performance web experiences and creative marketing strategies that connect with your audience. Ready to create something amazing?","buttonText":"Start a Project","buttonLink":"#contact"} /-->
 
 <!-- wp:mccullough-digital/services {"align":"full","anchor":"services","headline":"What We Do"} -->
@@ -34,8 +35,8 @@
 
 <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left"}} -->
 <div class="wp-block-buttons">
-<!-- wp:button {"className":"is-style-fill","text":"Learn Our Story","url":"<?php echo esc_url( home_url( '/about/' ) ); ?>"} -->
-<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/about/' ) ); ?>">Learn Our Story</a></div>
+<!-- wp:button {"className":"is-style-fill","text":"Learn Our Story","url":"<?php echo esc_url( $mcd_about_link ); ?>"} -->
+<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( $mcd_about_link ); ?>">Learn Our Story</a></div>
 <!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->

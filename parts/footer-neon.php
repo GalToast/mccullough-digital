@@ -1,3 +1,4 @@
+<?php $mcd_about_link = mcd_get_about_page_url(); ?>
 <!-- wp:group {"tagName":"footer","anchor":"colophon","className":"site-footer","layout":{"type":"constrained"}} -->
 <footer id="colophon" class="wp-block-group site-footer">
 <!-- wp:group {"className":"stars","metadata":{"name":"Star Layer One"}} -->
@@ -51,7 +52,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"className":"footer-nav"} -->
-<ul class="footer-nav"><li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li><li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>">About</a></li><li><a href="<?php echo esc_url( home_url( '/journal/' ) ); ?>">Journal</a></li><li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li></ul>
+<ul class="footer-nav"><li><a href="<?php echo esc_url( home_url( '/services/' ) ); ?>">Services</a></li><li><a href="<?php echo esc_url( $mcd_about_link ); ?>">About</a></li><li><a href="<?php echo esc_url( home_url( '/journal/' ) ); ?>">Journal</a></li><li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">Contact</a></li></ul>
 <!-- /wp:list -->
 </div>
 <!-- /wp:group -->

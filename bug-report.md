@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-17 — About slug helper + mobile nav + archive polish**
+  - Result: Added an `mcd_get_about_page_url()` helper so the home CTA and neon footer follow renamed About pages, restored the core navigation responsive toggles on ≤768px screens, aligned blog card thumbnails to a 16:9 frame, and expanded service card CTAs to 44px touch targets.
+  - Follow-up: Confirm translations extend the About helper candidate lists and re-test the hamburger toggle after future header layout tweaks.
 - **2025-11-16 — Home seeding retry + dynamic footer links**
   - Result: Home-page seeding now resolves the intended page deterministically, only clears the option after successful updates/inserts, and the neon footer/about patterns generate quick links with `home_url()` so subdirectory installs avoid broken slugs.
   - Follow-up: Re-test on a fresh activation once translations/localized slugs are available to confirm the helpers cover non-English installations.
