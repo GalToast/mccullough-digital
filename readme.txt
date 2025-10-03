@@ -50,6 +50,8 @@ This theme does not have any widget areas registered by default.
 * **Latest Badge Query Guard:** Limited the “Most Recent” badge to the main posts query on its first page, preventing paged archives and secondary loops from mislabeling older entries while keeping the grid markup clean elsewhere.
 * **Blog Archive Loop Block:** Registered a `mccullough-digital/blog-archive-loop` dynamic block that renders curated category pills, a dedicated latest-post hero, the remaining `.post-grid` layout, and empty-state messaging with synchronized front-end/editor styling.
 * **Neon Button Default Label Fallback:** Updated the neon button render callback to pull the block metadata default whenever the saved label is empty, keeping the CTA visible on published pages.
+* **Neon Button Editor Link Guard:** Prevented the neon button's editor preview from following its stored URL so authors can continue editing after adding a link.
+* **Neon Button Default Label Restore (Editor):** Backfilled the button text attribute with the block's default label whenever it loads empty so the Site Editor always shows editable copy.
 
 = 1.2.38 - 2025-11-06 =
 * **Hero CTA Alignment Controls:** Freed the hero wrapper overflow and centring overrides so the neon button's URL popover opens fully while align and spacing controls can park the CTA left, centre, or right with extra breathing room.

@@ -1,4 +1,4 @@
-# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-13 — CTA fallback verified)
+# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-14 — Neon button editor parity verified)
 
 This rolling QA log tracks production-impacting fixes and follow-up checks for the McCullough Digital theme. Use it to understand **when** a regression was addressed, what still needs verification, and where to find the detailed release notes.
 
@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-14 — Neon button editor regression sweep**
+  - Result: Editor now keeps the neon button clickable without leaving the editor when a link is set, and it restores the default "Start a Project" label whenever previously saved buttons load with an empty attribute.
+  - Follow-up: Re-check after translating the default label or updating block editor RichText behaviour around empty strings.
 - **2025-11-13 — Neon button default label fallback**
   - Result: Dynamic render now loads the block metadata to backfill CTA text, so published neon buttons always surface the default "Start a Project" label when authors save an empty field.
   - Follow-up: Re-test after translating block strings or changing the default label in `block.json`.
