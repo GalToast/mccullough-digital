@@ -125,6 +125,97 @@ function mcd_block_categories( $categories ) {
 add_action( 'block_categories_all', 'mcd_block_categories' );
 
 /**
+ * Resolve the site About page permalink using common slug/title variants.
+ *
+ * Falls back to `/about/` so existing installs keep a working link even when
+ * no About-style page is published yet. The resolved URL is cached in memory
+ * for repeated calls during a single request.
+ *
+ * @since 1.2.39
+ *
+ * @return string About page URL.
+ */
+if ( ! function_exists( 'mcd_get_about_page_url' ) ) {
+  function mcd_get_about_page_url() {
+    static $cached_url = null;
+
+    if ( null !== $cached_url ) {
+      return $cached_url;
+    }
+
+    $resolved_permalink = '';
+
+    $slug_candidates = apply_filters(
+      'mcd_about_page_slug_candidates',
+      [ 'about-us', 'about', 'our-story' ]
+    );
+
+    if ( is_array( $slug_candidates ) ) {
+      foreach ( $slug_candidates as $slug ) {
+        if ( ! $slug ) {
+          continue;
+        }
+
+        $page = get_page_by_path( $slug );
+
+        if ( $page instanceof WP_Post && 'trash' !== $page->post_status ) {
+          $permalink = get_permalink( $page );
+
+          if ( $permalink ) {
+            $resolved_permalink = $permalink;
+            break;
+          }
+        }
+      }
+    }
+
+    if ( '' === $resolved_permalink ) {
+      $title_candidates = apply_filters(
+        'mcd_about_page_title_candidates',
+        [
+          __( 'About Us', 'mccullough-digital' ),
+          __( 'About', 'mccullough-digital' ),
+        ]
+      );
+
+      if ( is_array( $title_candidates ) ) {
+        foreach ( $title_candidates as $title ) {
+          if ( ! $title ) {
+            continue;
+          }
+
+          $page = get_page_by_title( $title, OBJECT, 'page' );
+
+          if ( $page instanceof WP_Post && 'trash' !== $page->post_status ) {
+            $permalink = get_permalink( $page );
+
+            if ( $permalink ) {
+              $resolved_permalink = $permalink;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if ( '' === $resolved_permalink ) {
+      $resolved_permalink = home_url( '/about/' );
+    }
+
+    /**
+     * Filter the resolved About page permalink before caching.
+     *
+     * @since 1.2.39
+     *
+     * @param string $resolved_permalink Permalink that will be cached.
+     */
+    $cached_url = apply_filters( 'mcd_about_page_url', $resolved_permalink );
+
+    return $cached_url;
+  }
+}
+
+/**
  * Register custom pattern category for theme patterns.
  */
 function mcd_register_pattern_category() {
