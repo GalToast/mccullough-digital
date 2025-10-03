@@ -837,30 +837,72 @@ main.site-content {
 
 /* --- Responsive Styles (for screens 768px or less) --- */
 @media (max-width: 768px) {
-    #masthead.site-header { padding: 10px 5%; }
+    #masthead.site-header { 
+        padding: 10px 5%;
+    }
+
+    /* Keep header sweep effect on mobile */
+    #masthead.site-header.has-modal-open::before {
+        transform: translateX(0%);
+    }
 
     .main-navigation.wp-block-navigation {
         width: 100%;
         justify-content: flex-end;
     }
 
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open,
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close {
-        display: block;
+    /* CRITICAL: Hide ALL desktop navigation elements on mobile */
+    .main-navigation.wp-block-navigation > .wp-block-navigation__container {
+        display: none !important;
+    }
+    
+    .main-navigation.wp-block-navigation .wp-block-navigation__container:not(.wp-block-navigation__responsive-container .wp-block-navigation__container) {
+        display: none !important;
     }
 
+    /* Hide any navigation items NOT inside the responsive container */
+    .main-navigation.wp-block-navigation .wp-block-navigation-item:not(.wp-block-navigation__responsive-container *) {
+        display: none !important;
+    }
+
+    /* Ensure only logo and hamburger show in header on mobile */
+    #masthead.site-header > *:not(.site-branding):not(.main-navigation) {
+        display: none !important;
+    }
+
+    /* Prevent the responsive container from being scrollable when closed */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container:not(.is-menu-open) {
+        pointer-events: none !important;
+        overflow: hidden !important;
+    }
+
+    /* Hamburger Menu Toggle Button */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open,
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
         background: none;
         border: none;
         color: var(--text-primary);
+        cursor: pointer;
+        padding: 0;
+        position: relative;
+        z-index: 10001;
     }
 
+    /* Hamburger Icon - Three Lines */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open {
         position: relative;
-        width: 48px;
-        height: 48px;
         font-size: 0;
+    }
+
+    /* Hide hamburger when menu is open */
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-open,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open ~ .wp-block-navigation__responsive-container-open {
+        display: none !important;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::before,
@@ -870,57 +912,181 @@ main.site-content {
         left: 10px;
         right: 10px;
         height: 3px;
-        background-color: var(--text-primary);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: var(--neon-cyan);
+        transition: all 0.3s ease;
+        border-radius: 2px;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::before {
         top: 16px;
-        box-shadow: 0 8px 0 var(--text-primary);
+        box-shadow: 0 8px 0 var(--neon-cyan);
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::after {
         bottom: 16px;
     }
 
+    /* Hamburger Active State - Transform to X */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::before {
         transform: translateY(8px) rotate(45deg);
-        box-shadow: 0 0 0 var(--text-primary);
+        box-shadow: 0 0 0 transparent;
+        background-color: var(--neon-cyan);
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::after {
         transform: translateY(-8px) rotate(-45deg);
+        background-color: var(--neon-cyan);
     }
 
+    /* Mobile Menu Container - Dark with Gradient Sweep */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container {
-        position: fixed;
-        inset: 0;
+        position: fixed !important;
+        inset: 0 !important;
         display: none;
-        background-color: rgba(10, 10, 10, 0.95);
-        backdrop-filter: blur(10px);
-        padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
+        background: rgba(0, 0, 0, 0.98) !important;
+        backdrop-filter: blur(15px) !important;
+        padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px) + 20px);
         align-items: center;
         justify-content: center;
+        overflow-y: auto;
+        z-index: 10000 !important;
+        opacity: 0;
+        transition: opacity 0.4s ease;
     }
 
+    /* Gradient Sweep Effect for Mobile Menu */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--deep-purple));
+        opacity: 0.08;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 30% 40%, rgba(0, 229, 255, 0.15), transparent 60%),
+                    radial-gradient(circle at 70% 60%, rgba(255, 0, 224, 0.12), transparent 55%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Show Menu When Open */
     .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container,
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open {
         display: flex;
+        opacity: 1;
     }
 
+    /* Menu Items Container */
     .main-navigation.wp-block-navigation .wp-block-navigation__container {
         flex-direction: column;
-        gap: 10px;
+        gap: 0;
         align-items: center;
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+        z-index: 1;
     }
 
+    /* Individual Menu Items */
+    .main-navigation.wp-block-navigation .wp-block-navigation-item {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Stagger Animation for Menu Items */
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(1),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(2),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(2) {
+        transition-delay: 0.15s;
+    }
+
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(3),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(3) {
+        transition-delay: 0.2s;
+    }
+
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(4),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(4) {
+        transition-delay: 0.25s;
+    }
+
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(5),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(5) {
+        transition-delay: 0.3s;
+    }
+
+    /* Menu Links Styling */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content {
+        display: block !important;
+        width: 100%;
+        color: #ffffff !important;
+        font-size: 1.5rem !important;
+        font-weight: 600 !important;
+        text-decoration: none !important;
+        padding: 20px 30px !important;
+        text-align: center !important;
+        transition: all 0.3s ease !important;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1) !important;
+        position: relative !important;
+    }
+
+    /* Remove border from last item */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item:last-child .wp-block-navigation-item__content {
+        border-bottom: none !important;
+    }
+
+    /* Link Hover Effect */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:hover,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:focus-visible {
+        color: var(--neon-cyan) !important;
+        background: rgba(0, 255, 255, 0.05) !important;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+    }
+
+    /* Active/Current Page Link */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content.current,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content[aria-current="page"] {
+        color: var(--neon-cyan) !important;
+        background: rgba(0, 255, 255, 0.1) !important;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+    }
+
+    /* Close Button (X) - Only show when menu is open */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close {
         position: absolute;
-        top: 20px;
-        right: 20px;
-        width: 48px;
-        height: 48px;
+        top: calc(var(--mcd-admin-bar-offset, 0px) + 15px);
+        right: 5%;
+        width: 50px;
+        height: 50px;
         font-size: 0;
+        z-index: 10001;
+        display: none !important;
+    }
+
+    /* Show close button ONLY when menu is open */
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-close,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close {
+        display: flex !important;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::before,
@@ -930,8 +1096,9 @@ main.site-content {
         left: 10px;
         right: 10px;
         height: 3px;
-        background-color: var(--text-primary);
+        background-color: var(--neon-cyan);
         transition: transform 0.3s ease;
+        border-radius: 2px;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::before {
@@ -942,6 +1109,17 @@ main.site-content {
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::after {
         top: 50%;
         transform: translateY(-50%) rotate(-45deg);
+    }
+
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close:hover::before,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close:hover::after {
+        background-color: var(--neon-magenta);
+        box-shadow: 0 0 10px rgba(255, 0, 224, 0.6);
+    }
+
+    /* Prevent body scroll when menu is open */
+    body:has(.main-navigation.wp-block-navigation.is-menu-open) {
+        overflow: hidden !important;
     }
 
     .footer-container {

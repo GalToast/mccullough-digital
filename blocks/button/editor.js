@@ -25,11 +25,12 @@ registerBlockType( metadata.name, {
             metadata?.attributes?.buttonText?.default ||
             __('Start a Project', 'mccullough-digital');
 
+        // Only set default text on initial mount if buttonText is undefined (not just empty)
         useEffect( () => {
-            if ( ! buttonText || buttonText.trim() === '' ) {
+            if ( buttonText === undefined ) {
                 setAttributes( { buttonText: defaultButtonText } );
             }
-        }, [ buttonText, defaultButtonText, setAttributes ] );
+        }, [] ); // Empty dependency array means this only runs once on mount
         const blockProps = useBlockProps( {
             className: 'mcd-button-block',
         } );

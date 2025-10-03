@@ -46,6 +46,12 @@
             const syncToggleState = () => {
                 const isOpen = navBlock.classList.contains('is-menu-open');
                 menuToggle.classList.toggle('is-active', isOpen);
+                
+                // Add class to header for neon sweep effect
+                if (header) {
+                    header.classList.toggle('has-modal-open', isOpen);
+                }
+                
                 dispatchMenuState(isOpen);
             };
 
