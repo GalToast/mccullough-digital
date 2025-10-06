@@ -60,6 +60,25 @@
             const observer = new MutationObserver(syncToggleState);
             observer.observe(navBlock, { attributes: true, attributeFilter: ['class'] });
 
+            // Make hamburger button toggle both open AND close
+            menuToggle.addEventListener('click', (e) => {
+                const isOpen = navBlock.classList.contains('is-menu-open');
+                
+                // If menu is already open, close it
+                if (isOpen) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const menuClose = navBlock.querySelector(
+                        '.wp-block-navigation__responsive-container-close'
+                    );
+                    if (menuClose) {
+                        menuClose.click();
+                    }
+                }
+                // Otherwise, let the default behavior open it
+            });
+
             navBlock.querySelectorAll('.wp-block-navigation-item a').forEach((link) => {
                 link.addEventListener('click', () => {
                     if (navBlock.classList.contains('is-menu-open')) {

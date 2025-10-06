@@ -168,14 +168,14 @@ main.site-content {
     z-index: var(--z-index-header);
     transition: transform .4s cubic-bezier(.22,.61,.36,1), background-color 0.3s ease;
     background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
     border-bottom: 2px solid transparent;
 }
 
-/* Only hide overflow on desktop to contain sweep effect */
+/* Desktop-only effects */
 @media (min-width: 769px) {
     #masthead.site-header {
         overflow: hidden; /* Hides the pseudo-element when it's outside */
+        backdrop-filter: blur(10px); /* Only apply blur on desktop to avoid containing block issues on mobile */
     }
 }
 
@@ -889,8 +889,7 @@ main.site-content {
     }
 
     /* Hamburger Menu Toggle Button */
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open,
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close {
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -903,6 +902,11 @@ main.site-content {
         padding: 0;
         position: relative;
         z-index: 10001;
+        transition: transform 0.3s ease;
+    }
+
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open:hover {
+        transform: scale(1.1);
     }
 
     /* Hamburger Icon - Three Lines */
@@ -911,9 +915,9 @@ main.site-content {
         font-size: 0;
     }
 
-    /* Hide hamburger when menu is open */
-    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-open,
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open ~ .wp-block-navigation__responsive-container-open {
+    /* Hide WordPress default hamburger SVG/icon */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open svg,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open .wp-block-navigation__toggle-icon {
         display: none !important;
     }
 
@@ -927,27 +931,46 @@ main.site-content {
         background-color: var(--neon-cyan);
         transition: all 0.3s ease;
         border-radius: 2px;
+        will-change: transform, background-color;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::before {
         top: 16px;
         box-shadow: 0 8px 0 var(--neon-cyan);
+        transform-origin: center;
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open::after {
         bottom: 16px;
+        transform-origin: center;
     }
 
-    /* Hamburger Active State - Transform to X */
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::before {
-        transform: translateY(8px) rotate(45deg);
+    /* Hamburger Active State - Transform to X with smooth animation */
+    /* Target both .is-active class AND when menu is open */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::before,
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-open::before,
+    body:has(.wp-block-navigation__responsive-container.is-menu-open) .wp-block-navigation__responsive-container-open::before {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
         box-shadow: 0 0 0 transparent;
-        background-color: var(--neon-cyan);
+        background-color: var(--neon-magenta);
     }
 
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::after {
-        transform: translateY(-8px) rotate(-45deg);
-        background-color: var(--neon-cyan);
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active::after,
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-open::after,
+    body:has(.wp-block-navigation__responsive-container.is-menu-open) .wp-block-navigation__responsive-container-open::after {
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%) rotate(-45deg);
+        background-color: var(--neon-magenta);
+    }
+
+    /* Add glow effect to X */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active:hover::before,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open.is-active:hover::after,
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-open:hover::before,
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-open:hover::after {
+        box-shadow: 0 0 10px var(--neon-magenta);
     }
 
     /* Mobile Menu Container - Dark with Gradient Sweep */
@@ -958,12 +981,14 @@ main.site-content {
         background: rgba(0, 0, 0, 0.98) !important;
         backdrop-filter: blur(15px) !important;
         padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px) + 20px);
+        padding-bottom: 40px;
         align-items: center;
         justify-content: center;
         overflow-y: auto;
         z-index: 10000 !important;
         opacity: 0;
         transition: opacity 0.4s ease;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
 
     /* Gradient Sweep Effect for Mobile Menu */
@@ -992,6 +1017,18 @@ main.site-content {
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open {
         display: flex;
         opacity: 1;
+        animation: menuFadeIn 0.4s ease;
+    }
+
+    @keyframes menuFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     /* Menu Items Container */
@@ -1057,9 +1094,28 @@ main.site-content {
         text-decoration: none !important;
         padding: 20px 30px !important;
         text-align: center !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         border-bottom: 1px solid rgba(0, 255, 255, 0.1) !important;
         position: relative !important;
+        overflow: hidden !important;
+    }
+
+    /* Add subtle slide-in effect on link hover */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content::before {
+        content: '' !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        height: 100% !important;
+        width: 4px !important;
+        background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta)) !important;
+        transform: translateX(-4px) !important;
+        transition: transform 0.3s ease !important;
+    }
+
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:hover::before,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:focus-visible::before {
+        transform: translateX(0) !important;
     }
 
     /* Remove border from last item */
@@ -1071,8 +1127,16 @@ main.site-content {
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:hover,
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:focus-visible {
         color: var(--neon-cyan) !important;
-        background: rgba(0, 255, 255, 0.05) !important;
+        background: rgba(0, 255, 255, 0.08) !important;
         text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
+        transform: translateX(8px) !important;
+        padding-left: 38px !important;
+    }
+
+    /* Active state on tap for better mobile feedback */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:active {
+        background: rgba(0, 255, 255, 0.12) !important;
+        transform: scale(0.98) !important;
     }
 
     /* Active/Current Page Link */
@@ -1083,50 +1147,9 @@ main.site-content {
         text-shadow: 0 0 10px rgba(0, 255, 255, 0.5) !important;
     }
 
-    /* Close Button (X) - Only show when menu is open */
+    /* Hide the separate close button since hamburger transforms into X */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close {
-        position: absolute;
-        top: calc(var(--mcd-admin-bar-offset, 0px) + 15px);
-        right: 5%;
-        width: 50px;
-        height: 50px;
-        font-size: 0;
-        z-index: 10001;
         display: none !important;
-    }
-
-    /* Show close button ONLY when menu is open */
-    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container-close,
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close {
-        display: flex !important;
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::before,
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::after {
-        content: '';
-        position: absolute;
-        left: 10px;
-        right: 10px;
-        height: 3px;
-        background-color: var(--neon-cyan);
-        transition: transform 0.3s ease;
-        border-radius: 2px;
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::before {
-        top: 50%;
-        transform: translateY(-50%) rotate(45deg);
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close::after {
-        top: 50%;
-        transform: translateY(-50%) rotate(-45deg);
-    }
-
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close:hover::before,
-    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-close:hover::after {
-        background-color: var(--neon-magenta);
-        box-shadow: 0 0 10px rgba(255, 0, 224, 0.6);
     }
 
     /* Prevent body scroll when menu is open */
