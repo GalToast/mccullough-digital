@@ -41,6 +41,7 @@ This theme does not have any widget areas registered by default.
 
 = 1.2.39 - Unreleased =
 * **Footer Layout Streamlining:** Rebuilt the neon footer around a compact three-column grid, removed the promotional headline, and balanced company, quick link, and connect content per Plan A.
+* **Footer Starfield Restore:** Reintroduced the hidden starfield layers and wrapping container so the neon footer regains its animated background and centred layout.
 * **Admin Toolbar Offset:** Added a `--mcd-admin-bar-offset` variable with desktop/mobile fallbacks, updated blog and menu wrappers to include it in their header padding, and extended the header script to measure `#wpadminbar` so logged-in views clear the combined toolbar and masthead.
 * **Header Offset Fallback Raised:** Increased the root `--header-height` token to 100px across front-end, editor, and standalone bundles so pages clear the fixed masthead even when header scripts fail.
 * **Blog Hero Offset Correction:** Restored the blog archive header padding and simplified the hero's top spacing so the masthead no longer overlaps the hero while retaining the intended breathing room.
