@@ -40,6 +40,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
+* **Hero CTA Gradient Slide:** Replaced the neon CTA's dual-glow treatment with the slimmer gradient sweep pill and synced the hero and reusable button block styles so both render the new hover animation in the editor and front end.
 * **Neon Button Front-End Restore:** Register block metadata from both child and parent theme `blocks/` folders and load the button assets with `get_theme_file_*()` helpers so the neon CTA renders with styling on sites running a child theme.
 * **Footer Column Alignment:** Let the neon footer grid size the branding column to its content, centered the remaining columns, and removed the decorative separator so the tagline no longer shows a stray line.
 * **Footer Layout Streamlining:** Rebuilt the neon footer around a compact three-column grid, removed the promotional headline, and balanced company, quick link, and connect content per Plan A.
