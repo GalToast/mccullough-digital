@@ -77,6 +77,23 @@ function mcd_assets() {
 add_action( 'wp_enqueue_scripts', 'mcd_assets' );
 
 /**
+ * Enqueue homepage v3 styles
+ */
+function mcd_enqueue_homepage_v3_styles() {
+    if ( is_front_page() ) {
+        $css_path = get_theme_file_path( 'assets/homepage-v3.css' );
+        if ( file_exists( $css_path ) ) {
+            wp_enqueue_style( 'mcd-homepage-v3',
+                get_theme_file_uri( 'assets/homepage-v3.css' ),
+                array( 'mcd-style' ),
+                filemtime( $css_path )
+            );
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'mcd_enqueue_homepage_v3_styles' );
+
+/**
  * Back-compat for wp_body_open (if very old WP)
  */
 if ( ! function_exists( 'wp_body_open' ) ) {
