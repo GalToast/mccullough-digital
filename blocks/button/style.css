@@ -25,7 +25,7 @@
     margin-right: 0;
     align-self: auto;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
-    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: "Nunito", sans-serif;
     font-weight: 700;
     font-size: clamp(1rem, 1.9vw, 1.15rem);
     letter-spacing: 0.04em;
@@ -37,8 +37,7 @@
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
-    transition: color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease,
-        transform 0.35s ease, background-color 0.35s ease;
+    transition: all 0.35s ease;
     isolation: isolate;
     z-index: 0;
     cursor: pointer;
@@ -58,31 +57,17 @@
     margin-right: auto;
 }
 
-.wp-block-mccullough-digital-button .hero__cta-button::before,
-.wp-block-mccullough-digital-button .hero__cta-button::after {
+.wp-block-mccullough-digital-button .hero__cta-button::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     pointer-events: none;
-    transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.45s ease;
-}
-
-.wp-block-mccullough-digital-button .hero__cta-button::before {
+    transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
     background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
     transform: translateX(-110%);
     opacity: 0.85;
     z-index: -1;
-}
-
-.wp-block-mccullough-digital-button .hero__cta-button::after {
-    inset: -35%;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.35), transparent 55%),
-        radial-gradient(circle at 70% 30%, rgba(255, 0, 224, 0.3), transparent 60%);
-    opacity: 0;
-    transform: scale(0.9);
-    filter: blur(12px);
-    z-index: -2;
 }
 
 .wp-block-mccullough-digital-button .hero__cta-button:hover,
@@ -95,12 +80,6 @@
 .wp-block-mccullough-digital-button .hero__cta-button:hover::before,
 .wp-block-mccullough-digital-button .hero__cta-button:focus-visible::before {
     transform: translateX(0);
-}
-
-.wp-block-mccullough-digital-button .hero__cta-button:hover::after,
-.wp-block-mccullough-digital-button .hero__cta-button:focus-visible::after {
-    opacity: 1;
-    transform: scale(1.05);
 }
 
 .wp-block-mccullough-digital-button .hero__cta-button:focus-visible {

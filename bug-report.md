@@ -1,4 +1,4 @@
-# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-21 — Neon button child-theme parity fix staged)
+# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-22 — Hero CTA gradient sweep synced)
 
 This rolling QA log tracks production-impacting fixes and follow-up checks for the McCullough Digital theme. Use it to understand **when** a regression was addressed, what still needs verification, and where to find the detailed release notes.
 
@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-22 — Hero CTA gradient sweep sync**
+  - Result: Updated the hero block, reusable CTA button block, and editor styles to use the slimmer gradient slide pill without the extra glow layer so both contexts render the provided hover animation consistently.
+  - Follow-up: Re-test the hero block in a fresh template and confirm the Site Editor loads the revised CSS after the next build deploy.
 - **2025-11-21 — Neon button child-theme parity**
   - Result: Block registration now scans both child and parent theme `blocks/` directories and enqueues button assets via `get_theme_file_*()` so the neon CTA renders with styling on front-end views when a child theme is active.
   - Follow-up: Smoke-test on a production child theme after the next deploy to confirm the button outputs markup + CSS and that child overrides continue to win when present.
