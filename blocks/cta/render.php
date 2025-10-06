@@ -44,14 +44,14 @@ if ( ! $has_inner_block ) {
     if ( '' !== $button_text ) {
         if ( $has_link_url ) {
             ?>
-            <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button">
-                <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+            <a href="<?php echo esc_url( $button_link ); ?>" class="cta-button hero__cta-button">
+                <span class="hero__cta-button-label"><?php echo esc_html( $button_text ); ?></span>
             </a>
             <?php
         } else {
             ?>
-            <span class="cta-button is-static" aria-hidden="true">
-                <span class="btn-text"><?php echo esc_html( $button_text ); ?></span>
+            <span class="cta-button hero__cta-button is-static" aria-hidden="true">
+                <span class="hero__cta-button-label"><?php echo esc_html( $button_text ); ?></span>
             </span>
             <?php
         }

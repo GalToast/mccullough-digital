@@ -1,4 +1,4 @@
-# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-22 — Hero CTA gradient sweep synced)
+# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-23 — CTA block hero fallback)
 
 This rolling QA log tracks production-impacting fixes and follow-up checks for the McCullough Digital theme. Use it to understand **when** a regression was addressed, what still needs verification, and where to find the detailed release notes.
 
@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-23 — CTA block hero fallback**
+  - Result: Fallback markup now renders the `.cta-button.hero__cta-button` anchor/span pair and CTA block gradients skip the hero class so default buttons inherit the neon sweep styling instead of reverting to the legacy pill.
+  - Follow-up: Re-test the CTA block in the Site Editor after rebuilding assets to confirm the hero sweep loads and legacy `.cta-button` variants keep their gradient.
 - **2025-11-22 — Hero CTA gradient sweep sync**
   - Result: Updated the hero block, reusable CTA button block, and editor styles to use the slimmer gradient slide pill without the extra glow layer so both contexts render the provided hover animation consistently.
   - Follow-up: Re-test the hero block in a fresh template and confirm the Site Editor loads the revised CSS after the next build deploy.
