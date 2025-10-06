@@ -452,6 +452,7 @@
 }
 
 .editor-styles-wrapper .wp-block-separator.footer-separator {
+    display: none;
     margin: 0;
     border: none;
     height: 1px;
@@ -466,9 +467,10 @@
 
 .editor-styles-wrapper .footer-core {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: minmax(220px, max-content) repeat(2, minmax(200px, 1fr));
     gap: clamp(24px, 4vw, 48px);
     align-items: start;
+    justify-content: center;
 }
 
 .editor-styles-wrapper .footer-column {

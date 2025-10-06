@@ -40,6 +40,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
+* **Footer Column Alignment:** Let the neon footer grid size the branding column to its content, centered the remaining columns, and removed the decorative separator so the tagline no longer shows a stray line.
 * **Footer Layout Streamlining:** Rebuilt the neon footer around a compact three-column grid, removed the promotional headline, and balanced company, quick link, and connect content per Plan A.
 * **Footer Starfield Restore:** Reintroduced the hidden starfield layers and wrapping container so the neon footer regains its animated background and centred layout.
 * **Admin Toolbar Offset:** Added a `--mcd-admin-bar-offset` variable with desktop/mobile fallbacks, updated blog and menu wrappers to include it in their header padding, and extended the header script to measure `#wpadminbar` so logged-in views clear the combined toolbar and masthead.

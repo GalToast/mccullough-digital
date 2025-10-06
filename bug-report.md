@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-20 — Footer column spacing + separator removal**
+  - Result: Let the neon footer grid keep the branding column snug, centred the navigation and contact columns, and removed the decorative separator so the logo/tagline stack no longer shows a faint horizontal line.
+  - Follow-up: Reconfirm layout balance after adding or removing footer columns in the Site Editor and ensure custom separators elsewhere remain unaffected.
 - **2025-11-19 — Footer starfield overlay restore**
   - Result: Reintroduced the `stars` layer markup and inner `.footer-container` wrapper so the neon footer regains its animated background and centred layout.
   - Follow-up: Spot-check the Site Editor to confirm the HTML block persists and verify `prefers-reduced-motion` continues to disable the twinkle.
