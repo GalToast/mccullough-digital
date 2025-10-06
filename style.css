@@ -82,6 +82,11 @@ main.site-content {
     padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
 }
 
+/* Remove padding on homepage - hero goes edge-to-edge */
+body.home main.site-content {
+    padding-top: 0;
+}
+
 .container {
     width: 90%;
     max-width: 1200px;
@@ -540,7 +545,7 @@ main.site-content {
 /* --- Footer --- */
 #colophon.site-footer {
     position: relative;
-    padding: clamp(48px, 6vw, 84px) clamp(24px, 6vw, 64px);
+    padding: clamp(32px, 4vw, 56px) clamp(24px, 6vw, 64px);
     color: var(--text-secondary);
     background-color: var(--background-dark);
     background-image:
@@ -624,7 +629,7 @@ main.site-content {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: clamp(28px, 4vw, 44px);
+    gap: clamp(20px, 3vw, 32px);
     position: relative;
     z-index: var(--z-index-content);
     align-items: stretch;
@@ -685,6 +690,15 @@ main.site-content {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: clamp(24px, 5vw, 48px);
     align-items: start;
+    margin-bottom: 0;
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* Force grid items to be only as tall as their content */
+.footer-core > * {
+    height: auto !important;
+    min-height: auto !important;
 }
 
 .footer-branding {
@@ -844,6 +858,44 @@ main.site-content {
     font-size: 0.9em;
     text-align: center;
     color: rgba(197, 216, 242, 0.8);
+    margin-top: 0;
+    padding-top: 24px;
+}
+
+/* Remove any spacer blocks or extra spacing in footer */
+#colophon.site-footer .wp-block-spacer {
+    display: none !important;
+}
+
+#colophon.site-footer > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+#colophon.site-footer .footer-container > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Force all footer groups to have minimal spacing */
+#colophon.site-footer .wp-block-group {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* Specifically target the copyright group */
+#colophon.site-footer .wp-block-group:last-child {
+    padding-top: 24px !important;
+    margin-top: 0 !important;
+}
+
+/* Force grid block to not stretch */
+#colophon.site-footer .wp-block-columns,
+#colophon.site-footer [class*="wp-block-column"] {
+    min-height: auto !important;
+    height: auto !important;
 }
 
 
@@ -890,7 +942,7 @@ main.site-content {
 
     /* Hamburger Menu Toggle Button */
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open {
-        display: flex;
+        display: flex !important; /* Force display even when menu is open */
         align-items: center;
         justify-content: center;
         width: 50px;
@@ -901,8 +953,11 @@ main.site-content {
         cursor: pointer;
         padding: 0;
         position: relative;
-        z-index: 10001;
+        z-index: 10002; /* Higher than menu container to stay clickable */
         transition: transform 0.3s ease;
+        pointer-events: all !important; /* Ensure it's always clickable */
+        touch-action: manipulation; /* Improve touch response */
+        -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
     }
 
     .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container-open:hover {
@@ -1157,25 +1212,29 @@ main.site-content {
         overflow: hidden !important;
     }
 
+    /* MOBILE FOOTER IMPROVEMENTS */
     .footer-container {
         align-items: center;
         text-align: center;
-        gap: 48px;
+        gap: 40px;
     }
 
     .footer-core {
         grid-template-columns: 1fr;
         justify-items: center;
+        gap: 40px;
     }
 
     .footer-branding,
     .footer-social,
     .footer-contact {
         align-items: center;
+        width: 100%;
     }
 
     .footer-links {
         align-items: center;
+        width: 100%;
     }
 
     .footer-branding .wp-block-site-logo {
@@ -1184,6 +1243,24 @@ main.site-content {
 
     .footer-nav {
         align-items: center;
+        gap: 16px;
+    }
+    
+    /* Better spacing for mobile footer sections */
+    .footer-section-title {
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .footer-tagline {
+        max-width: 100%;
+        text-align: center;
+    }
+    
+    /* Social icons spacing */
+    .social-links-menu {
+        justify-content: center;
+        gap: 24px;
     }
 }
 
@@ -1918,4 +1995,146 @@ main.site-content {
 .search-form .search-submit:hover {
     background: var(--neon-cyan);
     color: var(--background-dark);
+}
+
+/* ==============================================================
+# Mobile Menu UX Improvements - Full-Screen Minimal Style
+============================================================== */
+@media (max-width: 768px) {
+    /* Full-screen overlay with premium backdrop blur */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(11, 12, 16, 0.98) !important;
+        backdrop-filter: blur(30px) !important;
+        padding: 0 !important;
+    }
+    
+    /* Subtle gradient overlay */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container::before {
+        background: radial-gradient(circle at 30% 40%, rgba(0, 229, 255, 0.08), transparent 60%),
+                    radial-gradient(circle at 70% 60%, rgba(255, 0, 224, 0.06), transparent 55%) !important;
+        opacity: 1 !important;
+    }
+    
+    /* Center the menu items container */
+    .main-navigation.wp-block-navigation .wp-block-navigation__container {
+        width: 100% !important;
+        max-width: none !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        backdrop-filter: none !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 0 !important;
+    }
+    
+    /* Large, bold menu items - centered */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item {
+        width: 100% !important;
+        text-align: center !important;
+        opacity: 0 !important;
+        transform: translateY(30px) !important;
+        transition: opacity 0.4s ease, transform 0.4s ease !important;
+    }
+    
+    /* Show items with stagger when menu is open */
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation__responsive-container .wp-block-navigation-item,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+    
+    /* Staggered animation delays */
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(1),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(1) {
+        transition-delay: 0.1s !important;
+    }
+    
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(2),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(2) {
+        transition-delay: 0.15s !important;
+    }
+    
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(3),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(3) {
+        transition-delay: 0.2s !important;
+    }
+    
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(4),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(4) {
+        transition-delay: 0.25s !important;
+    }
+    
+    .main-navigation.wp-block-navigation.is-menu-open .wp-block-navigation-item:nth-child(5),
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item:nth-child(5) {
+        transition-delay: 0.3s !important;
+    }
+    
+    /* Large, bold link styling */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content {
+        font-size: 2rem !important;
+        font-weight: 700 !important;
+        padding: 25px 40px !important;
+        color: var(--text-primary) !important;
+        text-decoration: none !important;
+        background: transparent !important;
+        border: none !important;
+        border-bottom: none !important;
+        display: block !important;
+        text-align: center !important;
+        transition: all 0.3s ease !important;
+        position: relative !important;
+    }
+    
+    /* Hover effect - cyan glow */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:hover,
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:focus-visible {
+        color: var(--neon-cyan) !important;
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.6), 0 0 40px rgba(0, 229, 255, 0.3) !important;
+        background: transparent !important;
+        transform: none !important;
+        padding: 25px 40px !important;
+    }
+    
+    /* Active/current page styling */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content[aria-current="page"] {
+        color: var(--neon-cyan) !important;
+        text-shadow: 0 0 15px rgba(0, 229, 255, 0.5) !important;
+    }
+    
+    /* Loading state for nav items */
+    .main-navigation.wp-block-navigation .wp-block-navigation-item__content.is-loading {
+        pointer-events: none !important;
+        opacity: 0.5 !important;
+        position: relative !important;
+    }
+    
+    .main-navigation.wp-block-navigation .wp-block-navigation-item__content.is-loading::after {
+        content: '' !important;
+        position: absolute !important;
+        right: calc(50% - 60px) !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 20px !important;
+        height: 20px !important;
+        border: 2px solid var(--neon-cyan) !important;
+        border-top-color: transparent !important;
+        border-radius: 50% !important;
+        animation: spin 0.6s linear infinite !important;
+    }
+    
+    @keyframes spin {
+        to { transform: translateY(-50%) rotate(360deg); }
+    }
+    
+    /* Tap feedback */
+    .main-navigation.wp-block-navigation .wp-block-navigation__responsive-container .wp-block-navigation-item__content:active {
+        transform: scale(0.95) !important;
+        transition: transform 0.1s ease !important;
+    }
 }

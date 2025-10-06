@@ -43,13 +43,27 @@
                 return;
             }
 
+            // Track menu state ourselves - don't rely on class checking at click time
+            let menuIsOpen = false;
+            let justClosedMenu = false;  // Flag to prevent WordPress from reopening
+            
+            // Get the responsive container once - we'll use it throughout
+            const responsiveContainer = navBlock.querySelector('.wp-block-navigation__responsive-container');
+
             const syncToggleState = () => {
                 const isOpen = navBlock.classList.contains('is-menu-open');
+                console.log('syncToggleState fired! isOpen:', isOpen, 'navBlock classes:', navBlock.className);
+                
                 menuToggle.classList.toggle('is-active', isOpen);
                 
-                // Add class to header for neon sweep effect
-                if (header) {
-                    header.classList.toggle('has-modal-open', isOpen);
+                // Update our tracked state
+                menuIsOpen = isOpen;
+                console.log('menuIsOpen updated to:', menuIsOpen);
+                
+                // Add class to header for neon sweep effect (check if header exists first)
+                const headerElement = document.querySelector('#masthead.site-header');
+                if (headerElement) {
+                    headerElement.classList.toggle('has-modal-open', isOpen);
                 }
                 
                 dispatchMenuState(isOpen);
@@ -59,38 +73,141 @@
 
             const observer = new MutationObserver(syncToggleState);
             observer.observe(navBlock, { attributes: true, attributeFilter: ['class'] });
-
-            // Make hamburger button toggle both open AND close
-            menuToggle.addEventListener('click', (e) => {
-                const isOpen = navBlock.classList.contains('is-menu-open');
-                const responsiveContainer = navBlock.querySelector('.wp-block-navigation__responsive-container');
-                
-                // If menu is already open, close it by removing the classes
-                if (isOpen) {
-                    e.preventDefault();
-                    e.stopPropagation();
+            
+            // ALSO observe the responsive container since THAT'S where WordPress adds is-menu-open!
+            if (responsiveContainer) {
+                console.log('Also observing responsive container:', responsiveContainer);
+                const containerObserver = new MutationObserver(() => {
+                    const containerIsOpen = responsiveContainer.classList.contains('is-menu-open');
+                    console.log('Responsive container mutation! has is-menu-open:', containerIsOpen);
                     
-                    // Directly remove the open classes instead of clicking hidden button
-                    navBlock.classList.remove('is-menu-open');
-                    if (responsiveContainer) {
-                        responsiveContainer.classList.remove('is-menu-open');
+                    // If we just closed the menu, don't let WordPress reopen it
+                    if (justClosedMenu && containerIsOpen) {
+                        console.log('Ignoring WordPress trying to reopen menu we just closed');
+                        // Force close it again
+                        setTimeout(() => {
+                            responsiveContainer.classList.remove('is-menu-open');
+                            navBlock.classList.remove('is-menu-open');
+                            menuToggle.classList.remove('is-active');
+                        }, 0);
+                        return;
                     }
                     
-                    // Re-enable body scroll
-                    document.body.style.overflow = '';
-                }
-                // Otherwise, let the default behavior open it
-            });
+                    menuIsOpen = containerIsOpen;
+                    console.log('menuIsOpen updated to:', menuIsOpen);
+                });
+                containerObserver.observe(responsiveContainer, { attributes: true, attributeFilter: ['class'] });
+            }
 
+            const closeMenu = () => {
+                console.log('closeMenu() called');
+                
+                // Directly remove the open classes
+                navBlock.classList.remove('is-menu-open');
+                if (responsiveContainer) {
+                    responsiveContainer.classList.remove('is-menu-open');
+                }
+                menuToggle.classList.remove('is-active');
+                
+                // Re-enable body scroll
+                document.body.style.overflow = '';
+                
+                // Update our tracked state
+                menuIsOpen = false;
+            };
+            
+            // Debug: Log button element info
+            console.log('Menu toggle button:', menuToggle);
+            console.log('Button classes:', menuToggle.className);
+            console.log('Observing navBlock:', navBlock);
+            console.log('NavBlock classes:', navBlock.className);
+            
+            // Use pointerdown instead of click to fire BEFORE WordPress handlers
+            menuToggle.addEventListener('pointerdown', (e) => {
+                // Check classes RIGHT NOW before anything happens
+                const navBlockHasClass = navBlock.classList.contains('is-menu-open');
+                console.log('=== POINTERDOWN DEBUG ===');
+                console.log('Hamburger pointerdown, menuIsOpen:', menuIsOpen);
+                console.log('navBlock.classList.contains("is-menu-open"):', navBlockHasClass);
+                console.log('navBlock.className:', navBlock.className);
+                console.log('All elements with is-menu-open:', document.querySelectorAll('.is-menu-open'));
+                
+                if (menuIsOpen) {
+                    console.log('Menu is open, closing it');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    justClosedMenu = true;  // Set flag
+                    closeMenu();
+                    // Clear flag after a short delay
+                    setTimeout(() => { justClosedMenu = false; }, 100);
+                }
+            }, { capture: true, passive: false });
+            
+            // ALSO add mousedown as backup
+            menuToggle.addEventListener('mousedown', (e) => {
+                console.log('Hamburger mousedown, menuIsOpen:', menuIsOpen);
+                if (menuIsOpen) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    closeMenu();
+                }
+            }, { capture: true, passive: false });
+            
+            // ALSO add click as backup
+            menuToggle.addEventListener('click', (e) => {
+                console.log('Hamburger click, menuIsOpen:', menuIsOpen, 'justClosedMenu:', justClosedMenu);
+                
+                // If we just closed the menu, block WordPress from reopening
+                if (justClosedMenu) {
+                    console.log('Blocking click event - we just closed the menu');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    return false;
+                }
+                
+                if (menuIsOpen) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    closeMenu();
+                }
+            }, { capture: true, passive: false });
+            
+            // Nuclear option: Listen at document level to catch ALL clicks
+            document.addEventListener('pointerdown', (e) => {
+                // Check if the click is on our button or its children
+                if (e.target === menuToggle || menuToggle.contains(e.target)) {
+                    console.log('Document caught click on button! Target:', e.target, 'menuIsOpen:', menuIsOpen);
+                    if (menuIsOpen) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        e.stopImmediatePropagation();
+                        justClosedMenu = true;  // Set flag here too!
+                        closeMenu();
+                        // Clear flag after enough time for click to fire
+                        setTimeout(() => { justClosedMenu = false; }, 300);
+                    }
+                }
+            }, { capture: true, passive: false });
+            
+            // Also close menu when clicking the backdrop
+            if (responsiveContainer) {
+                responsiveContainer.addEventListener('click', (e) => {
+                    // Only close if clicking the backdrop itself, not menu items
+                    if (e.target === responsiveContainer) {
+                        closeMenu();
+                    }
+                });
+            }
+
+            // Close menu when clicking navigation links
             navBlock.querySelectorAll('.wp-block-navigation-item a').forEach((link) => {
                 link.addEventListener('click', () => {
-                    if (navBlock.classList.contains('is-menu-open')) {
-                        const menuClose = navBlock.querySelector(
-                            '.wp-block-navigation__responsive-container-close'
-                        );
-                        if (menuClose) {
-                            menuClose.click();
-                        }
+                    if (menuIsOpen) {
+                        closeMenu();
                     }
                 });
             });
@@ -521,3 +638,29 @@
         init();
     }
 })();
+
+// Mobile Menu - Add loading state when clicking nav items
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavLinks = document.querySelectorAll('.wp-block-navigation__responsive-container .wp-block-navigation-item__content');
+    
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Don't add loading state if it's the current page
+            if (this.getAttribute('aria-current') === 'page') {
+                return;
+            }
+            
+            // Add loading class
+            this.classList.add('is-loading');
+            
+            // Optional: Add small delay to show the loading state before navigation
+            // This makes the feedback more visible to users
+            e.preventDefault();
+            const href = this.getAttribute('href');
+            
+            setTimeout(() => {
+                window.location.href = href;
+            }, 300); // 300ms delay shows the loading spinner
+        });
+    });
+});
