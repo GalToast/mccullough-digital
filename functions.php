@@ -63,6 +63,13 @@ function mcd_assets() {
   $script_path = get_stylesheet_directory() . '/js/header-scripts.js';
   $ver         = file_exists( $script_path ) ? filemtime( $script_path ) : $theme_version;
   wp_enqueue_script( 'mcd-header-scripts', get_stylesheet_directory_uri() . '/js/header-scripts.js', array(), $ver, true );
+
+  // Enqueue footer debug script (TEMPORARY - for debugging footer gap)
+  $debug_script_path = get_stylesheet_directory() . '/js/footer-debug.js';
+  if ( file_exists( $debug_script_path ) ) {
+    $debug_ver = filemtime( $debug_script_path );
+    wp_enqueue_script( 'mcd-footer-debug', get_stylesheet_directory_uri() . '/js/footer-debug.js', array(), $debug_ver, true );
+  }
 }
 add_action( 'wp_enqueue_scripts', 'mcd_assets' );
 

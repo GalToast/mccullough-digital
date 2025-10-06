@@ -691,14 +691,11 @@ body.home main.site-content {
     gap: clamp(24px, 5vw, 48px);
     align-items: start;
     margin-bottom: 0;
-    min-height: auto !important;
-    height: auto !important;
 }
 
-/* Force grid items to be only as tall as their content */
 .footer-core > * {
-    height: auto !important;
-    min-height: auto !important;
+    height: auto;
+    min-height: 0;
 }
 
 .footer-branding {
@@ -820,18 +817,52 @@ body.home main.site-content {
     gap: 18px;
 }
 
-.wp-social-link svg {
+.social-links-menu li {
+    margin: 0;
+}
+
+.social-links-menu a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.social-links-menu svg {
     height: 28px;
     width: 28px;
     fill: var(--text-secondary);
     transition: transform 0.3s ease, filter 0.3s ease, fill 0.3s ease;
 }
 
-.wp-social-link:hover svg,
-.wp-social-link:focus-visible svg {
+.social-links-menu a:hover svg,
+.social-links-menu a:focus-visible svg {
     fill: var(--neon-cyan);
     transform: translateY(-4px) scale(1.1);
     filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.8));
+}
+
+.footer-logo .custom-logo {
+    height: auto;
+    width: auto;
+    max-height: var(--logo-size-footer);
+    margin-bottom: 0;
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.6));
+    transition: filter 0.3s ease;
+}
+
+.footer-logo a:hover .custom-logo,
+.footer-logo a:focus-visible .custom-logo {
+    filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.8)) drop-shadow(0 0 10px rgba(255, 0, 224, 0.55));
+}
+
+.footer-site-title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+    color: var(--text-primary);
+    margin: 0;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
 }
 
 .footer-contact {
@@ -897,7 +928,6 @@ body.home main.site-content {
     min-height: auto !important;
     height: auto !important;
 }
-
 
 /* --- Responsive Styles (for screens 768px or less) --- */
 @media (max-width: 768px) {
