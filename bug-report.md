@@ -1,4 +1,4 @@
-# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-14 — Neon button editor parity verified)
+# Bug Fix Report — Opened 2025-09-27 (Last updated 2025-11-21 — Neon button child-theme parity fix staged)
 
 This rolling QA log tracks production-impacting fixes and follow-up checks for the McCullough Digital theme. Use it to understand **when** a regression was addressed, what still needs verification, and where to find the detailed release notes.
 
@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-21 — Neon button child-theme parity**
+  - Result: Block registration now scans both child and parent theme `blocks/` directories and enqueues button assets via `get_theme_file_*()` so the neon CTA renders with styling on front-end views when a child theme is active.
+  - Follow-up: Smoke-test on a production child theme after the next deploy to confirm the button outputs markup + CSS and that child overrides continue to win when present.
 - **2025-11-20 — Footer column spacing + separator removal**
   - Result: Let the neon footer grid keep the branding column snug, centred the navigation and contact columns, and removed the decorative separator so the logo/tagline stack no longer shows a faint horizontal line.
   - Follow-up: Reconfirm layout balance after adding or removing footer columns in the Site Editor and ensure custom separators elsewhere remain unaffected.

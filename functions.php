@@ -42,33 +42,36 @@ function mcd_assets() {
   wp_enqueue_style( 'mcd-style', get_stylesheet_uri(), array( 'mcd-fonts' ), $theme_version );
 
   // Enqueue blog header fix CSS (if it exists)
-  $blog_fix_path = get_stylesheet_directory() . '/blog-fix.css';
-  if ( file_exists( $blog_fix_path ) ) {
-    wp_enqueue_style( 'mcd-blog-fix', get_stylesheet_directory_uri() . '/blog-fix.css', array( 'mcd-style' ), $theme_version );
+  $blog_fix_path = get_theme_file_path( 'blog-fix.css' );
+  if ( $blog_fix_path && file_exists( $blog_fix_path ) ) {
+    wp_enqueue_style( 'mcd-blog-fix', get_theme_file_uri( 'blog-fix.css' ), array( 'mcd-style' ), $theme_version );
   }
 
   // Manually enqueue button block styles to ensure they load
-  $button_style_path = get_stylesheet_directory() . '/blocks/button/style.css';
-  if ( file_exists( $button_style_path ) ) {
+  $button_style_relative = 'blocks/button/style.css';
+  $button_style_path     = get_theme_file_path( $button_style_relative );
+  if ( $button_style_path && file_exists( $button_style_path ) ) {
     $button_style_ver = filemtime( $button_style_path );
     wp_enqueue_style(
       'mcd-button-block',
-      get_stylesheet_directory_uri() . '/blocks/button/style.css',
+      get_theme_file_uri( $button_style_relative ),
       array( 'mcd-style' ),
       $button_style_ver
     );
   }
 
   // Cache-bust the theme interaction script by filemtime if possible
-  $script_path = get_stylesheet_directory() . '/js/header-scripts.js';
-  $ver         = file_exists( $script_path ) ? filemtime( $script_path ) : $theme_version;
-  wp_enqueue_script( 'mcd-header-scripts', get_stylesheet_directory_uri() . '/js/header-scripts.js', array(), $ver, true );
+  $script_relative = 'js/header-scripts.js';
+  $script_path     = get_theme_file_path( $script_relative );
+  $ver             = ( $script_path && file_exists( $script_path ) ) ? filemtime( $script_path ) : $theme_version;
+  wp_enqueue_script( 'mcd-header-scripts', get_theme_file_uri( $script_relative ), array(), $ver, true );
 
   // Enqueue footer debug script (TEMPORARY - for debugging footer gap)
-  $debug_script_path = get_stylesheet_directory() . '/js/footer-debug.js';
-  if ( file_exists( $debug_script_path ) ) {
-    $debug_ver = filemtime( $debug_script_path );
-    wp_enqueue_script( 'mcd-footer-debug', get_stylesheet_directory_uri() . '/js/footer-debug.js', array(), $debug_ver, true );
+  $debug_relative = 'js/footer-debug.js';
+  $debug_path     = get_theme_file_path( $debug_relative );
+  if ( $debug_path && file_exists( $debug_path ) ) {
+    $debug_ver = filemtime( $debug_path );
+    wp_enqueue_script( 'mcd-footer-debug', get_theme_file_uri( $debug_relative ), array(), $debug_ver, true );
   }
 }
 add_action( 'wp_enqueue_scripts', 'mcd_assets' );
@@ -84,30 +87,62 @@ if ( ! function_exists( 'wp_body_open' ) ) {
  * Register Blocks
  */
 function mcd_register_blocks() {
-    $blocks_dir = get_stylesheet_directory() . '/blocks/';
-    if ( ! file_exists( $blocks_dir ) || ! is_dir( $blocks_dir ) ) {
-        error_log('MCD Blocks: Directory does not exist: ' . $blocks_dir);
+    $block_roots = array_unique(
+        array_filter(
+            array(
+                trailingslashit( get_stylesheet_directory() ) . 'blocks/',
+                trailingslashit( get_template_directory() ) . 'blocks/',
+            )
+        )
+    );
+
+    if ( empty( $block_roots ) ) {
         return;
     }
 
-    $block_folders = scandir( $blocks_dir );
+    $registry     = WP_Block_Type_Registry::get_instance();
+    $seen_blocks  = array();
 
-    foreach ( $block_folders as $block_folder ) {
-        if ( $block_folder === '.' || $block_folder === '..' ) {
+    foreach ( $block_roots as $blocks_dir ) {
+        if ( ! $blocks_dir || ! file_exists( $blocks_dir ) || ! is_dir( $blocks_dir ) ) {
+            error_log( 'MCD Blocks: Directory does not exist: ' . $blocks_dir );
             continue;
         }
 
-        $block_path = $blocks_dir . $block_folder;
+        $block_folders = scandir( $blocks_dir );
 
-        if ( is_dir( $block_path ) && file_exists( $block_path . '/block.json' ) ) {
+        foreach ( $block_folders as $block_folder ) {
+            if ( '.' === $block_folder || '..' === $block_folder ) {
+                continue;
+            }
+
+            $block_path      = $blocks_dir . $block_folder;
+            $metadata_path   = trailingslashit( $block_path ) . 'block.json';
+
+            if ( ! is_dir( $block_path ) || ! file_exists( $metadata_path ) ) {
+                continue;
+            }
+
+            $metadata = json_decode( file_get_contents( $metadata_path ), true );
+            $name     = is_array( $metadata ) && ! empty( $metadata['name'] ) ? $metadata['name'] : '';
+
+            if ( $name && ( isset( $seen_blocks[ $name ] ) || $registry->is_registered( $name ) ) ) {
+                error_log( 'MCD Blocks: Skipping already registered block ' . $name . ' at: ' . $block_path );
+                continue;
+            }
+
             $result = register_block_type( $block_path );
 
+            if ( $name ) {
+                $seen_blocks[ $name ] = true;
+            }
+
             if ( is_wp_error( $result ) ) {
-                error_log('MCD Blocks: Failed to register block at: ' . $block_path . ' - ' . $result->get_error_message());
+                error_log( 'MCD Blocks: Failed to register block at: ' . $block_path . ' - ' . $result->get_error_message() );
             } elseif ( ! $result ) {
-                error_log('MCD Blocks: Failed to register block at: ' . $block_path);
+                error_log( 'MCD Blocks: Failed to register block at: ' . $block_path );
             } else {
-                error_log('MCD Blocks: Successfully registered block at: ' . $block_path);
+                error_log( 'MCD Blocks: Successfully registered block at: ' . $block_path );
             }
         }
     }
