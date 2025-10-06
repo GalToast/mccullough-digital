@@ -1,107 +1,79 @@
 <!-- wp:group {"tagName":"footer","className":"site-footer","style":{"spacing":{"padding":{"top":"clamp(48px, 6vw, 84px)","bottom":"clamp(48px, 6vw, 84px)","left":"clamp(24px, 6vw, 64px)","right":"clamp(24px, 6vw, 64px)"}}},"layout":{"type":"constrained","contentSize":"1400px"}} -->
 <footer class="wp-block-group site-footer" id="colophon" style="padding-top:clamp(48px, 6vw, 84px);padding-right:clamp(24px, 6vw, 64px);padding-bottom:clamp(48px, 6vw, 84px);padding-left:clamp(24px, 6vw, 64px)">
-  
-  <!-- Headline Section -->
-  <!-- wp:group {"className":"footer-headline","style":{"spacing":{"margin":{"bottom":"clamp(48px, 6vw, 72px)"}}},"layout":{"type":"constrained","contentSize":"800px"}} -->
-  <div class="wp-block-group footer-headline" style="margin-bottom:clamp(48px, 6vw, 72px)">
-    
-    <!-- wp:paragraph {"align":"center","className":"footer-eyebrow","style":{"typography":{"fontSize":"0.9rem","textTransform":"uppercase","letterSpacing":"0.15em"},"color":{"text":"#00e5ff"},"spacing":{"margin":{"bottom":"16px"}}}} -->
-    <p class="has-text-align-center footer-eyebrow" style="color:#00e5ff;margin-bottom:16px;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase">Stay luminous</p>
-    <!-- /wp:paragraph -->
-    
-    <!-- wp:heading {"textAlign":"center","level":2,"className":"footer-headline__title","style":{"typography":{"fontSize":"clamp(2rem, 5vw, 3.5rem)","lineHeight":"1.2"},"spacing":{"margin":{"bottom":"20px"}}}} -->
-    <h2 class="wp-block-heading has-text-align-center footer-headline__title" style="margin-bottom:20px;font-size:clamp(2rem, 5vw, 3.5rem);line-height:1.2">Ready to build your next luminous launch?</h2>
-    <!-- /wp:heading -->
-    
-    <!-- wp:paragraph {"align":"center","className":"footer-headline__description","style":{"typography":{"fontSize":"1.1rem"},"spacing":{"margin":{"top":"0"}}}} -->
-    <p class="has-text-align-center footer-headline__description" style="margin-top:0;font-size:1.1rem">From bold strategy to neon-soaked visuals, we craft digital experiences that glow across every screen. Let's make something unforgettable together.</p>
-    <!-- /wp:paragraph -->
-    
-  </div>
-  <!-- /wp:group -->
-  
+
   <!-- Main Footer Grid -->
   <!-- wp:columns {"className":"footer-core","style":{"spacing":{"blockGap":{"top":"clamp(32px, 4vw, 48px)","left":"clamp(32px, 4vw, 48px)"}}}} -->
   <div class="wp-block-columns footer-core">
-    
-    <!-- Branding Column -->
-    <!-- wp:column {"width":"40%","className":"footer-branding"} -->
-    <div class="wp-block-column footer-branding" style="flex-basis:40%">
-      
+
+    <!-- Company Column -->
+    <!-- wp:column {"className":"footer-column footer-company"} -->
+    <div class="wp-block-column footer-column footer-company">
+
       <!-- wp:site-logo {"width":64,"className":"footer-logo","style":{"spacing":{"margin":{"bottom":"16px"}}}} /-->
-      
-      <!-- wp:site-title {"level":2,"className":"footer-site-title","style":{"typography":{"fontSize":"2rem"}}} /-->
-      
-      <!-- wp:paragraph {"className":"footer-tagline","style":{"typography":{"fontSize":"1rem"},"spacing":{"margin":{"top":"12px"}}}} -->
-      <p class="footer-tagline" style="margin-top:12px;font-size:1rem">Digital experiences with a neon soul—crafted in Columbus and deployed worldwide.</p>
+
+      <!-- wp:paragraph {"className":"footer-tagline"} -->
+      <p class="footer-tagline">Crafting digital experiences with a neon soul.</p>
       <!-- /wp:paragraph -->
-      
+
     </div>
     <!-- /wp:column -->
-    
+
     <!-- Quick Links Column -->
-    <!-- wp:column {"width":"20%","className":"footer-links"} -->
-    <div class="wp-block-column footer-links" style="flex-basis:20%">
-      
-      <!-- wp:paragraph {"className":"footer-section-title","style":{"typography":{"fontSize":"0.85rem","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.12em"},"spacing":{"margin":{"bottom":"16px"}}}} -->
-      <p class="footer-section-title" style="margin-bottom:16px;font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Quick Links</p>
+    <!-- wp:column {"className":"footer-column footer-links"} -->
+    <div class="wp-block-column footer-column footer-links">
+
+      <!-- wp:paragraph {"className":"footer-section-title","style":{"spacing":{"margin":{"bottom":"16px"}}}} -->
+      <p class="footer-section-title" style="margin-bottom:16px">Quick Links</p>
       <!-- /wp:paragraph -->
-      
+
       <!-- wp:navigation {"className":"footer-nav","overlayMenu":"never","layout":{"type":"flex","orientation":"vertical"},"style":{"spacing":{"blockGap":"12px"}}} /-->
-      
+
     </div>
     <!-- /wp:column -->
-    
-    <!-- Social Column -->
-    <!-- wp:column {"width":"20%","className":"footer-social"} -->
-    <div class="wp-block-column footer-social" style="flex-basis:20%">
-      
-      <!-- wp:paragraph {"className":"footer-section-title","style":{"typography":{"fontSize":"0.85rem","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.12em"},"spacing":{"margin":{"bottom":"16px"}}}} -->
-      <p class="footer-section-title" style="margin-bottom:16px;font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Follow</p>
+
+    <!-- Connect Column -->
+    <!-- wp:column {"className":"footer-column footer-connect"} -->
+    <div class="wp-block-column footer-column footer-connect">
+
+      <!-- wp:paragraph {"className":"footer-section-title","style":{"spacing":{"margin":{"bottom":"16px"}}}} -->
+      <p class="footer-section-title" style="margin-bottom:16px">Connect</p>
       <!-- /wp:paragraph -->
-      
-      <!-- wp:social-links {"className":"social-links-menu","style":{"spacing":{"blockGap":{"top":"18px","left":"18px"}}}} -->
-      <ul class="wp-block-social-links social-links-menu">
+
+      <!-- wp:list {"className":"footer-connect__list"} -->
+      <ul class="footer-connect__list">
+        <!-- wp:list-item -->
+        <li><a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a></li>
+        <!-- /wp:list-item -->
+
+        <!-- wp:list-item -->
+        <li><a href="/contact/">Book a discovery call →</a></li>
+        <!-- /wp:list-item -->
+      </ul>
+      <!-- /wp:list -->
+
+      <!-- wp:social-links {"className":"social-links-menu","layout":{"type":"flex"},"style":{"spacing":{"blockGap":{"top":"18px","left":"18px"}}},"label":"Social media"} -->
+      <ul class="wp-block-social-links social-links-menu" aria-label="Social media">
         <!-- wp:social-link {"url":"https://www.facebook.com/mcculloughdigital","service":"facebook"} /-->
         <!-- wp:social-link {"url":"https://www.instagram.com/mcculloughdigital","service":"instagram"} /-->
         <!-- wp:social-link {"url":"https://www.linkedin.com/company/mccullough-digital/","service":"linkedin"} /-->
       </ul>
       <!-- /wp:social-links -->
-      
+
     </div>
     <!-- /wp:column -->
-    
-    <!-- Contact Column -->
-    <!-- wp:column {"width":"20%","className":"footer-contact"} -->
-    <div class="wp-block-column footer-contact" style="flex-basis:20%">
-      
-      <!-- wp:paragraph {"className":"footer-section-title","style":{"typography":{"fontSize":"0.85rem","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.12em"},"spacing":{"margin":{"bottom":"16px"}}}} -->
-      <p class="footer-section-title" style="margin-bottom:16px;font-size:0.85rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase">Say hello</p>
-      <!-- /wp:paragraph -->
-      
-      <!-- wp:paragraph {"style":{"spacing":{"margin":{"bottom":"8px"}}}} -->
-      <p style="margin-bottom:8px"><a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a></p>
-      <!-- /wp:paragraph -->
-      
-      <!-- wp:paragraph -->
-      <p><a href="/contact/">Book a discovery call →</a></p>
-      <!-- /wp:paragraph -->
-      
-    </div>
-    <!-- /wp:column -->
-    
+
   </div>
   <!-- /wp:columns -->
-  
+
   <!-- Separator -->
   <!-- wp:separator {"className":"footer-separator","style":{"spacing":{"margin":{"top":"clamp(40px, 5vw, 64px)","bottom":"clamp(32px, 4vw, 48px)"}}}} -->
   <hr class="wp-block-separator has-alpha-channel-opacity footer-separator" style="margin-top:clamp(40px, 5vw, 64px);margin-bottom:clamp(32px, 4vw, 48px)"/>
   <!-- /wp:separator -->
-  
+
   <!-- Copyright -->
   <!-- wp:paragraph {"align":"center","className":"site-info","style":{"typography":{"fontSize":"0.9rem"}}} -->
   <p class="has-text-align-center site-info" style="font-size:0.9rem">© 2025 McCullough Digital. Crafted with heart, strategy, and a dash of neon.</p>
   <!-- /wp:paragraph -->
-  
+
 </footer>
 <!-- /wp:group -->

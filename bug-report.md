@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-18 — Footer Plan A streamlining**
+  - Result: Removed the hero-style headline from the neon footer, rebuilt the layout into balanced company, quick links, and connect columns, and synced editor/front-end styles for the slimmer structure.
+  - Follow-up: Re-test footer navigation hover/focus states after the next design polish pass and confirm the contact list adapts if a phone number is added.
 - **2025-11-17 — About slug helper + mobile nav + archive polish**
   - Result: Added an `mcd_get_about_page_url()` helper so the home CTA and neon footer follow renamed About pages, restored the core navigation responsive toggles on ≤768px screens, aligned blog card thumbnails to a 16:9 frame, and expanded service card CTAs to 44px touch targets.
   - Follow-up: Confirm translations extend the About helper candidate lists and re-test the hamburger toggle after future header layout tweaks.

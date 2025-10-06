@@ -451,37 +451,6 @@
     z-index: var(--z-index-default);
 }
 
-.editor-styles-wrapper .footer-headline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
-}
-
-.editor-styles-wrapper .footer-eyebrow {
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.32em;
-    font-size: 0.75rem;
-    color: rgba(230, 241, 255, 0.7);
-}
-
-.editor-styles-wrapper .footer-headline__title {
-    margin: 0;
-    font-family: 'Caveat', cursive;
-    font-size: clamp(2.2rem, 6vw, 3.6rem);
-    color: var(--text-primary);
-    text-shadow: 0 0 14px rgba(0, 229, 255, 0.5), 0 0 26px rgba(255, 0, 224, 0.35);
-}
-
-.editor-styles-wrapper .footer-headline__description {
-    margin: 0;
-    max-width: 640px;
-    font-size: clamp(1rem, 2.2vw, 1.25rem);
-    color: rgba(214, 231, 255, 0.85);
-}
-
 .editor-styles-wrapper .wp-block-separator.footer-separator {
     margin: 0;
     border: none;
@@ -490,46 +459,32 @@
     opacity: 0.45;
 }
 
-.editor-styles-wrapper .footer-nav a,
-.editor-styles-wrapper .footer-contact a {
+.editor-styles-wrapper .footer-core a {
     outline: 2px solid var(--neon-cyan);
     outline-offset: 4px;
 }
 
 .editor-styles-wrapper .footer-core {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: clamp(24px, 5vw, 48px);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(24px, 4vw, 48px);
     align-items: start;
 }
 
-.editor-styles-wrapper .footer-branding,
-.editor-styles-wrapper .footer-links,
-.editor-styles-wrapper .footer-social,
-.editor-styles-wrapper .footer-contact {
+.editor-styles-wrapper .footer-column {
     display: flex;
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
 }
 
-.editor-styles-wrapper .footer-branding .wp-block-site-logo {
+.editor-styles-wrapper .footer-links {
+    gap: 20px;
+}
+
+.editor-styles-wrapper .footer-company .wp-block-site-logo {
     display: flex;
     justify-content: flex-start;
-}
-
-.editor-styles-wrapper .footer-branding .custom-logo {
-    height: auto;
-    width: auto;
-    max-height: var(--logo-size-footer);
-}
-
-.editor-styles-wrapper .footer-branding .wp-block-site-title {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(2.2rem, 6vw, 3.2rem);
-    color: var(--text-primary);
-    margin: 0;
-    text-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
 }
 
 .editor-styles-wrapper .footer-tagline {
@@ -537,6 +492,25 @@
     color: var(--text-secondary);
     margin: 0;
     max-width: 320px;
+}
+
+.editor-styles-wrapper .footer-connect {
+    gap: 20px;
+}
+
+.editor-styles-wrapper .footer-connect__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editor-styles-wrapper .footer-connect__list a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
 }
 
 .editor-styles-wrapper .footer-section-title {
@@ -563,14 +537,14 @@
     font-weight: 600;
 }
 
-.editor-styles-wrapper .social-links-menu {
-    gap: 18px;
+.editor-styles-wrapper .footer-connect__list a:hover,
+.editor-styles-wrapper .footer-connect__list a:focus-visible {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
 }
 
-.editor-styles-wrapper .footer-contact a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 600;
+.editor-styles-wrapper .social-links-menu {
+    gap: 18px;
 }
 
 .editor-styles-wrapper .site-info {
