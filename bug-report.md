@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-19 — Footer starfield overlay restore**
+  - Result: Reintroduced the `stars` layer markup and inner `.footer-container` wrapper so the neon footer regains its animated background and centred layout.
+  - Follow-up: Spot-check the Site Editor to confirm the HTML block persists and verify `prefers-reduced-motion` continues to disable the twinkle.
 - **2025-11-18 — Footer Plan A streamlining**
   - Result: Removed the hero-style headline from the neon footer, rebuilt the layout into balanced company, quick links, and connect columns, and synced editor/front-end styles for the slimmer structure.
   - Follow-up: Re-test footer navigation hover/focus states after the next design polish pass and confirm the contact list adapts if a phone number is added.
