@@ -170,7 +170,13 @@ main.site-content {
     background: rgba(0,0,0,0.8);
     backdrop-filter: blur(10px);
     border-bottom: 2px solid transparent;
-    overflow: hidden; /* Hides the pseudo-element when it's outside */
+}
+
+/* Only hide overflow on desktop to contain sweep effect */
+@media (min-width: 769px) {
+    #masthead.site-header {
+        overflow: hidden; /* Hides the pseudo-element when it's outside */
+    }
 }
 
 #masthead.site-header::before {
