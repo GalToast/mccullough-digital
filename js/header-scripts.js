@@ -63,18 +63,21 @@
             // Make hamburger button toggle both open AND close
             menuToggle.addEventListener('click', (e) => {
                 const isOpen = navBlock.classList.contains('is-menu-open');
+                const responsiveContainer = navBlock.querySelector('.wp-block-navigation__responsive-container');
                 
-                // If menu is already open, close it
+                // If menu is already open, close it by removing the classes
                 if (isOpen) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    const menuClose = navBlock.querySelector(
-                        '.wp-block-navigation__responsive-container-close'
-                    );
-                    if (menuClose) {
-                        menuClose.click();
+                    // Directly remove the open classes instead of clicking hidden button
+                    navBlock.classList.remove('is-menu-open');
+                    if (responsiveContainer) {
+                        responsiveContainer.classList.remove('is-menu-open');
                     }
+                    
+                    // Re-enable body scroll
+                    document.body.style.overflow = '';
                 }
                 // Otherwise, let the default behavior open it
             });
