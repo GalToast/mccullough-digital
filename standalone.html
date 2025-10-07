@@ -40,6 +40,8 @@
             --surface-border: #1d2330;
             --text-primary: #e6f1ff;
             --text-secondary: #c5d8f2;
+            --linkedin-blue: #0a66c2;
+            --youtube-red: #ff0000;
             --z-index-default: 1;
             --z-index-background: 0;
             --z-index-content: 2;
@@ -1023,60 +1025,75 @@
             width: 100%;
         }
 
-        .social-links-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .sign-grid {
             display: flex;
-            gap: 18px;
+            flex-wrap: wrap;
+            gap: clamp(24px, 4vw, 48px);
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
-        .wp-social-link a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 229, 255, 0.35);
-            background: rgba(9, 13, 21, 0.55);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        .neon-sign-container {
             position: relative;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.04em;
-        }
-
-        .wp-social-link svg,
-        .wp-social-link__icon {
-            height: 24px;
-            width: 24px;
-            fill: currentColor;
-        }
-
-        .wp-social-link__icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.95rem;
-            font-weight: 800;
+            flex: 1 1 clamp(120px, 28vw, 164px);
+            max-width: 180px;
+            padding: clamp(12px, 3vw, 18px);
+            border-radius: 16px;
+            text-decoration: none;
+            transition: transform 0.4s ease;
         }
 
-        .wp-social-link a:hover,
-        .wp-social-link a:focus-visible {
-            border-color: transparent;
-            transform: translateY(-4px) scale(1.08);
-            box-shadow: 0 14px 40px rgba(0, 229, 255, 0.3);
-            background: linear-gradient(120deg, rgba(0, 229, 255, 0.95), rgba(255, 0, 224, 0.9));
-            color: var(--background-dark);
+        .neon-sign-container svg {
+            width: 100%;
+            height: auto;
+            max-width: 150px;
+            animation: neon-flicker 4s infinite alternate;
+            filter: var(--neon-filter, none);
+            transition: filter 0.4s ease;
         }
 
-        .wp-social-link a:focus-visible {
-            outline: 2px solid var(--neon-cyan);
-            outline-offset: 4px;
+        .sign-grid .neon-sign-container:nth-child(2) svg { animation-delay: 0.5s; }
+        .sign-grid .neon-sign-container:nth-child(3) svg { animation-delay: 1s; }
+        .sign-grid .neon-sign-container:nth-child(4) svg { animation-delay: 0.2s; }
+        .sign-grid .neon-sign-container:nth-child(5) svg { animation-delay: 0.8s; }
+
+        .neon-sign-container:hover,
+        .neon-sign-container:focus-visible {
+            transform: translateY(-6px) scale(1.04);
+        }
+
+        .neon-sign-container:hover svg,
+        .neon-sign-container:focus-visible svg {
+            filter: var(--neon-filter-strong, var(--neon-filter, none));
+        }
+
+        .facebook-glow { --neon-filter: drop-shadow(0 0 10px var(--wp--preset--color--neon-cyan, var(--neon-cyan))) drop-shadow(0 0 30px var(--wp--preset--color--neon-cyan, var(--neon-cyan))); --neon-filter-strong: drop-shadow(0 0 18px var(--wp--preset--color--neon-cyan, var(--neon-cyan))) drop-shadow(0 0 36px var(--wp--preset--color--neon-cyan, var(--neon-cyan))); }
+        .instagram-glow { --neon-filter: drop-shadow(0 0 10px var(--wp--preset--color--neon-magenta, var(--neon-magenta))) drop-shadow(0 0 30px var(--wp--preset--color--neon-magenta, var(--neon-magenta))); --neon-filter-strong: drop-shadow(0 0 18px var(--wp--preset--color--neon-magenta, var(--neon-magenta))) drop-shadow(0 0 36px var(--wp--preset--color--neon-magenta, var(--neon-magenta))); }
+        .twitter-glow { --neon-filter: drop-shadow(0 0 10px rgba(230, 241, 255, 0.9)) drop-shadow(0 0 30px rgba(230, 241, 255, 0.65)); --neon-filter-strong: drop-shadow(0 0 18px rgba(230, 241, 255, 0.95)) drop-shadow(0 0 38px rgba(230, 241, 255, 0.75)); }
+        .linkedin-glow { --neon-filter: drop-shadow(0 0 10px var(--linkedin-blue, #0a66c2)) drop-shadow(0 0 30px var(--linkedin-blue, #0a66c2)); --neon-filter-strong: drop-shadow(0 0 18px var(--linkedin-blue, #0a66c2)) drop-shadow(0 0 38px var(--linkedin-blue, #0a66c2)); }
+        .youtube-glow { --neon-filter: drop-shadow(0 0 10px var(--youtube-red, #ff0000)) drop-shadow(0 0 30px var(--youtube-red, #ff0000)); --neon-filter-strong: drop-shadow(0 0 18px var(--youtube-red, #ff0000)) drop-shadow(0 0 38px var(--youtube-red, #ff0000)); }
+
+        @keyframes neon-flicker {
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% { opacity: 1; }
+            20%,
+            24%,
+            55% { opacity: 0.82; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .neon-sign-container svg {
+                animation: none;
+            }
         }
 
         .footer-contact a {
@@ -1308,26 +1325,47 @@
 
                 <div class="wp-block-group footer-social">
                     <p class="footer-section-title">Follow</p>
-                    <ul class="wp-block-social-links social-links-menu">
-                        <li class="wp-social-link">
-                            <a href="https://www.facebook.com/mcculloughdigital" aria-label="Facebook">
-                                <span aria-hidden="true" class="wp-social-link__icon">Fb</span>
-                                <span class="screen-reader-text">Facebook</span>
-                            </a>
-                        </li>
-                        <li class="wp-social-link">
-                            <a href="https://www.instagram.com/mcculloughdigital" aria-label="Instagram">
-                                <span aria-hidden="true" class="wp-social-link__icon">Ig</span>
-                                <span class="screen-reader-text">Instagram</span>
-                            </a>
-                        </li>
-                        <li class="wp-social-link">
-                            <a href="https://www.linkedin.com/company/mccullough-digital/" aria-label="LinkedIn">
-                                <span aria-hidden="true" class="wp-social-link__icon">In</span>
-                                <span class="screen-reader-text">LinkedIn</span>
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="sign-grid" role="list" aria-label="Social media">
+                        <a class="neon-sign-container facebook-glow" role="listitem" href="https://www.facebook.com/mcculloughdigital" aria-label="Follow McCullough Digital on Facebook">
+                            <span class="screen-reader-text">Facebook</span>
+                            <svg viewBox="-10 -10 340 532" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Facebook logo">
+                                <path d="M279.14 288l14.22-92.66h-88.91v-60.08c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S279.35 0 243.79 0c-73.22 0-121.05 44.38-121.05 124.72v70.62H36.89V288h85.85v224h104.79V288z" fill="none" stroke="var(--wp--preset--color--neon-cyan, var(--neon-cyan))" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"></path>
+                                <path d="M279.14 288l14.22-92.66h-88.91v-60.08c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S279.35 0 243.79 0c-73.22 0-121.05 44.38-121.05 124.72v70.62H36.89V288h85.85v224h104.79V288z" fill="none" stroke="var(--wp--preset--color--text-primary, var(--text-primary))" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </a>
+
+                        <a class="neon-sign-container instagram-glow" role="listitem" href="https://www.instagram.com/mcculloughdigital" aria-label="Follow McCullough Digital on Instagram">
+                            <span class="screen-reader-text">Instagram</span>
+                            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Instagram logo">
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" fill="none" stroke="var(--wp--preset--color--neon-magenta, var(--neon-magenta))" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"></path>
+                                <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" fill="none" stroke="var(--wp--preset--color--text-primary, var(--text-primary))" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </a>
+
+                        <a class="neon-sign-container twitter-glow" role="listitem" href="https://twitter.com/mcculloughdigital" aria-label="Follow McCullough Digital on X">
+                            <span class="screen-reader-text">X (formerly Twitter)</span>
+                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="X (formerly Twitter) logo">
+                                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" fill="none" stroke="var(--wp--preset--color--text-primary, var(--text-primary))" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"></path>
+                                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" fill="none" stroke="var(--wp--preset--color--text-primary, var(--text-primary))" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </a>
+
+                        <a class="neon-sign-container linkedin-glow" role="listitem" href="https://www.linkedin.com/company/mccullough-digital/" aria-label="Connect with McCullough Digital on LinkedIn">
+                            <span class="screen-reader-text">LinkedIn</span>
+                            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LinkedIn logo">
+                                <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" fill="none" stroke="var(--linkedin-blue, #0a66c2)" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"></path>
+                                <path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" fill="none" stroke="var(--wp--preset--color--text-primary, var(--text-primary))" stroke-opacity="0.9" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </a>
+
+                        <a class="neon-sign-container youtube-glow" role="listitem" href="https://www.youtube.com/@mcculloughdigital" aria-label="Watch McCullough Digital on YouTube">
+                            <span class="screen-reader-text">YouTube</span>
+                            <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="YouTube logo">
+                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.1-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.497-41.998 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.286 23.65 24.787 41.997 48.284 48.597 42.599 11.486 213.371 11.486 213.371 11.486s170.771 0 213.371-11.486c23.497-6.497 41.998-24.947 48.284-48.597 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zM232.615 351.485V160.515L383.982 256 232.615 351.485z" fill="none" stroke="var(--youtube-red, #ff0000)" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"></path>
+                                <path d="M549.655 124.083c-6.281-23.65-24.787-42.1-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.497-41.998 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.286 23.65 24.787 41.997 48.284 48.597 42.599 11.486 213.371 11.486 213.371 11.486s170.771 0 213.371-11.486c23.497-6.497 41.998-24.947 48.284-48.597 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zM232.615 351.485V160.515L383.982 256 232.615 351.485z" fill="none" stroke="var(--wp--preset--color--text-primary, var(--text-primary))" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="wp-block-group footer-contact">

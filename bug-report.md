@@ -11,6 +11,9 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
 ## Recent Sweeps (November 2025)
+- **2025-11-24 — Neon footer social signage**
+  - Result: Replaced the footer social links block with the animated neon SVG grid, ported the styling into the editor + standalone bundles, and added motion-preference fallbacks so the icons sit still for reduced-motion users.
+  - Follow-up: QA the SVG links after the next deploy to confirm the X and YouTube profiles open as expected and validate the flicker timing inside the Site Editor.
 - **2025-11-23 — CTA block hero fallback**
   - Result: Fallback markup now renders the `.cta-button.hero__cta-button` anchor/span pair and CTA block gradients skip the hero class so default buttons inherit the neon sweep styling instead of reverting to the legacy pill.
   - Follow-up: Re-test the CTA block in the Site Editor after rebuilding assets to confirm the hero sweep loads and legacy `.cta-button` variants keep their gradient.
