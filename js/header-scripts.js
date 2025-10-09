@@ -6,6 +6,52 @@
     };
 
     const init = () => {
+        const normalizeTemplateStructure = () => {
+            const mainEl = document.querySelector('main');
+
+            if (mainEl && !mainEl.classList.contains('site-content')) {
+                mainEl.classList.add('site-content');
+
+                if (document.body.classList.contains('blog') || document.body.classList.contains('archive')) {
+                    mainEl.classList.add('blog-archive');
+                }
+            }
+
+            if (document.querySelector('.blog-hero')) {
+                return;
+            }
+
+            if (!document.body.classList.contains('blog') && !document.body.classList.contains('archive')) {
+                return;
+            }
+
+            const queryContainer = mainEl ? mainEl.querySelector('.wp-block-query') : null;
+
+            if (!queryContainer) {
+                return;
+            }
+
+            const candidateHero = Array.from(queryContainer.children).find((child) =>
+                child && child.classList && child.classList.contains('wp-block-group')
+            );
+
+            if (!candidateHero) {
+                return;
+            }
+
+            candidateHero.classList.add('blog-hero');
+
+            const innerGroup = Array.from(candidateHero.children).find(
+                (child) => child && child.classList && child.classList.contains('wp-block-group')
+            );
+
+            if (innerGroup) {
+                innerGroup.classList.add('blog-hero__inner');
+            }
+        };
+
+        normalizeTemplateStructure();
+
         const createMotionPreferenceQuery = () => {
             if (typeof window.matchMedia !== 'function') {
                 const noop = () => {};
@@ -52,13 +98,11 @@
 
             const syncToggleState = () => {
                 const isOpen = navBlock.classList.contains('is-menu-open');
-                console.log('syncToggleState fired! isOpen:', isOpen, 'navBlock classes:', navBlock.className);
                 
                 menuToggle.classList.toggle('is-active', isOpen);
                 
                 // Update our tracked state
                 menuIsOpen = isOpen;
-                console.log('menuIsOpen updated to:', menuIsOpen);
                 
                 // Add class to header for neon sweep effect (check if header exists first)
                 const headerElement = document.querySelector('#masthead.site-header');
@@ -76,14 +120,11 @@
             
             // ALSO observe the responsive container since THAT'S where WordPress adds is-menu-open!
             if (responsiveContainer) {
-                console.log('Also observing responsive container:', responsiveContainer);
                 const containerObserver = new MutationObserver(() => {
                     const containerIsOpen = responsiveContainer.classList.contains('is-menu-open');
-                    console.log('Responsive container mutation! has is-menu-open:', containerIsOpen);
                     
                     // If we just closed the menu, don't let WordPress reopen it
                     if (justClosedMenu && containerIsOpen) {
-                        console.log('Ignoring WordPress trying to reopen menu we just closed');
                         // Force close it again
                         setTimeout(() => {
                             responsiveContainer.classList.remove('is-menu-open');
@@ -94,14 +135,11 @@
                     }
                     
                     menuIsOpen = containerIsOpen;
-                    console.log('menuIsOpen updated to:', menuIsOpen);
                 });
                 containerObserver.observe(responsiveContainer, { attributes: true, attributeFilter: ['class'] });
             }
 
             const closeMenu = () => {
-                console.log('closeMenu() called');
-                
                 // Directly remove the open classes
                 navBlock.classList.remove('is-menu-open');
                 if (responsiveContainer) {
@@ -116,24 +154,10 @@
                 menuIsOpen = false;
             };
             
-            // Debug: Log button element info
-            console.log('Menu toggle button:', menuToggle);
-            console.log('Button classes:', menuToggle.className);
-            console.log('Observing navBlock:', navBlock);
-            console.log('NavBlock classes:', navBlock.className);
             
             // Use pointerdown instead of click to fire BEFORE WordPress handlers
             menuToggle.addEventListener('pointerdown', (e) => {
-                // Check classes RIGHT NOW before anything happens
-                const navBlockHasClass = navBlock.classList.contains('is-menu-open');
-                console.log('=== POINTERDOWN DEBUG ===');
-                console.log('Hamburger pointerdown, menuIsOpen:', menuIsOpen);
-                console.log('navBlock.classList.contains("is-menu-open"):', navBlockHasClass);
-                console.log('navBlock.className:', navBlock.className);
-                console.log('All elements with is-menu-open:', document.querySelectorAll('.is-menu-open'));
-                
                 if (menuIsOpen) {
-                    console.log('Menu is open, closing it');
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
@@ -146,7 +170,6 @@
             
             // ALSO add mousedown as backup
             menuToggle.addEventListener('mousedown', (e) => {
-                console.log('Hamburger mousedown, menuIsOpen:', menuIsOpen);
                 if (menuIsOpen) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -157,11 +180,9 @@
             
             // ALSO add click as backup
             menuToggle.addEventListener('click', (e) => {
-                console.log('Hamburger click, menuIsOpen:', menuIsOpen, 'justClosedMenu:', justClosedMenu);
                 
                 // If we just closed the menu, block WordPress from reopening
                 if (justClosedMenu) {
-                    console.log('Blocking click event - we just closed the menu');
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
@@ -180,7 +201,6 @@
             document.addEventListener('pointerdown', (e) => {
                 // Check if the click is on our button or its children
                 if (e.target === menuToggle || menuToggle.contains(e.target)) {
-                    console.log('Document caught click on button! Target:', e.target, 'menuIsOpen:', menuIsOpen);
                     if (menuIsOpen) {
                         e.preventDefault();
                         e.stopPropagation();

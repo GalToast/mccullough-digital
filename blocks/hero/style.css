@@ -1,12 +1,49 @@
 /* --- Hero Section --- */
 .wp-block-mccullough-digital-hero {
-    min-height: 100vh;
+    min-height: clamp(640px, 88vh, 900px);
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative; /* Needed for positioning the canvas */
-    background: radial-gradient(circle, rgba(20,22,28,0.9) 0%, var(--background-dark) 70%);
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 18% 18%, rgba(255, 0, 224, 0.2) 0%, transparent 60%),
+        radial-gradient(ellipse at 78% 24%, rgba(0, 229, 255, 0.22) 0%, transparent 64%),
+        radial-gradient(circle at 50% 78%, rgba(148, 0, 211, 0.18) 0%, transparent 72%),
+        linear-gradient(180deg, rgba(14, 18, 40, 0.98) 0%, rgba(9, 14, 32, 0.97) 50%, rgba(6, 10, 24, 0.98) 100%);
+    box-shadow: 0 40px 120px rgba(5, 8, 20, 0.55);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.wp-block-mccullough-digital-hero::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    height: clamp(80px, 18vw, 220px);
+    background: linear-gradient(180deg, rgba(9, 14, 32, 0) 0%, rgba(7, 12, 26, 0.72) 45%, rgba(5, 8, 20, 0.95) 100%);
+    opacity: 0.85;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    z-index: 2;
+}
+
+.wp-block-mccullough-digital-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        url('../../assets/stars3.svg') repeat,
+        url('../../assets/stars2.svg') repeat,
+        url('../../assets/stars.svg') repeat;
+    background-size: 1400px 820px, 1200px 720px, 1000px 640px;
+    opacity: 0.7;
+    mix-blend-mode: screen;
+    animation: heroStarDrift 90s linear infinite;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .wp-block-mccullough-digital-hero.is-content-top {
@@ -15,7 +52,12 @@
 }
 
 .wp-block-mccullough-digital-hero.is-content-top .hero-content {
-    padding-top: 40px; /* Space from top */
+    padding-top: calc(
+        max(
+            clamp(24px, 6vh, 72px),
+            calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px) + 24px)
+        ) + 20px
+    );
     margin-top: 0;
 }
 
@@ -114,12 +156,17 @@
     position: relative;
     z-index: 3; /* Higher than image */
     width: 100%;
-    max-width: 1400px;
+    max-width: min(960px, 92vw);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(24px, 6vw, 48px);
-    padding-bottom: clamp(32px, 10vh, 120px);
+    gap: clamp(20px, 5vw, 42px);
+    padding-top: max(
+        clamp(24px, 6vh, 72px),
+        calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px) + 24px)
+    );
+    padding-bottom: clamp(24px, 8vh, 88px);
+    padding-inline: clamp(24px, 6vw, 72px);
     transform: translateY(var(--hero-content-offset, 0px));
 }
 
@@ -176,7 +223,7 @@
     margin-right: 0;
     align-self: auto;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
-    font-family: "Nunito", sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(1rem, 1.9vw, 1.15rem);
     letter-spacing: 0.04em;
@@ -237,12 +284,19 @@
 
 
 .wp-block-mccullough-digital-hero .hero__headline {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    color: #fff;
-    margin: 0 0 20px 0;
-    line-height: 1.1;
-    text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+    font-family: var(--font-hero);
+    font-size: clamp(3.8rem, 10vw, 7.2rem);
+    color: var(--neon-magenta);
+    margin: 0 0 16px 0;
+    line-height: 1.05;
+    letter-spacing: clamp(0.02em, 0.18vw, 0.08em);
+    text-shadow:
+        0 0 16px rgba(255, 0, 224, 0.85),
+        0 0 42px rgba(255, 0, 224, 0.55),
+        0 0 64px rgba(0, 229, 255, 0.35);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+    filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.32));
+    animation: heroNeonPulse 4s ease-in-out infinite alternate;
     position: relative;
     z-index: 3;
 }
@@ -279,6 +333,8 @@
     display: inline-block;
     position: relative;
     cursor: default;
+    color: inherit;
+    text-shadow: 0 0 12px rgba(255, 0, 224, 0.6);
 }
 
 .wp-block-mccullough-digital-hero .hero__headline-letter:hover::before,
@@ -306,6 +362,11 @@
     display: none;
 }
 
+.wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline {
+    animation: none;
+    filter: none;
+}
+
 .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-letter:hover::before,
 .wp-block-mccullough-digital-hero.is-reduced-motion .hero__headline-letter:hover::after {
     animation: none;
@@ -314,11 +375,57 @@
 
 
 .wp-block-mccullough-digital-hero p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--text-secondary);
-    max-width: 800px;
-    margin: 0 auto 40px auto;
-    font-weight: 300;
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 2.8vw, 1.45rem);
+    color: rgba(200, 220, 255, 0.9);
+    max-width: min(640px, 85vw);
+    margin: 0 auto clamp(28px, 6vh, 42px) auto;
+    font-weight: 400;
+    letter-spacing: 0.015em;
+    line-height: 1.7;
     position: relative;
     z-index: 3;
+    text-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
+}
+@keyframes heroStarDrift {
+    0% {
+        background-position:
+            0px 0px,
+            0px 0px,
+            0px 0px;
+    }
+    100% {
+        background-position:
+            -240px -30px,
+            -160px -20px,
+            -120px -10px;
+    }
+}
+
+@keyframes heroNeonPulse {
+    0% {
+        text-shadow:
+            0 0 14px rgba(255, 0, 224, 0.75),
+            0 0 36px rgba(255, 0, 224, 0.5),
+            0 0 58px rgba(0, 229, 255, 0.28);
+        filter: drop-shadow(0 0 18px rgba(255, 0, 224, 0.25));
+    }
+    50% {
+        text-shadow:
+            0 0 22px rgba(255, 0, 224, 0.95),
+            0 0 52px rgba(255, 0, 224, 0.65),
+            0 0 80px rgba(0, 229, 255, 0.35);
+        filter: drop-shadow(0 0 26px rgba(255, 0, 224, 0.4));
+    }
+    100% {
+        text-shadow:
+            0 0 16px rgba(255, 0, 224, 0.85),
+            0 0 42px rgba(255, 0, 224, 0.55),
+            0 0 64px rgba(0, 229, 255, 0.35);
+        filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.32));
+    }
+}
+
+.wp-block-mccullough-digital-hero.is-reduced-motion::before {
+    animation: none;
 }

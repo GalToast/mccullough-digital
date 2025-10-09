@@ -1,0 +1,102 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner:
+    - generic [ref=e3]:
+      - link "McCullough Digital" [ref=e6] [cursor=pointer]:
+        - /url: https://mcculloug-digital-2.local/
+        - img "McCullough Digital" [ref=e7]
+      - navigation "Navigation" [ref=e8]:
+        - list [ref=e13]:
+          - list [ref=e14]:
+            - listitem [ref=e15]:
+              - link "About Us" [ref=e16] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/about-us/
+            - listitem [ref=e17]:
+              - link "Blog" [ref=e18] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/blog/
+            - listitem [ref=e19]:
+              - link "Home" [ref=e20] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/
+            - listitem [ref=e21]:
+              - link "Services" [ref=e22] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/services/
+  - main [ref=e23]:
+    - generic [ref=e26]:
+      - heading "Blog" [level=1] [ref=e27]
+      - paragraph [ref=e28]: Insights, tutorials, and stories from the world of web development and digital design.
+      - search [ref=e29]:
+        - generic [ref=e30]: Search
+        - generic [ref=e31]:
+          - searchbox "Search" [ref=e32]
+          - button "Search" [ref=e33] [cursor=pointer]
+    - region "Category filters" [ref=e34]:
+      - list [ref=e36]:
+        - listitem [ref=e37]:
+          - link "All Posts" [ref=e38] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/blog/
+        - listitem [ref=e39]:
+          - link "Web Design" [ref=e40] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/category/web-design/
+        - listitem [ref=e41]:
+          - link "Development" [ref=e42] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/category/development/
+        - listitem [ref=e43]:
+          - link "WordPress" [ref=e44] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/category/wordpress/
+        - listitem [ref=e45]:
+          - link "UI/UX" [ref=e46] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/category/ui-ux/
+        - listitem [ref=e47]:
+          - link "Tutorials" [ref=e48] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/category/tutorials/
+    - region "Latest post" [ref=e49]:
+      - article [ref=e50]:
+        - generic [ref=e51]: Most Recent
+        - generic [ref=e52]:
+          - link [ref=e53] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/let-your-brand-walk-like-a-cat/
+            - generic [ref=e54]: Image
+          - generic [ref=e55]:
+            - generic [ref=e56]:
+              - link "Blog" [ref=e58] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/category/blog/
+              - generic [ref=e59]: Oct 8, 2025
+            - heading "Let Your Brand Walk Like a Cat" [level=2] [ref=e60]:
+              - link "Let Your Brand Walk Like a Cat" [ref=e61] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/let-your-brand-walk-like-a-cat/
+            - paragraph [ref=e62]: Steal a few cat inspired cues to keep customers lingering and coming back for more.
+            - link "Read Article" [ref=e64] [cursor=pointer]:
+              - /url: https://mcculloug-digital-2.local/let-your-brand-walk-like-a-cat/
+    - region "Blog posts" [ref=e65]:
+      - generic [ref=e66]:
+        - article [ref=e67]:
+          - link [ref=e68] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/mingling-dingling/
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - link "Blog" [ref=e72] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/category/blog/
+              - generic [ref=e73]: Oct 2, 2025
+            - heading "Mingling dingling" [level=2] [ref=e74]:
+              - link "Mingling dingling" [ref=e75] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/mingling-dingling/
+            - paragraph [ref=e76]: Laurumpuspuspuspuspus
+            - link "Read More" [ref=e78] [cursor=pointer]:
+              - /url: https://mcculloug-digital-2.local/mingling-dingling/
+        - article [ref=e79]:
+          - link [ref=e80] [cursor=pointer]:
+            - /url: https://mcculloug-digital-2.local/hello-world/
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - link "Blog" [ref=e84] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/category/blog/
+              - generic [ref=e85]: Sep 24, 2025
+            - heading "Hello world!" [level=2] [ref=e86]:
+              - link "Hello world!" [ref=e87] [cursor=pointer]:
+                - /url: https://mcculloug-digital-2.local/hello-world/
+            - paragraph [ref=e88]: Welcome to WordPress. This is your first post. Edit or delete it, then start writing!
+            - link "Read More" [ref=e90] [cursor=pointer]:
+              - /url: https://mcculloug-digital-2.local/hello-world/
+```

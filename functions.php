@@ -33,7 +33,7 @@ function mcd_assets() {
 
   wp_enqueue_style(
     'mcd-fonts',
-    'https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Manrope:wght@300;400;500;600;700&display=swap',
     array(),
     null
   );

@@ -207,7 +207,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
             $featured_link  = get_permalink();
             $featured_title = get_the_title();
             $featured_date  = get_the_date( 'M j, Y' );
-            $featured_excerpt = wp_trim_words( get_the_excerpt(), 40, '…' );
+            $featured_excerpt = wp_trim_words( get_the_excerpt(), 40, '...' );
             $category_badges  = mcd_render_post_categories( $featured_id );
             ?>
             <section class="latest-post" aria-label="<?php esc_attr_e( 'Latest post', 'mccullough-digital' ); ?>">
@@ -222,7 +222,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
                                 the_post_thumbnail( 'large', [ 'class' => 'latest-media__image' ] );
                             } else {
                                 ?>
-                                <span class="latest-media__placeholder" aria-hidden="true">📰</span>
+                                <span class="latest-media__placeholder" aria-hidden="true">Image</span>
                                 <?php
                             }
                             ?>
@@ -258,7 +258,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
                     $post_link  = get_permalink();
                     $post_title = get_the_title();
                     $post_date  = get_the_date( 'M j, Y' );
-                    $excerpt    = wp_trim_words( get_the_excerpt(), 28, '…' );
+                    $excerpt    = wp_trim_words( get_the_excerpt(), 28, '...' );
                     $rendered_posts++;
                     ?>
                     <article class="post-card">
@@ -268,7 +268,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
                                 the_post_thumbnail( 'large', [ 'class' => 'post-card-image__media' ] );
                             } else {
                                 ?>
-                                <span class="post-card-image__placeholder" aria-hidden="true">📰</span>
+                                <span class="post-card-image__placeholder" aria-hidden="true">Image</span>
                                 <?php
                             }
                             ?>
@@ -300,8 +300,8 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
                     'total'     => max( 1, (int) $loop->max_num_pages ),
                     'current'   => $current_page,
                     'type'      => 'array',
-                    'prev_text' => __( '← Previous', 'mccullough-digital' ),
-                    'next_text' => __( 'Next →', 'mccullough-digital' ),
+                    'prev_text' => __( '&larr; Previous', 'mccullough-digital' ),
+                    'next_text' => __( 'Next &rarr;', 'mccullough-digital' ),
                 ]
             );
 

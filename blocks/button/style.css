@@ -25,7 +25,7 @@
     margin-right: 0;
     align-self: auto;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
-    font-family: "Nunito", sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(1rem, 1.9vw, 1.15rem);
     letter-spacing: 0.04em;

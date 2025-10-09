@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 520" aria-hidden="true" role="presentation">
+  <defs>
+    <!-- Atmosphere -->
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#030612" />
+      <stop offset="28%" stop-color="#081537" />
+      <stop offset="62%" stop-color="#0b2052" />
+      <stop offset="100%" stop-color="#071535" />
+    </linearGradient>
+    <radialGradient id="horizonGlow" cx="50%" cy="80%" r="58%">
+      <stop offset="0%" stop-color="rgba(0, 229, 255, 0.65)" />
+      <stop offset="40%" stop-color="rgba(0, 229, 255, 0.2)" />
+      <stop offset="74%" stop-color="rgba(255, 0, 224, 0.16)" />
+      <stop offset="100%" stop-color="rgba(8, 14, 28, 0)" />
+    </radialGradient>
+    <linearGradient id="groundGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#050c1d" />
+      <stop offset="46%" stop-color="#040815" />
+      <stop offset="100%" stop-color="#010309" />
+    </linearGradient>
+    <!-- Neon edges -->
+    <linearGradient id="edgeCyan" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6ef5ff" />
+      <stop offset="100%" stop-color="#2ac8ff" />
+    </linearGradient>
+    <linearGradient id="edgeMagenta" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff87ff" />
+      <stop offset="100%" stop-color="#ff3ad7" />
+    </linearGradient>
+    <!-- Light filters -->
+    <filter id="cyanBloom" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="magentaBloom" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 0.25 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <!-- Window tiling -->
+    <pattern id="windowPattern" width="18" height="22" patternUnits="userSpaceOnUse">
+      <rect width="18" height="22" fill="rgba(6, 18, 40, 0.9)" />
+      <rect x="2" y="3" width="4" height="6" rx="1" fill="#55e2ff" opacity="0.88" />
+      <rect x="11" y="2" width="4" height="6" rx="1" fill="#ff78f4" opacity="0.82" />
+      <rect x="3" y="12" width="4" height="6" rx="1" fill="#ffc36d" opacity="0.78" />
+      <rect x="11" y="13" width="4" height="5" rx="1" fill="#42d9ff" opacity="0.75" />
+    </pattern>
+    <pattern id="verticalStripes" width="14" height="6" patternUnits="userSpaceOnUse">
+      <rect width="14" height="6" fill="rgba(6, 22, 48, 0.6)" />
+      <rect x="0" width="4" height="6" fill="rgba(90, 236, 255, 0.28)" />
+      <rect x="6" width="4" height="6" fill="rgba(255, 110, 252, 0.25)" />
+    </pattern>
+    <pattern id="diagonalLights" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="skewX(-10)">
+      <rect width="16" height="16" fill="rgba(8, 26, 54, 0.75)" />
+      <rect x="0" y="6" width="16" height="4" fill="rgba(255, 120, 240, 0.4)" />
+    </pattern>
+    <!-- Moon -->
+    <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffedff" />
+      <stop offset="55%" stop-color="#e0c2ff" />
+      <stop offset="100%" stop-color="rgba(255, 214, 255, 0.16)" />
+    </radialGradient>
+  </defs>
+
+  <style>
+    .sky { fill: url(#skyGradient); }
+    .horizon { fill: url(#horizonGlow); mix-blend-mode: screen; }
+    .ground { fill: url(#groundGradient); }
+    .nebula { fill: rgba(118, 74, 255, 0.24); }
+    .stars { fill: rgba(255, 255, 255, 0.76); }
+    .dust { fill: rgba(110, 180, 255, 0.28); }
+    .scan { stroke: rgba(9, 24, 56, 0.34); stroke-width: 1; }
+    .grid { stroke: rgba(65, 232, 255, 0.22); stroke-width: 1.4; }
+    .building-back { fill: rgba(4, 18, 40, 0.82); stroke: url(#edgeCyan); stroke-width: 3.5; stroke-linejoin: bevel; filter: url(#cyanBloom); }
+    .building-mid { fill: rgba(6, 24, 50, 0.9); stroke: url(#edgeMagenta); stroke-width: 3.4; stroke-linejoin: bevel; filter: url(#magentaBloom); }
+    .building-front { fill: rgba(10, 32, 64, 0.95); stroke: url(#edgeCyan); stroke-width: 3.6; stroke-linejoin: bevel; filter: url(#cyanBloom); }
+    .windows { fill: url(#windowPattern); opacity: 0.94; }
+    .windows.alt { opacity: 0.82; }
+    .windows.stripes { fill: url(#verticalStripes); opacity: 0.9; }
+    .windows.diagonal { fill: url(#diagonalLights); opacity: 0.86; }
+    .moon-core { fill: url(#moonGlow); }
+    .moon-ring { fill: none; stroke: rgba(255, 205, 255, 0.38); stroke-width: 3; }
+    .bat { fill: rgba(14, 20, 32, 0.88); }
+    .pumpkin { fill: url(#edgeMagenta); stroke: rgba(255, 190, 126, 0.85); stroke-width: 2; }
+    .pumpkin-face { fill: rgba(20, 6, 18, 0.9); }
+    .laser { stroke: rgba(60, 228, 255, 0.52); stroke-width: 2.4; stroke-dasharray: 12 16; stroke-linecap: round; }
+    .laser-magenta { stroke: rgba(255, 96, 224, 0.5); stroke-dasharray: 8 18; }
+    .sign { fill: none; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+    .sign-cyan { stroke: rgba(65, 232, 255, 0.92); }
+    .sign-magenta { stroke: rgba(255, 92, 230, 0.92); }
+    .sign-fill-cyan { fill: rgba(65, 232, 255, 0.2); }
+    .sign-fill-magenta { fill: rgba(255, 92, 230, 0.18); }
+    .spark { fill: none; stroke: rgba(255, 255, 255, 0.68); stroke-width: 1.2; stroke-linecap: round; }
+    .web { fill: none; stroke: rgba(255, 170, 252, 0.32); stroke-width: 1.4; }
+    @keyframes flicker {
+      0%, 100% { opacity: 0.95; }
+      15% { opacity: 0.48; }
+      34% { opacity: 0.86; }
+      58% { opacity: 0.52; }
+      74% { opacity: 0.92; }
+    }
+    .flicker { animation: flicker 6.5s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .flicker { animation: none; opacity: 0.9; }
+    }
+  </style>
+
+  <!-- Background -->
+  <rect class="sky" width="1440" height="520" />
+  <path class="nebula" d="M180 100 Q360 36 540 70 T890 60 Q1080 92 1240 44 T1360 96 V230 H180 Z" />
+  <g opacity="0.92">
+    <circle class="stars" cx="130" cy="66" r="2.2" />
+    <circle class="stars" cx="248" cy="38" r="1.7" />
+    <circle class="stars" cx="392" cy="78" r="1.6" />
+    <circle class="stars" cx="552" cy="42" r="2" />
+    <circle class="stars" cx="720" cy="72" r="1.8" />
+    <circle class="stars" cx="890" cy="46" r="2.1" />
+    <circle class="stars" cx="1050" cy="82" r="1.6" />
+    <circle class="stars" cx="1208" cy="48" r="1.9" />
+    <circle class="stars" cx="1342" cy="84" r="1.7" />
+  </g>
+  <g opacity="0.6">
+    <circle class="dust" cx="220" cy="122" r="3" />
+    <circle class="dust" cx="352" cy="140" r="2.6" />
+    <circle class="dust" cx="580" cy="150" r="3" />
+    <circle class="dust" cx="752" cy="134" r="3.2" />
+    <circle class="dust" cx="960" cy="146" r="2.8" />
+    <circle class="dust" cx="1186" cy="132" r="3" />
+  </g>
+  <ellipse class="horizon" cx="720" cy="308" rx="720" ry="190" />
+
+  <!-- Moon -->
+  <g transform="translate(1160 86)">
+    <circle class="moon-core" cx="0" cy="0" r="54" />
+    <circle class="moon-ring" cx="0" cy="0" r="60" />
+    <path fill="rgba(255, 226, 255, 0.24)" d="M-20 -38 q26 -12 38 12 t-12 42 q-20 16 -34 2 t8 -56z" />
+  </g>
+
+  <!-- Bats -->
+  <g opacity="0.9">
+    <path class="bat" d="M270 116 l18 -10 18 10 -8 -2 0 12 -10 -8 -10 8 0 -12z" />
+    <path class="bat" d="M456 74 l14 -8 14 8 -6 -2 0 10 -8 -6 -8 6 0 -10z" />
+    <path class="bat" d="M940 94 l16 -9 16 9 -7 -2 0 12 -9 -7 -10 7 0 -12z" />
+  </g>
+
+  <!-- Spider web accent -->
+  <g transform="translate(210 148)" opacity="0.34">
+    <path class="web" d="M0 0 L38 -48 L92 -14 L32 28 Z" />
+    <path class="web" d="M12 -12 L44 -38" />
+    <path class="web" d="M28 -22 L66 -32" />
+    <path class="web" d="M46 -4 L78 -26" />
+  </g>
+
+  <!-- Background skyline referencing Houston profile -->
+  <g>
+    <!-- Westin / Hyatt cluster -->
+    <path class="building-back" d="M86 332 V206 h84 v-30 h40 v-24 h40 v24 h40 v18 h52 v138 z" />
+    <!-- Two Prudential / 1600 Smith -->
+    <path class="building-back" d="M382 332 V162 h52 V120 h44 V96 h38 v24 h40 v54 h50 v158 z" />
+    <!-- Heritage Plaza (stepped top) -->
+    <path class="building-back" d="M586 332 V144 h46 V110 h44 V78 h40 v32 h38 v38 h32 v174 z" />
+    <!-- Center cluster base -->
+    <path class="building-back" d="M760 332 V136 h52 V98 h48 V74 h44 v24 h36 v42 h58 v192 z" />
+    <!-- Chase tower base -->
+    <path class="building-back" d="M980 332 V160 h52 V122 h42 V98 h38 v24 h32 v46 h54 v164 z" />
+    <!-- Allen / 5 Houston Center -->
+    <path class="building-back" d="M1210 332 V182 h60 V140 h40 V110 h36 v30 h30 v48 h48 v144 z" />
+  </g>
+
+  <!-- Mid skyline with signature silhouettes -->
+  <g>
+    <!-- Bank of America Center -->
+    <path class="building-mid" d="M250 384 V168 h18 l20 -36 h20 l22 36 h18 v216 z" />
+    <!-- Wells Fargo Plaza (tall cylinder) -->
+    <path class="building-mid" d="M340 384 V120 q0 -40 44 -40 h12 q44 0 44 40 v264 z" />
+    <!-- 1600 Smith / rounded top -->
+    <path class="building-mid" d="M444 384 V154 h40 V130 q0 -34 28 -34 h12 q28 0 28 34 v24 h38 v230 z" />
+    <!-- Heritage Plaza angular top -->
+    <path class="building-mid" d="M544 384 V158 l44 -58 h22 l44 58 v226 z" />
+    <!-- Shell One / 1100 Louisiana -->
+    <path class="building-mid" d="M664 384 V138 h50 V90 h44 V70 h32 v20 h26 v36 h44 v258 z" />
+    <!-- JPMorgan Chase Tower -->
+    <path class="building-mid" d="M780 384 V88 h42 V58 h36 V32 h46 V58 h34 v30 h40 v296 z" />
+    <!-- BG Group Place (faceted) -->
+    <path class="building-mid" d="M908 384 V148 l48 -60 h20 l48 60 v236 z" />
+    <!-- Williams Tower (rounded top) -->
+    <path class="building-mid" d="M1038 384 V132 h44 V94 q0 -26 20 -26 h18 q20 0 20 26 v38 h40 v252 z" />
+    <!-- 1500 Louisiana -->
+    <path class="building-mid" d="M1168 384 V168 h46 V130 h38 V110 h28 v20 h24 v40 h42 v214 z" />
+    <!-- Commerce towers cluster -->
+    <path class="building-mid" d="M1268 384 V192 h50 V150 h36 V128 h28 v22 h24 v44 h40 v198 z" />
+  </g>
+
+  <!-- Foreground towers with detail -->
+  <g>
+    <!-- Bank of America front edges -->
+    <path class="building-front" d="M210 420 V184 h26 l28 -48 h26 l32 48 h26 v236 z" />
+    <rect class="windows alt flicker" x="236" y="212" width="30" height="198" />
+    <rect class="windows alt flicker" x="276" y="212" width="30" height="198" />
+
+    <!-- Wells Fargo Plaza -->
+    <path class="building-front" d="M328 420 V136 q0 -48 54 -48 h20 q54 0 54 48 v284 z" />
+    <rect class="windows stripes" x="356" y="166" width="92" height="236" />
+
+    <!-- 1600 Smith / rounded crown -->
+    <path class="building-front" d="M452 420 V190 h42 V156 q0 -40 34 -40 h12 q34 0 34 40 v34 h40 v230 z" />
+    <rect class="windows flicker" x="474" y="208" width="92" height="212" />
+
+    <!-- Heritage Plaza -->
+    <path class="building-front" d="M584 420 V194 l56 -74 h26 l58 74 v226 z" />
+    <rect class="windows alt" x="612" y="222" width="36" height="180" />
+    <rect class="windows alt" x="656" y="222" width="36" height="180" />
+
+    <!-- Chase Tower -->
+    <path class="building-front" d="M732 420 V118 h44 V74 h38 V40 h66 V74 h38 v44 h42 v302 z" />
+    <rect class="windows stripes flicker" x="764" y="156" width="100" height="256" />
+
+    <!-- BG Group Place -->
+    <path class="building-front" d="M888 420 V188 l58 -78 h24 l58 78 v232 z" />
+    <rect class="windows alt" x="916" y="226" width="44" height="184" />
+    <rect class="windows alt" x="966" y="226" width="44" height="184" />
+
+    <!-- Williams Tower -->
+    <path class="building-front" d="M1024 420 V156 h48 V118 q0 -32 26 -32 h20 q26 0 26 32 v38 h44 v266 z" />
+    <rect class="windows stripes" x="1054" y="196" width="88" height="224" />
+
+    <!-- Chevron & Exxon cluster -->
+    <path class="building-front" d="M1156 420 V198 h46 V164 h40 V136 h30 v28 h24 v46 h44 v210 z" />
+    <rect class="windows alt flicker" x="1182" y="228" width="34" height="176" />
+    <rect class="windows alt" x="1222" y="228" width="34" height="176" />
+
+    <!-- Four Seasons / Marriott cluster -->
+    <path class="building-front" d="M1256 420 V206 h48 V170 h34 V150 h28 v20 h22 v46 h40 v228 z" />
+    <rect class="windows flicker" x="1282" y="236" width="34" height="174" />
+    <rect class="windows" x="1320" y="236" width="34" height="174" />
+  </g>
+
+  <!-- Rooftop pumpkins -->
+  <g>
+    <g transform="translate(368 174)">
+      <ellipse class="pumpkin" cx="0" cy="0" rx="12" ry="10" />
+      <ellipse class="pumpkin-face" cx="-4" cy="-2" rx="2.2" ry="2" />
+      <ellipse class="pumpkin-face" cx="4" cy="-2" rx="2.2" ry="2" />
+      <path class="pumpkin-face" d="M-6 2 h12 l-6 5 z" />
+    </g>
+    <g transform="translate(642 176)">
+      <ellipse class="pumpkin" cx="0" cy="0" rx="11" ry="9" />
+      <ellipse class="pumpkin-face" cx="-3.2" cy="-1.8" rx="2" ry="1.6" />
+      <ellipse class="pumpkin-face" cx="3.2" cy="-1.8" rx="2" ry="1.6" />
+      <path class="pumpkin-face" d="M-5 1.4 h10 l-5 3.6 z" />
+    </g>
+    <g transform="translate(1016 194)">
+      <ellipse class="pumpkin" cx="0" cy="0" rx="12" ry="10" />
+      <ellipse class="pumpkin-face" cx="-4" cy="-2" rx="2.2" ry="2" />
+      <ellipse class="pumpkin-face" cx="4" cy="-2" rx="2.2" ry="2" />
+      <path class="pumpkin-face" d="M-6 2 h12 l-6 5 z" />
+    </g>
+  </g>
+
+  <!-- Neon beams -->
+  <g opacity="0.48">
+    <line class="laser" x1="350" y1="214" x2="350" y2="98" />
+    <line class="laser-magenta" x1="520" y1="224" x2="520" y2="116" />
+    <line class="laser" x1="690" y1="210" x2="690" y2="96" />
+    <line class="laser-magenta" x1="860" y1="226" x2="860" y2="118" />
+    <line class="laser" x1="1040" y1="232" x2="1040" y2="122" />
+    <line class="laser-magenta" x1="1224" y1="220" x2="1224" y2="126" />
+  </g>
+
+  <!-- Neon signage -->
+  <g opacity="0.9">
+    <rect class="sign sign-cyan" x="410" y="280" width="140" height="60" rx="18" ry="18" />
+    <rect class="sign-fill-cyan" x="430" y="300" width="100" height="28" rx="12" />
+    <rect class="sign sign-magenta" x="986" y="288" width="156" height="62" rx="18" ry="18" />
+    <rect class="sign-fill-magenta" x="1006" y="310" width="116" height="26" rx="12" />
+  </g>
+
+  <!-- Foreground platform -->
+  <path class="ground" d="M0 360 L200 332 Q720 268 1240 332 L1440 360 V520 H0 Z" opacity="0.96" />
+  <g opacity="0.6">
+    <line class="grid" x1="0" y1="382" x2="1440" y2="340" />
+    <line class="grid" x1="0" y1="406" x2="1440" y2="364" />
+    <line class="grid" x1="0" y1="430" x2="1440" y2="388" />
+    <line class="grid" x1="0" y1="454" x2="1440" y2="412" />
+    <line class="scan" x1="0" y1="372" x2="1440" y2="372" />
+    <line class="scan" x1="0" y1="396" x2="1440" y2="396" />
+    <line class="scan" x1="0" y1="420" x2="1440" y2="420" />
+    <line class="scan" x1="0" y1="444" x2="1440" y2="444" />
+  </g>
+
+  <!-- Light sparkles -->
+  <g opacity="0.78">
+    <path class="spark" d="M214 190 l11 -11 m-11 0 l11 11" />
+    <path class="spark" d="M604 178 l11 -11 m-11 0 l11 11" />
+    <path class="spark" d="M836 192 l11 -11 m-11 0 l11 11" />
+    <path class="spark" d="M1092 210 l11 -11 m-11 0 l11 11" />
+    <path class="spark" d="M1286 198 l11 -11 m-11 0 l11 11" />
+  </g>
+</svg>

@@ -1,5 +1,5 @@
-<!-- wp:group {"tagName":"footer","className":"site-footer","style":{"spacing":{"padding":{"top":"clamp(48px, 6vw, 84px)","bottom":"clamp(48px, 6vw, 84px)","left":"clamp(24px, 6vw, 64px)","right":"clamp(24px, 6vw, 64px)"}}},"layout":{"type":"constrained","contentSize":"1400px"}} -->
-<footer class="wp-block-group site-footer" id="colophon" style="padding-top:clamp(48px, 6vw, 84px);padding-right:clamp(24px, 6vw, 64px);padding-bottom:clamp(48px, 6vw, 84px);padding-left:clamp(24px, 6vw, 64px)">
+<!-- wp:group {"tagName":"footer","className":"site-footer","style":{"spacing":{"padding":{"top":"clamp(40px, 5vw, 50px)","bottom":"clamp(30px, 4vw, 40px)","left":"clamp(24px, 4vw, 48px)","right":"clamp(24px, 4vw, 48px)"}}},"layout":{"type":"constrained","contentSize":"1400px"}} -->
+<footer class="wp-block-group site-footer" id="colophon" style="padding-top:clamp(40px, 5vw, 50px);padding-right:clamp(24px, 4vw, 48px);padding-bottom:clamp(30px, 4vw, 40px);padding-left:clamp(24px, 4vw, 48px)">
 
   <!-- Starfield Overlay -->
   <!-- wp:html -->
@@ -11,73 +11,100 @@
   <!-- wp:group {"tagName":"div","className":"footer-container"} -->
   <div class="wp-block-group footer-container">
 
-    <!-- Main Footer Grid -->
-    <!-- wp:columns {"className":"footer-core","style":{"spacing":{"blockGap":{"top":"clamp(32px, 4vw, 48px)","left":"clamp(32px, 4vw, 48px)"}}}} -->
-    <div class="wp-block-columns footer-core">
+    <!-- Horizontal Footer Layout: Get in Touch | Logo/Socials | Quick Links -->
+    <!-- wp:columns {"verticalAlignment":"center","className":"footer-core","style":{"spacing":{"blockGap":{"top":"clamp(24px, 3vw, 32px)","left":"clamp(48px, 6vw, 80px)"}}}} -->
+    <div class="wp-block-columns are-vertically-aligned-center footer-core">
 
-    <!-- Company Column -->
-    <!-- wp:column {"className":"footer-column footer-company"} -->
-    <div class="wp-block-column footer-column footer-company">
+      <!-- Get in Touch Column (Left) -->
+      <!-- wp:column {"verticalAlignment":"center","className":"footer-column footer-connect"} -->
+      <div class="wp-block-column is-vertically-aligned-center footer-column footer-connect">
 
-      <!-- wp:site-logo {"width":64,"className":"footer-logo","style":{"spacing":{"margin":{"bottom":"16px"}}}} /-->
+        <!-- wp:paragraph {"className":"footer-section-title","style":{"spacing":{"margin":{"bottom":"15px"}}}} -->
+        <p class="footer-section-title" style="margin-bottom:15px">Get in Touch</p>
+        <!-- /wp:paragraph -->
 
-      <!-- wp:paragraph {"className":"footer-tagline"} -->
-      <p class="footer-tagline">Crafting digital experiences with a neon soul.</p>
-      <!-- /wp:paragraph -->
+        <!-- wp:paragraph {"fontSize":"small","style":{"spacing":{"margin":{"bottom":"8px"}}}} -->
+        <p class="has-small-font-size footer-contact-fixed" style="margin-bottom:8px"><a href="/contact/">Contact</a></p>
+        <!-- /wp:paragraph -->
 
-    </div>
-    <!-- /wp:column -->
+        <!-- wp:paragraph {"fontSize":"small","style":{"spacing":{"margin":{"bottom":"8px"}}}} -->
+        <p class="has-small-font-size" style="margin-bottom:8px"><a href="/support/">Support</a></p>
+        <!-- /wp:paragraph -->
 
-    <!-- Quick Links Column -->
-    <!-- wp:column {"className":"footer-column footer-links"} -->
-    <div class="wp-block-column footer-column footer-links">
+        <!-- wp:paragraph {"fontSize":"small","style":{"spacing":{"margin":{"bottom":"8px"}}}} -->
+        <p class="has-small-font-size" style="margin-bottom:8px"><a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a></p>
+        <!-- /wp:paragraph -->
 
-      <!-- wp:paragraph {"className":"footer-section-title","style":{"spacing":{"margin":{"bottom":"16px"}}}} -->
-      <p class="footer-section-title" style="margin-bottom:16px">Quick Links</p>
-      <!-- /wp:paragraph -->
+        <!-- wp:paragraph {"fontSize":"small"} -->
+        <p class="has-small-font-size"><a href="/contact/">Book a Call</a></p>
+        <!-- /wp:paragraph -->
 
-      <!-- wp:navigation {"className":"footer-nav","overlayMenu":"never","layout":{"type":"flex","orientation":"vertical"},"style":{"spacing":{"blockGap":"12px"}}} /-->
+      </div>
+      <!-- /wp:column -->
 
-    </div>
-    <!-- /wp:column -->
+      <!-- Brand Column (Center) -->
+      <!-- wp:column {"verticalAlignment":"center","width":"auto","className":"footer-column footer-company"} -->
+      <div class="wp-block-column is-vertically-aligned-center footer-column footer-company" style="flex-basis:auto">
 
-    <!-- Connect Column -->
-    <!-- wp:column {"className":"footer-column footer-connect"} -->
-    <div class="wp-block-column footer-column footer-connect">
+        <!-- wp:site-logo {"width":80,"className":"footer-logo","style":{"spacing":{"margin":{"bottom":"12px"}}}} /-->
 
-      <!-- wp:paragraph {"className":"footer-section-title","style":{"spacing":{"margin":{"bottom":"16px"}}}} -->
-      <p class="footer-section-title" style="margin-bottom:16px">Connect</p>
-      <!-- /wp:paragraph -->
+        <!-- wp:html -->
+        <div class="neon-social-icons" aria-label="Social media">
+          <a href="https://www.facebook.com/mcculloughdigital" class="neon-icon facebook-glow" target="_blank" rel="noopener noreferrer" aria-label="Visit us on Facebook">
+            <svg viewBox="-10 -10 340 532" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Facebook logo">
+              <path d="M279.14 288l14.22-92.66h-88.91v-60.08c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S279.35 0 243.79 0c-73.22 0-121.05 44.38-121.05 124.72v70.62H36.89V288h85.85v224h104.79V288z" fill="none" stroke="#00E5FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M279.14 288l14.22-92.66h-88.91v-60.08c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S279.35 0 243.79 0c-73.22 0-121.05 44.38-121.05 124.72v70.62H36.89V288h85.85v224h104.79V288z" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="https://www.instagram.com/mcculloughdigital" class="neon-icon instagram-glow" target="_blank" rel="noopener noreferrer" aria-label="Visit us on Instagram">
+            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Instagram logo">
+              <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" fill="none" stroke="#E1306C" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com/mcculloughdigit" class="neon-icon twitter-glow" target="_blank" rel="noopener noreferrer" aria-label="Follow us on X (Twitter)">
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="X (Twitter) logo">
+              <path d="M389.9 52H468L305.2 242.1 497 460H345.5L226.1 320.4 92 460H13.4L187.3 256.4 3.8 52H160.8L268.9 180.9 389.9 52ZM363.6 412.6h42.3L152.5 95.1H107.2L363.6 412.6Z" fill="none" stroke="#00E5FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M389.9 52H468L305.2 242.1 497 460H345.5L226.1 320.4 92 460H13.4L187.3 256.4 3.8 52H160.8L268.9 180.9 389.9 52ZM363.6 412.6h42.3L152.5 95.1H107.2L363.6 412.6Z" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/company/mccullough-digital/" class="neon-icon linkedin-glow" target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn">
+            <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LinkedIn logo">
+              <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96s38.5 17.3 38.5 38.5-17.2 38.5-38.5 38.5zM384 416h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.5 0-39.8 26.9-39.8 54.7V416H177V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" fill="none" stroke="#00E5FF" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96s38.5 17.3 38.5 38.5-17.2 38.5-38.5 38.5zM384 416h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.5 0-39.8 26.9-39.8 54.7V416H177V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="https://www.youtube.com/@mcculloughdigital" class="neon-icon youtube-glow" target="_blank" rel="noopener noreferrer" aria-label="Subscribe on YouTube">
+            <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="YouTube logo">
+              <path d="M549.655 124.083c-6.281-23.65-24.787-42.1-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.497-41.998 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.286 23.65 24.787 41.997 48.284 48.597 42.599 11.486 213.371 11.486 213.371 11.486s170.771 0 213.371-11.486c23.497-6.497 41.998-24.947 48.284-48.597 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zM232.615 351.485V160.515L383.982 256 232.615 351.485z" fill="none" stroke="#FF0000" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M549.655 124.083c-6.281-23.65-24.787-42.1-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.497-41.998 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.286 23.65 24.787 41.997 48.284 48.597 42.599 11.486 213.371 11.486 213.371 11.486s170.771 0 213.371-11.486c23.497-6.497 41.998-24.947 48.284-48.597 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zM232.615 351.485V160.515L383.982 256 232.615 351.485z" fill="none" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+        <!-- /wp:html -->
 
-      <!-- wp:list {"className":"footer-connect__list"} -->
-      <ul class="footer-connect__list">
-        <!-- wp:list-item -->
-        <li><a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a></li>
-        <!-- /wp:list-item -->
+      </div>
+      <!-- /wp:column -->
 
-        <!-- wp:list-item -->
-        <li><a href="/contact/">Book a discovery call →</a></li>
-        <!-- /wp:list-item -->
-      </ul>
-      <!-- /wp:list -->
+      <!-- Quick Links Column (Right) -->
+      <!-- wp:column {"verticalAlignment":"center","className":"footer-column footer-links"} -->
+      <div class="wp-block-column is-vertically-aligned-center footer-column footer-links">
 
-      <!-- wp:social-links {"className":"social-links-menu","layout":{"type":"flex"},"style":{"spacing":{"blockGap":{"top":"18px","left":"18px"}}},"label":"Social media"} -->
-      <ul class="wp-block-social-links social-links-menu" aria-label="Social media">
-        <!-- wp:social-link {"url":"https://www.facebook.com/mcculloughdigital","service":"facebook"} /-->
-        <!-- wp:social-link {"url":"https://www.instagram.com/mcculloughdigital","service":"instagram"} /-->
-        <!-- wp:social-link {"url":"https://www.linkedin.com/company/mccullough-digital/","service":"linkedin"} /-->
-      </ul>
-      <!-- /wp:social-links -->
+        <!-- wp:paragraph {"className":"footer-section-title","style":{"spacing":{"margin":{"bottom":"15px"}}}} -->
+        <p class="footer-section-title" style="margin-bottom:15px">Quick Links</p>
+        <!-- /wp:paragraph -->
 
-    </div>
-    <!-- /wp:column -->
+        <!-- wp:navigation {"className":"footer-nav","overlayMenu":"never","layout":{"type":"flex","orientation":"vertical"},"style":{"spacing":{"blockGap":"10px"}}} /-->
+
+      </div>
+      <!-- /wp:column -->
 
     </div>
     <!-- /wp:columns -->
 
-    <!-- Copyright -->
-    <!-- wp:paragraph {"align":"center","className":"site-info","style":{"typography":{"fontSize":"0.9rem"}}} -->
-    <p class="has-text-align-center site-info" style="font-size:0.9rem">© 2025 McCullough Digital. Crafted with heart, strategy, and a dash of neon.</p>
+    <!-- Copyright - More Compact -->
+    <!-- wp:paragraph {"align":"center","className":"site-info","style":{"typography":{"fontSize":"0.85rem"},"spacing":{"margin":{"top":"clamp(20px, 3vw, 30px)"}}}} -->
+    <p class="has-text-align-center site-info" style="font-size:0.85rem;margin-top:clamp(20px, 3vw, 30px)">&copy; 2025 McCullough Digital · Crafted with 💙 and ⚡</p>
     <!-- /wp:paragraph -->
 
   </div>

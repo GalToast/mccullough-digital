@@ -4,7 +4,7 @@ Theme URI:     https://mccullough.digital/
 Author:        McCullough Digital
 Author URI:    https://mccullough.digital/
 Description:   Custom theme scaffold with fixed header, mobile menu, and simple template hierarchy.
-Version:       1.2.39
+Version:       1.2.44
 License:       GNU General Public License v2 or later
 License URI:   http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:   mccullough-digital
@@ -12,7 +12,9 @@ Text Domain:   mccullough-digital
 
 /* --- Variables --- */
 :root {
-    --header-height: 70px;
+    --logo-size-header: clamp(56px, 6vw, 68px);
+    --logo-size-footer: clamp(96px, 14vw, 140px);
+    --header-height: calc(var(--logo-size-header, 70px) + 30px); /* logo height + header padding */
     --mcd-header-offset: var(--header-height);
     --mcd-admin-bar-offset: 0px;
     /* New Softer Palette */
@@ -24,6 +26,14 @@ Text Domain:   mccullough-digital
     --surface-border: var(--wp--preset--color--surface-border, #1d2330);
     --text-primary: #e6f1ff;
     --text-secondary: #c5d8f2;
+    --font-hero: 'Caveat', 'Segoe Script', cursive;
+    --font-display: 'Manrope', 'Nunito', 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-body: 'Manrope', 'Nunito', 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-ui: var(--font-display);
+    --page-background:
+        radial-gradient(circle at 20% 0%, rgba(255, 0, 224, 0.08), transparent 58%),
+        radial-gradient(circle at 82% 14%, rgba(0, 229, 255, 0.12), transparent 62%),
+        linear-gradient(180deg, rgba(8, 12, 28, 1) 0%, rgba(6, 10, 24, 1) 48%, rgba(5, 8, 20, 1) 100%);
 
     /* Z-indexes */
     --z-index-default: 1;
@@ -31,9 +41,6 @@ Text Domain:   mccullough-digital
     --z-index-content: 2;
     --z-index-header: 1000;
     --z-index-modal: 1001;
-
-    --logo-size-header: clamp(56px, 6vw, 68px);
-    --logo-size-footer: clamp(96px, 14vw, 140px);
 }
 
 /* --- Base reset --- */
@@ -50,9 +57,26 @@ html, body {
 }
 
 body {
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    background: var(--background-dark);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+    background: var(--page-background);
+    background-color: var(--background-dark);
     color: var(--text-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    line-height: 1.2;
+    text-rendering: optimizeLegibility;
 }
 
 body.admin-bar {
@@ -82,7 +106,12 @@ main.site-content {
     padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
 }
 
-/* Remove padding on homepage - hero goes edge-to-edge */
+body.blog main:not(.site-content),
+body.archive main:not(.site-content) {
+    padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
+}
+
+body.home main,
 body.home main.site-content {
     padding-top: 0;
 }
@@ -246,7 +275,8 @@ body.home main.site-content {
     text-decoration: none;
     color: var(--text-primary);
     font-size: 2em; /* Increased size for handwritten font */
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-hero);
+    letter-spacing: 0.045em;
     transition: all 0.3s ease;
 }
 .site-title a:hover {
@@ -276,8 +306,9 @@ body.home main.site-content {
     padding: 10px 5px;
     position: relative;
     transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.4s ease;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1.1em;
+    font-family: var(--font-ui);
+    font-size: 1.05em;
+    letter-spacing: 0.08em;
     text-shadow: 0 0 10px rgba(230, 241, 255, 0.25);
 }
 
@@ -316,7 +347,7 @@ body.home main.site-content {
 .wp-block-button__link.cta-button:not(.hero__cta-button),
 .post-card .wp-block-read-more a {
     padding: 15px 42px;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.2rem;
     color: var(--text-primary);
@@ -545,7 +576,7 @@ body.home main.site-content {
 /* --- Footer --- */
 #colophon.site-footer {
     position: relative;
-    padding: clamp(32px, 4vw, 56px) clamp(24px, 6vw, 64px);
+    padding: clamp(40px, 5vw, 50px) clamp(24px, 4vw, 48px) clamp(30px, 4vw, 40px);
     color: var(--text-secondary);
     background-color: var(--background-dark);
     background-image:
@@ -554,6 +585,86 @@ body.home main.site-content {
         linear-gradient(160deg, rgba(8, 12, 22, 0.9), rgba(8, 12, 22, 0.78));
     overflow: hidden;
     isolation: isolate;
+}
+
+/* Neon Social Icons: sizing, layout, hover glow */
+.neon-social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 0;
+}
+
+.footer-company .neon-social-icons {
+    justify-content: center;
+}
+
+.neon-social-icons .neon-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 0 0 0 1px rgba(230, 241, 255, 0.06);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.neon-social-icons .neon-icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.neon-social-icons .neon-icon:hover,
+.neon-social-icons .neon-icon:focus-visible {
+    transform: translateY(-2px) scale(1.04);
+    filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.45));
+    outline: none;
+}
+
+/* Ensure Connect column links match theme, not browser default */
+.footer-connect {
+    gap: 10px;
+    padding-right: clamp(24px, 4vw, 42px);
+}
+
+.footer-connect a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.footer-connect a:visited {
+    color: var(--text-secondary);
+}
+
+.footer-connect a:hover,
+.footer-connect a:focus-visible {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
+    outline: none;
+}
+
+.footer-connect p {
+    margin: 0;
+}
+
+.footer-connect p + p {
+    margin-top: 0;
+}
+
+/* Hide the older broken contact paragraph in Connect column */
+.footer-connect p.has-small-font-size:last-of-type {
+    display: none;
+}
+
+/* Ensure the new fixed contact link gets a bit more emphasis */
+.footer-contact-fixed a {
+    font-weight: 700;
 }
 
 #colophon.site-footer::before,
@@ -629,7 +740,7 @@ body.home main.site-content {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: clamp(20px, 3vw, 32px);
+    gap: clamp(20px, 3vw, 30px);
     position: relative;
     z-index: var(--z-index-content);
     align-items: stretch;
@@ -656,11 +767,19 @@ body.home main.site-content {
 
 .footer-core {
     display: grid;
-    grid-template-columns: minmax(220px, max-content) repeat(2, minmax(200px, 1fr));
-    gap: clamp(24px, 4vw, 48px);
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 80px);
     align-items: start;
     justify-content: center;
     margin-bottom: 0;
+}
+
+.wp-block-columns.are-vertically-aligned-center.footer-core {
+    align-items: start;
+}
+
+.footer-core .wp-block-column.is-vertically-aligned-center {
+    align-self: start;
 }
 
 .footer-core > * {
@@ -671,17 +790,46 @@ body.home main.site-content {
 .footer-column {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     align-items: flex-start;
 }
 
+.footer-connect,
 .footer-links {
-    gap: 20px;
+    max-width: clamp(220px, 24vw, 280px);
 }
+
+.footer-column:not(.footer-company) {
+    font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+    line-height: 1.45;
+}
+
+.footer-column:not(.footer-company) a {
+    font-size: inherit;
+}
+
+.footer-column .has-small-font-size {
+    font-size: inherit;
+}
+
+.footer-company {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    justify-self: center;
+}
+
+.footer-links {
+    gap: 12px;
+    padding-left: clamp(24px, 4vw, 42px);
+}
+
+/* Columns are auto-positioned in order: Connect, Company (center), Links */
 
 .footer-company .wp-block-site-logo {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .footer-tagline {
@@ -690,6 +838,8 @@ body.home main.site-content {
     margin: 0;
     max-width: 320px;
 }
+
+.footer-company .footer-tagline { text-align: center; }
 
 .footer-nav {
     list-style: none;
@@ -734,14 +884,10 @@ body.home main.site-content {
 .footer-section-title {
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.85rem;
-    color: rgba(230, 241, 255, 0.65);
-    margin: 0 0 16px;
-}
-
-.footer-connect {
-    gap: 20px;
+    letter-spacing: 0.14em;
+    font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+    color: rgba(230, 241, 255, 0.78);
+    margin: 0 0 18px;
 }
 
 .footer-connect__list {
@@ -815,11 +961,11 @@ body.home main.site-content {
 }
 
 .site-info {
-    font-size: 0.9em;
+    font-size: 0.85rem;
     text-align: center;
     color: rgba(197, 216, 242, 0.8);
     margin-top: 0;
-    padding-top: 24px;
+    padding-top: 20px;
 }
 
 /* Remove any spacer blocks or extra spacing in footer */
@@ -1175,13 +1321,13 @@ body.home main.site-content {
     .footer-container {
         align-items: center;
         text-align: center;
-        gap: 40px;
+        gap: 24px;
     }
 
     .footer-core {
         grid-template-columns: 1fr;
         justify-items: center;
-        gap: 40px;
+        gap: 24px;
     }
 
     .footer-column {
@@ -1189,9 +1335,27 @@ body.home main.site-content {
         width: 100%;
     }
 
-    .footer-company .wp-block-site-logo {
-        justify-content: center;
-    }
+.footer-company .wp-block-site-logo {
+    justify-content: center;
+}
+
+/* Keep legacy left column visible for now */ .footer-company { display: flex; align-items: center; }
+
+/* Centered brand row */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    margin-bottom: clamp(8px, 2vw, 14px);
+}
+
+.footer-brand .footer-logo .custom-logo {
+    max-height: clamp(64px, 10vw, 100px);
+}
+
+.footer-brand .neon-social-icons { margin-top: 6px; }
 
     .footer-nav {
         align-items: center;
@@ -1238,7 +1402,7 @@ body.home main.site-content {
 
 /* Use the existing section-title class for consistency */
 .page-header-container .section-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(3rem, 7vw, 4.5rem);
     text-align: center;
     margin-bottom: 0; /* Remove bottom margin as it's the only element */
@@ -1343,7 +1507,7 @@ body.home main.site-content {
 }
 
 .blog-hero__title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(3rem, 8vw, 5rem);
     margin: 0;
     color: var(--text-primary);
@@ -1575,7 +1739,7 @@ body.home main.site-content {
 }
 
 .latest-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(2.4rem, 5vw, 3.1rem);
     line-height: 1.1;
     margin: 0;
@@ -1725,7 +1889,7 @@ body.home main.site-content {
 }
 
 .post-card__title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(2rem, 4vw, 2.6rem);
     line-height: 1.2;
     margin: 0;
@@ -1806,11 +1970,7 @@ body.home main.site-content {
 
 @media (max-width: 768px) {
     .blog-hero {
-        padding: calc(
-                var(--mcd-header-offset, var(--header-height))
-                + var(--mcd-admin-bar-offset, 0px)
-                + 56px
-            ) 24px clamp(56px, 10vw, 88px);
+        padding: clamp(56px, 10vw, 88px) 24px clamp(56px, 10vw, 88px);
     }
 
     .blog-hero__inner {
@@ -1849,7 +2009,7 @@ body.home main.site-content {
 }
 
 .comments-area .comments-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: 2.5rem;
     color: var(--text-primary);
 }
@@ -1909,7 +2069,7 @@ body.home main.site-content {
 .comment-form .submit {
     display: inline-block;
     padding: 12px 30px;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--text-primary);
@@ -1942,7 +2102,7 @@ body.home main.site-content {
 .search-form .search-submit {
     display: inline-block;
     padding: 10px 25px;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 1rem;
     color: var(--text-primary);

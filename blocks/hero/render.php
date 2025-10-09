@@ -46,7 +46,20 @@ $hide_image_on_mobile   = isset( $attributes['hideImageOnMobile'] ) && $attribut
 
 $inner_content = trim( (string) $content );
 
-if ( '' === $inner_content ) {
+if ( '' !== $inner_content ) {
+    if ( has_blocks( $inner_content ) ) {
+        $parsed_blocks = parse_blocks( $inner_content );
+        $rendered      = '';
+
+        foreach ( $parsed_blocks as $parsed_block ) {
+            $rendered .= render_block( $parsed_block );
+        }
+
+        $inner_content = trim( $rendered );
+    } else {
+        $inner_content = trim( wp_kses_post( $inner_content ) );
+    }
+} else {
     ob_start();
 
     if ( '' !== trim( wp_strip_all_tags( (string) $headline ) ) ) {

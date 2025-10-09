@@ -11,8 +11,8 @@
 
 $admin_debug_comment = '';
 $button_text         = isset( $attributes['buttonText'] ) ? trim( wp_strip_all_tags( (string) $attributes['buttonText'] ) ) : '';
-$button_link = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
-$open_new_tab = isset( $attributes['opensInNewTab'] ) ? (bool) $attributes['opensInNewTab'] : false;
+$button_link         = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
+$open_new_tab        = isset( $attributes['opensInNewTab'] ) ? (bool) $attributes['opensInNewTab'] : false;
 
 if ( '' === $button_text ) {
     if ( function_exists( 'mcd_get_neon_button_default_label' ) ) {
@@ -41,6 +41,12 @@ $button_contents = sprintf(
     esc_html( $button_text )
 );
 
+ob_start();
+
+if ( '' !== $admin_debug_comment ) {
+    echo $admin_debug_comment; // Show debug hint only for admins in debug mode.
+}
+
 if ( '' !== $button_link ) {
     $link_attrs = array(
         'class' => $button_classes,
@@ -57,17 +63,21 @@ if ( '' !== $button_link ) {
         $attrs_str .= sprintf( ' %s="%s"', esc_attr( $key ), esc_attr( $value ) );
     }
 
-    return $admin_debug_comment . sprintf(
+    $markup = sprintf(
         '<div %1$s><a%2$s>%3$s</a></div>',
         $wrapper_attributes,
         $attrs_str,
         $button_contents
     );
+    echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped above.
+} else {
+    $markup = sprintf(
+        '<div %1$s><button class="%2$s" type="button">%3$s</button></div>',
+        $wrapper_attributes,
+        esc_attr( $button_classes ),
+        $button_contents
+    );
+    echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped above.
 }
 
-return $admin_debug_comment . sprintf(
-    '<div %1$s><button class="%2$s" type="button">%3$s</button></div>',
-    $wrapper_attributes,
-    esc_attr( $button_classes ),
-    $button_contents
-);
+return ob_get_clean();

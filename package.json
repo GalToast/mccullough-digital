@@ -5,17 +5,20 @@
   "description": "Build tooling for the McCullough Digital WordPress theme.",
   "scripts": {
     "build": "wp-scripts build",
-    "start": "wp-scripts start"
+    "start": "wp-scripts start",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "framer-motion": "^11.11.17",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "framer-motion": "^11.11.17"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.25.9",
     "@babel/runtime": "^7.26.0",
-    "@wordpress/scripts": "^27.1.0",
+    "@playwright/test": "^1.56.0",
+    "@wordpress/scripts": "^30.25.0",
     "glob": "^10.3.10",
     "mdn-data": "^2.0.30",
     "schema-utils": "^4.3.2"

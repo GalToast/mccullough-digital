@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Manrope:wght@300;400;500;600;700&display=swap');
 
 :root {
     --header-height: 100px;
@@ -12,6 +12,14 @@
     --surface-border: var(--wp--preset--color--surface-border, #1d2330);
     --text-primary: #e6f1ff;
     --text-secondary: #c5d8f2;
+    --font-hero: 'Caveat', 'Segoe Script', cursive;
+    --font-display: 'Manrope', 'Nunito', 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-body: 'Manrope', 'Nunito', 'Segoe UI', Helvetica, Arial, sans-serif;
+    --font-ui: var(--font-display);
+    --page-background:
+        radial-gradient(circle at 20% 0%, rgba(255, 0, 224, 0.08), transparent 58%),
+        radial-gradient(circle at 82% 14%, rgba(0, 229, 255, 0.12), transparent 62%),
+        linear-gradient(180deg, rgba(8, 12, 28, 1) 0%, rgba(6, 10, 24, 1) 48%, rgba(5, 8, 20, 1) 100%);
 
     --logo-size-header: clamp(56px, 6vw, 68px);
     --logo-size-footer: clamp(96px, 14vw, 140px);
@@ -26,10 +34,51 @@
     }
 }
 
+@keyframes heroNeonPulse {
+    0% {
+        text-shadow:
+            0 0 14px rgba(255, 0, 224, 0.75),
+            0 0 36px rgba(255, 0, 224, 0.5),
+            0 0 58px rgba(0, 229, 255, 0.28);
+        filter: drop-shadow(0 0 18px rgba(255, 0, 224, 0.25));
+    }
+    50% {
+        text-shadow:
+            0 0 22px rgba(255, 0, 224, 0.95),
+            0 0 52px rgba(255, 0, 224, 0.65),
+            0 0 80px rgba(0, 229, 255, 0.35);
+        filter: drop-shadow(0 0 26px rgba(255, 0, 224, 0.4));
+    }
+    100% {
+        text-shadow:
+            0 0 16px rgba(255, 0, 224, 0.85),
+            0 0 42px rgba(255, 0, 224, 0.55),
+            0 0 64px rgba(0, 229, 255, 0.35);
+        filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.32));
+    }
+}
+
 .editor-styles-wrapper {
-    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
     color: var(--text-primary);
+    background: var(--page-background);
     background-color: var(--background-dark);
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    line-height: 1.2;
+    text-rendering: optimizeLegibility;
 }
 
 .editor-styles-wrapper .site-header .custom-logo,
@@ -54,7 +103,7 @@
     align-items: center;
     justify-content: center;
     padding: 15px 42px;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.2rem;
     color: var(--text-primary);
@@ -132,7 +181,7 @@
 }
 
 .editor-styles-wrapper .section-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     color: var(--text-primary);
 }
 
@@ -246,7 +295,7 @@
     margin-right: 0;
     align-self: auto;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
-    font-family: "Nunito", sans-serif;
+    font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(1rem, 1.9vw, 1.15rem);
     letter-spacing: 0.04em;
@@ -345,18 +394,38 @@
 
 
 .editor-styles-wrapper .hero h1 {
-    font-family: 'Caveat', cursive;
-    font-size: clamp(3rem, 9vw, 6rem);
-    color: var(--text-primary);
-    margin: 0 0 20px 0;
-    line-height: 1.1;
-    text-shadow: 0 0 10px var(--neon-magenta), 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-cyan);
+    font-family: var(--font-hero);
+    font-size: clamp(3.6rem, 10vw, 6.8rem);
+    color: var(--neon-magenta);
+    margin: 0 0 16px 0;
+    line-height: 1.05;
+    letter-spacing: clamp(0.02em, 0.16vw, 0.08em);
+    text-shadow:
+        0 0 16px rgba(255, 0, 224, 0.85),
+        0 0 42px rgba(255, 0, 224, 0.55),
+        0 0 64px rgba(0, 229, 255, 0.35);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+    filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.32));
+    animation: heroNeonPulse 4s ease-in-out infinite alternate;
 }
 
 .editor-styles-wrapper .hero p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--text-secondary);
-    margin: 0 auto 40px auto;
+    font-family: var(--font-body);
+    font-size: clamp(1.05rem, 2.8vw, 1.45rem);
+    color: rgba(200, 220, 255, 0.9);
+    max-width: min(640px, 85vw);
+    margin: 0 auto clamp(28px, 6vh, 42px) auto;
+    font-weight: 400;
+    letter-spacing: 0.015em;
+    line-height: 1.7;
+    text-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .editor-styles-wrapper .hero h1 {
+        animation: none;
+        filter: none;
+    }
 }
 
 .editor-styles-wrapper .section-title {
@@ -368,6 +437,13 @@
     left: 50%;
     transform: translateX(-50%);
     padding-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--neon-magenta);
+    text-shadow:
+        0 0 22px rgba(255, 0, 224, 0.35),
+        0 0 44px rgba(0, 229, 255, 0.25);
 }
 
 .editor-styles-wrapper .section-title::after {
@@ -376,11 +452,14 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    height: 3px;
-    background: var(--neon-cyan);
+    width: min(82%, 520px);
+    height: 4px;
+    background: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
     border-radius: 2px;
-    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+    box-shadow:
+        0 0 8px rgba(255, 0, 224, 0.4),
+        0 0 16px rgba(0, 229, 255, 0.35),
+        0 0 24px rgba(0, 229, 255, 0.25);
 }
 
 /* Footer Preview */
@@ -568,15 +647,23 @@
 }
 
 .editor-styles-wrapper .service-card h3 {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     font-size: 2rem;
     color: var(--text-primary);
-    margin: 0;
+    margin: 0 0 15px 0;
+    text-shadow:
+        0 0 12px rgba(255, 0, 224, 0.28),
+        0 0 28px rgba(0, 229, 255, 0.18);
 }
 
 .editor-styles-wrapper .service-card p {
-    color: var(--text-secondary);
-    margin: 0;
+    color: rgba(200, 214, 245, 0.88);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 20px;
 }
 
 .editor-styles-wrapper .learn-more,
@@ -737,7 +824,7 @@
 }
 
 .editor-styles-wrapper .blog-hero__title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(3rem, 8vw, 5rem);
     margin: 0;
     color: var(--text-primary);
@@ -946,7 +1033,7 @@
 }
 
 .editor-styles-wrapper .latest-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(2.4rem, 5vw, 3.1rem);
     line-height: 1.1;
     margin: 0;
@@ -1075,7 +1162,7 @@
 }
 
 .editor-styles-wrapper .post-card__title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
     font-size: clamp(2rem, 4vw, 2.6rem);
     line-height: 1.2;
     margin: 0;

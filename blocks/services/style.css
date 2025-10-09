@@ -1,15 +1,21 @@
 /* --- General Section Styling & Neon Underlines --- */
 h2.section-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-display);
+    font-weight: 700;
     font-size: clamp(3rem, 7vw, 4.5rem);
     text-align: center;
     margin-bottom: 60px;
-    color: var(--text-primary);
+    color: var(--neon-magenta);
     position: relative;
     display: inline-block;
     left: 50%;
     transform: translateX(-50%);
     padding-bottom: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-shadow:
+        0 0 22px rgba(255, 0, 224, 0.35),
+        0 0 44px rgba(0, 229, 255, 0.25);
 }
 
 h2.section-title::after {
@@ -18,11 +24,14 @@ h2.section-title::after {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    height: 3px;
-    background: var(--neon-cyan);
+    width: min(82%, 520px);
+    height: 4px;
+    background: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
     border-radius: 2px;
-    box-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+    box-shadow:
+        0 0 8px rgba(255, 0, 224, 0.4),
+        0 0 16px rgba(0, 229, 255, 0.35),
+        0 0 24px rgba(0, 229, 255, 0.25);
 }
 
 /* --- Services Section --- */
@@ -101,16 +110,22 @@ h2.section-title::after {
 }
 
 .service-card h3 {
-    font-family: 'Caveat', cursive;
-    font-size: 2.2rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-size: 2rem;
     margin: 0 0 15px 0;
     color: var(--text-primary);
+    text-transform: uppercase;
+    text-shadow:
+        0 0 12px rgba(255, 0, 224, 0.28),
+        0 0 28px rgba(0, 229, 255, 0.18);
 }
 
 .service-card p {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.6;
+    color: rgba(200, 214, 245, 0.88);
+    font-size: 1.05rem;
+    line-height: 1.75;
     margin-bottom: 20px;
 }
 
