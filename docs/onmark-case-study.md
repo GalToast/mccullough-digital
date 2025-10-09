@@ -45,6 +45,6 @@ _Last updated: October 9, 2025_
 | Paid Media | Avg. CPC (July Traffic) | $0.21 |
 
 ## How to Reference
-- **Services Page:** Use highlights to illustrate commercial-first results, dual segmentation strategy, and automation stack impact.
-- **Project Decks / Proposals:** Leverage the KPI snapshot and GEO notes when positioning advanced technical SEO and AI-search readiness.
-- **Future Case Studies:** Update metrics quarterly and append net-new platform wins (e.g., additional AI assistants, new market expansions).
+- **Services Page:** Leverage the Onmark highlight + KPI dashboard blocks (Service Index hero → Onmark section) to surface GEO/AI wins and the paid burst story.
+- **Project Decks / Proposals:** Pull from the KPI snapshot and GEO notes when positioning advanced technical SEO, AI-search readiness, and automation workflows.
+- **Future Case Studies:** Update metrics quarterly, append new AI assistant placements, and mirror the KPI dashboard layout when publishing new showcases.

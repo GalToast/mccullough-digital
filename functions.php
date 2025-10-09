@@ -94,6 +94,24 @@ function mcd_enqueue_homepage_v3_styles() {
 add_action( 'wp_enqueue_scripts', 'mcd_enqueue_homepage_v3_styles' );
 
 /**
+ * Enqueue case study styles on the dedicated template/page.
+ */
+function mcd_enqueue_case_study_styles() {
+    if ( is_page( 'case-studies' ) ) {
+        $css_path = get_theme_file_path( 'assets/case-study.css' );
+        if ( file_exists( $css_path ) ) {
+            wp_enqueue_style(
+                'mcd-case-study',
+                get_theme_file_uri( 'assets/case-study.css' ),
+                array( 'mcd-style' ),
+                filemtime( $css_path )
+            );
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'mcd_enqueue_case_study_styles' );
+
+/**
  * Back-compat for wp_body_open (if very old WP)
  */
 if ( ! function_exists( 'wp_body_open' ) ) {

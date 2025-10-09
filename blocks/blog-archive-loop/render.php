@@ -83,13 +83,15 @@ if ( ! function_exists( 'mcd_render_category_pills' ) ) {
                 $classes[] = 'is-active';
             }
 
-            $data_attr = $slug ? ' data-category="' . esc_attr( $slug ) . '"' : ' data-category="all"';
+            $data_attr      = $slug ? ' data-category="' . esc_attr( $slug ) . '"' : ' data-category="all"';
+            $aria_attribute = $is_current ? ' aria-current="page"' : '';
+            $attribute_html = $data_attr . $aria_attribute;
 
             $output .= sprintf(
                 '<li><a class="%1$s" href="%2$s"%3$s>%4$s</a></li>',
                 esc_attr( implode( ' ', $classes ) ),
                 esc_url( $url ),
-                $data_attr,
+                $attribute_html,
                 esc_html( $label )
             );
         }
@@ -292,7 +294,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
                 ?>
             </div>
             <?php if ( 0 === $rendered_posts ) : ?>
-                <p class="post-grid__empty"><?php esc_html_e( 'No additional posts yet—check back soon for more stories.', 'mccullough-digital' ); ?></p>
+                <p class="post-grid__empty"><?php esc_html_e( 'No additional posts yet; check back soon for more stories.', 'mccullough-digital' ); ?></p>
             <?php endif; ?>
             <?php
             $pagination_links = paginate_links(

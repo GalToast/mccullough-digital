@@ -660,6 +660,62 @@
 })();
 
 // Mobile Menu - Add loading state when clicking nav items
+(() => {
+    const setAltWhenEmpty = (img, fallbackText) => {
+        if (!img) {
+            return;
+        }
+
+        const currentAlt = img.getAttribute('alt');
+
+        if (typeof currentAlt === 'string' && currentAlt.trim().length > 0) {
+            return;
+        }
+
+        if (typeof fallbackText === 'string' && fallbackText.trim().length > 0) {
+            img.setAttribute('alt', fallbackText.trim());
+            return;
+        }
+
+        // Provide a generic but descriptive fallback so the image isn't announced as "graphic".
+        img.setAttribute('alt', 'Illustration for the highlighted service');
+    };
+
+    const collectHeadingText = (root) => {
+        if (!root) {
+            return '';
+        }
+
+        const heading = root.querySelector('h1, h2, h3, h4, h5, h6');
+        if (heading && heading.textContent) {
+            return heading.textContent.trim();
+        }
+
+        const paragraph = root.querySelector('p');
+        return paragraph && paragraph.textContent ? paragraph.textContent.trim() : '';
+    };
+
+    const applyFallbackAltText = () => {
+        const serviceColumns = document.querySelectorAll('.services-section-v2 .wp-block-column, .service-card-v2');
+        serviceColumns.forEach((column) => {
+            const image = column.querySelector('img');
+            const fallback = collectHeadingText(column);
+            setAltWhenEmpty(image, fallback);
+        });
+
+        const caseStudyCards = document.querySelectorAll('.case-study-card, .case-study-spotlight');
+        caseStudyCards.forEach((card) => {
+            const image = card.querySelector('img');
+            const fallback = collectHeadingText(card);
+            setAltWhenEmpty(image, fallback || 'Case study visual detail');
+        });
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        applyFallbackAltText();
+    });
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     const mobileNavLinks = document.querySelectorAll('.wp-block-navigation__responsive-container .wp-block-navigation-item__content');
     

@@ -17,6 +17,15 @@ McCullough Digital delivers a performant block theme with a fixed, auto-hiding h
 * **AGENTS.md** – Contributor workflow, build steps, and current focus items.
 * **bug-report.md** – Rolling QA log summarizing recent sweeps and pending regressions.
 * **Web and Graphic Design 101.md** – Design language, accessibility, and visual references.
+* **docs/onmark-case-study.md** – Onmark LLC success playbook with KPI callouts and GEO/AI wins now referenced from the Services page.
+
+== Visual QA ==
+
+Whenever you modify front-end spacing, block templates, or component styling, run a quick visual inspection:
+
+1. Load the affected page in Chrome DevTools (or Playwright preview) and confirm the DOM reflects the expected classes/blocks (for example, `.featured-card` + `.post-card` on the blog template).
+2. Capture a full-page screenshot or note computed styles (e.g., verify pill borders, hero padding) to ensure the live output matches the new CSS.
+3. Flush the local WP cache (`wp cache flush`) and hard-refresh the browser so subsequent teammates don’t see stale markup.
 
 == Key Features ==
 

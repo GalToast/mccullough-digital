@@ -41,6 +41,9 @@ Text Domain:   mccullough-digital
     --z-index-content: 2;
     --z-index-header: 1000;
     --z-index-modal: 1001;
+    --focus-ring-color: var(--neon-cyan);
+    --focus-ring-offset: 3px;
+    --focus-ring-shadow: 0 0 0 3px rgba(0, 229, 255, 0.35);
 }
 
 /* --- Base reset --- */
@@ -109,6 +112,12 @@ main.site-content {
 body.blog main:not(.site-content),
 body.archive main:not(.site-content) {
     padding-top: calc(var(--mcd-header-offset, var(--header-height)) + var(--mcd-admin-bar-offset, 0px));
+}
+
+body.blog main.blog-page,
+body.archive main.blog-page {
+    padding-top: 0;
+    margin-top: 0;
 }
 
 body.home main,
@@ -622,7 +631,14 @@ body.home main.site-content {
 .neon-social-icons .neon-icon:focus-visible {
     transform: translateY(-2px) scale(1.04);
     filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.45));
-    outline: none;
+}
+
+.neon-social-icons .neon-icon:focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    box-shadow:
+        inset 0 0 0 1px rgba(230, 241, 255, 0.06),
+        var(--focus-ring-shadow);
 }
 
 /* Ensure Connect column links match theme, not browser default */
@@ -646,7 +662,12 @@ body.home main.site-content {
 .footer-connect a:focus-visible {
     color: var(--neon-cyan);
     text-shadow: 0 0 10px rgba(0, 229, 255, 0.45);
-    outline: none;
+}
+
+.footer-connect a:focus-visible {
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
+    box-shadow: var(--focus-ring-shadow);
 }
 
 .footer-connect p {
@@ -1588,6 +1609,19 @@ body.home main.site-content {
     margin: clamp(12px, 2vw, 24px) auto 0;
 }
 
+.wp-block-search.blog-search .wp-block-search__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    border: 0;
+    white-space: nowrap;
+}
+
 .wp-block-search.blog-search .wp-block-search__inside-wrapper {
     display: flex;
     gap: 12px;
@@ -1607,7 +1641,8 @@ body.home main.site-content {
 }
 
 .wp-block-search.blog-search .wp-block-search__input:focus {
-    outline: none;
+    outline: 2px solid var(--focus-ring-color);
+    outline-offset: var(--focus-ring-offset);
     border-color: var(--neon-cyan);
     box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
 }
@@ -1658,29 +1693,6 @@ body.home main.site-content {
 
 .category-filters__list li {
     margin: 0;
-}
-
-.category-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 10px 25px;
-    background: transparent;
-    border: 2px solid var(--surface-border);
-    border-radius: 999px;
-    color: var(--text-secondary);
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.category-pill:hover,
-.category-pill:focus-visible,
-.category-pill.is-active {
-    border-color: var(--neon-cyan);
-    color: var(--neon-cyan);
-    background: rgba(0, 229, 255, 0.1);
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
 }
 
 .latest-post {
@@ -2257,4 +2269,339 @@ body.home main.site-content {
         transform: scale(0.95) !important;
         transition: transform 0.1s ease !important;
     }
+}
+/* -------------------------------------------------------------------------- */
+/* Blog layout refresh                                                         */
+/* -------------------------------------------------------------------------- */
+.blog-page {
+  background: radial-gradient(circle at 20% 0%, rgba(255, 0, 224, 0.08), transparent 58%),
+              radial-gradient(circle at 82% 14%, rgba(0, 229, 255, 0.12), transparent 62%),
+              linear-gradient(180deg, rgba(8, 12, 28, 1) 0%, rgba(6, 10, 24, 1) 48%, rgba(5, 8, 20, 1) 100%);
+  color: var(--text-primary);
+  margin-top: 0;
+  padding-top: 0;
+}
+.blog-container {
+  width: min(1200px, 92%);
+  margin: 0 auto;
+}
+.blog-hero {
+  margin-top: 0;
+  padding: clamp(56px, 8vw, 96px) 0 clamp(36px, 5vw, 60px);
+}
+.blog-hero__inner {
+  max-width: 720px;
+}
+.blog-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  margin: 0 0 12px;
+}
+.blog-hero__title {
+  font-size: clamp(2.6rem, 6vw, 3.8rem);
+  margin: 0 0 16px;
+}
+.blog-hero__subtitle {
+  color: var(--text-secondary);
+  margin: 0 0 28px;
+  line-height: 1.7;
+}
+.blog-search {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.blog-search__input {
+  flex: 1 1 260px;
+  min-width: 220px;
+  background: rgba(20, 22, 28, 0.9);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  padding: 12px 18px;
+  color: var(--text-primary);
+}
+.blog-search__button {
+  background: linear-gradient(120deg, var(--neon-cyan), var(--neon-magenta));
+  border: none;
+  border-radius: 999px;
+  color: var(--background-dark);
+  font-weight: 700;
+  padding: 12px 26px;
+  cursor: pointer;
+}
+.blog-categories {
+  padding-bottom: clamp(28px, 5vw, 48px);
+  margin-top: clamp(12px, 2vw, 20px);
+}
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.blog-featured {
+  padding: clamp(32px, 5vw, 60px) 0;
+}
+.featured-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  background: rgba(20, 22, 28, 0.92);
+  border: 1px solid var(--surface-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(4, 8, 20, 0.55);
+}
+.featured-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 3;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: linear-gradient(120deg, var(--neon-cyan), var(--neon-magenta));
+  color: var(--background-dark);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  box-shadow: 0 12px 24px rgba(0, 229, 255, 0.3);
+}
+.featured-media {
+  position: relative;
+  min-height: clamp(260px, 30vw, 380px);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(149, 158, 190, 0.1);
+}
+.featured-media .wp-block-cover__background {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.18), rgba(255, 0, 224, 0.18));
+  opacity: 1;
+}
+.featured-media .wp-block-cover__inner-container {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+}
+.featured-media .featured-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.featured-media .featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+}
+.featured-content {
+  padding: clamp(28px, 4vw, 44px);
+  display: grid;
+  gap: 16px;
+}
+.featured-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.term-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.featured-title {
+  margin: 0;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+.featured-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.featured-title a:hover {
+  color: var(--neon-cyan);
+}
+.featured-excerpt {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.7;
+}
+.blog-grid {
+  padding: clamp(48px, 8vw, 80px) 0 clamp(60px, 8vw, 100px);
+}
+.post-grid {
+  display: grid;
+  gap: clamp(24px, 4vw, 40px);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.post-card {
+  background: rgba(20, 22, 28, 0.9);
+  border: 1px solid var(--surface-border);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.post-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 18px 40px rgba(0, 229, 255, 0.2);
+}
+.post-card__image {
+  position: relative;
+  min-height: 180px;
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.12), rgba(255, 0, 224, 0.12));
+  overflow: hidden;
+}
+.post-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.post-card__body {
+  padding: clamp(22px, 3vw, 32px);
+  display: grid;
+  gap: 12px;
+}
+.post-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.post-card__terms {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.post-card__terms a {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-size: 0.78rem;
+}
+.post-card__title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+}
+.post-card__title a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.post-card__title a:hover {
+  color: var(--neon-cyan);
+}
+.post-card__excerpt {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+.text-link {
+  color: var(--neon-cyan);
+  font-weight: 600;
+  text-decoration: none;
+}
+.blog-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: clamp(28px, 4vw, 48px);
+}
+.pagination-link a,
+.pagination-link span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--surface-border);
+  background: rgba(15, 16, 24, 0.9);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+.pagination-link a:hover,
+.pagination-link span.current {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
+}
+.blog-empty {
+  padding: 80px 0;
+  text-align: center;
+  color: var(--text-secondary);
+}
+@media (max-width: 960px) {
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .blog-hero {
+    padding-top: 80px;
+  }
+  .blog-search {
+    flex-direction: column;
+  }
+  .category-pills {
+    gap: 10px;
+  }
+}
+/* -------------------------------------------------------------------------- */
+/* Blog category pills override                                               */
+/* -------------------------------------------------------------------------- */
+.category-pills .wp-block-button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+.category-pills .wp-block-button__link {
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 9px 22px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  box-shadow: none;
+  transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+}
+.category-pills .wp-block-button__link:hover,
+.category-pills .wp-block-button__link:focus-visible,
+.category-pills .wp-block-button.is-active .wp-block-button__link {
+  border-color: var(--neon-cyan);
+  color: var(--neon-cyan);
+  background: rgba(0, 229, 255, 0.16);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
+}
+.category-pills .wp-block-button__link:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.35);
+}
+@media (max-width: 640px) {
+  .category-pills .wp-block-button__link {
+    padding: 8px 18px;
+  }
 }

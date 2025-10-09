@@ -1,0 +1,175 @@
+﻿<?php
+/**
+ * Template for blog posts index with custom layout.
+ *
+ * @package McCullough_Digital
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+get_header();
+
+$paged          = max( 1, get_query_var( 'paged' ) );
+$posts_per_page = 7;
+$blog_query     = new WP_Query(
+    [
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'paged'          => $paged,
+        'posts_per_page' => $posts_per_page,
+    ]
+);
+
+$categories = get_categories(
+    [
+        'hide_empty' => true,
+        'number'     => 6,
+    ]
+);
+
+$placeholder_path = get_theme_file_path( '/assets/placeholder-16x9.svg' );
+$placeholder      = get_theme_file_uri( '/assets/placeholder-16x9.svg' );
+if ( ! file_exists( $placeholder_path ) ) {
+    $placeholder = 'https://via.placeholder.com/900x600/0b0c10/00e5ff?text=McCullough+Digital';
+}
+
+?>
+<main id="wp--skip-link--target" tabindex="-1" class="blog-page">
+    <section class="blog-hero">
+        <div class="blog-container">
+            <div class="blog-hero__inner">
+                <p class="blog-kicker">Journal</p>
+                <h1 class="blog-hero__title">Ideas with a neon edge</h1>
+                <p class="blog-hero__subtitle">Stories, tutorials, and process notes from the McCullough Digital studio.</p>
+                <form role="search" method="get" class="blog-search" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                    <input type="search" class="blog-search__input" placeholder="Search articles" value="<?php echo esc_attr( get_search_query() ); ?>" name="s" />
+                    <button type="submit" class="blog-search__button">Search</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <?php if ( ! empty( $categories ) ) : ?>
+    <section class="blog-categories">
+        <div class="blog-container">
+            <div class="category-pills">
+                <a class="category-pill<?php echo ( is_home() && ! is_category() ) ? ' is-active' : ''; ?>" href="<?php echo esc_url( get_permalink( get_option( 'page_for_posts' ) ) ); ?>">All Posts</a>
+                <?php foreach ( $categories as $category ) : ?>
+                    <a class="category-pill" href="<?php echo esc_url( get_category_link( $category ) ); ?>"><?php echo esc_html( $category->name ); ?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <?php if ( $blog_query->have_posts() ) : ?>
+        <?php $blog_query->the_post(); ?>
+        <?php
+        $featured_id    = get_the_ID();
+        $featured_title = get_the_title();
+        $featured_link  = get_permalink();
+        $featured_img   = get_the_post_thumbnail_url( $featured_id, 'large' );
+        if ( ! $featured_img ) {
+            $featured_img = $placeholder;
+        }
+        ?>
+        <section class="blog-featured">
+            <div class="blog-container">
+                <article class="featured-card">
+                    <div class="featured-media">
+                        <a href="<?php echo esc_url( $featured_link ); ?>">
+                            <img src="<?php echo esc_url( $featured_img ); ?>" alt="<?php echo esc_attr( $featured_title ); ?>" />
+                        </a>
+                    </div>
+                    <div class="featured-content">
+                        <div class="featured-meta">
+                            <span class="featured-date"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></span>
+                            <?php $terms = get_the_category(); ?>
+                            <?php if ( ! empty( $terms ) ) : ?>
+                                <div class="featured-terms">
+                                    <?php foreach ( $terms as $term ) : ?>
+                                        <a class="term-pill" href="<?php echo esc_url( get_category_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <h2 class="featured-title"><a href="<?php echo esc_url( $featured_link ); ?>"><?php echo esc_html( $featured_title ); ?></a></h2>
+                        <p class="featured-excerpt"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
+                        <a class="cta-button" href="<?php echo esc_url( $featured_link ); ?>">Read article</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="blog-grid">
+            <div class="blog-container">
+                <div class="post-grid">
+                    <?php
+                    if ( $blog_query->have_posts() ) :
+                        while ( $blog_query->have_posts() ) :
+                            $blog_query->the_post();
+                            $card_id   = get_the_ID();
+                            $card_img  = get_the_post_thumbnail_url( $card_id, 'medium_large' );
+                            if ( ! $card_img ) {
+                                $card_img = $placeholder;
+                            }
+                            ?>
+                            <article class="post-card">
+                                <a class="post-card__image" href="<?php the_permalink(); ?>">
+                                    <img src="<?php echo esc_url( $card_img ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" />
+                                </a>
+                                <div class="post-card__body">
+                                    <div class="post-card__meta">
+                                        <span class="post-card__date"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></span>
+                                        <?php $card_terms = get_the_category(); ?>
+                                        <?php if ( ! empty( $card_terms ) ) : ?>
+                                            <div class="post-card__terms">
+                                                <?php foreach ( $card_terms as $term ) : ?>
+                                                    <a href="<?php echo esc_url( get_category_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?></a>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <h3 class="post-card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                                    <p class="post-card__excerpt"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
+                                    <a class="text-link" href="<?php the_permalink(); ?>">Read more</a>
+                                </div>
+                            </article>
+                            <?php
+                        endwhile;
+                    endif;
+                    ?>
+                </div>
+                <?php
+                $pagination = paginate_links(
+                    [
+                        'total'     => $blog_query->max_num_pages,
+                        'current'   => $paged,
+                        'type'      => 'array',
+                        'prev_text' => '&larr; Previous',
+                        'next_text' => 'Next &rarr;',
+                    ]
+                );
+                if ( ! empty( $pagination ) ) :
+                    ?>
+                    <nav class="blog-pagination" aria-label="Posts pagination">
+                        <?php foreach ( $pagination as $link ) : ?>
+                            <span class="pagination-link"><?php echo wp_kses_post( $link ); ?></span>
+                        <?php endforeach; ?>
+                    </nav>
+                <?php endif; ?>
+            </div>
+        </section>
+    <?php else : ?>
+        <section class="blog-empty">
+            <div class="blog-container">
+                <p>No posts available yet. Please check back soon.</p>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php wp_reset_postdata(); ?>
+</main>
+<?php get_footer();

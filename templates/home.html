@@ -1,23 +1,138 @@
-<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+﻿<!-- wp:template-part {"slug":"header","theme":"mccullough-digital","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"site-content blog-archive","layout":{"type":"constrained"}} -->
-    <!-- wp:query {"query":{"inherit":true}} -->
-        <!-- wp:group {"className":"blog-hero","layout":{"type":"constrained","justifyContent":"center"}} -->
-            <!-- wp:group {"className":"blog-hero__inner","layout":{"type":"constrained","justifyContent":"center"}} -->
-                <!-- wp:heading {"textAlign":"center","level":1,"className":"blog-hero__title"} -->
-                <h1 class="blog-hero__title has-text-align-center">Blog</h1>
-                <!-- /wp:heading -->
+<!-- wp:group {"tagName":"main","className":"blog-page","layout":{"type":"default"}} -->
+<main id="wp--skip-link--target" tabindex="-1" class="wp-block-group blog-page">
+	<!-- wp:cover {"overlayColor":"background-dark","dimRatio":0,"minHeight":360,"isDark":false,"className":"blog-hero alignfull","style":{"color":{"gradient":"linear-gradient(135deg,rgb(11,12,16) 0%,rgb(9,11,20) 45%,rgb(5,8,20) 100%)"}}} -->
+	<div class="wp-block-cover alignfull blog-hero"><span aria-hidden="true" class="wp-block-cover__background has-background-dark-background-color has-background"></span><div class="wp-block-cover__inner-container">
+	<!-- wp:group {"className":"blog-container blog-hero__inner","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group blog-container blog-hero__inner"><!-- wp:paragraph {"className":"blog-kicker"} -->
+	<p class="blog-kicker">Journal</p>
+	<!-- /wp:paragraph -->
 
-                <!-- wp:paragraph {"align":"center","className":"blog-hero__intro"} -->
-                <p class="has-text-align-center blog-hero__intro">Insights, tutorials, and stories from the world of web development and digital design.</p>
-                <!-- /wp:paragraph -->
+	<!-- wp:heading {"className":"blog-hero__title"} -->
+	<h2 class="wp-block-heading blog-hero__title">Ideas with a neon edge</h2>
+	<!-- /wp:heading -->
 
-                <!-- wp:search {"label":"Search","showLabel":false,"placeholder":"Search articles...","buttonText":"Search","buttonUseIcon":false,"className":"blog-search"} /-->
-            <!-- /wp:group -->
-        <!-- /wp:group -->
-    <!-- /wp:query -->
+	<!-- wp:paragraph {"className":"blog-hero__subtitle"} -->
+	<p class="blog-hero__subtitle">Stories, tutorials, and process notes from the McCullough Digital studio.</p>
+	<!-- /wp:paragraph -->
 
-    <!-- wp:mccullough-digital/blog-archive-loop /-->
+	<!-- wp:search {"label":"Search articles","showLabel":true,"placeholder":"Search articles","buttonText":"Search","className":"blog-search"} /--></div>
+	<!-- /wp:group -->
+	</div></div>
+	<!-- /wp:cover -->
+
+	<!-- wp:group {"align":"full","className":"blog-categories","layout":{"type":"default"}} -->
+	<div class="wp-block-group alignfull blog-categories"><!-- wp:group {"className":"blog-container","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group blog-container"><!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","flexWrap":"wrap"},"className":"category-pills"} -->
+	<div class="wp-block-buttons category-pills"><!-- wp:button {"className":"category-pill is-active"} -->
+	<div class="wp-block-button category-pill is-active"><a class="wp-block-button__link wp-element-button" href="/blog/">All Posts</a></div>
+	<!-- /wp:button -->
+
+	<!-- wp:button {"className":"category-pill"} -->
+	<div class="wp-block-button category-pill"><a class="wp-block-button__link wp-element-button" href="/category/web-design/">Web Design</a></div>
+	<!-- /wp:button -->
+
+	<!-- wp:button {"className":"category-pill"} -->
+	<div class="wp-block-button category-pill"><a class="wp-block-button__link wp-element-button" href="/category/development/">Development</a></div>
+	<!-- /wp:button -->
+
+	<!-- wp:button {"className":"category-pill"} -->
+	<div class="wp-block-button category-pill"><a class="wp-block-button__link wp-element-button" href="/category/wordpress/">WordPress</a></div>
+	<!-- /wp:button -->
+
+	<!-- wp:button {"className":"category-pill"} -->
+	<div class="wp-block-button category-pill"><a class="wp-block-button__link wp-element-button" href="/category/ui-ux/">UI / UX</a></div>
+	<!-- /wp:button -->
+
+	<!-- wp:button {"className":"category-pill"} -->
+	<div class="wp-block-button category-pill"><a class="wp-block-button__link wp-element-button" href="/category/tutorials/">Tutorials</a></div>
+	<!-- /wp:button --></div>
+	<!-- /wp:buttons --></div>
+	<!-- /wp:group --></div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"full","className":"blog-featured","layout":{"type":"default"}} -->
+	<div class="wp-block-group alignfull blog-featured"><!-- wp:group {"className":"blog-container","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group blog-container"><!-- wp:query {"queryId":1,"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","sticky":"exclude","inherit":false},"displayLayout":{"type":"default"},"className":"blog-featured-query"} -->
+	<div class="wp-block-query blog-featured-query"><!-- wp:post-template -->
+	<!-- wp:group {"className":"featured-card","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"space-between"}} -->
+	<div class="wp-block-group featured-card"><!-- wp:paragraph {"className":"featured-badge"} -->
+	<p class="featured-badge">NEW</p>
+	<!-- /wp:paragraph -->
+
+<!-- wp:cover {"useFeaturedImage":true,"dimRatio":0,"minHeight":360,"className":"featured-media","isDark":false,"style":{"border":{"radius":"18px"}}} -->
+<div class="wp-block-cover featured-media" style="border-radius:18px"><span aria-hidden="true" class="wp-block-cover__background"></span><div class="wp-block-cover__inner-container">
+<!-- wp:post-featured-image {"isLink":true,"className":"featured-image"} /-->
+</div></div>
+<!-- /wp:cover -->
+
+	<!-- wp:group {"className":"featured-content","layout":{"type":"default"}} -->
+	<div class="wp-block-group featured-content"><!-- wp:group {"className":"featured-meta","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"left"}} -->
+	<div class="wp-block-group featured-meta"><!-- wp:post-date {"format":"M j, Y","className":"featured-date"} /-->
+
+	<!-- wp:post-terms {"term":"category","className":"featured-terms"} /--></div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-title {"level":2,"isLink":true,"className":"featured-title"} /-->
+
+	<!-- wp:post-excerpt {"moreText":"","className":"featured-excerpt"} /-->
+
+	<!-- wp:read-more {"content":"Read article","className":"cta-button"} /--></div>
+	<!-- /wp:group --></div>
+	<!-- /wp:group -->
+	<!-- /wp:post-template -->
+
+	<!-- wp:query-no-results -->
+	<!-- wp:paragraph {"className":"blog-featured-empty"} -->
+	<p class="blog-featured-empty">No featured stories yet—check back soon.</p>
+	<!-- /wp:paragraph -->
+	<!-- /wp:query-no-results --></div>
+	<!-- /wp:query --></div>
+	<!-- /wp:group --></div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"align":"full","className":"blog-grid","layout":{"type":"default"}} -->
+	<div class="wp-block-group alignfull blog-grid"><!-- wp:group {"className":"blog-container","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group blog-container"><!-- wp:query {"queryId":2,"query":{"perPage":6,"pages":0,"offset":1,"postType":"post","order":"desc","orderBy":"date","sticky":"exclude","inherit":false},"displayLayout":{"type":"grid","columnCount":3},"className":"blog-grid-query"} -->
+	<div class="wp-block-query blog-grid-query"><!-- wp:post-template -->
+	<!-- wp:group {"className":"post-card","layout":{"type":"flex","orientation":"vertical","justifyContent":"space-between"}} -->
+	<div class="wp-block-group post-card"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","className":"post-card__image"} /-->
+
+	<!-- wp:group {"className":"post-card__body","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group post-card__body"><!-- wp:group {"className":"post-card__meta","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"left"}} -->
+	<div class="wp-block-group post-card__meta"><!-- wp:post-date {"format":"M j, Y","className":"post-card__date"} /-->
+
+	<!-- wp:post-terms {"term":"category","className":"post-card__terms"} /--></div>
+	<!-- /wp:group -->
+
+	<!-- wp:post-title {"level":3,"isLink":true,"className":"post-card__title"} /-->
+
+	<!-- wp:post-excerpt {"moreText":"","className":"post-card__excerpt"} /-->
+
+	<!-- wp:read-more {"className":"text-link"} /--></div>
+	<!-- /wp:group --></div>
+	<!-- /wp:group -->
+	<!-- /wp:post-template -->
+
+	<!-- wp:query-no-results -->
+	<!-- wp:paragraph {"className":"blog-grid-empty"} -->
+	<p class="blog-grid-empty">No additional stories yet.</p>
+	<!-- /wp:paragraph -->
+	<!-- /wp:query-no-results -->
+
+	<!-- wp:query-pagination {"paginationArrow":"arrow","className":"blog-pagination","layout":{"type":"flex","justifyContent":"center"}} -->
+	<!-- wp:query-pagination-previous {"label":"Previous"} /-->
+
+	<!-- wp:query-pagination-numbers /-->
+
+	<!-- wp:query-pagination-next {"label":"Next"} /-->
+	<!-- /wp:query-pagination --></div>
+	<!-- /wp:query --></div>
+	<!-- /wp:group --></div>
+	<!-- /wp:group -->
+
+</main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer-neon","tagName":"footer"} />
+<!-- wp:template-part {"slug":"footer-neon","theme":"mccullough-digital","tagName":"footer"} /-->
