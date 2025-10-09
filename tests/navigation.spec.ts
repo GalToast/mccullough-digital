@@ -1,19 +1,23 @@
 import { test, expect } from '@playwright/test';
 
+test.describe.configure({ mode: 'serial' });
+
 test.describe('Primary navigation', () => {
-  test('logo link navigates home', async ({ page }) => {
-    await page.goto('/blog');
-    await page.locator('.site-branding a').first().click();
+  test('Blog link routes from home to blog and back', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    const nav = page.locator('nav').first();
+    await nav.getByRole('link', { name: 'Blog', exact: true }).click();
+    await expect(page).toHaveURL(/\/blog\/$/);
+    await nav.getByRole('link', { name: 'Home', exact: true }).click();
     await expect(page).toHaveURL(/\/$/);
     await expect(page.locator('.wp-block-mccullough-digital-hero .hero__headline')).toContainText(/Digital Vision/i);
   });
 
-  test('services link jumps to section', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('a[href="#services"]').first().click();
-    await page.waitForTimeout(500); // allow scroll
-    const servicesHeading = page.locator('.services-section-v2 .section-title');
-    await expect(servicesHeading).toBeVisible();
-    await expect(page).toHaveURL(/#services/);
+  test('About link routes to the About Us page', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    const nav = page.locator('nav').first();
+    await nav.getByRole('link', { name: /About/i }).click();
+    await expect(page).toHaveURL(/\/about-us\/$/);
+    await expect(page.getByRole('heading', { name: /About/i })).toBeVisible();
   });
 });
