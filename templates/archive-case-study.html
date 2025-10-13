@@ -1,0 +1,55 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"case-study-archive","layout":{"type":"default"}} -->
+<main id="wp--skip-link--target" tabindex="-1" class="wp-block-group case-study-archive">
+    <!-- wp:group {"align":"full","className":"case-study-hero","style":{"spacing":{"padding":{"top":"clamp(80px,10vw,120px)","right":"5%","bottom":"clamp(80px,10vw,120px)","left":"5%"},"blockGap":"24px"},"color":{"gradient":"linear-gradient(135deg,rgb(11,12,20) 0%,rgb(7,9,20) 45%,rgb(4,7,18) 100%)"}},"layout":{"type":"constrained","contentSize":"1100px"}} -->
+    <div class="wp-block-group alignfull case-study-hero" style="padding-top:clamp(80px,10vw,120px);padding-right:5%;padding-bottom:clamp(80px,10vw,120px);padding-left:5%">
+        <!-- wp:paragraph {"className":"section-kicker","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.2em"},"color":{"text":"#00e5ff"}}} -->
+        <p class="section-kicker" style="color:#00e5ff;text-transform:uppercase;letter-spacing:0.2em">Case Studies</p>
+        <!-- /wp:paragraph -->
+
+        <!-- wp:heading {"level":1,"className":"case-study-title","style":{"typography":{"fontSize":"3.1rem","lineHeight":"1.08"},"color":{"text":"#e6f1ff"}}} -->
+        <h1 class="wp-block-heading case-study-title" style="color:#e6f1ff;font-size:3.1rem;line-height:1.08">Pipeline-shifting transformations with neon polish and measurable KPIs.</h1>
+        <!-- /wp:heading -->
+
+        <!-- wp:paragraph {"className":"case-study-summary","style":{"color":{"text":"#cfe2ff"},"typography":{"fontSize":"1.18rem","lineHeight":"1.65"}},"fontSize":"medium"} -->
+        <p class="case-study-summary has-medium-font-size" style="color:#cfe2ff;font-size:1.18rem;line-height:1.65">Browse our featured client rebuilds, each pairing growth-ready strategy with automation, GEO visibility, and clean attribution. Dive in to see the stacks, KPIs, and campaign maps that moved the needle.</p>
+        <!-- /wp:paragraph -->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:group {"align":"full","className":"case-study-index","layout":{"type":"constrained","contentSize":"1100px"},"style":{"spacing":{"padding":{"top":"clamp(64px,9vw,96px)","right":"5%","bottom":"clamp(96px,12vw,140px)","left":"5%"},"blockGap":"48px"}}} -->
+    <div class="wp-block-group alignfull case-study-index" style="padding-top:clamp(64px,9vw,96px);padding-right:5%;padding-bottom:clamp(96px,12vw,140px);padding-left:5%">
+    <!-- wp:query {"query":{"perPage":6,"pages":0,"offset":0,"postType":"case_study","order":"desc","orderBy":"date","author":"","search":"","sticky":"","inherit":false},"tagName":"section","className":"case-study-query","layout":{"type":"default"}} -->
+        <section class="wp-block-query case-study-query">
+            <!-- wp:post-template -->
+            <!-- wp:pattern {"slug":"mccullough-digital/case-study-card"} /-->
+            <!-- /wp:post-template -->
+
+            <!-- wp:query-no-results -->
+            <!-- wp:group {"style":{"spacing":{"blockGap":"12px","padding":{"top":"48px","right":"32px","bottom":"48px","left":"32px"}},"border":{"radius":"16px","width":"2px"}},"borderColor":"surface-border","layout":{"type":"constrained","contentSize":"640px"}} -->
+            <div class="wp-block-group has-border-color has-surface-border-color" style="border-width:2px;border-radius:16px;padding-top:48px;padding-right:32px;padding-bottom:48px;padding-left:32px">
+                <!-- wp:heading {"textAlign":"center","level":3} -->
+                <h3 class="wp-block-heading has-text-align-center">Case studies are in draft</h3>
+                <!-- /wp:heading -->
+
+                <!-- wp:paragraph {"align":"center"} -->
+                <p class="has-text-align-center">Publish or schedule your first case study to make this page shine.</p>
+                <!-- /wp:paragraph -->
+            </div>
+            <!-- /wp:group -->
+            <!-- /wp:query-no-results -->
+
+            <!-- wp:query-pagination {"paginationArrow":"arrow","layout":{"type":"flex","justifyContent":"space-between"}} -->
+            <!-- wp:query-pagination-previous /-->
+            <!-- wp:query-pagination-numbers /-->
+            <!-- wp:query-pagination-next /-->
+            <!-- /wp:query-pagination -->
+        </section>
+        <!-- /wp:query -->
+    </div>
+    <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer-neon","tagName":"footer"} /-->

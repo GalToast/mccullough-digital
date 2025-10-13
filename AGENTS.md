@@ -15,6 +15,11 @@ This repository contains the McCullough Digital block theme. Use these notes as 
 
 Keep these three documents in sync conceptually: add detailed release bullets to `readme.txt`, summarize QA verification in `bug-report.md`, and reference the latest areas of focus below for active investigations.
 
+## Contextual Assets (2025-10-12)
+- `AI ASSISTANT RESOURCES` is the canonical drop of user-provided collateral. Treat it as read/copy only -- do not add, delete, or edit files there.
+- `AI CONTEXT FOR PROJECT` mirrors those resources in an organized structure with all archives already expanded for day-to-day use. Make edits against this workspace copy if adjustments are required.
+- When bringing in new collateral, place copies inside `AI CONTEXT FOR PROJECT` while leaving `AI ASSISTANT RESOURCES` untouched so future updates can be diffed easily.
+
 ## Current Focus (November 2025)
 - Verify the admin toolbar offset token keeps logged-in views aligned across front end, editor, and standalone previews.
 - Monitor the new blog archive loop block for editor preview regressions or pagination edge cases.

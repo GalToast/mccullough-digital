@@ -49,6 +49,7 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
+* **About / Services Template Migration:** Imported the latest AI handoff collateral into new `page-about-us.html` and `page-services.html` templates, scoped their neon styling, wired GA4/GTM dataLayer events, and embedded the pricing form placeholder (swap `FORM_ID` with the live Tally ID before launch). End-to-end smoke tests now pass aside from the navigation spec awaiting a homepage heading expectation update.
 * **Hero CTA Gradient Slide:** Replaced the neon CTA's dual-glow treatment with the slimmer gradient sweep pill and synced the hero and reusable button block styles so both render the new hover animation in the editor and front end.
 * **Neon Button Front-End Restore:** Register block metadata from both child and parent theme `blocks/` folders and load the button assets with `get_theme_file_*()` helpers so the neon CTA renders with styling on sites running a child theme.
 * **CTA Block Hero Fallback:** Updated the CTA block's PHP fallback to render the hero CTA markup and scoped the legacy gradient selectors away from `.hero__cta-button` instances so the block inherits the neon sweep styling by default.

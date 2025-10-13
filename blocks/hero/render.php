@@ -74,7 +74,7 @@ if ( '' !== $inner_content ) {
 
     if ( '' !== trim( wp_strip_all_tags( (string) $subheading ) ) ) {
         ?>
-        <p>
+        <p class="hero__intro">
             <?php echo wp_kses_post( $subheading ); ?>
         </p>
         <?php
@@ -84,6 +84,10 @@ if ( '' !== $inner_content ) {
     $raw_link    = isset( $attributes['buttonLink'] ) ? trim( (string) $attributes['buttonLink'] ) : '';
     $button_link = '' !== $raw_link ? esc_url( $raw_link ) : '';
 
+    $secondary_text = isset( $attributes['secondaryButtonText'] ) ? trim( wp_strip_all_tags( (string) $attributes['secondaryButtonText'] ) ) : '';
+    $secondary_link_raw = isset( $attributes['secondaryButtonLink'] ) ? trim( (string) $attributes['secondaryButtonLink'] ) : '';
+    $secondary_link     = '' !== $secondary_link_raw ? esc_url( $secondary_link_raw ) : '#case-study';
+
     if ( '' === $button_text && function_exists( 'mcd_get_neon_button_default_label' ) ) {
         $button_text = mcd_get_neon_button_default_label();
     }
@@ -92,25 +96,50 @@ if ( '' !== $inner_content ) {
         $button_text = __( 'Start a Project', 'mccullough-digital' );
     }
 
-    if ( '' !== $button_text ) {
-        $button_label = sprintf(
-            '<span class="hero__cta-button-label">%s</span>',
-            esc_html( $button_text )
-        );
+    if ( '' !== $button_text || '' !== $secondary_text ) {
+        ?>
+        <div class="hero__cta-group">
+            <?php
+            if ( '' !== $button_text ) {
+                $button_label = sprintf(
+                    '<span class="hero__cta-button-label">%s</span>',
+                    esc_html( $button_text )
+                );
 
-        if ( '' !== $button_link ) {
+                if ( '' !== $button_link ) {
+                    ?>
+                    <a class="cta-button hero__cta-button hero__cta-button--primary" href="<?php echo esc_url( $button_link ); ?>">
+                        <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
+                    </a>
+                    <?php
+                } else {
+                    ?>
+                    <button class="cta-button hero__cta-button hero__cta-button--primary" type="button">
+                        <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
+                    </button>
+                    <?php
+                }
+            }
+
+            if ( '' !== $secondary_text ) {
+                $secondary_label = esc_html( $secondary_text );
+                if ( '' !== $secondary_link ) {
+                    ?>
+                    <a class="hero__cta-button hero__cta-button--secondary" href="<?php echo esc_url( $secondary_link ); ?>">
+                        <?php echo $secondary_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped via esc_html. ?>
+                    </a>
+                    <?php
+                } else {
+                    ?>
+                    <span class="hero__cta-button hero__cta-button--secondary" role="text">
+                        <?php echo $secondary_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped via esc_html. ?>
+                    </span>
+                    <?php
+                }
+            }
             ?>
-            <a class="cta-button hero__cta-button" href="<?php echo esc_url( $button_link ); ?>">
-                <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
-            </a>
-            <?php
-        } else {
-            ?>
-            <button class="cta-button hero__cta-button" type="button">
-                <?php echo $button_label; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped above. ?>
-            </button>
-            <?php
-        }
+        </div>
+        <?php
     }
 
     $inner_content = trim( (string) ob_get_clean() );

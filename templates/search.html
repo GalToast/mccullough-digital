@@ -1,37 +1,9 @@
-<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+<!-- wp:template-part {"slug":"header","theme":"mccullough-digital","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"site-content","layout":{"type":"constrained"}} -->
-    <!-- wp:query {"query":{"inherit":true}} -->
-        <!-- wp:group {"className":"page-header-container","layout":{"type":"constrained"}} -->
-            <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-                <!-- wp:query-title {"type":"search","textAlign":"center","level":1,"className":"section-title"} /-->
-            <!-- /wp:group -->
-        <!-- /wp:group -->
-
-        <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-            <!-- wp:post-template {"tagName":"div","className":"post-grid"} -->
-                <!-- wp:pattern {"slug":"mccullough-digital/post-card"} /-->
-            <!-- /wp:post-template -->
-
-            <!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"space-between"}} -->
-                <!-- wp:query-pagination-previous /-->
-                <!-- wp:query-pagination-numbers /-->
-                <!-- wp:query-pagination-next /-->
-            <!-- /wp:query-pagination -->
-        <!-- /wp:group -->
-
-        <!-- wp:query-no-results -->
-            <!-- wp:group {"className":"container","layout":{"type":"constrained"}} -->
-                <!-- wp:group {"className":"no-results not-found","layout":{"type":"constrained"}} -->
-                    <!-- wp:paragraph -->
-                    <p>It seems we can’t find what you’re looking for. Perhaps searching can help.</p>
-                    <!-- /wp:paragraph -->
-
-                    <!-- wp:search {"label":"Search","showLabel":false,"buttonText":"Search","buttonUseIcon":true} /-->
-                <!-- /wp:group -->
-            <!-- /wp:group -->
-        <!-- /wp:query-no-results -->
-    <!-- /wp:query -->
+<!-- wp:group {"tagName":"main","className":"blog-page","layout":{"type":"default"}} -->
+<main id="wp--skip-link--target" tabindex="-1" class="wp-block-group blog-page">
+	<!-- wp:mccullough-digital/blog-archive-loop /-->
+</main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer-neon","tagName":"footer"} /-->
+<!-- wp:template-part {"slug":"footer-neon","theme":"mccullough-digital","tagName":"footer"} /-->

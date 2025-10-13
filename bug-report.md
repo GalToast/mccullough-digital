@@ -10,8 +10,13 @@ This rolling QA log tracks production-impacting fixes and follow-up checks for t
 - PHP baseline: 7.4.
 - Focus areas: fixed masthead offsets, blog archive loop experience, reusable neon CTA components.
 
+## Migration Checklist (October 2025)
+- **2025-10-13 – About & Services template migration**
+  - Result: Imported the AI handoff collateral into dedicated `page-about-us.html` and `page-services.html` templates with scoped styling, CTA analytics hooks, and the services form iframe placeholder. Manual Chrome DevTools sweeps on both pages confirmed layout parity and clean consoles.
+  - Follow-up: Replace `FORM_ID` in the services iframe with the live Tally ID. (`tests/navigation.spec.ts` now targets the new hero headline as of 2025-10-13, so the Chromium navigation suite passes again.)
+
 ## Recent Sweeps (November 2025)
-- **2025-11-23 — CTA block hero fallback**
+- **2025-11-23 – CTA block hero fallback**
   - Result: Fallback markup now renders the `.cta-button.hero__cta-button` anchor/span pair and CTA block gradients skip the hero class so default buttons inherit the neon sweep styling instead of reverting to the legacy pill.
   - Follow-up: Re-test the CTA block in the Site Editor after rebuilding assets to confirm the hero sweep loads and legacy `.cta-button` variants keep their gradient.
 - **2025-11-22 — Hero CTA gradient sweep sync**

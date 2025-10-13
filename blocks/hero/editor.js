@@ -15,6 +15,7 @@ import {
     SelectControl,
     RangeControl,
     ToggleControl,
+    TextControl,
 } from '@wordpress/components';
 
 import metadata from './block.json';
@@ -24,6 +25,9 @@ const defaultSubheading = metadata?.attributes?.subheading?.default ?? '';
 const defaultButtonText = metadata?.attributes?.buttonText?.default
     ?? __('Start a Project', 'mccullough-digital');
 const defaultButtonLink = metadata?.attributes?.buttonLink?.default ?? '';
+const defaultSecondaryButtonText = metadata?.attributes?.secondaryButtonText?.default
+    ?? __('View Case Studies', 'mccullough-digital');
+const defaultSecondaryButtonLink = metadata?.attributes?.secondaryButtonLink?.default ?? '#case-study';
 const MIN_CONTENT_OFFSET = -300; // Allow moving content UP
 const MAX_CONTENT_OFFSET = 240;
 
@@ -78,6 +82,8 @@ registerBlockType(metadata.name, {
             subheading, 
             buttonText, 
             buttonLink,
+            secondaryButtonText,
+            secondaryButtonLink,
             heroImageId,
             heroImageUrl,
             heroImageAlt,
@@ -454,6 +460,37 @@ registerBlockType(metadata.name, {
                             step={10}
                             allowReset
                             help={__('Negative values move content UP, positive values move content DOWN', 'mccullough-digital')}
+                        />
+                    </PanelBody>
+                    <PanelBody
+                        title={__('Call to Action Buttons', 'mccullough-digital')}
+                        initialOpen={false}
+                    >
+                        <TextControl
+                            label={__('Primary button label', 'mccullough-digital')}
+                            value={buttonText ?? defaultButtonText}
+                            onChange={(value) => setAttributes({ buttonText: value })}
+                            placeholder={defaultButtonText}
+                        />
+                        <TextControl
+                            label={__('Primary button link', 'mccullough-digital')}
+                            value={buttonLink ?? defaultButtonLink}
+                            onChange={(value) => setAttributes({ buttonLink: value })}
+                            placeholder={defaultButtonLink || __('Add URL, e.g. #contact', 'mccullough-digital')}
+                            type="url"
+                        />
+                        <TextControl
+                            label={__('Secondary button label', 'mccullough-digital')}
+                            value={secondaryButtonText ?? defaultSecondaryButtonText}
+                            onChange={(value) => setAttributes({ secondaryButtonText: value })}
+                            placeholder={defaultSecondaryButtonText}
+                        />
+                        <TextControl
+                            label={__('Secondary button link', 'mccullough-digital')}
+                            value={secondaryButtonLink ?? defaultSecondaryButtonLink}
+                            onChange={(value) => setAttributes({ secondaryButtonLink: value })}
+                            placeholder={defaultSecondaryButtonLink}
+                            type="url"
                         />
                     </PanelBody>
                 </InspectorControls>

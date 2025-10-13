@@ -416,8 +416,9 @@
             hero.dataset.heroInitialized = 'true';
 
             const headline = hero.querySelector('.hero__headline');
+            const allowHeadlineAnimation = hero.classList.contains('has-headline-animation');
 
-            if (headline) {
+            if (headline && allowHeadlineAnimation) {
                 createLetterSpans(headline);
             }
 

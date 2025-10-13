@@ -49,6 +49,14 @@
             "type": "string",
             "default": ""
         },
+        "secondaryButtonText": {
+            "type": "string",
+            "default": "View Case Studies"
+        },
+        "secondaryButtonLink": {
+            "type": "string",
+            "default": "#case-study"
+        },
         "heroImageId": {
             "type": "number",
             "default": 0

@@ -1,0 +1,381 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","align":"full","className":"site-content","layout":{"type":"constrained"}} -->
+<main id="wp--skip-link--target" tabindex="-1" class="wp-block-group alignfull site-content">
+  <!-- wp:group {"align":"full","className":"mcd-page mcd-page--about","layout":{"type":"constrained","wideSize":"100%"}} -->
+  <div class="wp-block-group alignfull mcd-page mcd-page--about">
+    <!-- wp:html -->
+    <section id="mdl-about" class="mdl-wrap" aria-label="About McCullough Digital">
+      <style>
+        #mdl-about [id] { scroll-margin-top: 96px; }
+        #mdl-about {
+          --bg: #0B0B12;
+          --surface: #141420;
+          --ink: #E6F7FF;
+          --muted: #9AA6B2;
+          --cyan: #00E5FF;
+          --magenta: #FF00E0;
+          --orange: #FF7A00;
+          --ring: rgba(0, 229, 255, .35);
+          color: var(--ink);
+          background: var(--bg);
+          font-family: Nunito, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+        #mdl-about a {
+          color: var(--cyan);
+          text-decoration: none;
+        }
+        #mdl-about .container {
+          max-width: 1080px;
+          margin-inline: auto;
+          padding: clamp(20px, 4vw, 48px);
+        }
+        #mdl-about h1,
+        #mdl-about h2,
+        #mdl-about h3 {
+          line-height: 1.1;
+          letter-spacing: .2px;
+          margin: 0 0 .6em;
+        }
+        #mdl-about h1 { font-size: clamp(28px, 4.2vw, 44px); }
+        #mdl-about h2 { font-size: clamp(22px, 3vw, 30px); }
+        #mdl-about h3 { font-size: clamp(18px, 2.2vw, 22px); }
+        #mdl-about p {
+          color: var(--ink);
+          opacity: .92;
+          margin: 0 0 1em;
+        }
+        #mdl-about .btn {
+          display: inline-flex;
+          align-items: center;
+          gap: .5rem;
+          border: 1px solid transparent;
+          padding: .8rem 1.1rem;
+          border-radius: 14px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: .2s ease;
+          background: linear-gradient(90deg, var(--magenta), var(--cyan));
+          color: #0B0B12;
+          box-shadow: 0 0 0 3px var(--ring) inset;
+        }
+        #mdl-about .btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 0 0 4px var(--ring) inset;
+        }
+        #mdl-about .btn.secondary {
+          background: transparent;
+          border-color: rgba(255, 255, 255, .18);
+          color: var(--ink);
+          box-shadow: none;
+        }
+        #mdl-about .grid {
+          display: grid;
+          gap: 18px;
+        }
+        #mdl-about .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        #mdl-about .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        #mdl-about .card {
+          background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .01));
+          border: 1px solid rgba(255, 255, 255, .08);
+          border-radius: 18px;
+          padding: 20px;
+        }
+        #mdl-about .chipbar {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        #mdl-about .chip {
+          --b: rgba(255, 255, 255, .12);
+          border: 1px solid var(--b);
+          border-radius: 999px;
+          padding: .5rem .8rem;
+          font-size: .9rem;
+          color: var(--ink);
+          background: rgba(255, 255, 255, .03);
+        }
+        #mdl-about .chip .opt { opacity: .7; }
+        #mdl-about .badge {
+          font-size: .72rem;
+          color: #0B0B12;
+          background: var(--orange);
+          border-radius: 999px;
+          padding: .25rem .5rem;
+          font-weight: 800;
+          letter-spacing: .3px;
+          vertical-align: middle;
+          margin-left: .4rem;
+        }
+        #mdl-about .section { padding: clamp(24px, 5vw, 52px) 0; }
+        #mdl-about .lead {
+          font-size: clamp(16px, 2.1vw, 18px);
+          color: var(--muted);
+        }
+        #mdl-about .divider {
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .12), transparent);
+          margin: 28px 0;
+        }
+        #mdl-about .process { counter-reset: step; }
+        #mdl-about .step {
+          position: relative;
+          padding-left: 54px;
+        }
+        #mdl-about .step + .step { margin-top: 18px; }
+        #mdl-about .step:before {
+          counter-increment: step;
+          content: counter(step);
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 38px;
+          height: 38px;
+          display: grid;
+          place-items: center;
+          border-radius: 12px;
+          background: linear-gradient(135deg, var(--magenta), var(--cyan));
+          color: #0B0B12;
+          font-weight: 900;
+        }
+        #mdl-about .muted { color: var(--muted); }
+        #mdl-about .cta-row {
+          display: inline-flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+        #mdl-about .portrait {
+          width: 180px;
+          aspect-ratio: 1/1;
+          border-radius: 999px;
+          display: grid;
+          place-items: center;
+          font: 900 44px/1 Nunito, system-ui;
+          letter-spacing: 1px;
+          color: #0B0B12;
+          background: radial-gradient(100% 100% at 30% 30%, var(--magenta), var(--cyan));
+          border: 1px solid rgba(255, 255, 255, .12);
+          box-shadow: 0 8px 40px rgba(0, 229, 255, .18), inset 0 0 0 3px var(--ring);
+          margin-bottom: 12px;
+        }
+        #mdl-about .portrait span { filter: drop-shadow(0 1px 0 rgba(0, 0, 0, .3)); }
+        @media (max-width: 900px) {
+          #mdl-about .cols-3 { grid-template-columns: 1fr; }
+          #mdl-about .cols-2 { grid-template-columns: 1fr; }
+          #mdl-about .step { padding-left: 48px; }
+        }
+      </style>
+
+      <div class="container section" id="top">
+        <h1>Small by design. Focused on results.</h1>
+        <p class="lead">Owner-led micro-studio in Greater Houston. No-bloat WordPress builds, simple analytics, launch in weeks--then iterate with data.</p>
+        <div class="cta-row" style="margin-top:14px">
+          <a href="#get-pricing" class="btn" data-open-form="get-pricing">Get Pricing &amp; Timeline</a>
+          <a href="#process" class="btn secondary">See how I work</a>
+        </div>
+      </div>
+
+      <div class="divider" role="presentation"></div>
+
+      <div class="container section" id="snapshot">
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Mission</h3>
+            <p>Help small businesses launch fast, look sharp, and turn visits into leads.</p>
+          </article>
+          <article class="card">
+            <h3>Sweet spot</h3>
+            <p>Owner-led service businesses around Houston and similar local markets.</p>
+          </article>
+          <article class="card">
+            <h3>Strength</h3>
+            <p>Lean production process that keeps momentum going without big-agency overhead.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="container section" id="story">
+        <div class="grid cols-2">
+          <article>
+            <h2>Meet Fred McCullough</h2>
+            <p>I run McCullough Digital as a solo studio so you always work directly with the person doing the work. That focus lets us move fast, stay transparent, and build something you can measure.</p>
+            <p>Most projects are async-first with fast updates. I keep communication tight inside the client folder, so you always know what is in play and what is next.</p>
+            <div class="cta-row">
+              <a href="#get-pricing" class="btn" data-open-form="get-pricing">Start your estimate</a>
+              <a href="#process" class="btn secondary">See the process</a>
+            </div>
+          </article>
+          <aside>
+            <div class="portrait" aria-hidden="true"><span>FM</span></div>
+            <p class="muted">Replace with your portrait when ready.</p>
+          </aside>
+        </div>
+      </div>
+
+      <div class="divider" role="presentation"></div>
+
+      <div class="container section" id="process">
+        <h2>How projects move</h2>
+        <div class="process">
+          <p class="step"><strong>Kickoff</strong> -- requirements form, sitemap, and intake for copy, visuals, and tools.</p>
+          <p class="step"><strong>Build</strong> -- design in the block theme, launch SEO essentials, wire analytics, prep QA.</p>
+          <p class="step"><strong>Launch</strong> -- deploy, verify tracking, deliver training clips, and ship your "next 30 days" plan.</p>
+        </div>
+      </div>
+
+      <div class="container section" id="services">
+        <h2>Packages you can grow with</h2>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>Foundation <span class="badge">Popular</span></h3>
+            <p>Launch a lean WordPress site in weeks with GA4, Tag Manager, and local SEO basics, ready for leads.</p>
+            <ul style="margin:0; padding-left:18px; line-height:1.6">
+              <li>3-5 page conversion-first site</li>
+              <li>Google Business Profile setup</li>
+              <li>Analytics baseline + launch checklist</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Growth</h3>
+            <p>Layer ads, content, and automation once the foundation is tracking conversions.</p>
+            <ul style="margin:0; padding-left:18px; line-height:1.6">
+              <li>Ongoing SEO and content</li>
+              <li>Google Ads setup and management</li>
+              <li>Monthly reporting dashboard</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Launchpad</h3>
+            <p>Dedicated growth system with cross-channel ads, automation, and quarterly strategy reviews.</p>
+            <ul style="margin:0; padding-left:18px; line-height:1.6">
+              <li>Everything in Growth</li>
+              <li>CRM and email automation</li>
+              <li>Retargeting and KPI dashboards</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="container section" id="case-study">
+        <h2>Recent launch highlight</h2>
+        <div class="grid cols-2">
+          <article class="card">
+            <h3>OnMark LLC</h3>
+            <p>Industrial fabrication studio that needed a full-stack launch: website refresh, Google toolkit, analytics stack, and ongoing SEO plus light ads.</p>
+            <h3 style="margin-top:12px">Highlights</h3>
+            <ul style="margin:0; padding-left:18px; line-height:1.6">
+              <li>Search visibility lift into the top 5 for "solid surface countertops Houston."</li>
+              <li>Leads trackable to forms, calls, and GBP interactions with verified conversions.</li>
+              <li>Custom lead form to capture photos and specs for faster estimates.</li>
+            </ul>
+          </article>
+          <aside class="card">
+            <h3>What to expect</h3>
+            <p class="muted">Every business is different, but the pattern is similar:</p>
+            <ul style="margin:0; padding-left:18px; line-height:1.6">
+              <li>Launch a lean site fast (weeks, not quarters).</li>
+              <li>Verify conversions, then turn on ads or double down on SEO.</li>
+              <li>Monthly snapshots you can actually understand.</li>
+            </ul>
+            <div class="cta-row" style="margin-top:12px">
+              <a href="#get-pricing" class="btn" data-open-form="get-pricing">Get Pricing &amp; Timeline</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <div class="container section" id="trust" aria-label="Trust markers">
+        <h2>Why work with a solo studio?</h2>
+        <div class="chipbar" style="margin-top:10px">
+          <span class="chip">Owner-led on every detail</span>
+          <span class="chip">Async-first (no calls required)</span>
+          <span class="chip">No-bloat tech stack</span>
+          <span class="chip">Clear reporting</span>
+          <span class="chip">Pause or scale as needed</span>
+        </div>
+      </div>
+
+      <div class="container section" id="faq" aria-label="Frequently asked questions">
+        <h2>FAQ</h2>
+        <div class="grid cols-2" style="margin-top:12px">
+          <article class="card">
+            <h3>Do we have to do meetings?</h3>
+            <p>No. The default is async with clear forms and progress updates. Calls are optional.</p>
+          </article>
+          <article class="card">
+            <h3>How long does a project take?</h3>
+            <p>Most Foundation builds launch in weeks. Growth and Launchpad timelines depend on scope and content readiness.</p>
+          </article>
+          <article class="card">
+            <h3>Do you manage ads?</h3>
+            <p>Yes, as an optional add-on once tracking is verified (Google Ads Search/PMAX, Meta). Simple budgets, weekly checks, monthly report.</p>
+          </article>
+          <article class="card">
+            <h3>Payment terms?</h3>
+            <p>Common structure: 50 percent to start, 50 percent at launch. Retainers for ongoing growth are month-to-month.</p>
+          </article>
+          <article class="card">
+            <h3>Industries you work with?</h3>
+            <p>Local services and owner-led SMBs are the sweet spot. If you are small and serious about growth, we will fit.</p>
+          </article>
+          <article class="card">
+            <h3>Can you help after launch?</h3>
+            <p>Yes--light retainers cover iteration, content updates, SEO, ads, and GBP or social scheduling.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="container section" id="final-cta" aria-label="Get pricing">
+        <div class="card">
+          <h2 style="margin-bottom:.4em">Ready to launch lean and iterate with data?</h2>
+          <div class="cta-row">
+            <a href="#get-pricing" class="btn" data-open-form="get-pricing">Get Pricing &amp; Timeline</a>
+            <span class="muted">Prefer to talk? Ask for a quick consult in the form.</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="get-pricing" hidden aria-hidden="true"></div>
+    </section>
+
+    <script>
+      document.addEventListener('click', function (event) {
+        var trigger = event.target.closest('[data-open-form=\"get-pricing\"]');
+        if (trigger && window.dataLayer) {
+          window.dataLayer.push({ event: 'about_cta_click' });
+        }
+      });
+
+      document.querySelectorAll('#mdl-about a.btn.secondary[href*=\"#process\"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (window.dataLayer) {
+            window.dataLayer.push({ event: 'about_process_anchor' });
+          }
+        });
+      });
+
+      var details = document.querySelector('#mdl-about details');
+      if (details) {
+        details.addEventListener('toggle', function () {
+          if (details.open && window.dataLayer) {
+            window.dataLayer.push({ event: 'about_details_open' });
+          }
+        });
+      }
+
+      document.querySelectorAll('#mdl-about .chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          if (window.dataLayer) {
+            window.dataLayer.push({ event: 'about_chip_click', chip: chip.textContent.trim() });
+          }
+        });
+      });
+    </script>
+    <!-- /wp:html -->
+  </div>
+  <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer-neon","tagName":"footer"} /-->

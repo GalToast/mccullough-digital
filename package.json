@@ -16,11 +16,21 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.25.9",
-    "@babel/runtime": "^7.26.0",
+    "@babel/runtime": "^7.28.4",
     "@playwright/test": "^1.56.0",
     "@wordpress/scripts": "^30.25.0",
     "glob": "^10.3.10",
     "mdn-data": "^2.0.30",
     "schema-utils": "^4.3.2"
+  },
+  "overrides": {
+    "@babel/runtime": "^7.28.4",
+    "@wordpress/babel-preset-default": {
+      "@babel/runtime": "^7.28.4"
+    },
+    "@wordpress/jest-console": {
+      "@babel/runtime": "^7.28.4"
+    },
+    "webpack-dev-server": "^5.2.2"
   }
 }

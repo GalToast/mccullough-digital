@@ -58,6 +58,44 @@
     }
 }
 
+@keyframes heroNeonFlicker {
+    0%, 12%, 16%, 24%, 100% {
+        opacity: 1;
+        filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.28));
+    }
+    13%,
+    22% {
+        opacity: 0.6;
+        filter: drop-shadow(0 0 12px rgba(255, 0, 224, 0.18));
+    }
+    14%,
+    23% {
+        opacity: 0.82;
+        filter: drop-shadow(0 0 18px rgba(255, 0, 224, 0.22));
+    }
+    72% {
+        opacity: 0.75;
+    }
+    74% {
+        opacity: 1;
+    }
+}
+
+@keyframes heroNeonAura {
+    0% {
+        opacity: 0.75;
+        transform: scale(0.96) translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 0.95;
+        transform: scale(1.05) translate3d(0, -2%, 0);
+    }
+    100% {
+        opacity: 0.7;
+        transform: scale(0.97) translate3d(0, 1.5%, 0);
+    }
+}
+
 .editor-styles-wrapper {
     font-family: var(--font-body);
     font-weight: 400;
@@ -220,18 +258,18 @@
 }
 
 .editor-styles-wrapper .hero {
-    min-height: 80vh;
+    min-height: 78vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     position: relative;
     background: radial-gradient(circle, rgba(20, 22, 28, 0.9) 0%, var(--background-dark) 70%);
 }
 
 .editor-styles-wrapper .hero.is-content-top {
     align-items: flex-start;
-    padding-top: clamp(24px, 6vh, 96px);
+    padding-top: clamp(16px, 4vh, 48px);
 }
 
 .editor-styles-wrapper .hero.is-content-center {
@@ -271,19 +309,35 @@
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1400px;
+    max-width: min(920px, 92vw);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: clamp(24px, 6vw, 48px);
-    padding-bottom: clamp(32px, 10vh, 120px);
+    align-items: flex-start;
+    gap: clamp(18px, 3vw, 36px);
+    margin-inline: auto;
+    padding-inline: clamp(16px, 5vw, 48px);
+    padding-top: clamp(16px, 4vh, 40px);
+    padding-bottom: clamp(20px, 6vh, 48px);
+    text-align: left;
     transform: translateY(var(--hero-content-offset, 0px));
 }
 
-.editor-styles-wrapper .hero-content > .wp-block-buttons,
-.editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button,
-.editor-styles-wrapper .hero-content > .hero__cta-button {
-    margin-top: auto;
+.editor-styles-wrapper .hero-content::before {
+    content: '';
+    position: absolute;
+    inset: -22% -28% -24%;
+    background:
+        radial-gradient(ellipse at 14% 22%, rgba(255, 0, 224, 0.4) 0%, rgba(4, 8, 20, 0) 58%),
+        radial-gradient(ellipse at 76% 12%, rgba(0, 229, 255, 0.3) 0%, rgba(6, 12, 42, 0) 62%),
+        radial-gradient(circle at 46% 64%, rgba(10, 16, 44, 0.7) 0%, rgba(10, 16, 44, 0) 78%);
+    filter: blur(34px);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: -1;
+    mix-blend-mode: screen;
+    transform: scale(0.96) translate3d(0, 0, 0);
+    transform-origin: 52% 42%;
+    animation: heroNeonAura 12s ease-in-out infinite alternate;
 }
 
 .editor-styles-wrapper .hero__cta-button {
@@ -293,7 +347,7 @@
     gap: 0.65ch;
     margin-left: 0;
     margin-right: 0;
-    align-self: auto;
+    align-self: flex-start;
     padding: clamp(0.85rem, 2.5vw, 1.1rem) clamp(2.5rem, 6vw, 3.25rem);
     font-family: var(--font-display);
     font-weight: 700;
@@ -312,6 +366,21 @@
     z-index: 0;
     cursor: pointer;
     appearance: none;
+}
+
+.editor-styles-wrapper .hero-content > .wp-block-buttons,
+.editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(12px, 3vw, 20px);
+    justify-content: flex-start;
+    margin-top: clamp(12px, 2.4vw, 28px);
+}
+
+.editor-styles-wrapper .hero-content > .hero__cta-button {
+    margin-top: clamp(12px, 2.4vw, 28px);
+    align-self: flex-start;
 }
 
 .editor-styles-wrapper .hero__cta-button::before {
@@ -354,13 +423,6 @@
     justify-content: center;
 }
 
-.editor-styles-wrapper .hero-content > .wp-block-buttons,
-.editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
 .editor-styles-wrapper .hero-content > .wp-block-buttons.alignleft,
 .editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button.alignleft {
     justify-content: flex-start;
@@ -392,33 +454,117 @@
     margin-right: auto;
 }
 
+@media (max-width: 640px) {
+    .editor-styles-wrapper .hero-content {
+        align-items: center;
+        text-align: center;
+        padding-inline: clamp(18px, 8vw, 32px);
+    }
 
+    .editor-styles-wrapper .hero-content::before {
+        inset: -32% -34% -28%;
+    }
+
+    .editor-styles-wrapper .hero-content > .wp-block-buttons,
+    .editor-styles-wrapper .hero-content > .wp-block-mccullough-digital-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .editor-styles-wrapper .hero-content > .hero__cta-button {
+        align-self: center;
+    }
+
+    .editor-styles-wrapper .hero p {
+        margin-inline: auto;
+        text-align: center;
+    }
+}
+
+
+.editor-styles-wrapper .hero .hero__headline,
 .editor-styles-wrapper .hero h1 {
     font-family: var(--font-hero);
-    font-size: clamp(3.6rem, 10vw, 6.8rem);
-    color: var(--neon-magenta);
-    margin: 0 0 16px 0;
-    line-height: 1.05;
-    letter-spacing: clamp(0.02em, 0.16vw, 0.08em);
+    font-size: clamp(3.2rem, 9vw, 6rem);
+    color: #ff3bd8;
+    margin: 0;
+    line-height: 1.02;
+    letter-spacing: clamp(0.02em, 0.18vw, 0.08em);
     text-shadow:
-        0 0 16px rgba(255, 0, 224, 0.85),
-        0 0 42px rgba(255, 0, 224, 0.55),
-        0 0 64px rgba(0, 229, 255, 0.35);
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
-    filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.32));
-    animation: heroNeonPulse 4s ease-in-out infinite alternate;
+        0 0 14px rgba(255, 0, 224, 0.65),
+        0 0 48px rgba(0, 229, 255, 0.45),
+        0 18px 44px rgba(5, 8, 20, 0.55);
+    -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.1);
+    filter: drop-shadow(0 0 24px rgba(255, 0, 224, 0.25));
+    animation:
+        heroNeonPulse 5.5s ease-in-out infinite alternate,
+        heroNeonFlicker 11s linear infinite;
+    position: relative;
+    z-index: 2;
+}
+
+.editor-styles-wrapper .hero .hero__headline::after,
+.editor-styles-wrapper .hero h1::after {
+    content: '';
+    position: absolute;
+    inset: 22% -12% -28%;
+    background: radial-gradient(ellipse at 50% 15%, rgba(255, 0, 224, 0.6) 0%, rgba(255, 0, 224, 0) 68%);
+    filter: blur(32px);
+    opacity: 0.68;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    transition: opacity 0.35s ease;
+    z-index: -1;
 }
 
 .editor-styles-wrapper .hero p {
     font-family: var(--font-body);
-    font-size: clamp(1.05rem, 2.8vw, 1.45rem);
-    color: rgba(200, 220, 255, 0.9);
-    max-width: min(640px, 85vw);
-    margin: 0 auto clamp(28px, 6vh, 42px) auto;
+    font-size: clamp(1.02rem, 2.6vw, 1.35rem);
+    color: rgba(241, 246, 255, 0.9);
+    max-width: min(620px, 84vw);
+    margin: 0 0 clamp(20px, 5vh, 30px) 0;
     font-weight: 400;
     letter-spacing: 0.015em;
-    line-height: 1.7;
-    text-shadow: 0 0 18px rgba(0, 229, 255, 0.22);
+    line-height: 1.65;
+    text-shadow:
+        0 0 18px rgba(0, 229, 255, 0.18),
+        0 12px 32px rgba(5, 8, 20, 0.45);
+}
+
+.editor-styles-wrapper .hero.is-reduced-motion .hero__headline,
+.editor-styles-wrapper .hero.is-reduced-motion h1 {
+    animation: none;
+    filter: none;
+}
+
+.editor-styles-wrapper .hero.is-reduced-motion .hero-content::before {
+    animation: none;
+}
+
+.editor-styles-wrapper .hero .hero__headline-text,
+.editor-styles-wrapper .hero .hero__headline-text--visual {
+    display: inline-block;
+}
+
+.editor-styles-wrapper .hero .hero__headline-text--visual {
+    white-space: normal;
+    color: #ff3bd8;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .editor-styles-wrapper .hero .hero__headline-text--visual {
+        background: linear-gradient(
+            102deg,
+            rgba(255, 32, 224, 0.98) 0%,
+            rgba(255, 156, 255, 0.95) 38%,
+            rgba(255, 0, 224, 1) 72%,
+            rgba(255, 102, 242, 0.98) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

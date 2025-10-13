@@ -1,0 +1,485 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","align":"full","className":"site-content","layout":{"type":"constrained"}} -->
+<main id="wp--skip-link--target" tabindex="-1" class="wp-block-group alignfull site-content">
+  <!-- wp:group {"align":"full","className":"mcd-page mcd-page--services","layout":{"type":"constrained","wideSize":"100%"}} -->
+  <div class="wp-block-group alignfull mcd-page mcd-page--services">
+    <!-- wp:html -->
+    <section id="mdl-services" class="mdl-wrap" aria-label="Services at McCullough Digital">
+      <style>
+        #mdl-services {
+          --bg: #0B0B12;
+          --surface: #111222;
+          --cyan: #00E5FF;
+          --magenta: #FF00E0;
+          --orange: #FF7A00;
+          --ink: #E6F7FF;
+          --muted: rgba(230, 247, 255, .7);
+          color: var(--ink);
+          background: var(--bg);
+          font-family: Nunito, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+        #mdl-services a {
+          color: var(--cyan);
+          text-decoration: none;
+        }
+        #mdl-services .container {
+          max-width: 1140px;
+          margin-inline: auto;
+          padding: clamp(24px, 6vw, 72px) clamp(20px, 4vw, 48px);
+        }
+        #mdl-services .hero {
+          position: relative;
+          overflow: hidden;
+          text-align: left;
+        }
+        #mdl-services .hero::before,
+        #mdl-services .cta-band::before,
+        #mdl-services .results::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          opacity: .22;
+          background:
+            radial-gradient(60% 40% at 20% 10%, rgba(255, 0, 224, .3) 0, transparent 60%),
+            radial-gradient(55% 35% at 80% 20%, rgba(0, 229, 255, .26) 0, transparent 60%),
+            radial-gradient(70% 45% at 50% 90%, rgba(255, 122, 0, .2) 0, transparent 70%);
+        }
+        #mdl-services h1,
+        #mdl-services h2,
+        #mdl-services h3 {
+          margin: 0 0 .6em;
+          line-height: 1.1;
+          letter-spacing: .2px;
+        }
+        #mdl-services h1 {
+          font-size: clamp(32px, 5vw, 56px);
+          font-weight: 900;
+        }
+        #mdl-services h2 {
+          font-size: clamp(26px, 4vw, 40px);
+          font-weight: 800;
+        }
+        #mdl-services h3 {
+          font-size: clamp(20px, 3vw, 24px);
+          font-weight: 800;
+        }
+        #mdl-services p {
+          margin: 0 0 1em;
+          color: var(--muted);
+        }
+        #mdl-services .cta-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+          align-items: center;
+        }
+        #mdl-services .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: .9rem 1.4rem;
+          border-radius: 16px;
+          font-weight: 700;
+          background: linear-gradient(110deg, var(--cyan), var(--magenta));
+          color: #0B0B12;
+          border: none;
+          box-shadow: 0 0 0 3px rgba(0, 229, 255, .35);
+          transition: transform .2s ease, box-shadow .2s ease;
+        }
+        #mdl-services .btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 0 0 4px rgba(0, 229, 255, .45);
+        }
+        #mdl-services .btn.secondary {
+          background: transparent;
+          color: var(--ink);
+          border: 1px solid rgba(255, 255, 255, .18);
+          box-shadow: none;
+        }
+        #mdl-services .grid {
+          display: grid;
+          gap: clamp(20px, 3vw, 32px);
+        }
+        #mdl-services .grid-cols-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        #mdl-services .grid-cols-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        #mdl-services .card {
+          position: relative;
+          border-radius: 22px;
+          padding: clamp(20px, 3vw, 28px);
+          background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(9, 12, 20, .8));
+          border: 1px solid rgba(255, 255, 255, .08);
+          box-shadow: 0 12px 40px rgba(0, 0, 0, .28);
+          color: var(--ink);
+        }
+        #mdl-services .card-highlight::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          border: 1px solid rgba(0, 229, 255, .35);
+          pointer-events: none;
+        }
+        #mdl-services ul {
+          margin: .2em 0 0;
+          padding-left: 18px;
+          line-height: 1.6;
+          color: var(--ink);
+        }
+        #mdl-services .results ul {
+          list-style: none;
+          padding-left: 0;
+        }
+        #mdl-services .results li {
+          padding-left: 1.7em;
+          position: relative;
+        }
+        #mdl-services .results li::before {
+          content: "*";
+          position: absolute;
+          left: 0;
+          color: var(--cyan);
+          font-weight: 700;
+        }
+        #mdl-services details {
+          background: rgba(0, 0, 0, .25);
+          border: 1px solid rgba(255, 255, 255, .08);
+          border-radius: 18px;
+          padding: 16px 20px;
+          transition: border-color .2s ease;
+        }
+        #mdl-services details[open] {
+          border-color: rgba(0, 229, 255, .4);
+        }
+        #mdl-services summary {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          list-style: none;
+        }
+        #mdl-services summary::-webkit-details-marker {
+          display: none;
+        }
+        #mdl-services .faq-grid {
+          display: grid;
+          gap: 16px;
+        }
+        #mdl-services iframe {
+          width: 100%;
+          border: none;
+          border-radius: 18px;
+          min-height: 600px;
+          background: #05050A;
+        }
+        #mdl-services .lead-note {
+          font-size: .8rem;
+          color: rgba(230, 247, 255, .5);
+        }
+        #mdl-services .cta-band {
+          position: relative;
+          text-align: center;
+          overflow: hidden;
+        }
+        #mdl-services .cta-band .cta-row {
+          justify-content: center;
+        }
+        @media (max-width: 980px) {
+          #mdl-services .grid-cols-3 {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 760px) {
+          #mdl-services .grid-cols-3,
+          #mdl-services .grid-cols-2 {
+            grid-template-columns: 1fr;
+          }
+          #mdl-services .cta-row {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          #mdl-services .cta-band .cta-row {
+            align-items: center;
+          }
+        }
+      </style>
+
+      <div class="container hero">
+        <h1>Build the foundation. Then turn it up.</h1>
+        <p>From your first professional website to a fully automated growth engine, these packages grow with your business.</p>
+        <div class="cta-row">
+          <a href="#lead" data-track-cta="estimate" class="btn">Get Pricing &amp; Timeline</a>
+          <span class="lead-note">No calls required. Estimate in 24 hours.</span>
+        </div>
+      </div>
+
+      <div class="container" id="packages">
+        <header style="margin-bottom: 28px;">
+          <h2>Pick your launch path</h2>
+          <p>Start where you are -- Foundation, then turn it up with Growth or go all-in with Launchpad.</p>
+        </header>
+        <div class="grid grid-cols-3">
+          <article class="card">
+            <h3>Foundation <span style="display:block; color:rgba(230,247,255,.75); font-size:.9rem; font-weight:600;">"Your digital presence, professionally launched"</span></h3>
+            <p><strong>Outcome:</strong> Look legit fast and start generating leads in about 30 days.</p>
+            <ul>
+              <li>3-5 page conversion-first website</li>
+              <li>Google Business Profile setup</li>
+              <li>GA4 and Tag Manager baseline</li>
+              <li>Basic local SEO</li>
+              <li>Launch checklist</li>
+            </ul>
+            <p style="margin-top:1.2em; font-weight:600;">Investment: $995-$1,500 (one time)</p>
+            <a href="#lead" data-track-cta="estimate" class="btn" style="margin-top:12px;">Get Pricing &amp; Timeline</a>
+          </article>
+
+          <article class="card">
+            <h3>Growth <span style="display:block; color:rgba(230,247,255,.75); font-size:.9rem; font-weight:600;">"Turn visibility into consistent leads"</span></h3>
+            <p><strong>Outcome:</strong> Predictable lead flow with clear reporting.</p>
+            <ul>
+              <li>Everything in Foundation</li>
+              <li>Google Ads setup and management</li>
+              <li>Local SEO tune-up</li>
+              <li>Monthly blog post</li>
+              <li>Dashboard plus monthly report</li>
+            </ul>
+            <p style="margin-top:1.2em; font-weight:600;">Investment: $2,000-$2,500 setup + $350-$600/month</p>
+            <a href="#lead" data-track-cta="estimate" class="btn" style="margin-top:12px;">Get Pricing &amp; Timeline</a>
+          </article>
+
+          <article class="card card-highlight">
+            <h3>Launchpad <span style="display:block; color:rgba(230,247,255,.75); font-size:.9rem; font-weight:600;">"Your entire digital ecosystem, managed"</span></h3>
+            <p><strong>Outcome:</strong> Hands-off growth with automation and retargeting.</p>
+            <ul>
+              <li>Everything in Growth</li>
+              <li>Meta ads and retargeting</li>
+              <li>CRM and email automation</li>
+              <li>Custom KPIs dashboard</li>
+              <li>Quarterly strategy reviews + priority support</li>
+            </ul>
+            <p style="margin-top:1.2em; font-weight:600;">Investment: $4,000-$5,000 setup + $800-$1,200/month</p>
+            <a href="#lead" data-track-cta="estimate" class="btn" style="margin-top:12px;">Get Pricing &amp; Timeline</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="container results" id="results">
+        <h2>What you will see</h2>
+        <p>When everything clicks, the flywheel feels different.</p>
+        <ul>
+          <li>Your business shows up on Google -- and people actually call.</li>
+          <li>Leads land in your inbox instead of disappearing into the void.</li>
+          <li>You know what is working (and what is not) with clean analytics.</li>
+          <li>Updates and automations keep humming without tech headaches.</li>
+          <li>Your website finally looks and performs the way you wanted.</li>
+        </ul>
+        <p style="margin-top:24px; font-weight:600;">Launch. Grow. Repeat.</p>
+      </div>
+
+      <div class="container" id="addons">
+        <h2>Add-ons and upgrades</h2>
+        <p>Fine-tune your stack or grow in phases. Only pay for what you need.</p>
+        <div class="grid grid-cols-3" style="margin-top:28px;">
+          <article class="card">
+            <h3>Websites and hosting</h3>
+            <ul>
+              <li>Business website (<=5 pages) -- <strong>$995</strong></li>
+              <li>Landing page -- <strong>$350</strong></li>
+              <li>Maintenance and hosting -- <strong>$35-$75/month</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Google and local</h3>
+            <ul>
+              <li>Google Business Profile setup -- <strong>$150</strong></li>
+              <li>Local SEO tune-up -- <strong>$250-$400</strong></li>
+              <li>Review automation -- <strong>$100 setup + $15/month</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Analytics</h3>
+            <ul>
+              <li>GA4 and Tag Manager setup -- <strong>$150</strong></li>
+              <li>Looker Studio dashboard -- <strong>$200</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Ads and lead gen</h3>
+            <ul>
+              <li>Google Ads setup -- <strong>$300</strong></li>
+              <li>Google Ads management -- <strong>$250-$500/month</strong></li>
+              <li>Meta Ads setup -- <strong>$200</strong> + <strong>$150/month</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Content and SEO</h3>
+            <ul>
+              <li>Blog or long-form copy (600-1,000 words) -- <strong>$125/article</strong></li>
+              <li>Social content pack (10 posts) -- <strong>$250</strong></li>
+              <li>Brand photo or image optimization -- <strong>$100</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Automation and CRM</h3>
+            <ul>
+              <li>Email automation setup -- <strong>$250</strong></li>
+              <li>Simple CRM integration -- <strong>$150</strong></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Support and strategy</h3>
+            <ul>
+              <li>Strategy or collaboration credits -- <strong>$100/hour</strong> or <strong>3 for $250</strong></li>
+              <li>Priority support or same-day edits -- <strong>$50/month</strong></li>
+            </ul>
+          </article>
+        </div>
+        <div class="cta-row" style="margin-top:24px;">
+          <a href="#lead" data-track-cta="estimate" class="btn">Get Pricing &amp; Timeline</a>
+          <span class="lead-note">Pricing reflects typical scopes; custom quotes available.</span>
+        </div>
+      </div>
+
+      <div class="container" id="faq">
+        <h2>FAQ</h2>
+        <div class="faq-grid" style="margin-top:18px;">
+          <details>
+            <summary><span>How fast can you launch?</span><span aria-hidden="true">+</span></summary>
+            <div style="margin-top:12px;">Most projects go live in about 30 days from kickoff. Kickoff happens after the initial 50 percent and onboarding assets are received.</div>
+          </details>
+          <details>
+            <summary><span>Do I have to sign up for a monthly plan?</span><span aria-hidden="true">+</span></summary>
+            <div style="margin-top:12px;">Foundation is a one-time build. Growth and Launchpad include monthly management for ads, reporting, and automation when you are ready.</div>
+          </details>
+          <details>
+            <summary><span>What if I already have a website?</span><span aria-hidden="true">+</span></summary>
+            <div style="margin-top:12px;">We can refresh or rebuild. Quick wins include local SEO tune-up, GA4 and Tag Manager, Google Business Profile, or a focused rebuild if that is the better ROI.</div>
+          </details>
+          <details>
+            <summary><span>What will you need from me?</span><span aria-hidden="true">+</span></summary>
+            <div style="margin-top:12px;">After you approve the estimate, the onboarding form collects brand assets, copy, and access (domain, hosting, Google). If you do not have copy ready, we can write it for you.</div>
+          </details>
+          <details>
+            <summary><span>How do pricing and payments work?</span><span aria-hidden="true">+</span></summary>
+            <div style="margin-top:12px;">Packages list transparent ranges; final pricing comes with your scoped proposal. Payment is 50 percent to start and 50 percent at launch.</div>
+          </details>
+          <details>
+            <summary><span>What happens after launch?</span><span aria-hidden="true">+</span></summary>
+            <div style="margin-top:12px;">You will get a handoff folder (readme, deliverables, analytics, launch checklist) and scheduled check-ins at 30, 90, six months, and twelve months. Growth and Launchpad add monthly reporting.</div>
+          </details>
+        </div>
+        <div class="cta-row" style="margin-top:28px;">
+          <a href="#lead" data-track-cta="estimate" class="btn">Get Pricing &amp; Timeline</a>
+          <span class="lead-note">No calls required. Personalized estimate in 24 hours.</span>
+        </div>
+      </div>
+
+      <div class="container cta-band" id="cta">
+        <h2>Ready to get your estimate?</h2>
+        <p>You will receive a personalized pricing range and timeline within 24 hours.</p>
+        <div class="cta-row" style="margin-top:18px;">
+          <a href="#lead" data-track-cta="estimate" class="btn">Get Pricing &amp; Timeline</a>
+        </div>
+        <p id="cta-note" class="lead-note" style="margin-top:18px;">Timeline starts at kickoff (after initial 50 percent and onboarding assets). Approvals and scope changes may extend timing.</p>
+      </div>
+
+      <div class="container" id="lead" aria-label="Lead capture form">
+        <h2>Get Pricing &amp; Timeline</h2>
+        <p>No calls required. You will get a personalized estimate within 24 hours.</p>
+        <div style="margin-top:24px;">
+          <iframe data-tally-src="https://tally.so/r/FORM_ID?transparentBackground=1&hideTitle=1" title="Get Pricing &amp; Timeline"></iframe>
+          <noscript>
+            <p class="lead-note" style="margin-top:16px;">JavaScript is disabled. <a href="/get-pricing">Open the form on its own page</a>.</p>
+          </noscript>
+        </div>
+        <p class="lead-note" style="margin-top:20px;">Timeline starts at kickoff (after initial 50 percent and onboarding assets). Approvals and scope changes may extend timing.</p>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        window.dataLayer = window.dataLayer || [];
+
+        document.querySelectorAll('#mdl-services [data-track-cta=\"estimate\"]').forEach(function (link) {
+          link.addEventListener('click', function () {
+            window.dataLayer.push({ event: 'cta_click_estimate', where: 'services' });
+          });
+        });
+
+        var formFrame = document.querySelector('#mdl-services iframe[data-tally-src]');
+        if (formFrame && !formFrame.src) {
+          formFrame.src = formFrame.getAttribute('data-tally-src');
+          window.dataLayer.push({ event: 'lead_form_view', where: 'services' });
+        }
+      })();
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How fast can you launch?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most projects go live in about 30 days from kickoff. Kickoff happens after the initial 50 percent and onboarding assets are received."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I have to sign up for a monthly plan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Foundation is a one-time build. Growth and Launchpad include monthly management for ads, reporting, and automation when you are ready."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I already have a website?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We can refresh or rebuild. Quick wins include local SEO tune-up, GA4 and Tag Manager, Google Business Profile, or a focused rebuild if that is the better ROI."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What will you need from me?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "After you approve the estimate, the onboarding form collects brand assets, copy, and access (domain, hosting, Google). If you do not have copy ready, we can write it for you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do pricing and payments work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Packages list transparent ranges; final pricing comes with your scoped proposal. Payment is 50 percent to start and 50 percent at launch."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens after launch?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You will get a handoff folder (readme, deliverables, analytics, launch checklist) and scheduled check-ins at 30, 90, six months, and twelve months. Growth and Launchpad add monthly reporting."
+            }
+          }
+        ]
+      }
+    </script>
+    <!-- /wp:html -->
+  </div>
+  <!-- /wp:group -->
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer-neon","tagName":"footer"} /-->

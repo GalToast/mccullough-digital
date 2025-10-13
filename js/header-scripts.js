@@ -1,4 +1,5 @@
 (() => {
+    document.documentElement.classList.add('has-js');
     // Configuration constants
     const CONFIG = {
         MAX_LOGO_ROTATE: 15, // Maximum rotation angle for 3D tilt effect
@@ -52,6 +53,76 @@
 
         normalizeTemplateStructure();
 
+        const initCategoryPillsActiveState = () => {
+            const links = document.querySelectorAll('.category-pills .wp-block-button__link');
+
+            if (!links.length) {
+                return;
+            }
+
+            const normalizePath = (input) => {
+                if (typeof input !== 'string') {
+                    return null;
+                }
+
+                const trimmed = input.trim();
+
+                if (!trimmed.length) {
+                    return null;
+                }
+
+                try {
+                    const url = new URL(trimmed, window.location.origin);
+                    const cleanedPath = url.pathname.replace(/\/+$/, '');
+                    return cleanedPath || '/';
+                } catch (error) {
+                    if (trimmed.startsWith('/')) {
+                        return trimmed.replace(/\/+$/, '') || '/';
+                    }
+
+                    return null;
+                }
+            };
+
+            const currentPath = normalizePath(window.location.pathname) || '/';
+            let matchedLink = null;
+
+            links.forEach((link) => {
+                link.removeAttribute('aria-current');
+
+                const pill = link.closest('.category-pill');
+                if (pill) {
+                    pill.classList.remove('is-active');
+                }
+
+                const linkPath = normalizePath(link.getAttribute('href'));
+
+                if (
+                    !matchedLink
+                    && linkPath
+                    && (linkPath === currentPath || (linkPath !== '/' && currentPath.startsWith(linkPath)))
+                ) {
+                    matchedLink = link;
+                }
+            });
+
+            const activeLink = matchedLink || links[0];
+
+            if (!activeLink) {
+                return;
+            }
+
+            activeLink.setAttribute('aria-current', 'page');
+
+            const activePill = activeLink.closest('.category-pill');
+
+            if (activePill) {
+                activePill.classList.add('is-active');
+            }
+        };
+
+        initCategoryPillsActiveState();
+
         const createMotionPreferenceQuery = () => {
             if (typeof window.matchMedia !== 'function') {
                 const noop = () => {};
@@ -68,6 +139,74 @@
         };
 
         const prefersReducedMotion = createMotionPreferenceQuery();
+
+        const initRevealAnimations = () => {
+            const revealElements = Array.from(document.querySelectorAll('.reveal'));
+
+            if (!revealElements.length) {
+                return;
+            }
+
+            const revealImmediately = (element) => {
+                if (element && !element.classList.contains('in')) {
+                    element.classList.add('in');
+                }
+            };
+
+            const revealAll = () => {
+                revealElements.forEach(revealImmediately);
+            };
+
+            if (prefersReducedMotion.matches || typeof IntersectionObserver !== 'function') {
+                revealAll();
+                return;
+            }
+
+            const observer = new IntersectionObserver(
+                (entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            revealImmediately(entry.target);
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                },
+                {
+                    root: null,
+                    rootMargin: '0px 0px -10% 0px',
+                    threshold: 0.2,
+                }
+            );
+
+            revealElements.forEach((element) => observer.observe(element));
+
+            const handleMotionPreferenceChange = (event) => {
+                if (event.matches) {
+                    observer.disconnect();
+                    revealAll();
+                }
+            };
+
+            if (typeof prefersReducedMotion.addEventListener === 'function') {
+                prefersReducedMotion.addEventListener('change', handleMotionPreferenceChange, { passive: true });
+            } else if (typeof prefersReducedMotion.addListener === 'function') {
+                prefersReducedMotion.addListener(handleMotionPreferenceChange);
+            }
+
+            window.addEventListener(
+                'beforeunload',
+                () => {
+                    if (typeof prefersReducedMotion.removeEventListener === 'function') {
+                        prefersReducedMotion.removeEventListener('change', handleMotionPreferenceChange);
+                    } else if (typeof prefersReducedMotion.removeListener === 'function') {
+                        prefersReducedMotion.removeListener(handleMotionPreferenceChange);
+                    }
+
+                    observer.disconnect();
+                },
+                { once: true }
+            );
+        };
 
         const handleMenuStateChangeCallbacks = [];
 
@@ -649,6 +788,7 @@
             }, { once: true });
         };
 
+        initRevealAnimations();
         initBlogHeroGlitch();
     };
 
