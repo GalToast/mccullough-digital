@@ -1,6 +1,6 @@
 {
   "name": "mccullough-digital-theme",
-  "version": "1.0.0",
+  "version": "1.2.44",
   "private": true,
   "description": "Build tooling for the McCullough Digital WordPress theme.",
   "scripts": {

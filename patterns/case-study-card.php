@@ -13,7 +13,11 @@
     <div class="wp-block-columns are-vertically-aligned-center">
         <!-- wp:column {"verticalAlignment":"center","width":"40%"} -->
         <div class="wp-block-column is-vertically-aligned-center" style="flex-basis:40%">
-            <!-- wp:post-featured-image {"isLink":false,"sizeSlug":"mcd-featured-landscape","style":{"border":{"radius":"16px"}}} /-->
+            <!-- wp:group {"className":"case-study-card__visual","layout":{"type":"default"}} -->
+            <div class="wp-block-group case-study-card__visual">
+                <!-- wp:post-featured-image {"isLink":false,"sizeSlug":"mcd-featured-landscape","className":"case-study-card__featured-image","style":{"border":{"radius":"18px"}}} /-->
+            </div>
+            <!-- /wp:group -->
         </div>
         <!-- /wp:column -->
 
@@ -29,11 +33,11 @@
 
                 <!-- wp:post-title {"level":3,"isLink":true,"style":{"typography":{"fontSize":"2.2rem"}}} /-->
 
-                <!-- wp:post-excerpt {"moreText":"View case study","moreAlign":"right","excerptLength":36} /-->
+                <!-- wp:post-excerpt {"moreText":"","showMoreOnNewLine":false,"excerptLength":36} /-->
 
                 <!-- wp:group {"layout":{"type":"flex","justifyContent":"left"}} -->
                 <div class="wp-block-group">
-                    <!-- wp:read-more {"className":"cta-button"} /-->
+                    <!-- wp:read-more {"content":"View case study","className":"cta-button"} /-->
                 </div>
                 <!-- /wp:group -->
             </div>

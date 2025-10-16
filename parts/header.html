@@ -1,12 +1,44 @@
-<!-- wp:group {"id":"masthead","className":"site-header","layout":{"type":"flex","justifyContent":"space-between"}} -->
-<div id="masthead" class="wp-block-group site-header">
-  <!-- wp:group {"className":"site-branding"} -->
-  <div class="wp-block-group site-branding">
-    <!-- wp:site-logo {"width":64} /-->
-    <!-- wp:site-title /-->
+﻿<!-- wp:html -->
+<!-- Progress indicator injected ahead of the masthead so it pins to the very top -->
+<div class="site-progress" aria-hidden="true">
+  <div class="site-progress__fill"></div>
+</div>
+<span class="screen-reader-text site-progress__status" role="progressbar" aria-label="Page progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></span>
+<!-- /wp:html -->
+
+<!-- wp:group {"tagName":"header","id":"masthead","className":"site-header","layout":{"type":"constrained"}} -->
+<header id="masthead" class="wp-block-group site-header">
+  <!-- wp:html -->
+  <div class="site-header__backdrop" aria-hidden="true">
+    <div class="stars stars--header"></div>
+    <div class="stars2 stars--header"></div>
+    <div class="stars3 stars--header"></div>
+  </div>
+  <!-- /wp:html -->
+
+  <!-- wp:group {"className":"site-header__inner","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+  <div class="wp-block-group site-header__inner">
+    <!-- wp:group {"className":"site-branding","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+    <div class="wp-block-group site-branding">
+      <!-- wp:site-logo {"width":64} /-->
+    </div>
+    <!-- /wp:group -->
+
+    <!-- wp:navigation {"className":"main-navigation site-header__nav","ariaLabel":"Primary navigation","overlayMenu":"mobile","layout":{"type":"flex","justifyContent":"center","orientation":"horizontal"},"style":{"spacing":{"blockGap":"24px"}}} -->
+      <!-- wp:navigation-link {"label":"Services","url":"/services/","kind":"post-type","type":"page"} /-->
+      <!-- wp:navigation-link {"label":"Case Studies","url":"/case-studies/","kind":"post-type","type":"page"} /-->
+      <!-- wp:navigation-link {"label":"Blog","url":"/blog/","kind":"post-type","type":"page"} /-->
+      <!-- wp:navigation-link {"label":"Contact","url":"/contact/","kind":"post-type","type":"page"} /-->
+    <!-- /wp:navigation -->
+
+    <!-- wp:group {"className":"site-header__cta","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"flex-end","verticalAlignment":"center"}} -->
+    <div class="wp-block-group site-header__cta">
+      <!-- wp:mccullough-digital/button {"className":"header-cta","buttonText":"Start a Project","buttonLink":"/contact/#project-intake"} /-->
+    </div>
+    <!-- /wp:group -->
   </div>
   <!-- /wp:group -->
-  <!-- wp:navigation {"className":"main-navigation","layout":{"type":"flex","justifyContent":"flex-end","orientation":"horizontal"},"overlayMenu":"mobile","style":{"spacing":{"blockGap":"25px"}}} /-->
-  <!-- wp:mccullough-digital/button {"className":"header-cta","buttonText":"Start a Project","buttonLink":"#contact"} /-->
-</div>
+</header>
 <!-- /wp:group -->
+
+

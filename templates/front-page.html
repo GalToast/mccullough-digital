@@ -6,7 +6,7 @@
   <div class="wp-block-group alignfull mcd-home">
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__hero","layout":{"type":"constrained","wideSize":"100%"}} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__hero">
+    <section class="wp-block-group alignfull mcd-section mcd-section--dark mcd-home__hero">
       <!-- wp:group {"className":"mcd-container mcd-home__hero-inner","layout":{"type":"flex","orientation":"vertical","justifyContent":"center","verticalAlignment":"center"}} -->
       <div class="wp-block-group mcd-container mcd-home__hero-inner">
         <!-- wp:heading {"level":1,"className":"mcd-home__hero-title"} -->
@@ -23,13 +23,7 @@
 
         <!-- wp:buttons {"className":"mcd-home__hero-actions"} -->
         <div class="wp-block-buttons mcd-home__hero-actions">
-          <!-- wp:button {"className":"mcd-btn mcd-btn--primary","width":100} -->
-          <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--primary" href="#packages">Get Pricing &amp; Timeline</a></div>
-          <!-- /wp:button -->
-
-          <!-- wp:button {"className":"mcd-btn mcd-btn--outline","width":100} -->
-          <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--outline" href="/services">See Packages</a></div>
-          <!-- /wp:button -->
+          <!-- wp:pattern {"slug":"mccullough-digital/cta-button-pair"} /-->
         </div>
         <!-- /wp:buttons -->
 
@@ -42,9 +36,9 @@
     <!-- /wp:group -->
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__proof","layout":{"type":"constrained","wideSize":"100%"}} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__proof">
+    <section class="wp-block-group alignfull mcd-section mcd-section--light mcd-home__proof">
       <!-- wp:group {"className":"mcd-container mcd-home__proof-inner","layout":{"type":"constrained"}} -->
-      <div class="wp-block-group mcd-container mcd-home__proof-inner">
+      <div class="wp-block-group mcd-container mcd-home__proof-inner surface-panel">
         <!-- wp:paragraph {"className":"mcd-home__proof-line"} -->
         <p class="mcd-home__proof-line">Clients ranking <span>top-5 on Google within 60 days</span> &bull; <span>2-3x more inquiries after launch</span> &bull; <span>Local visibility that keeps growing</span></p>
         <!-- /wp:paragraph -->
@@ -58,86 +52,47 @@
     <!-- /wp:group -->
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__packages","layout":{"type":"constrained","wideSize":"100%"},"anchor":"packages"} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__packages" id="packages">
+    <section class="wp-block-group alignfull mcd-section mcd-section--gradient mcd-home__packages" id="packages">
       <!-- wp:group {"className":"mcd-container","layout":{"type":"constrained"}} -->
-      <div class="wp-block-group mcd-container">
+      <div class="wp-block-group mcd-container surface-panel">
         <!-- wp:heading {"className":"mcd-home__section-title"} -->
         <h2 class="wp-block-heading mcd-home__section-title">Packages built to launch, grow, and scale.</h2>
         <!-- /wp:heading -->
 
         <!-- wp:group {"className":"mcd-home__packages-grid","layout":{"type":"constrained","justifyContent":"center"}} -->
         <div class="wp-block-group mcd-home__packages-grid">
-          <!-- wp:group {"className":"mcd-package-card mcd-package-card--foundation","layout":{"type":"constrained"}} -->
-          <div class="wp-block-group mcd-package-card mcd-package-card--foundation">
-            <!-- wp:heading {"level":3,"className":"mcd-package-card__title"} -->
-            <h3 class="wp-block-heading mcd-package-card__title">Foundation &mdash; your business, launched right.</h3>
-            <!-- /wp:heading -->
+          <!-- wp:html -->
+          <article class="mcd-package-card mcd-package-card--foundation" data-package="foundation">
+            <a class="mcd-package-card__inner" href="/services/#package-foundation" aria-labelledby="package-foundation-title" aria-describedby="package-foundation-copy package-foundation-price">
+              <h3 class="mcd-package-card__title" id="package-foundation-title">Foundation &mdash; your business, launched right.</h3>
+              <p class="mcd-package-card__copy" id="package-foundation-copy">A modern three-to-five page site that gets you found on Google, with built-in analytics and local SEO so you are ready for leads in about 30 days.</p>
+              <p class="mcd-package-card__price" id="package-foundation-price"><strong>One-time setup from $995.</strong> Optional care plan $35-$75 per month.</p>
+              <span class="mcd-package-card__cta">Explore Foundation</span>
+            </a>
+          </article>
+          <!-- /wp:html -->
 
-            <!-- wp:paragraph {"className":"mcd-package-card__copy"} -->
-            <p class="mcd-package-card__copy">A modern three-to-five page site that gets you found on Google, with built-in analytics and local SEO so you are ready for leads in about 30 days.</p>
-            <!-- /wp:paragraph -->
+          <!-- wp:html -->
+          <article class="mcd-package-card mcd-package-card--growth" data-package="growth">
+            <a class="mcd-package-card__inner" href="/services/#package-growth" aria-labelledby="package-growth-title" aria-describedby="package-growth-copy package-growth-price">
+              <h3 class="mcd-package-card__title" id="package-growth-title">Growth &mdash; from seen to sought-after.</h3>
+              <p class="mcd-package-card__copy" id="package-growth-copy">Google Ads, SEO, and content working together for reliable leads and clear results every month.</p>
+              <p class="mcd-package-card__price" id="package-growth-price"><strong>Setup from $2,000.</strong> <strong>Ongoing management $350-$600 per month.</strong></p>
+              <span class="mcd-package-card__cta">Explore Growth</span>
+            </a>
+          </article>
+          <!-- /wp:html -->
 
-            <!-- wp:paragraph {"className":"mcd-package-card__price"} -->
-            <p class="mcd-package-card__price"><strong>One-time setup from $995.</strong> Optional care plan $35-$75 per month.</p>
-            <!-- /wp:paragraph -->
-
-            <!-- wp:buttons -->
-            <div class="wp-block-buttons">
-              <!-- wp:button {"className":"mcd-btn mcd-btn--outline","width":100} -->
-              <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--outline" href="/services">See Packages</a></div>
-              <!-- /wp:button -->
-            </div>
-            <!-- /wp:buttons -->
-          </div>
-          <!-- /wp:group -->
-
-          <!-- wp:group {"className":"mcd-package-card mcd-package-card--growth","layout":{"type":"constrained"}} -->
-          <div class="wp-block-group mcd-package-card mcd-package-card--growth">
-            <!-- wp:heading {"level":3,"className":"mcd-package-card__title"} -->
-            <h3 class="wp-block-heading mcd-package-card__title">Growth &mdash; from seen to sought-after.</h3>
-            <!-- /wp:heading -->
-
-            <!-- wp:paragraph {"className":"mcd-package-card__copy"} -->
-            <p class="mcd-package-card__copy">Google Ads, SEO, and content working together for reliable leads and clear results every month.</p>
-            <!-- /wp:paragraph -->
-
-            <!-- wp:paragraph {"className":"mcd-package-card__price"} -->
-            <p class="mcd-package-card__price"><strong>Setup from $2,000.</strong> <strong>Ongoing management $350-$600 per month.</strong></p>
-            <!-- /wp:paragraph -->
-
-            <!-- wp:buttons -->
-            <div class="wp-block-buttons">
-              <!-- wp:button {"className":"mcd-btn mcd-btn--outline","width":100} -->
-              <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--outline" href="/services">See Packages</a></div>
-              <!-- /wp:button -->
-            </div>
-            <!-- /wp:buttons -->
-          </div>
-          <!-- /wp:group -->
-
-          <!-- wp:group {"className":"mcd-package-card mcd-package-card--launchpad","layout":{"type":"constrained"}} -->
-          <div class="wp-block-group mcd-package-card mcd-package-card--launchpad">
-            <!-- wp:heading {"level":3,"className":"mcd-package-card__title"} -->
-            <h3 class="wp-block-heading mcd-package-card__title">Launchpad &mdash; grow on autopilot.</h3>
-            <!-- /wp:heading -->
-
-            <!-- wp:paragraph {"className":"mcd-package-card__copy"} -->
-            <p class="mcd-package-card__copy">Multi-channel ads, smart automations, and clear KPIs handled for you so you can stay focused on running the business.</p>
-            <!-- /wp:paragraph -->
-
-            <!-- wp:paragraph {"className":"mcd-package-card__price"} -->
-            <p class="mcd-package-card__price"><strong>Setup from $4,000.</strong> <strong>Ongoing management $800-$1,200 per month.</strong></p>
-            <!-- /wp:paragraph -->
-
-            <!-- wp:buttons -->
-            <div class="wp-block-buttons">
-              <!-- wp:button {"className":"mcd-btn mcd-btn--outline","width":100} -->
-              <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--outline" href="/services">See Packages</a></div>
-              <!-- /wp:button -->
-            </div>
-            <!-- /wp:buttons -->
-          </div>
-          <!-- /wp:group -->
+          <!-- wp:html -->
+          <article class="mcd-package-card mcd-package-card--launchpad" data-package="launchpad">
+            <a class="mcd-package-card__inner" href="/services/#package-launchpad" aria-labelledby="package-launchpad-title" aria-describedby="package-launchpad-copy package-launchpad-price">
+              <h3 class="mcd-package-card__title" id="package-launchpad-title">Launchpad &mdash; grow on autopilot.</h3>
+              <p class="mcd-package-card__copy" id="package-launchpad-copy">Multi-channel ads, smart automations, and clear KPIs handled for you so you can stay focused on running the business.</p>
+              <p class="mcd-package-card__price" id="package-launchpad-price"><strong>Setup from $4,000.</strong> <strong>Ongoing management $800-$1,200 per month.</strong></p>
+              <span class="mcd-package-card__cta">Explore Launchpad</span>
+            </a>
+          </article>
+          <!-- /wp:html -->
         </div>
         <!-- /wp:group -->
 
@@ -150,9 +105,9 @@
     <!-- /wp:group -->
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__process","layout":{"type":"constrained","wideSize":"100%"}} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__process">
+    <section class="wp-block-group alignfull mcd-section mcd-section--light-alt mcd-home__process">
       <!-- wp:group {"className":"mcd-container","layout":{"type":"constrained"}} -->
-      <div class="wp-block-group mcd-container">
+      <div class="wp-block-group mcd-container surface-panel">
         <!-- wp:heading {"className":"mcd-home__section-title"} -->
         <h2 class="wp-block-heading mcd-home__section-title">How we get you live and growing.</h2>
         <!-- /wp:heading -->
@@ -202,7 +157,7 @@
     <!-- /wp:group -->
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__why","layout":{"type":"constrained","wideSize":"100%"}} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__why">
+    <section class="wp-block-group alignfull mcd-section mcd-section--dark mcd-home__why">
       <!-- wp:group {"className":"mcd-container","layout":{"type":"constrained"}} -->
       <div class="wp-block-group mcd-container">
         <!-- wp:heading {"className":"mcd-home__section-title"} -->
@@ -243,7 +198,7 @@
     <!-- /wp:group -->
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__faq","layout":{"type":"constrained","wideSize":"100%"}} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__faq">
+    <section class="wp-block-group alignfull mcd-section mcd-section--light mcd-home__faq">
       <!-- wp:group {"className":"mcd-container","layout":{"type":"constrained"}} -->
       <div class="wp-block-group mcd-container">
         <!-- wp:heading {"className":"mcd-home__section-title"} -->
@@ -287,9 +242,9 @@
     <!-- /wp:group -->
 
     <!-- wp:group {"tagName":"section","align":"full","className":"mcd-section mcd-home__cta","layout":{"type":"constrained","wideSize":"100%"}} -->
-    <section class="wp-block-group alignfull mcd-section mcd-home__cta">
+    <section class="wp-block-group alignfull mcd-section mcd-section--gradient mcd-home__cta">
       <!-- wp:group {"className":"mcd-container mcd-home__cta-inner","layout":{"type":"constrained"}} -->
-      <div class="wp-block-group mcd-container mcd-home__cta-inner">
+      <div class="wp-block-group mcd-container mcd-home__cta-inner surface-panel">
         <!-- wp:heading {"className":"mcd-home__cta-title"} -->
         <h2 class="wp-block-heading mcd-home__cta-title">Ready to launch your digital presence?</h2>
         <!-- /wp:heading -->
@@ -301,7 +256,7 @@
         <!-- wp:buttons -->
         <div class="wp-block-buttons">
           <!-- wp:button {"className":"mcd-btn mcd-btn--dark","width":100} -->
-          <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--dark" href="/contact">Start my estimate</a></div>
+          <div class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button mcd-btn mcd-btn--dark" href="/contact/#project-intake">Start my estimate</a></div>
           <!-- /wp:button -->
         </div>
         <!-- /wp:buttons -->

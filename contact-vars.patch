@@ -1,0 +1,12 @@
+*** Update File: app/public/wp-content/themes/mccullough-digital/style.css
+@@
+     --cta-text: #05111f;
+-    --field-background: rgba(10, 16, 42, 0.96);
+-    --field-background-active: rgba(14, 22, 52, 0.98);
+-    --field-border: rgba(138, 154, 218, 0.42);
+-    --field-border-active: rgba(79, 240, 255, 0.55);
++    --field-background: rgba(255, 255, 255, 0.96);
++    --field-background-active: rgba(239, 246, 255, 0.98);
++    --field-border: rgba(118, 146, 198, 0.45);
++    --field-border-active: rgba(79, 240, 255, 0.6);
+*** End Patch

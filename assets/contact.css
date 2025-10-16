@@ -1,0 +1,374 @@
+/**
+ * Contact funnel styling
+ * Tailored for /contact page hero, process, intake form, and detail sections.
+ */
+
+.mcd-contact__hero {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(120% 110% at 16% 12%, rgba(255, 0, 224, 0.32), transparent 60%),
+        radial-gradient(130% 120% at 78% 8%, rgba(0, 229, 255, 0.28), transparent 64%),
+        radial-gradient(140% 160% at 50% 120%, rgba(255, 156, 90, 0.18), transparent 72%),
+        var(--gradient-neon-night);
+    padding-block: clamp(112px, 18vw, 168px) clamp(72px, 14vw, 120px);
+    color: var(--text-primary, #f4f6ff);
+    isolation: isolate;
+}
+
+.mcd-contact__hero::before,
+.mcd-contact__hero::after {
+    content: "";
+    position: absolute;
+    inset: -12%;
+    background:
+        radial-gradient(60% 60% at 28% 16%, rgba(255, 0, 224, 0.35), transparent 64%),
+        radial-gradient(55% 55% at 74% 14%, rgba(0, 229, 255, 0.28), transparent 66%);
+    opacity: 0.65;
+    filter: blur(12px);
+    mix-blend-mode: screen;
+    z-index: 0;
+    animation: mcd-contact-hero-glow 18s ease-in-out infinite alternate;
+}
+
+.mcd-contact__hero::after {
+    inset: -18%;
+    background:
+        radial-gradient(70% 70% at 40% 18%, rgba(0, 229, 255, 0.22), transparent 72%),
+        radial-gradient(60% 60% at 60% 82%, rgba(255, 156, 90, 0.22), transparent 68%);
+    opacity: 0.45;
+    animation-duration: 22s;
+    animation-delay: -4s;
+}
+
+.mcd-contact__hero-inner {
+    position: relative;
+    z-index: 1;
+    width: min(960px, 92vw);
+    margin-inline: auto;
+    display: grid;
+    gap: clamp(20px, 4vw, 32px);
+    text-align: center;
+    padding: clamp(32px, 6vw, 48px);
+    border-radius: 40px;
+    background: linear-gradient(150deg, rgba(4, 12, 32, 0.78), rgba(10, 16, 38, 0.92));
+    border: 1px solid rgba(0, 229, 255, 0.32);
+    box-shadow:
+        0 40px 120px rgba(3, 10, 28, 0.55),
+        inset 0 0 0 1px rgba(255, 0, 224, 0.12);
+    backdrop-filter: blur(16px);
+}
+
+.mcd-contact__hero-inner::after {
+    content: none;
+}
+
+.mcd-contact__hero-title {
+    font-family: var(--font-hero, 'Caveat', cursive);
+    font-size: clamp(38px, 7vw, 60px);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin: 0;
+    text-shadow:
+        0 0 36px rgba(79, 240, 255, 0.35),
+        0 0 44px rgba(255, 116, 228, 0.28),
+        0 0 32px rgba(255, 156, 90, 0.24);
+}
+
+.mcd-contact__hero-text {
+    font-size: clamp(1.08rem, 1.6vw, 1.33rem);
+    color: var(--text-secondary, #c7d2ff);
+    margin: 0;
+}
+
+.mcd-contact__hero-highlights {
+    list-style: none;
+    display: grid;
+    gap: clamp(16px, 3vw, 22px);
+    margin: 0;
+    padding: 0;
+}
+
+.mcd-contact__hero-highlights li {
+    position: relative;
+    padding: clamp(18px, 3vw, 24px) clamp(24px, 4vw, 32px) clamp(18px, 3vw, 24px) clamp(56px, 6vw, 72px);
+    border-radius: 24px;
+    background:
+        linear-gradient(120deg, rgba(0, 229, 255, 0.16), rgba(255, 0, 224, 0.1)),
+        rgba(4, 12, 32, 0.55);
+    border: 1px solid rgba(0, 229, 255, 0.26);
+    color: var(--text-secondary, #cad7ff);
+    box-shadow: 0 18px 48px rgba(4, 10, 28, 0.35);
+}
+
+.mcd-contact__hero-highlights li::before {
+    content: "";
+    position: absolute;
+    left: clamp(18px, 3vw, 24px);
+    top: 50%;
+    translate: 0 -50%;
+    width: clamp(20px, 4vw, 28px);
+    height: clamp(20px, 4vw, 28px);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.95), rgba(255, 0, 224, 0.75));
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);
+}
+
+.mcd-contact__hero-alternatives {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(12px, 2.4vw, 18px);
+    justify-content: center;
+    color: var(--text-tertiary, #9dace0);
+}
+
+.mcd-contact__hero-alt {
+    margin: 0;
+    font-size: 0.98rem;
+}
+
+.mcd-contact__hero-alt strong {
+    color: var(--text-primary, #f4f6ff);
+}
+
+.mcd-contact__section-title {
+    font-size: clamp(30px, 5vw, 40px);
+    font-family: var(--font-display, 'Manrope', 'Nunito', 'Segoe UI', Helvetica, Arial, sans-serif);
+    font-weight: 700;
+    text-align: center;
+    margin: 0 0 clamp(20px, 4vw, 32px);
+    color: var(--text-primary, #f4f6ff);
+    text-shadow: 0 6px 28px rgba(0, 229, 255, 0.24);
+}
+
+.mcd-contact__process {
+    position: relative;
+    padding-block: clamp(88px, 16vw, 128px);
+    background:
+        radial-gradient(120% 150% at 20% 0%, rgba(0, 229, 255, 0.12), transparent 62%),
+        radial-gradient(120% 140% at 82% 16%, rgba(255, 0, 224, 0.12), transparent 70%),
+        var(--surface-dark, #0c1230);
+}
+
+.mcd-contact__steps {
+    display: grid;
+    gap: clamp(20px, 4vw, 32px);
+    margin: clamp(36px, 6vw, 52px) 0 0;
+    counter-reset: mcd-contact-step;
+}
+
+.mcd-contact__steps .wp-block-column {
+    counter-increment: mcd-contact-step;
+    position: relative;
+    padding: clamp(28px, 4vw, 36px);
+    border-radius: 28px;
+    background:
+        var(--gradient-panel);
+    border: 1px solid rgba(79, 240, 255, 0.22);
+    box-shadow:
+        0 26px 60px rgba(4, 10, 28, 0.42),
+        inset 0 0 0 1px rgba(255, 0, 224, 0.1);
+    display: grid;
+    gap: clamp(12px, 2.4vw, 18px);
+    overflow: hidden;
+}
+
+.mcd-contact__steps .wp-block-column::before {
+    content: counter(mcd-contact-step);
+    position: absolute;
+    top: clamp(20px, 3vw, 26px);
+    left: clamp(24px, 4vw, 32px);
+    width: clamp(42px, 6vw, 54px);
+    height: clamp(42px, 6vw, 54px);
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    background: var(--gradient-cta);
+    color: #f7f9ff;
+    text-shadow: 0 0 12px rgba(4, 15, 35, 0.45);
+    box-shadow: 0 0 32px rgba(79, 240, 255, 0.4);
+}
+
+.mcd-contact__step-heading {
+    font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+    font-weight: 700;
+    margin: clamp(60px, 8vw, 72px) 0 0;
+    color: var(--text-primary, #f4f6ff);
+}
+
+.mcd-contact__step-copy {
+    margin: 0;
+    color: var(--text-secondary, #c7d2ff);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.mcd-contact__form {
+    position: relative;
+    padding-block: clamp(96px, 17vw, 140px);
+    background:
+        radial-gradient(140% 120% at 18% 12%, rgba(0, 229, 255, 0.16), transparent 62%),
+        radial-gradient(130% 130% at 80% 18%, rgba(255, 0, 224, 0.14), transparent 68%),
+        var(--gradient-neon-night);
+}
+
+.mcd-contact__form-inner {
+    position: relative;
+    z-index: 1;
+    width: min(960px, 94vw);
+    margin-inline: auto;
+    display: grid;
+    gap: clamp(20px, 4vw, 32px);
+    padding: clamp(36px, 6vw, 52px);
+    border-radius: 36px;
+    background: linear-gradient(160deg, rgba(8, 14, 32, 0.9), rgba(10, 18, 44, 0.94));
+    border: 1px solid rgba(0, 229, 255, 0.22);
+    box-shadow: 0 34px 80px rgba(4, 10, 28, 0.5);
+    backdrop-filter: blur(14px);
+}
+
+.mcd-contact__form-intro {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-secondary, #c7d2ff);
+}
+
+.mcd-contact__form-block {
+    width: 100%;
+}
+
+.mcd-contact__details {
+    position: relative;
+    padding-block: clamp(80px, 15vw, 128px);
+    background:
+        linear-gradient(180deg, rgba(4, 8, 20, 0.96), rgba(10, 16, 38, 0.98)),
+        var(--surface-dark, #0c1230);
+}
+
+.mcd-contact__details .mcd-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(24px, 4vw, 32px);
+}
+
+.mcd-contact__detail {
+    position: relative;
+    padding: clamp(24px, 4vw, 32px);
+    border-radius: 26px;
+    background:
+        linear-gradient(150deg, rgba(16, 26, 56, 0.9), rgba(10, 18, 44, 0.92));
+    border: 1px solid rgba(0, 229, 255, 0.18);
+    box-shadow: 0 22px 60px rgba(4, 10, 28, 0.42);
+    color: var(--text-secondary, #cad7ff);
+    display: grid;
+    gap: clamp(12px, 2.5vw, 18px);
+}
+
+.mcd-contact__detail::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 0, 224, 0.2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.mcd-contact__detail:hover::before,
+.mcd-contact__detail:focus-within::before {
+    opacity: 1;
+}
+
+.mcd-contact__detail h3 {
+    margin: 0;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: var(--text-primary, #f4f6ff);
+}
+
+.mcd-contact__detail p,
+.mcd-contact__detail li {
+    color: var(--text-secondary, #c7d2ff);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.mcd-contact__detail ul {
+    margin: 0;
+    padding-left: 1.2em;
+    display: grid;
+    gap: 8px;
+}
+
+.mcd-contact__detail a {
+    color: var(--neon-cyan, #4ff0ff);
+    text-decoration: none;
+}
+
+.mcd-contact__detail a:hover,
+.mcd-contact__detail a:focus-visible {
+    color: var(--neon-amber, #ff9c5a);
+}
+
+@media (max-width: 900px) {
+    .mcd-contact__hero-inner {
+        text-align: left;
+        padding: clamp(28px, 8vw, 40px);
+    }
+
+    .mcd-contact__hero-inner::after {
+        display: none;
+    }
+
+    .mcd-contact__section-title {
+        text-align: left;
+    }
+
+    .mcd-contact__steps .wp-block-column::before {
+        left: clamp(20px, 5vw, 26px);
+    }
+}
+
+@media (max-width: 680px) {
+    .mcd-contact__hero {
+        padding-block: 88px 72px;
+    }
+
+    .mcd-contact__hero-inner {
+        padding: 28px;
+    }
+
+    .mcd-contact__hero-highlights li {
+        padding-left: 58px;
+    }
+
+    .mcd-contact__steps {
+        margin-top: clamp(24px, 8vw, 36px);
+    }
+
+    .mcd-contact__steps .wp-block-column {
+        padding: clamp(24px, 8vw, 32px);
+    }
+
+    .mcd-contact__step-heading {
+        margin-top: clamp(48px, 10vw, 60px);
+    }
+
+    .mcd-contact__details .mcd-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@keyframes mcd-contact-hero-glow {
+    from {
+        transform: translate3d(-2%, -1%, 0) scale(1.02);
+        opacity: 0.5;
+    }
+    to {
+        transform: translate3d(2%, 1%, 0) scale(1.08);
+        opacity: 0.85;
+    }
+}
+

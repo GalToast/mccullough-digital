@@ -69,6 +69,44 @@ if ( ! function_exists( 'mcd_get_blog_hero_context' ) ) {
 	}
 }
 
+if ( ! function_exists( 'mcd_blog_host_requires_fallback' ) ) {
+    /**
+     * Detect if the current host uses Local's share URL which does not support pretty permalinks reliably.
+     */
+    function mcd_blog_host_requires_fallback() {
+        static $requires_fallback = null;
+
+        if ( null !== $requires_fallback ) {
+            return $requires_fallback;
+        }
+
+        $host = wp_parse_url( home_url(), PHP_URL_HOST );
+
+        $requires_fallback = $host && preg_match( '/\\.localsite\\.io$/', $host );
+
+        return $requires_fallback;
+    }
+}
+
+if ( ! function_exists( 'mcd_get_blog_post_link' ) ) {
+    /**
+     * Provide a permalink that does not 404 on Local "Share" URLs.
+     *
+     * @param int $post_id Post ID.
+     *
+     * @return string
+     */
+    function mcd_get_blog_post_link( $post_id ) {
+        $permalink = get_permalink( $post_id );
+
+        if ( mcd_blog_host_requires_fallback() || ! $permalink ) {
+            $permalink = add_query_arg( 'p', (int) $post_id, home_url( '/' ) );
+        }
+
+        return $permalink;
+}
+}
+
 if ( ! function_exists( 'mcd_get_thumbnail_alt_fallback' ) ) {
 	/**
 	 * Generate an accessible alt attribute for a post thumbnail.
@@ -108,39 +146,6 @@ if ( ! function_exists( 'mcd_render_category_pills' ) ) {
 	 * @return string
 	 */
 	function mcd_render_category_pills() {
-		$items = [
-			[
-				'label' => __( 'All Posts', 'mccullough-digital' ),
-				'slug'  => '',
-				'type'  => 'all',
-			],
-			[
-				'label' => __( 'Web Design', 'mccullough-digital' ),
-				'slug'  => 'web-design',
-				'type'  => 'category',
-			],
-			[
-				'label' => __( 'Development', 'mccullough-digital' ),
-				'slug'  => 'development',
-				'type'  => 'category',
-			],
-			[
-				'label' => __( 'WordPress', 'mccullough-digital' ),
-				'slug'  => 'wordpress',
-				'type'  => 'category',
-			],
-			[
-				'label' => __( 'UI/UX', 'mccullough-digital' ),
-				'slug'  => 'ui-ux',
-				'type'  => 'category',
-			],
-			[
-				'label' => __( 'Tutorials', 'mccullough-digital' ),
-				'slug'  => 'tutorials',
-				'type'  => 'category',
-			],
-		];
-
 		$posts_page_id = (int) get_option( 'page_for_posts' );
 		$posts_page    = $posts_page_id ? get_permalink( $posts_page_id ) : home_url( '/' );
 		$current_topic = get_query_var( 'mcd_topic' );
@@ -153,18 +158,35 @@ if ( ! function_exists( 'mcd_render_category_pills' ) ) {
 		$all_posts_url = remove_query_arg( 'mcd_topic', $posts_page );
 		$output        = '<ul class="category-filters__list pills" role="list">';
 
-		foreach ( $items as $item ) {
-			$label      = $item['label'];
-			$slug       = $item['slug'];
-			$is_current = false;
-			$url        = $all_posts_url;
+		$categories = get_categories(
+			array(
+				'taxonomy'   => 'category',
+				'hide_empty' => true,
+				'orderby'    => 'count',
+				'order'      => 'DESC',
+				'number'     => 6,
+			)
+		);
 
-			if ( 'category' === $item['type'] ) {
-				$url        = add_query_arg( 'mcd_topic', $slug, $posts_page );
-				$is_current = ( '' !== $current_topic && $current_topic === $slug ) || is_category( $slug );
-			} else {
-				$is_current = ( '' === $current_topic || 'all' === $current_topic ) && ( is_home() || is_post_type_archive( 'post' ) || is_search() || is_404() );
+		$is_all_current = ( '' === $current_topic || 'all' === $current_topic ) && ( is_home() || is_post_type_archive( 'post' ) || is_search() || is_404() );
+
+		$output .= sprintf(
+			'<li><a class="%1$s" href="%2$s" data-category="all"%3$s>%4$s</a></li>',
+			esc_attr( implode( ' ', array_merge( array( 'category-pill', 'pill' ), $is_all_current ? array( 'is-active' ) : array() ) ) ),
+			esc_url( $all_posts_url ),
+			$is_all_current ? ' aria-current="page"' : '',
+			esc_html__( 'All Posts', 'mccullough-digital' )
+		);
+
+		foreach ( $categories as $category ) {
+			if ( ! $category instanceof WP_Term ) {
+				continue;
 			}
+
+			$slug       = $category->slug;
+			$label      = $category->name;
+			$url        = add_query_arg( 'mcd_topic', $slug, $posts_page );
+			$is_current = ( '' !== $current_topic && $current_topic === $slug ) || is_category( $slug );
 
 			$classes = [ 'category-pill', 'pill' ];
 
@@ -341,28 +363,44 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
 		</section>
 		<?php
 
-		if ( ! $loop->have_posts() ) {
+		$max_pages      = max( 1, (int) $loop->max_num_pages );
+		$filtered_posts = [];
+
+		if ( $loop->have_posts() ) {
+			while ( $loop->have_posts() ) {
+				$loop->the_post();
+
+				$post_id = get_the_ID();
+
+				$filtered_posts[] = $post_id;
+			}
+		}
+
+		wp_reset_postdata();
+
+		if ( empty( $filtered_posts ) ) {
 			?>
 			<section class="blog-grid blog-grid--empty" aria-live="polite">
 				<div class="blog-container">
-					<p class="blog-empty"><?php esc_html_e( 'No posts yet. Try adjusting your search or check back soon.', 'mccullough-digital' ); ?></p>
+					<p class="blog-empty"><?php esc_html_e( 'Fresh stories are on the way. In the meantime, explore the case studies or check back soon.', 'mccullough-digital' ); ?></p>
 				</div>
 			</section>
 			<?php
-			wp_reset_postdata();
 			return ob_get_clean();
 		}
 
 		$show_featured = ! is_paged();
+		$featured_id   = null;
 
-		if ( $show_featured ) {
-			$loop->the_post();
+		if ( $show_featured && ! empty( $filtered_posts ) ) {
+			$featured_id = array_shift( $filtered_posts );
+		}
 
-			$featured_id       = get_the_ID();
-			$featured_link     = get_permalink();
-			$featured_title    = get_the_title();
-			$featured_date     = get_the_date( 'M j, Y' );
-			$featured_excerpt  = wp_trim_words( get_the_excerpt(), 32, '...' );
+		if ( $featured_id ) {
+			$featured_link     = mcd_get_blog_post_link( $featured_id );
+			$featured_title    = get_the_title( $featured_id );
+			$featured_date     = get_the_date( 'M j, Y', $featured_id );
+			$featured_excerpt  = wp_trim_words( get_the_excerpt( $featured_id ), 32, '...' );
 			$primary_category  = mcd_get_primary_category( $featured_id );
 			$category_link     = $primary_category ? get_term_link( $primary_category ) : '';
 			$category_has_link = $primary_category && ! is_wp_error( $category_link );
@@ -437,21 +475,29 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
 					<?php
 					$rendered_posts = 0;
 
-					while ( $loop->have_posts() ) {
-						$loop->the_post();
-
-						$post_id          = get_the_ID();
-						$post_link        = get_permalink();
-						$post_title       = get_the_title();
-						$post_date        = get_the_date( 'M j, Y' );
-						$excerpt          = wp_trim_words( get_the_excerpt(), 24, '...' );
+					foreach ( $filtered_posts as $post_id ) {
+                        $post_link        = mcd_get_blog_post_link( $post_id );
+						$post_title       = get_the_title( $post_id );
+						$card_aria_label  = sprintf(
+							/* translators: %s: Post title. */
+							__( 'Open article: %s', 'mccullough-digital' ),
+							$post_title
+						);
+						$post_date        = get_the_date( 'M j, Y', $post_id );
+						$excerpt          = wp_trim_words( get_the_excerpt( $post_id ), 24, '...' );
 						$primary_category = mcd_get_primary_category( $post_id );
 						$category_link    = $primary_category ? get_term_link( $primary_category ) : '';
 						$has_cat_link     = $primary_category && ! is_wp_error( $category_link );
 
 						$rendered_posts++;
 						?>
-						<article class="card post-card reveal">
+						<article
+							class="card post-card reveal"
+							data-card-link="<?php echo esc_url( $post_link ); ?>"
+							role="link"
+							tabindex="0"
+							aria-label="<?php echo esc_attr( $card_aria_label ); ?>"
+						>
 							<a class="card__media post-card-image" href="<?php echo esc_url( $post_link ); ?>">
 								<?php
 								$card_image = get_the_post_thumbnail(
@@ -513,7 +559,7 @@ if ( ! function_exists( 'mcd_render_blog_archive_loop' ) ) {
 
 				<?php
 				$pagination_args = [
-					'total'     => max( 1, (int) $loop->max_num_pages ),
+					'total'     => $max_pages,
 					'current'   => $current_page,
 					'type'      => 'array',
 					'prev_text' => __( 'Previous', 'mccullough-digital' ),

@@ -1,0 +1,41 @@
+{
+    "name": "mccullough-digital/contact-form",
+    "title": "Contact Intake Form",
+    "category": "mcd-blocks",
+    "icon": "email",
+    "description": "Scoped project intake form with async-first messaging and analytics hooks.",
+    "apiVersion": 2,
+    "keywords": [
+        "contact",
+        "lead",
+        "form"
+    ],
+    "supports": {
+        "html": false,
+        "anchor": true,
+        "align": ["wide", "full"],
+        "spacing": {
+            "margin": true,
+            "padding": true
+        }
+    },
+    "attributes": {
+        "buttonText": {
+            "type": "string",
+            "default": "Send my project details"
+        },
+        "successMessage": {
+            "type": "string",
+            "default": "Thanks! We'll be in touch within one business day."
+        },
+        "showOptIn": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "editorScript": "file:../../build/blocks/contact-form/editor.js",
+    "viewScript": "file:./view.js",
+    "style": "file:./style.css",
+    "render": "file:./render.php",
+    "textdomain": "mccullough-digital"
+}

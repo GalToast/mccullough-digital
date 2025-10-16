@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Title: OnMark Case Study
  * Slug: mccullough-digital/case-study-onmark
@@ -6,22 +6,25 @@
  * Inserter: no
  */
 ?>
+<?php
+$placeholder_image = trailingslashit( get_stylesheet_directory_uri() ) . 'assets/placeholder-16x9.svg';
+?>
 <!-- wp:group {"layout":{"type":"default"}} -->
 <div class="wp-block-group">
 
 <!-- HERO / COVER -->
-<!-- wp:cover {"url":"YOUR-HERO-IMAGE-URL","dimRatio":60,"minHeight":360,"isDark":false,"align":"full","style":{"spacing":{"padding":{"top":"48px","bottom":"48px"}}}} -->
-<div class="wp-block-cover alignfull is-light" style="padding-top:48px;padding-bottom:48px;min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-60 has-background-dim"></span><img class="wp-block-cover__image-background" alt="" src="YOUR-HERO-IMAGE-URL" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
-  <!-- wp:heading {"textAlign":"center","level":1} -->
-  <h1 class="wp-block-heading has-text-align-center">OnMark (Houston): From zero to Top-5 for “solid surface countertops Houston.”</h1>
+<!-- wp:cover {"url":"<?php echo esc_url( $placeholder_image ); ?>","dimRatio":60,"minHeight":360,"isDark":false,"align":"full","style":{"spacing":{"padding":{"top":"48px","bottom":"48px"}}}} -->
+<div class="wp-block-cover alignfull is-light" style="padding-top:48px;padding-bottom:48px;min-height:360px"><span aria-hidden="true" class="wp-block-cover__background has-background-dim-60 has-background-dim"></span><img class="wp-block-cover__image-background" alt="OnMark countertops project hero" src="<?php echo esc_url( $placeholder_image ); ?>" data-object-fit="cover"/><div class="wp-block-cover__inner-container">
+  <!-- wp:heading {"textAlign":"center","level":2} -->
+  <h2 class="wp-block-heading has-text-align-center">OnMark (Houston): From zero to Top-5 for “solid surface countertops Houston.”</h2>
   <!-- /wp:heading -->
   <!-- wp:paragraph {"align":"center"} -->
   <p class="has-text-align-center">We built everything—WordPress site, clear “Get Pricing &amp; Timeline” path, Google Business Profile, and GA4/GTM—so every lead has a source.</p>
   <!-- /wp:paragraph -->
   <!-- wp:buttons {"layout":{"type":"flex","justifyContent":"center"}} -->
-  <div class="wp-block-buttons"><!-- wp:button {"className":"is-style-fill"} -->
-  <div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact">Get Pricing &amp; Timeline</a></div>
-  <!-- /wp:button --></div>
+  <div class="wp-block-buttons">
+    <!-- wp:pattern {"slug":"mccullough-digital/cta-button-pair"} /-->
+  </div>
   <!-- /wp:buttons -->
 </div></div>
 <!-- /wp:cover -->
@@ -90,7 +93,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Starting from zero: no website, no active social, no tracking, and no single “start here” path. Local visibility was limited; inquiries were sporadic and un-attributed.</p>
+<p>Starting from zero: no website, no active social, no tracking, and no single “start here” path. Local visibility was limited; inquiries were sporadic and unattributed.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
@@ -126,15 +129,15 @@
 <!-- GALLERY (optional) -->
 <!-- wp:gallery {"columns":3,"linkTo":"none","align":"wide"} -->
 <figure class="wp-block-gallery alignwide has-nested-images columns-3 is-cropped"><!-- wp:image -->
-<figure class="wp-block-image size-large"><img src="IMAGE-1-URL" alt="Homepage—after"/></figure>
+<figure class="wp-block-image size-large"><img src="<?php echo esc_url( $placeholder_image ); ?>" alt="Homepage after redesign"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image -->
-<figure class="wp-block-image size-large"><img src="IMAGE-2-URL" alt="GBP—services/photos"/></figure>
+<figure class="wp-block-image size-large"><img src="<?php echo esc_url( $placeholder_image ); ?>" alt="Google Business Profile services"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:image -->
-<figure class="wp-block-image size-large"><img src="IMAGE-3-URL" alt="Swatch gallery"/></figure>
+<figure class="wp-block-image size-large"><img src="<?php echo esc_url( $placeholder_image ); ?>" alt="Swatch gallery interface"/></figure>
 <!-- /wp:image --></figure>
 <!-- /wp:gallery -->
 
@@ -145,15 +148,12 @@
 <!-- /wp:separator -->
 
 <!-- wp:buttons {"layout":{"type":"flex","flexWrap":"wrap"},"style":{"spacing":{"blockGap":"16px"}}} -->
-<div class="wp-block-buttons" style="gap:16px"><!-- wp:button {"className":"is-style-fill"} -->
-<div class="wp-block-button is-style-fill"><a class="wp-block-button__link wp-element-button" href="/contact">Get Pricing &amp; Timeline</a></div>
-<!-- /wp:button -->
-
-<!-- wp:button {"className":"is-style-outline"} -->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/services">See Packages</a></div>
-<!-- /wp:button --></div>
+<div class="wp-block-buttons" style="gap:16px">
+<!-- wp:pattern {"slug":"mccullough-digital/cta-button-pair"} /-->
+</div>
 <!-- /wp:buttons --></div>
 <!-- /wp:group -->
 
 </div>
 <!-- /wp:group -->
+

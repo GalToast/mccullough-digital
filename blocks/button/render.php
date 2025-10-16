@@ -41,8 +41,6 @@ $button_contents = sprintf(
     esc_html( $button_text )
 );
 
-ob_start();
-
 if ( '' !== $admin_debug_comment ) {
     echo $admin_debug_comment; // Show debug hint only for admins in debug mode.
 }
@@ -79,5 +77,3 @@ if ( '' !== $button_link ) {
     );
     echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped above.
 }
-
-return ob_get_clean();

@@ -1,4 +1,4 @@
-=== McCullough Digital ===
+﻿=== McCullough Digital ===
 Contributors: McCullough Digital
 Requires at least: 5.0
 Tested up to: 6.9
@@ -49,9 +49,9 @@ This theme does not have any widget areas registered by default.
 == Changelog ==
 
 = 1.2.39 - Unreleased =
-* **About / Services Template Migration:** Imported the latest AI handoff collateral into new `page-about-us.html` and `page-services.html` templates, scoped their neon styling, wired GA4/GTM dataLayer events, and embedded the pricing form placeholder (swap `FORM_ID` with the live Tally ID before launch). End-to-end smoke tests now pass aside from the navigation spec awaiting a homepage heading expectation update.
+* **About / Services Template Migration:** Imported the latest AI handoff collateral into new `page-about-us.html` and `page-services.html` templates, scoped their neon styling, wired GA4/GTM dataLayer events, and embedded the native contact intake block so pricing requests flow into the lead pipeline without leaving the page. End-to-end smoke tests now pass aside from the navigation spec awaiting a homepage heading expectation update.
 * **Hero CTA Gradient Slide:** Replaced the neon CTA's dual-glow treatment with the slimmer gradient sweep pill and synced the hero and reusable button block styles so both render the new hover animation in the editor and front end.
-* **Neon Button Front-End Restore:** Register block metadata from both child and parent theme `blocks/` folders and load the button assets with `get_theme_file_*()` helpers so the neon CTA renders with styling on sites running a child theme.
+* **Contact Intake Experience:** Shipped a dedicated `page-contact.html` template with async-focused hero content, a server-rendered contact form block that validates + rate-limits requests, stores leads in the new `mcd_lead` post type, fires GA4-friendly events, and emails the team at hello@mccullough.digital within minutes of submission.
 * **CTA Block Hero Fallback:** Updated the CTA block's PHP fallback to render the hero CTA markup and scoped the legacy gradient selectors away from `.hero__cta-button` instances so the block inherits the neon sweep styling by default.
 * **Footer Column Alignment:** Let the neon footer grid size the branding column to its content, centered the remaining columns, and removed the decorative separator so the tagline no longer shows a stray line.
 * **Footer Layout Streamlining:** Rebuilt the neon footer around a compact three-column grid, removed the promotional headline, and balanced company, quick link, and connect content per Plan A.
@@ -273,3 +273,7 @@ This theme ships with a build pipeline powered by `@wordpress/scripts`.
 3. Use `npm run start` during development to watch and rebuild block scripts.
 
 Compiled files are written to `build/blocks/*/editor.js` and referenced automatically by each block's `block.json`.
+
+
+
+

@@ -1,4 +1,4 @@
-# Agent Notes (Updated 2025-11-13)
+# Agent Notes (Updated 2025-10-13)
 
 This repository contains the McCullough Digital block theme. Use these notes as an onboarding primer and quick reference while working on the theme.
 
@@ -20,10 +20,11 @@ Keep these three documents in sync conceptually: add detailed release bullets to
 - `AI CONTEXT FOR PROJECT` mirrors those resources in an organized structure with all archives already expanded for day-to-day use. Make edits against this workspace copy if adjustments are required.
 - When bringing in new collateral, place copies inside `AI CONTEXT FOR PROJECT` while leaving `AI ASSISTANT RESOURCES` untouched so future updates can be diffed easily.
 
-## Current Focus (November 2025)
+## Current Focus (October 2025)
 - Verify the admin toolbar offset token keeps logged-in views aligned across front end, editor, and standalone previews.
 - Monitor the new blog archive loop block for editor preview regressions or pagination edge cases.
 - Ensure masthead logo uploads respect the sizing clamp and do not reintroduce header offset jumps.
+- Shake out the new contact intake flow: confirm the Contact page template renders, the `mcd_lead` CPT logs entries, emails reach hello@mccullough.digital, and GA4 events fire after the next build.
 
 ## Development Notes
 - The theme requires WordPress 5.0+ and PHP 7.4+.
