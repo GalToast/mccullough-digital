@@ -15,7 +15,22 @@ This repository is the public code surface for a real client-delivery workflow: 
 
 ## Client Proof Points
 
-The project includes an Onmark LLC case study in `docs/onmark-case-study.md`. Reported outcomes from that delivery lane include:
+### ARES Construction: 7-Day Digital Foundation
+
+ARES is represented here as sanitized delivery proof only. Raw client assets, backups, staging exports, and private handoff files are intentionally not published.
+
+Reported outcomes from that delivery lane include:
+
+- 0-to-production launch in under 7 days, from first build work to live client handoff.
+- 81+ project/media items organized, optimized, and made usable for a construction portfolio.
+- AI-assisted asset cleanup and visual refinement used to make real project imagery presentation-ready.
+- Custom gallery/admin workflow for managing project priority and ongoing site updates.
+- 13-document handoff package covering security, SEO, runbooks, maintenance, and ownership transfer.
+- Written client feedback praised the look, speed, and customer service of the delivery.
+
+### Onmark LLC: Growth and Visibility System
+
+The project also includes an Onmark LLC case study in `docs/onmark-case-study.md`. Reported outcomes from that delivery lane include:
 
 - Page 1 organic ranking for "solid surface countertops houston" within 120 days.
 - Top 5 ChatGPT result for core Houston solid-surface intent.
