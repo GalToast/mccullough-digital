@@ -17,7 +17,7 @@ This repository is the public code surface for a real client-delivery workflow: 
 
 ### ARES Construction: 7-Day Digital Foundation
 
-ARES is represented here as sanitized delivery proof only. Raw client assets, backups, staging exports, and private handoff files are intentionally not published.
+ARES is represented here as sanitized delivery proof only. Client-private source materials remain unpublished; this public section preserves outcome-level evidence.
 
 Reported outcomes from that delivery lane include:
 
