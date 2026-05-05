@@ -1,9 +1,9 @@
-﻿# Launch Readiness Checklist
+# Launch Readiness Checklist
 
 ## Status (2025-10-13)
 - ✅ Services/contact intake blocks verified locally (REST submission, email notification, lead storage).
 - ✅ Masthead CTA now points to `/contact/#project-intake`; navigation overlay restored.
-- ✅ Playwright suite (Chromium/Firefox/WebKit) passing; Chromium navigation spec marked flaky once and noted in `bug-report.md`.
+- ✅ Playwright suite (Chromium/Firefox/WebKit) passing; Chromium navigation spec marked flaky once and noted in `docs/qa-release-log.md`.
 - ✅ Theme version aligned to `1.2.44` across `style.css`, `readme.txt`, and `package.json`.
 - ⏳ GA4 wiring and staging verification remain pending (see sections below).
 
@@ -35,5 +35,5 @@
 ## 5. Post-Launch
 - ❑ Monitor GA4 Exploration for form events; set 24-hour alert on zero counts.
 - ❑ Check hello@mccullough.digital for real submissions and follow SLA.
-- ❑ Update `bug-report.md` with launch date + any hotfix follow-ups.
+- ❑ Update `docs/qa-release-log.md` with launch date + any hotfix follow-ups.
 

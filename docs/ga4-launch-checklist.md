@@ -1,4 +1,4 @@
-﻿# GA4 Verification Checklist (Pre-Launch)
+# GA4 Verification Checklist (Pre-Launch)
 
 1. **Create/Confirm Property**
    - Create a GA4 property (or use existing) for McCullough Digital.
@@ -16,7 +16,7 @@
    - Submit each form and watch for `mcd_contact_success` (success) or `mcd_contact_error` (failure) in DebugView.
 
 5. **Document Results**
-   - Capture DebugView screenshots and note the verification date in `bug-report.md`.
+   - Capture DebugView screenshots and note the verification date in `docs/qa-release-log.md`.
 
 6. **Post-Launch Monitoring**
    - Build a GA4 Exploration filtered by `event_name` in (`lead_form_view`, `mcd_contact_success`).

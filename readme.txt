@@ -1,4 +1,4 @@
-﻿=== McCullough Digital ===
+=== McCullough Digital ===
 Contributors: McCullough Digital
 Requires at least: 5.0
 Tested up to: 6.9
@@ -15,8 +15,7 @@ McCullough Digital delivers a performant block theme with a fixed, auto-hiding h
 == Documentation Map ==
 
 * **AGENTS.md** – Contributor workflow, build steps, and current focus items.
-* **bug-report.md** – Rolling QA log summarizing recent sweeps and pending regressions.
-* **Web and Graphic Design 101.md** – Design language, accessibility, and visual references.
+* **docs/qa-release-log.md** – Rolling QA log summarizing recent sweeps and pending regressions.
 * **docs/onmark-case-study.md** – Onmark LLC success playbook with KPI callouts and GEO/AI wins now referenced from the Services page.
 
 == Visual QA ==
@@ -33,7 +32,7 @@ Whenever you modify front-end spacing, block templates, or component styling, ru
 * Animated hero block with particle field, keyboard-friendly headline animation, and graceful fallbacks for legacy browsers.
 * Sanitised SVG pipeline that preserves gradients, symbols, and `<use>` references while blocking unsafe attributes.
 * Custom CTA, Service Card, and Services blocks that respect author formatting, avoid empty links, and expose accessible markup by default.
-* Standalone HTML preview that mirrors production assets, preloads fonts, and demonstrates block styling without dead links.
+* Public portfolio README, case-study docs, launch checklists, and Playwright smoke tests that make the delivery workflow inspectable.
 
 == Installation ==
 

@@ -3,3 +3,8 @@ node_modules/
 npm-debug.log*
 .playwright-browsers/
 test-results/
+*.tgz
+*.patch
+Shared-pad.txt
+standalone.html
+Web and Graphic Design 101.md

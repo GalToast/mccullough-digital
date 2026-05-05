@@ -1,6 +1,6 @@
 @echo off
 echo Installing dependencies...
-cd /d "C:\Users\fredj\Local Sites\mcculloug-digital-2\app\public\wp-content\themes\mccullough-digital"
+cd /d "%~dp0"
 call npm install
 echo.
 echo Building theme...

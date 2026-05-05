@@ -1,4 +1,4 @@
-﻿# Staging Verification Notes
+# Staging Verification Notes
 
 1. **Masthead**
    - Confirm navigation overlay opens/closes on ≤768px.
@@ -18,4 +18,4 @@
    - Manual responsive sweep: hero animations, Services pricing band, footer starfield, contact intake (include smooth-scroll + focus behavior from Services/About CTAs).
 
 5. **Bug Log**
-   - Update `bug-report.md` with staging verification date + outstanding items.
+   - Update `docs/qa-release-log.md` with staging verification date + outstanding items.
