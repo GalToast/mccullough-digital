@@ -1,5 +1,7 @@
 # McCullough Digital Delivery Platform
 
+Developed by [Fred McCullough](https://github.com/GalToast)
+
 AI-first client delivery system and custom WordPress block theme for McCullough Digital.
 
 This repository is the public code surface for a real client-delivery workflow: strategy, custom frontend implementation, analytics-aware lead capture, accessibility, QA, and AI-assisted content/search positioning. The WordPress package details remain in `readme.txt`; this README explains the product and hiring signal.
