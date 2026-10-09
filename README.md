@@ -1,5 +1,7 @@
 # McCullough Digital Delivery Platform
 
+> **Business paused as of 2026.** McCullough Digital is not currently taking clients. This repository is preserved as a record of the delivery platform and client work (ARES Construction, OnMark LLC case studies below). Contact details in the theme files are placeholders.
+
 Developed by [Fred McCullough](https://github.com/GalToast)
 
 AI-first client delivery system and custom WordPress block theme for McCullough Digital.

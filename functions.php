@@ -423,7 +423,7 @@ if ( ! function_exists( 'mcd_ensure_system_pages' ) ) {
     <!-- wp:list {"className":"mcd-legal__list"} -->
     <ul class="mcd-legal__list">
       <li>Email <a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a> for strategy, design, or handoff questions.</li>
-      <li>Text <a href="sms:+18322260627">(832) 226-0627</a> when something is blocking a launch or you need a status update.</li>
+      <li>Text <a href="sms:+10000000000">(000) 000-0000</a> when something is blocking a launch or you need a status update.</li>
       <li>Submit the <a href="/contact/#project-intake">project intake form</a> for scoped requests, estimates, or retainer add-ons.</li>
     </ul>
     <!-- /wp:list -->

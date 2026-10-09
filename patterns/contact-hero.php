@@ -28,7 +28,7 @@
     <!-- wp:group {"className":"mcd-contact__hero-alternatives","layout":{"type":"flex","flexWrap":"wrap"}} -->
     <div class="wp-block-group mcd-contact__hero-alternatives">
       <!-- wp:paragraph {"className":"mcd-contact__hero-alt"} -->
-      <p class="mcd-contact__hero-alt"><strong>Prefer a quick ping?</strong> Email <a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a> or text <a href="sms:+18322260627">(832) 226-0627</a>.</p>
+      <p class="mcd-contact__hero-alt"><strong>Prefer a quick ping?</strong> Email <a href="mailto:hello@mccullough.digital">hello@mccullough.digital</a> or text <a href="sms:+10000000000">(000) 000-0000</a>.</p>
       <!-- /wp:paragraph -->
       <!-- wp:paragraph {"className":"mcd-contact__hero-alt"} -->
       <p class="mcd-contact__hero-alt">You can also message us on <a href="https://www.facebook.com/mcculloughdigital" target="_blank" rel="noopener noreferrer">Facebook</a>. We reply within 24 hours.</p>
